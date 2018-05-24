@@ -6,8 +6,8 @@ const {
   ConsoleLogger,
   LoggerPack
 } = require('./lib/loggers');
-
 const Notifiers = require('./lib/notifiers');
+const { Formatter } = require('./lib/formatters');
 const Severity = require('./lib/severity');
 const Log = require('./lib/log');
 
@@ -28,7 +28,12 @@ function getLogger(options = defaultOpts) {
   let filepath = options.filepath;
   let filepaths = options.filepaths;
 
-  // TODO: add check for remote logger
+  // If level is a string set level to correct severity object
+  if (typeof level === 'string') {
+    level = Severity.fromString(level);
+  }
+
+  // return remote logger if port or host is passed
   let isRemote = options.host || options.port;
   if (isRemote) return new RemoteLogger(options);
 

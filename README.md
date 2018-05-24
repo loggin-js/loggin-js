@@ -5,14 +5,15 @@ A logger similar to the [one used in python](https://docs.python.org/2/library/l
 
 ### References
 * [Get started](#Get-Started)
-* [Loggers](docs/Loggers.md)
-* [Notifiers](docs/Notifiers.md)
-* [Severity](docs/Severity.md)
-* [Helpers](docs/Helpers.md)
+* [Loggers](/docs/Logger.md)
+* [Notifiers](/docs/Notifier.md)
+* [Severity](/docs/Severity.md)
+* [Helpers](/docs/Helper.md)
+* [Examples](/examples)
 
 
 ### Get-Started
-* Install logging with npm
+* Install with npm
 ```bash
 npm install logging --save
 ```
@@ -27,7 +28,7 @@ clogger.info('User has sign in');
 clogger.debug('user data', { id: '00001', name: "Jhon Doe" });
 ```
 
-### Loggers
+<!-- ### Loggers
 #### ConsoleLogger
 Logs to the console.
 * Extends from [Logger](#Logger)
@@ -47,4 +48,4 @@ Logs to some remote service.
 * .alert(message: `string`, data: `any`, channel: `string`) | Severity.ALERT
 * .emergency(message: `string`, data: `any`, channel: `string`) | Severity.EMERGENCY
 * .error(message: `string`, data: `any`, channel: `string`) | Severity.ERROR
-* .info(message: `string`, data: `any`, channel: `string`) | Severity.INFO
+* .info(message: `string`, data: `any`, channel: `string`) | Severity.INFO -->
