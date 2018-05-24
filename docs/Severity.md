@@ -18,7 +18,7 @@ values.
 ```
 
 
-First of all let me explain what exactly are **Severities** in **LoggingJS**.
+First of all let me explain what exactly are **Severities** in **LoggingJS** apart of clasifing logs.
 * Internally they are used to output the corresponding logs that match that **Severity**. What do I mean? 
   * Let's put this sample code:
   ```js
@@ -42,17 +42,18 @@ First of all let me explain what exactly are **Severities** in **LoggingJS**.
 
 ### Logging.Severity
 ##### Signature
-  * constructor(`level, name, englobes = [], fileLogginLevel`)
+  * constructor(`level:number, name:string, englobes? = [], fileLogginLevel?`)
     * `level` **Number** - #required
     * `name` **String** - #required
-    * `englobes` **String** - #optional in development
+    * `englobes` **String[]** - #optional - in development
     * `fileLoggingLevel` ????
 
 ##### Methods
-  * canLogSeverity(`severity`): void
-  * getFileLoggingLevel(`severity`): Severity
-  * toString(): String
-  * valueOf(): Number
+  * canLogSeverity(`severity:Severity`): `void`
+    * It can log if it englobes that Severity 
+  * getFileLoggingLevel(`severity`): `Severity`
+  * toString(): `String`
+  * valueOf(): `Number`
 
 ##### Static Constants - Instances of `Logging.Severity`
 * `Logging.Severity.EMERGENCY`
