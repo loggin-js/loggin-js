@@ -17,8 +17,7 @@ logger.setColor(true);
 
 
 // Available predefined log levels
-logger
-  .info('info', { user: 'pedro', id: 10 })
+logger.info('info', { user: 'pedro', id: 10 })
   .error('error')
   .warning('warning')
   .alert('alert')
@@ -27,3 +26,6 @@ logger
   .debug('debug')
   .notice(['notice', 'notice']);
 
+
+// If enabled set to false logs will not be output
+logger.setEnabled(false);
