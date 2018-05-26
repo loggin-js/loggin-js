@@ -4,8 +4,7 @@ A logger similar to the [one used in python](https://docs.python.org/2/library/l
 > Based on standard RFC3164
 
 [![npm version](https://badge.fury.io/js/loggin-js.svg)](https://badge.fury.io/js/loggin-js)
-<!-- [![npm](https://img.shields.io/npm/dw/localeval.svg)](https://www.npmjs.com/package/loggin-js)
-[![node](https://img.shields.io/node/v/passport.svg)](https://www.npmjs.com/package/loggin-js) -->
+[![CircleCI](https://circleci.com/gh/nombrekeff/logging-js/tree/master.svg?style=svg)](https://circleci.com/gh/nombrekeff/logging-js/tree/master)
 
 ### References
 * [Get started](#Get-Started)
