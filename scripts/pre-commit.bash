@@ -18,7 +18,7 @@ eslint() {
   echo $STAGED_FILES | xargs $ESLINT
  
   if [[ $? == 0 ]]; then
-    printf "\n\033[1;32mLint Passed\033[0m\n"
+    printf "\n\033[1;32mLint Passed\033[0m\n\n"
   else
     printf "\n\033[41mLint Failed:\033[0m Fix lint errors and try again!\n"
     exit 1
@@ -39,7 +39,7 @@ jest() {
   $JEST --bail --findRelatedTests $STAGED_FILES
  
   if [[ $? == 0 ]]; then
-    printf "\n\033[1;32mTest Passed\033[0m\n"
+    printf "\n\033[1;32mTest Passed\033[0m\n\n"
   else
     printf "\n\033[41mTest Failed:\033[0m Fix test errors and try again!\n"
     exit 1
@@ -48,6 +48,7 @@ jest() {
  
 # Exit if no files modified
 if [[ "$STAGED_FILES" = "" ]]; then
+  echo "--- No files stashed ---"
   exit 0
 fi
  
