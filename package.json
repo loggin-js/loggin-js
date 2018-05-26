@@ -7,6 +7,7 @@
     "test": "jest",
     "test-server": "node test-remote/server.js"
   },
+  "postinstall": "./scripts/install-hooks.bash",
   "keywords": [
     "logging",
     "logger",
