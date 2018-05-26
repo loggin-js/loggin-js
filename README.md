@@ -30,8 +30,11 @@ const logging = require('loggin-js');
 
 ### Basic-Usage
 ##### Basic Example
-In this example we get a new logger with a severity of DEBUG, and we set color to true.  
+In this example we create a new logger with a severity of DEBUG, and we set color to true.  
 This means it will output any log to the console as DEBUG englobes all other severities
+
+We create it making use of the `logging.getLogger(options?)` method that creates a logger based on the options.  
+_There are other ways of creating a Logger as described in the examples and docs_
 
 ```js
 // Require the logging library
