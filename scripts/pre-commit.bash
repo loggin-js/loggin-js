@@ -39,9 +39,9 @@ jest() {
   $JEST --bail --findRelatedTests $STAGED_FILES
  
   if [[ $? == 0 ]]; then
-    printf "\n\033[1;32mTest Passed\033[0m\n\n"
+    printf "\n\033[1;32m ✔ Test Passed\033[0m\n\n"
   else
-    printf "\n\033[41mTest Failed:\033[0m Fix test errors and try again!\n"
+    printf "\n\033[41m X Test Failed:\033[0m Fix test errors and try again!\n"
     exit 1
   fi
 }
