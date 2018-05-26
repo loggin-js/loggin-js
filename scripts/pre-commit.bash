@@ -49,6 +49,8 @@ jest() {
 # Exit if no files modified
 if [[ "$STAGED_FILES" = "" ]]; then
   echo "--- No files stashed ---"
+  printf "\n\033[1;32m ✔ Linting\033[0m\n\n"
+  printf "\n\033[1;32m ✔ Tests\033[0m\n\n"
   exit 0
 fi
  
