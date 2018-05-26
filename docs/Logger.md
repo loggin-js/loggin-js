@@ -1,7 +1,7 @@
-## Documentation for LoggingJS's Logger
+## Documentation for Loggin' JS Logger
 <!-- ##### A set of premade Loggers -->
 
-> The class en charge of managing the severities and sending the logs to the notifiers. They all extend from the **Logger** class available at: `Logging.Loggers.Logger`.
+> The class in charge of managing the severities and sending the logs to the notifiers. They all extend from the **Logger** class available at: `Logging.Loggers.Logger`.
 
 ### Logging.Loggers.Logger
 ##### Signature

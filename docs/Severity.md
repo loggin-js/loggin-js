@@ -1,4 +1,4 @@
-## Documentation for LoggingJS's Severity
+## Documentation for Loggin' JS Severity
 ##### Follows the standard RFC3164 code (https://tools.ietf.org/html/rfc3164)
 
 > Each log **Priority** has a decimal **Severity** level indicator.

@@ -1,6 +1,6 @@
 
 // Require the logging library
-const logging = require('../index'); // Should be logging-js
+const logging = require('loggin-js'); // Should be logging-js
 
 // Shortcut for the severity constants
 const { Severity, Loggers } = logging;

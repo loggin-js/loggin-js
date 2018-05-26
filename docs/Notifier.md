@@ -1,4 +1,4 @@
-## Documentation for LoggingJS's Notifier
+## Documentation for Loggin' JS Notifier
 > Its in charge of formating the log through a Formatter and processing the Log
 
 ### Logging.Notifier

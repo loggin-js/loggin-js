@@ -1,5 +1,7 @@
-## JS Logger - Docs
+## Loggin' JS - Docs
 A logger similar to the [one used in python](https://docs.python.org/2/library/logging.html) for NodeJS.
+
+> Based on standard RFC3164
 
 [![npm version](https://badge.fury.io/js/loggin-js.svg)](https://badge.fury.io/js/loggin-js)
 <!-- [![npm](https://img.shields.io/npm/dw/localeval.svg)](https://www.npmjs.com/package/loggin-js)
@@ -7,11 +9,11 @@ A logger similar to the [one used in python](https://docs.python.org/2/library/l
 
 ### References
 * [Get started](#Get-Started)
+* [Basic Usage](#Basic-Usage)
 * [Loggers](/docs/Logger.md)
 * [Notifiers](/docs/Notifier.md)
 * [Severity](/docs/Severity.md)
-* [Helpers](/docs/Helper.md)
-* [Examples](/examples)
+* [Examples](/docs/Examples.md)
 
 
 ### Get-Started
@@ -22,13 +24,52 @@ npm install loggin-js --save
 
 * Using in node
 ```js
-let logging = require('loggin-js');
-let Log = logging.Log;
-
-let clogger = logging.getLogger({ level: logging.Severity.DEBUG });
-clogger.info('User has sign in');
-clogger.debug('user data', { id: '00001', name: "Jhon Doe" });
+// Require the logging library
+const logging = require('loggin-js');
 ```
+
+### Basic-Usage
+##### Basic Example
+In this example we get a new logger with a severity of DEBUG, and we set color to true.  
+This means it will output any log to the console as DEBUG englobes all other severities
+
+```js
+// Require the logging library
+const logging = require('loggin-js');
+
+// Shortcuts
+const { Severity } = logging;
+
+// Get a logger with DEBUG severity. 
+// Severity DEBUG will output any severity.
+const logger = logging.getLogger({
+  level: Severity.DEBUG,
+  color: true
+});
+
+// Does the same as passing into settings, as done above
+logger.setLevel(Severity.DEBUG);
+logger.setColor(true);
+
+
+// Available predefined log levels
+logger.info('info', { user: 'pedro', id: 10 });
+logger.error('error');
+logger.warning('warning');
+logger.alert('alert');
+logger.emergency('emergency');
+logger.critical('critical');
+logger.debug('debug');
+logger.notice(['notice', 'notice']);
+
+
+// If enabled set to false logs will not be output
+logger.setEnabled(false);
+```
+
+
+
+
 
 <!-- ### Loggers
 #### ConsoleLogger

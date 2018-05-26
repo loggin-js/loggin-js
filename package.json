@@ -7,6 +7,14 @@
     "test": "jest",
     "test-server": "node test-remote/server.js"
   },
+  "keywords": [
+    "logging",
+    "logger",
+    "RFC3164",
+    "severities",
+    "node-js",
+    "logs"
+  ],
   "author": "nombrekeff",
   "license": "MIT",
   "dependencies": {
