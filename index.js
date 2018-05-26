@@ -42,7 +42,7 @@ function getLogger(options = defaultOpts) {
   if (hasFiles) return new FileLogger(options);
 
   // by default return a console logger
-  else return new ConsoleLogger(options);
+  return new ConsoleLogger(options);
 }
 
 /**
