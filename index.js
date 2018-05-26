@@ -58,17 +58,17 @@ function join(loggers, options = {}) {
   return new LoggerPack(options, loggers);
 }
 
-// module.exports = {
-//   Loggers: {
-//     ConsoleLogger,
-//     FileLogger,
-//     RemoteLogger,
-//     Logger
-//   },
-//   Severity: Severity,
-//   Log: Log,
-//   Notifiers: Notifiers,
-//   getLogger: getLogger,
-//   join: join,
-//   Formatter
-// }
+module.exports = {
+  Loggers: {
+    ConsoleLogger,
+    FileLogger,
+    RemoteLogger,
+    Logger
+  },
+  Severity: Severity,
+  Log: Log,
+  Notifiers: Notifiers,
+  getLogger: getLogger,
+  join: join,
+  Formatter
+};
