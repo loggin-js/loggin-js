@@ -39,7 +39,7 @@ jest() {
   $JEST --bail --findRelatedTests $STAGED_FILES
  
   if [[ $? == 0 ]]; then
-    printf "\n\033[1;32m ✔ Test Passed\033[0m\n\n"
+    printf "\n\033[1;32m ✔ Test Passed\n\n"
   else
     printf "\n\033[41m X Test Failed:\033[0m Fix test errors and try again!\n"
     exit 1
@@ -49,8 +49,8 @@ jest() {
 # Exit if no files modified
 if [[ "$STAGED_FILES" = "" ]]; then
   echo "--- No files stashed ---"
-  printf "\n\033[1;32m ✔ Linting\033[0m\n\n"
-  printf "\n\033[1;32m ✔ Tests\033[0m\n\n"
+  printf "\n\033[1;32m ✔ Linting\033[0m - skipped"
+  printf "\n\033[1;32m ✔ Tests\033[0m - skipped\n\n"
   exit 0
 fi
  
