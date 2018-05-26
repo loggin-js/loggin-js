@@ -11,10 +11,13 @@ cd "${0%/*}/.."
 # let's fake failing test for now 
 echo "Running tests"
 # echo "............................" 
-npm test
+$testres = $(npm test)
+
+echo " > Test ended: " + $testres
 
 echo "Linting"
-npm run lint
+$lintres = $(npm run lint)
+echo " > Lint ended: " + $lintres
 
 # echo "Failed!" && exit 1
 

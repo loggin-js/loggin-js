@@ -1,4 +1,4 @@
-
+'use strict';
 const Logger = require('./lib/logger');
 const {
   FileLogger,
@@ -13,7 +13,7 @@ const Log = require('./lib/log');
 
 let defaultOpts = {
   level: Severity.DEBUG
-}
+};
 
 /**
  * @function
@@ -69,5 +69,6 @@ module.exports = {
   Log: Log,
   Notifiers: Notifiers,
   getLogger: getLogger,
-  join: join
+  join: join,
+  Formatter
 }

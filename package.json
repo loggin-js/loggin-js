@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint",
+    "lint": "./node_modules/.bin/eslint ./index.js ./lib/**",
     "test-server": "node test-remote/server.js"
   },
   "postinstall": "./scripts/install-hooks.bash",
@@ -27,6 +27,11 @@
   },
   "devDependencies": {
     "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
     "jest": "^22.4.3"
   }
 }
