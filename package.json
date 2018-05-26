@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "lint": "eslint",
     "test-server": "node test-remote/server.js"
   },
   "postinstall": "./scripts/install-hooks.bash",
@@ -25,6 +26,7 @@
     "request": "^2.85.0"
   },
   "devDependencies": {
+    "eslint": "^4.19.1",
     "jest": "^22.4.3"
   }
 }
