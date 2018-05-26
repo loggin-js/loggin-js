@@ -1,5 +1,5 @@
 {
-  "name": "logging-nodejs",
+  "name": "loggin-js",
   "version": "0.0.1",
   "description": "A logger based on standard RFC3164 for NodeJS",
   "main": "index.js",

@@ -1,7 +1,9 @@
 ## JS Logger - Docs
 A logger similar to the [one used in python](https://docs.python.org/2/library/logging.html) for NodeJS.
 
-[![Version](https://img.shields.io/badge/Version-v0.0.1-blue.svg)]()
+[![npm version](https://badge.fury.io/js/loggin-js.svg)](https://badge.fury.io/js/loggin-js)
+[![npm](https://img.shields.io/npm/dw/localeval.svg)](https://www.npmjs.com/package/loggin-js)
+[![node](https://img.shields.io/node/v/passport.svg)](https://www.npmjs.com/package/loggin-js)
 
 ### References
 * [Get started](#Get-Started)
@@ -15,12 +17,12 @@ A logger similar to the [one used in python](https://docs.python.org/2/library/l
 ### Get-Started
 * Install with npm
 ```bash
-npm install logging --save
+npm install loggin-js --save
 ```
 
 * Using in node
 ```js
-let logging = require('logging-js');
+let logging = require('loggin-js');
 let Log = logging.Log;
 
 let clogger = logging.getLogger({ level: logging.Severity.DEBUG });
