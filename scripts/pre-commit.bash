@@ -18,9 +18,9 @@ eslint() {
   echo $STAGED_FILES | xargs $ESLINT
  
   if [[ $? == 0 ]]; then
-    printf "\n\033[1;32mLint Passed\033[0m\n\n"
+    printf "\n\033[1;32m ✔ Lint Passed\033[0m\n\n"
   else
-    printf "\n\033[41mLint Failed:\033[0m Fix lint errors and try again!\n"
+    printf "\n\033[41mLint X Failed:\033[0m Fix lint errors and try again!\n"
     exit 1
   fi
 }
