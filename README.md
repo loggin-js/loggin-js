@@ -20,7 +20,7 @@ npm install logging --save
 
 * Using in node
 ```js
-let logging = require('./index');
+let logging = require('logging-js');
 let Log = logging.Log;
 
 let clogger = logging.getLogger({ level: logging.Severity.DEBUG });
