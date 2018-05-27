@@ -12,7 +12,7 @@ A logger similar to the [one used in python](https://docs.python.org/2/library/l
 * [Loggers](https://github.com/nombrekeff/logging-js/wiki/Logger)
 * [Notifiers](https://github.com/nombrekeff/logging-js/wiki/Notifier)
 * [Severity](https://github.com/nombrekeff/logging-js/wiki/Severity)
-* [Examples](https://github.com/nombrekeff/logging-js/wiki/wiki/Examples)
+* [Examples](https://github.com/nombrekeff/logging-js/wiki/Examples)
 
 
 ### Get-Started
