@@ -7,12 +7,12 @@ A logger similar to the [one used in python](https://docs.python.org/2/library/l
 [![CircleCI](https://img.shields.io/circleci/project/github/nombrekeff/logging-js.svg)](https://www.npmjs.com/package/loggin-js)
 
 ### References
-* [Get started](#Get-Started)
-* [Basic Usage](#Basic-Usage)
-* [Loggers](/docs/Logger.md)
-* [Notifiers](/docs/Notifier.md)
-* [Severity](/docs/Severity.md)
-* [Examples](/docs/Examples.md)
+* [Get started](wiki/Get-Started)
+* [Basic Usage](wiki/Basic-Usage)
+* [Loggers](wiki/Logger)
+* [Notifiers](wiki/Notifier)
+* [Severity](wiki/Severity)
+* [Examples](/wiki/Examples)
 
 
 ### Get-Started
