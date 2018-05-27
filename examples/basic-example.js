@@ -3,7 +3,8 @@
 // A basic example on how Loggin'JS is used.
 
 // Require the logging library
-const logging = require('loggin-js'); // Should be logging-js
+// const logging = require('loggin-js'); // Should be logging-js
+const logging = require('../index'); // Should be logging-js
 
 // Shortcut for the severity constants
 const { Severity } = logging;
@@ -19,17 +20,19 @@ const logger = logging.getLogger({
 logger.setLevel(Severity.DEBUG);
 logger.setColor(true);
 
+// Set user to root
+logger.setUser('root');
+
 
 // Available predefined log levels
-logger
-  .info('info', { user: 'pedro', id: 10 })
-  .error('error')
-  .warning('warning')
-  .alert('alert')
-  .emergency('emergency')
-  .critical('critical')
-  .debug('debug')
-  .notice(['notice', 'notice']);
+logger.info('info', { user: 'pedro', id: 10 })
+logger.error('error')
+logger.warning('warning')
+logger.alert('alert')
+logger.emergency('emergency')
+logger.critical('critical')
+logger.debug('debug')
+logger.notice(['notice', 'notice']);
 
 
 // If enabled set to false logs will not be output
