@@ -1,6 +1,6 @@
 {
   "name": "loggin-js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A logger based on standard RFC3164 for NodeJS",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,9 @@
   ],
   "author": "nombrekeff",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nombrekeff/logging-js/issues/new/choose"
+  },
   "dependencies": {
     "body-parser": "^1.18.2",
     "cli-color": "^1.2.0",

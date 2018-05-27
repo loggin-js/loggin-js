@@ -53,7 +53,7 @@ if [[ "$STAGED_FILES" = "" ]]; then
   printf "\n\033[1;32m ✔ Tests\033[0m - skipped\n\n"
   exit 0
 fi
- 
+
 eslint
 jest
  
