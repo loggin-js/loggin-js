@@ -7,12 +7,12 @@ A logger similar to the [one used in python](https://docs.python.org/2/library/l
 [![CircleCI](https://img.shields.io/circleci/project/github/nombrekeff/logging-js.svg)](https://www.npmjs.com/package/loggin-js)
 
 ### References
-* [Get started](/nombrekeff/logging-js/wiki/Get-Started)
-* [Basic Usage](/nombrekeff/logging-js/wiki/Basic-Usage)
-* [Loggers](/nombrekeff/logging-js/wiki/Logger)
-* [Notifiers](/nombrekeff/logging-js/wiki/Notifier)
-* [Severity](/nombrekeff/logging-js/wiki/Severity)
-* [Examples](/nombrekeff/logging-js//wiki/Examples)
+* [Get started](https://github.com/nombrekeff/logging-js/wiki/Get-Started)
+* [Basic Usage](https://github.com/nombrekeff/logging-js/wiki/Basic-Usage)
+* [Loggers](https://github.com/nombrekeff/logging-js/wiki/Logger)
+* [Notifiers](https://github.com/nombrekeff/logging-js/wiki/Notifier)
+* [Severity](https://github.com/nombrekeff/logging-js/wiki/Severity)
+* [Examples](https://github.com/nombrekeff/logging-js/wiki/wiki/Examples)
 
 
 ### Get-Started
