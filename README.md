@@ -1,4 +1,4 @@
-## Loggin' JS - Docs
+# Loggin' JS
 A logger similar to the [one used in python](https://docs.python.org/2/library/logging.html) for NodeJS.
 
 > Based on standard RFC3164
