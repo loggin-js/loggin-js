@@ -20,8 +20,10 @@
   "author": "nombrekeff",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nombrekeff/logging-js/issues/new/choose"
+    "url": "https://github.com/nombrekeff/logging-js/issues/new/choose",
+    "email" : "keff@gmail.com"
   },
+  "homepage": "https://github.com/nombrekeff/loggin-js/wiki",
   "dependencies": {
     "body-parser": "^1.18.2",
     "cli-color": "^1.2.0",
