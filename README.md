@@ -24,7 +24,7 @@ npm install loggin-js --save
 * Using in node
 ```js
 // Require the logging library
-const logging = require('logging-js');
+const logging = require('loggin-js');
 ```
 
 ### Basic-Usage
