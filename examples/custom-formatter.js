@@ -14,6 +14,7 @@ const { Severity } = logging;
 const logger = logging.getLogger({
   level: Severity.DEBUG,
   color: true,
+  
   /**
    * You can also use a custom formater if the default one does not satisfy your needs.
    * In the formater you can access all log properties and you can also set the 

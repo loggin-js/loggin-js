@@ -23,7 +23,6 @@ logger.setColor(true);
 // Set user to root
 logger.setUser('root');
 
-
 // Available predefined log levels
 logger.info('info', {
   user: 'pedro',
@@ -36,9 +35,6 @@ logger.emergency('emergency');
 logger.critical('critical');
 logger.debug('debug');
 logger.notice(['notice', 'notice']);
-
-
-
 
 // If enabled set to false logs will not be output
 logger.setEnabled(false);
