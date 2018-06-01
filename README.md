@@ -109,3 +109,33 @@ logger.notice('Logging a notice log');
 logger.alert('Logging a error log');
 ```
 
+##### Custom Formater Example
+Custom formatter, customize the output of the log 
+```js
+const logging = require('loggin-js');
+const logger = logging.getLogger({
+  level: logging.Severity.DEBUG,
+  color: true,
+  /**
+   * You can also use a custom formater if the default one does not satisfy your needs.
+   * In the formater you can access all log properties and you can also set the 
+   * color of some segments of the log by using % folowed by one of:
+   *  - r red
+   *  - g green
+   *  - b blue
+   *  - p pink
+   *  - y yellow
+   *  - c cyan
+   *
+   * If you use %b lets say it will color until the breakpoint: [-,_|]  
+   */
+  formater: '[{time.toLocaleString}] - %p<{user}> | {severityStr} | {message} - {JSON.stringify(message)}'
+});
+
+// Set user to root
+logger.setUser('root');
+
+// Log something
+logger.debug('debug');             // $ [2018-6-2 00:46:24]  -  <root>  -  DEBUG  -  debug
+logger.info('info', {data: 'Hi'}); // $ [2018-6-2 00:46:24]  -  <root>  -  INFO  -  info  -  {"data":"Hi"}
+```

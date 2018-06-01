@@ -7,7 +7,7 @@ const {
   LoggerPack
 } = require('./lib/loggers');
 const Notifiers = require('./lib/notifiers');
-const { Formatter } = require('./lib/formatters');
+const { Formater } = require('./lib/formaters');
 const Severity = require('./lib/severity');
 const Log = require('./lib/log');
 
@@ -70,5 +70,5 @@ module.exports = {
   Notifiers: Notifiers,
   getLogger: getLogger,
   join: join,
-  Formatter
+  Formater
 };

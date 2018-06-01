@@ -13,7 +13,21 @@ const { Severity } = logging;
 // Severity DEBUG will output any severity.
 const logger = logging.getLogger({
   level: Severity.DEBUG,
-  color: true
+  color: true,
+  /**
+   * You can also use a custom formater if the default one does not satisfy your needs.
+   * In the formater you can access all log properties and you can also set the 
+   * color of some segments of the log by using % folowed by one of:
+   *  - r red
+   *  - g green
+   *  - b blue
+   *  - p pink
+   *  - y yellow
+   *  - c cyan
+   *
+   * If you use %b lets say it will color until the breakpoint: [-,_|]  
+   */
+  formater: '[{time.toLocaleString}] - %p<{user}> | {severityStr} | {message} - {data}'
 });
 
 // Does the same as passing into settings
@@ -30,15 +44,6 @@ logger.info('info', {
   id: 10
 });
 logger.error('error');
-logger.warning('warning');
+logger.info('info', { data: 'Hi' });
 logger.alert('alert');
 logger.emergency('emergency');
-logger.critical('critical');
-logger.debug('debug');
-logger.notice(['notice', 'notice']);
-
-
-
-
-// If enabled set to false logs will not be output
-logger.setEnabled(false);
