@@ -70,27 +70,42 @@ logger.setEnabled(false);
 ```
 
 
+##### File Logging Example
+Log to files instead of the console
+
+We create it making use of the `FileLogger` class.  
+```js
+// Require the logging library
+const logging = require('loggin-js');
+
+// Shortcut for the severity constants
+const { Severity, Loggers, Notifiers } = logging;
+
+// Create a file logger
+const logger = new Loggers.FileLogger({
+  // You can pass a pipes array to the file logger or you can do after instancing (showed below)
+  pipes: [
+    // Here we create a pipe that will pipe level ERROR logs to the file 'logs/error-logs.log'
+    new Notifiers.Pipe(Severity.ERROR, 'logs/error-logs.log'),
+    // This one will pipe level INFO logs to the file 'logs/info-logs.log'
+    new Notifiers.Pipe(Severity.INFO, 'logs/info-logs.log')
+  ]
+});
+
+// You can also add pipes after creating the logger as follows
+logger.pipe(Severity.ERROR, 'logs/error-logs.log');
+logger.pipe(Severity.INFO, 'logs/info-logs.log');
 
 
+// INFO message will log to 'logs/info-logs.log'
+logger.info('Logging a info log');
 
-<!-- ### Loggers
-#### ConsoleLogger
-Logs to the console.
-* Extends from [Logger](#Logger)
+// ERROR message will log to 'logs/error-logs.log'
+logger.error('Logging a error log', new Error('An error'));
 
-#### FileLogger
-Logs to one or more files, depending on configuration.
-* Extends from [Logger](#Logger)
+// Will not be logged as only the ERROR and INFO severities will be output to their respective files
+logger.warning('Logging a warning log');
+logger.notice('Logging a notice log');
+logger.alert('Logging a error log');
+```
 
-#### RemoteLogger
-Logs to some remote service.
-* Extends from [Logger](#Logger)
-
-#### Logger
-* .log(message: `string`, data: `any`, severity: [`Severity`](#Severity), channel: `string`)
-* .debug(message: `string`, data: `any`, channel: `string`) | Severity.DEBUG
-* .warning(message: `string`, data: `any`, channel: `string`) | Severity.WARNING
-* .alert(message: `string`, data: `any`, channel: `string`) | Severity.ALERT
-* .emergency(message: `string`, data: `any`, channel: `string`) | Severity.EMERGENCY
-* .error(message: `string`, data: `any`, channel: `string`) | Severity.ERROR
-* .info(message: `string`, data: `any`, channel: `string`) | Severity.INFO -->
