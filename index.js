@@ -15,6 +15,9 @@ let defaultOpts = {
   level: Severity.DEBUG
 };
 
+// To disable debug loggin
+process.env.DEBUG = false;
+
 /**
  * @function
  * @param {Object} options
@@ -25,8 +28,8 @@ let defaultOpts = {
  */
 function getLogger(options = defaultOpts) {
   let level = options.level || Severity.DEBUG;
-  let filepath = options.filepath;
-  let filepaths = options.filepaths;
+  const filepath = options.filepath;
+  const filepaths = options.filepaths;
 
   // If level is a string set level to correct severity object
   if (typeof level === 'string') {
@@ -34,11 +37,11 @@ function getLogger(options = defaultOpts) {
   }
 
   // return remote logger if port or host is passed
-  let isRemote = options.host || options.port;
+  const isRemote = options.host || options.port;
   if (isRemote) return new RemoteLogger(options);
 
   // return file logger if options contains filepath or filepaths
-  let hasFiles = filepath || filepaths;
+  const hasFiles = filepath || filepaths;
   if (hasFiles) return new FileLogger(options);
 
   // by default return a console logger

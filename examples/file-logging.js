@@ -1,3 +1,4 @@
+'use strict';
 
 /**
  * __Logging to a file__
@@ -8,13 +9,14 @@
 
 
 // Require the logging library
-const logging = require('loggin-js');
+const logging = require('../index');
 
 // Shortcut for the severity constants
 const { Severity, Loggers, Notifiers } = logging;
 
 // Create a file logger
 const logger = new Loggers.FileLogger({
+  color: true,
 
   // You can pass a pipes array to the file logger
   // There can be as many as you want

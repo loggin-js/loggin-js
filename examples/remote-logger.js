@@ -1,9 +1,10 @@
+'use strict';
 
 // Require the logging library
-const logging = require('loggin-js');
+const logging = require('../index');
 
 // Shortcut for the severity constants
-const { Severity, Loggers } = logging;
+const { Severity } = logging;
 
 // Get a logger with DEBUG severity. Severity DEBUG will output any severity.
 const logger = logging.getLogger({
