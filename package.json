@@ -1,7 +1,33 @@
 {
   "name": "loggin-js",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A logger based on standard RFC3164 for NodeJS",
+  "author": {
+    "name": "nombrekeff",
+    "email": "edgemanolo@chip-chap.com",
+    "url": "https://github.com/nombrekeff"
+  },
+  "bugs": {
+    "url": "https://github.com/nombrekeff/logging-js/issues/new/choose",
+    "email": "keff@gmail.com"
+  },
+  "homepage": "https://github.com/nombrekeff/loggin-js/wiki",
+  "license": "MIT",
+  "keywords": [
+    "logging",
+    "logger",
+    "RFC3164",
+    "severities",
+    "node-js",
+    "logs",
+    "js-logger",
+    "file-logger-js",
+    "remote-logger"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nombrekeff/loggin-js.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -9,21 +35,6 @@
     "test-server": "node test-remote/server.js"
   },
   "postinstall": "./scripts/install-hooks.bash",
-  "keywords": [
-    "logging",
-    "logger",
-    "RFC3164",
-    "severities",
-    "node-js",
-    "logs"
-  ],
-  "author": "nombrekeff",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nombrekeff/logging-js/issues/new/choose",
-    "email": "keff@gmail.com"
-  },
-  "homepage": "https://github.com/nombrekeff/loggin-js/wiki",
   "dependencies": {
     "body-parser": "^1.18.2",
     "cli-color": "^1.2.0",
