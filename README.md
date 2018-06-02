@@ -5,7 +5,7 @@ A logger similar to the [one used in python](https://docs.python.org/2/library/l
 
 [![npm version](https://badge.fury.io/js/loggin-js.svg)](https://badge.fury.io/js/loggin-js)
 [![CircleCI](https://img.shields.io/circleci/project/github/nombrekeff/loggin-js.svg)](https://www.npmjs.com/package/loggin-js)
-[![npm](https://img.shields.io/npm/l/loggin-js.svg?colorB=3997db)](https://www.npmjs.com/package/loggin-js)
+[![npm](https://img.shields.io/npm/dw/loggin-js.svg?colorB=blue)](https://www.npmjs.com/package/loggin-js)
 
 ### References
 * [Get started](https://github.com/nombrekeff/logging-js/wiki/Get-Started)
