@@ -14,6 +14,7 @@ A logger similar to the [one used in python](https://docs.python.org/2/library/l
 * [Notifiers](https://github.com/nombrekeff/logging-js/wiki/Notifier)
 * [Severity](https://github.com/nombrekeff/logging-js/wiki/Severity)
 * [Examples](https://github.com/nombrekeff/logging-js/wiki/Examples)
+* [Collaborating](#Collaborating)
 
 
 ### Get-Started
@@ -140,3 +141,9 @@ logger.setUser('root');
 logger.debug('debug');             // $ [2018-6-2 00:46:24]  -  <root>  -  DEBUG  -  debug
 logger.info('info', {data: 'Hi'}); // $ [2018-6-2 00:46:24]  -  <root>  -  INFO  -  info  -  {"data":"Hi"}
 ```
+
+
+### Collaborating
+Hi there, if you like the project don't hesitate in collaborating (_if you like to_), submit a pull request, post an issue, ...   
+It's just a little sideproject, nothing serius, so its just for fun!  
+But any **help** or **ideas** are apreciated!
