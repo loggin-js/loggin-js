@@ -14,6 +14,7 @@ const { Severity } = logging;
 const logger = logging.getLogger({
   level: Severity.DEBUG,
   color: true,
+  // lineNumbers: true,
 
   // A label to identify this logger instance
   channel: 'basc-example.js'

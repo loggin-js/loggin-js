@@ -85,6 +85,10 @@ const { Severity, Loggers, Notifiers } = logging;
 
 // Create a file logger
 const logger = new Loggers.FileLogger({
+  
+  // Display line number at the begining of the log 
+  lineNumbers: true,
+
   // You can pass a pipes array to the file logger or you can do after instancing (showed below)
   pipes: [
     // Here we create a pipe that will pipe level ERROR logs to the file 'logs/error-logs.log'
