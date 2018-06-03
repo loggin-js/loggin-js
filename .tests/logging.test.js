@@ -9,9 +9,9 @@ describe('Should get a logger and log', () => {
   });
 
 
-  let tmplog = console.log;
+  let tmplog = process.stdout.write;
   let output = null;
-  console.log = function (...args) {
+  process.stdout.write = function (...args) {
     output = args;
     tmplog(...output);
   }
