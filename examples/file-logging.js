@@ -28,7 +28,7 @@ const logger = new Loggers.FileLogger({
 });
 
 // You can also add pipes after creating the logger as follows
-logger.pipe(Severity.ERROR, 'logs/error-logs.log')
+logger.pipe(Severity.ERROR, 'logs/error-logs.log');
 logger.pipe(Severity.INFO, 'logs/info-logs.log');
 
 // Lets log some stuff
