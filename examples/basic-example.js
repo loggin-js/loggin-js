@@ -13,7 +13,8 @@ const { Severity } = logging;
 // Severity DEBUG will output any severity.
 const logger = logging.getLogger({
   level: Severity.DEBUG,
-  color: true
+  color: true,
+  channel: 'basc-example.js' // A label to identify this logger instance
 });
 
 // Does the same as passing into settings

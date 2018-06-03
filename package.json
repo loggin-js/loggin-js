@@ -1,6 +1,6 @@
 {
   "name": "loggin-js",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A logger based on standard RFC3164 for NodeJS",
   "author": {
     "name": "nombrekeff",
@@ -18,11 +18,11 @@
     "logger",
     "RFC3164",
     "severities",
-    "node-js",
+    "nodejs",
     "logs",
-    "js-logger",
-    "file-logger-js",
-    "remote-logger",
+    "js logger",
+    "file logger",
+    "remote logger",
     "file",
     "js"
   ],

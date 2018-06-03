@@ -16,7 +16,6 @@ const { Severity, Loggers, Notifiers } = logging;
 
 // Create a file logger
 const logger = new Loggers.FileLogger({
-  color: true,
 
   // You can pass a pipes array to the file logger
   // There can be as many as you want
@@ -29,13 +28,10 @@ const logger = new Loggers.FileLogger({
 });
 
 // You can also add pipes after creating the logger as follows
-logger
-  .pipe(Severity.ERROR, 'logs/error-logs.log')
-  .pipe(Severity.INFO, 'logs/info-logs.log');
-
+logger.pipe(Severity.ERROR, 'logs/error-logs.log')
+logger.pipe(Severity.INFO, 'logs/info-logs.log');
 
 // Lets log some stuff
-
 // INFO message will log to 'logs/info-logs.log'
 logger.info('Logging a info log');
 

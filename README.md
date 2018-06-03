@@ -118,6 +118,7 @@ const logging = require('loggin-js');
 const logger = logging.getLogger({
   level: logging.Severity.DEBUG,
   color: true,
+
   /**
    * You can also use a custom formater if the default one does not satisfy your needs.
    * In the formater you can access all log properties and you can also set the 
@@ -128,18 +129,23 @@ const logger = logging.getLogger({
    *  - p pink
    *  - y yellow
    *  - c cyan
+   *  - m magenta
+   *  - (nnn) a number between 0-255 # not implemented yet
    *
    * If you use %b lets say it will color until the breakpoint: [-,_|]  
    */
-  formater: '[{time.toLocaleString}] - %p<{user}> | {severityStr} | {message} - {JSON.stringify(message)}'
+  formater: '[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(message)}'
 });
 
 // Set user to root
 logger.setUser('root');
 
+// Set formatter
+logger.setFormater('[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(message)}');
+
 // Log something
-logger.debug('debug');             // $ [2018-6-2 00:46:24]  -  <root>  -  DEBUG  -  debug
-logger.info('info', {data: 'Hi'}); // $ [2018-6-2 00:46:24]  -  <root>  -  INFO  -  info  -  {"data":"Hi"}
+logger.debug('debug');             // $ [2018-6-2 00:46:24] - root - DEBUG - debug
+logger.info('info', {data: 'Hi'}); // $ [2018-6-2 00:46:24] - root - INFO - info - {"data":"Hi"}
 ```
 
 

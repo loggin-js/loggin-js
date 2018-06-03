@@ -28,7 +28,7 @@ const logger = logging.getLogger({
    *
    * If you use %b lets say it will color until the breakpoint: [-,_|]  
    */
-  formater: '[{time.toLocaleString}] - %p<{user}> | {severityStr} | {message} - {data}'
+  formater: '[{time.toLocaleString}] - <%p{user}> | {severityStr} | {message} - {data}'
 });
 
 // Does the same as passing into settings
