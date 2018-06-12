@@ -126,7 +126,7 @@ const logger = logging.getLogger({
   /**
    * You can also use a custom formater if the default one does not satisfy your needs.
    * In the formater you can access all log properties and you can also set the 
-   * color of some segments of the log by using % folowed by one of:
+   * color of some segments of the log by using <%L> where L is one of:
    *  - r red
    *  - g green
    *  - b blue
@@ -138,7 +138,7 @@ const logger = logging.getLogger({
    *
    * If you use %b lets say it will color until the breakpoint: [-,_|]  
    */
-  formater: '[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(message)}'
+  formater: '[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(data)}'
 });
 
 // Set user to root
