@@ -1,6 +1,6 @@
 'use strict';
 
-// A basic example on how Loggin'JS is used.
+// A basic example on how Loggin'JS formatter is used.
 
 // Require the logging library
 // const logging = require('loggin-js'); // Should be logging-js

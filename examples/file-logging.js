@@ -7,7 +7,6 @@
  *  by creating a `Loggers.FileLogger` and by piping some severity to a file as shown below 
  */
 
-
 // Require the logging library
 const logging = require('../index');
 

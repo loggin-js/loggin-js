@@ -16,8 +16,8 @@ const logger = logging.getLogger({
   color: true,
   // lineNumbers: true,
 
-  // A label to identify this logger instance
-  channel: 'basc-example.js'
+  // A label to identify this logger instance, default to filename if omitted
+  channel: 'basic-example.js'
 });
 
 // Does the same as passing into settings

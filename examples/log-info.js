@@ -6,7 +6,7 @@ const logging = require('../index');
 // Shortcut for the severity constants
 const { Severity } = logging;
 
-// Get a logger with DEBUG severity. Severity DEBUG will output any severity.
+// Get a logger with INFO severity. Severity INFO will output only INFO severity logs.
 const logger = logging.getLogger({
   level: Severity.INFO,
   color: true
@@ -17,7 +17,4 @@ logger.info('Logging a info log');
 
 // Should not be output to terminal
 logger.debug('Logging a info log');
-
-let error = new Error();
-logger.error('Logging a error log', error);
-
+logger.error('Logging a error log', new Error());

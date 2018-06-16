@@ -21,9 +21,14 @@ process.env.DEBUG = false;
 /**
  * @function
  * @param {Object} options
- * @param {number} options.level
+ * @param {number} options.level?
+ * @param {number} options.port?
+ * @param {string} options.host?
+ * @param {boolean} options.color?
+ * @param {boolean} options.lineNumbers?
  * @param {string} options.filepath?
- * @param {string[]} options.filepaths?
+ * @param {string} options.formatter?
+ * @param {string[]} options.pipes?
  * @return {ConsoleLogger|FileLogger|RemoteLogger}
  */
 function getLogger(options = defaultOpts) {
@@ -41,7 +46,7 @@ function getLogger(options = defaultOpts) {
   if (isRemote) return new RemoteLogger(options);
 
   // return file logger if options contains filepath or filepaths
-  const hasFiles = filepath || filepaths;
+  const hasFiles = filepath || filepaths || options.pipes;
   if (hasFiles) return new FileLogger(options);
 
   // by default return a console logger
