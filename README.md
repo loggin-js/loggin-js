@@ -9,7 +9,7 @@ A logger similar to the [one used in python](https://docs.python.org/2/library/l
 [![CircleCI](https://img.shields.io/circleci/project/github/nombrekeff/loggin-js.svg)](https://www.npmjs.com/package/loggin-js)
 [![David](https://img.shields.io/david/nombrekeff/loggin-js.svg)](https://david-dm.org/nombrekeff/loggin-js?view=tree)
 [![Maintainability](https://api.codeclimate.com/v1/badges/bef29a84728f23c52c21/maintainability)](https://codeclimate.com/github/nombrekeff/loggin-js/maintainability)
-
+[![Coverage Status](https://coveralls.io/repos/github/nombrekeff/loggin-js/badge.svg?branch=master)](https://coveralls.io/github/nombrekeff/loggin-js?branch=master)
 ### References
 * [Get started](https://github.com/nombrekeff/logging-js/wiki/Get-Started)
 * [Basic Usage](https://github.com/nombrekeff/logging-js/wiki/Basic-Usage)
