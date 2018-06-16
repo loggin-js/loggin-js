@@ -1,0 +1,9 @@
+plugins:
+  fixme:
+    enabled: true
+    config:
+      strings:
+      - FIXME
+      - NOTE
+      - TODO
+      - REVISE
