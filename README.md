@@ -3,13 +3,12 @@ A logger similar to the [one used in python](https://docs.python.org/2/library/l
 
 > Based on standard RFC3164
 
-[![npm version](https://badge.fury.io/js/loggin-js.svg)](https://badge.fury.io/js/loggin-js)
-[![npm](https://img.shields.io/npm/dm/loggin-js.svg?colorB=blue)](https://www.npmjs.com/package/loggin-js)
+[![Join the chat at https://gitter.im/loggin-js/Lobby](https://badges.gitter.im/loggin-js/Lobby.svg)](https://gitter.im/loggin-js/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![npm version](https://badge.fury.io/js/loggin-js.svg)](https://badge.fury.io/js/loggin-js) [![npm](https://img.shields.io/npm/dm/loggin-js.svg?colorB=blue)](https://www.npmjs.com/package/loggin-js)
 
 [![CircleCI](https://img.shields.io/circleci/project/github/nombrekeff/loggin-js.svg)](https://www.npmjs.com/package/loggin-js)
 [![David](https://img.shields.io/david/nombrekeff/loggin-js.svg)](https://david-dm.org/nombrekeff/loggin-js?view=tree)
 [![Maintainability](https://api.codeclimate.com/v1/badges/bef29a84728f23c52c21/maintainability)](https://codeclimate.com/github/nombrekeff/loggin-js/maintainability)
-[![Coverage Status](https://coveralls.io/repos/github/nombrekeff/loggin-js/badge.svg?branch=master)](https://coveralls.io/github/nombrekeff/loggin-js?branch=master) [![Join the chat at https://gitter.im/loggin-js/Lobby](https://badges.gitter.im/loggin-js/Lobby.svg)](https://gitter.im/loggin-js/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### References
 * [Get started](https://github.com/nombrekeff/logging-js/wiki/Get-Started)
 * [Basic Usage](https://github.com/nombrekeff/logging-js/wiki/Basic-Usage)
