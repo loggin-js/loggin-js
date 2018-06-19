@@ -33,6 +33,5 @@ app.post('/logs', (req, res) => {
     let severity = new Severity(log.severity.level, log.severity.name);
     logger.log(log.message, log.data, severity, log.channel, log.time, log.user + '@' + reqIP);
     res.send('Response OK');
-  }
-  else res.send('Response ERROR: no log was passed');
+  } else res.send('Response ERROR: no log was passed');
 });
