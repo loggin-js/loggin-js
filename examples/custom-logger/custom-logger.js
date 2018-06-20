@@ -19,7 +19,7 @@ class MyCustomLogger extends Loggers.Logger {
     /** 
      * Now we need to create a Notifier wich is the important part, 
      * the notifier is in charge of managing the output, here we can send the log to any service, an API...
-     * Check the custom-notifier-file.js for more info about this.
+     * Check the file custom-notifier.js for more info about this.
      */
     const notifier = new MyCustomNotifier(options); // Propagate the options to the notifier
 
