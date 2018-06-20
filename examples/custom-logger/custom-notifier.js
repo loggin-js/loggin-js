@@ -2,6 +2,10 @@
 
 const { Notifiers, Formatter } = require('../../index');
 
+/**
+ * Create a custom Notifier
+ * Should extend from Notifiers.Notifier
+ */
 class MyCustomNotifier extends Notifiers.Notifier {
 
   constructor(options) {
