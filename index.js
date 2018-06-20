@@ -36,6 +36,9 @@ function getLogger(options = defaultOpts) {
   const filepath = options.filepath;
   const filepaths = options.filepaths;
 
+  // by default return a console logger
+  let logger = new ConsoleLogger(options);
+
   // If level is a string set level to correct severity object
   if (typeof level === 'string') {
     level = Severity.fromString(level);
@@ -43,14 +46,13 @@ function getLogger(options = defaultOpts) {
 
   // return remote logger if port or host is passed
   const isRemote = options.host || options.port;
-  if (isRemote) return new RemoteLogger(options);
+  if (isRemote) logger = new RemoteLogger(options);
 
   // return file logger if options contains filepath or filepaths
-  const hasFiles = filepath || filepaths || options.pipes;
-  if (hasFiles) return new FileLogger(options);
+  const isFile = filepath || filepaths || options.pipes;
+  if (!isRemote && isFile) logger = new FileLogger(options);
 
-  // by default return a console logger
-  return new ConsoleLogger(options);
+  return logger;
 }
 
 /**
