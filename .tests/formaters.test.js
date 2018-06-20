@@ -1,7 +1,7 @@
-const { Formater } = require('../lib/formaters');
+const { Formatter } = require('../lib/formaters');
 
-describe('Formater should be defined', () => {
+describe('Formatter should be defined', () => {
   it(`formater should`, () => {
-    expect(Formater).toBeDefined();
+    expect(Formatter).toBeDefined();
   });
 });

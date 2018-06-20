@@ -39,6 +39,7 @@ logger.emergency('emergency');
 logger.critical('critical');
 logger.debug('debug');
 logger.notice(['notice', 'notice']);
+logger.error('There was an <%rERROR>'); 
 
 // If enabled set to false logs will not be output
 logger.setEnabled(false);

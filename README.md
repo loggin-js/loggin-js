@@ -25,6 +25,11 @@ A logger similar to the [one used in python](https://docs.python.org/2/library/l
 npm install loggin-js --save
 ```
 
+* Test it works, and see how it looks:
+```bash
+node run examples/basic-example.js
+```
+
 * Using in node
 ```js
 // Require the logging library
@@ -117,7 +122,7 @@ logger.notice('Logging a notice log');
 logger.alert('Logging a error log');
 ```
 
-##### Custom Formater Example
+##### Custom Formatter Example
 Custom formatter, customize the output of the log 
 ```js
 const logging = require('loggin-js');
@@ -147,11 +152,19 @@ const logger = logging.getLogger({
 logger.setUser('root');
 
 // Set formatter
-logger.setFormater('[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(message)}');
+logger.setFormatter('[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(message)}');
 
 // Log something
 logger.debug('debug');             // $ [2018-6-2 00:46:24] - root - DEBUG - debug
 logger.info('info', {data: 'Hi'}); // $ [2018-6-2 00:46:24] - root - INFO - info - {"data":"Hi"}
+
+
+/**
+ * Aditionally you can set the color of some parts of the message:
+ * The output will be something like, with the last ERROR beeing red:
+ * $ [2018-6-2 00:46:24] - root - ERROR - There was an ERROR 
+ */
+logger.error('There was an <%rERROR>'); 
 ```
 
 
