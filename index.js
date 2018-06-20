@@ -73,10 +73,10 @@ module.exports = {
     RemoteLogger,
     Logger
   },
-  Severity: Severity,
-  Log: Log,
-  Notifiers: Notifiers,
-  getLogger: getLogger,
-  join: join,
+  Severity,
+  Log,
+  Notifiers,
+  getLogger,
+  join,
   Formater
 };
