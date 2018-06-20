@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Import our custom Logger, check ./custom-logger for mre detail
+ * Import our custom Logger, check ./custom-logger for more detail
  */
 const MyCustomLogger = require('./custom-logger');
 
