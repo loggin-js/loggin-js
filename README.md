@@ -1,7 +1,6 @@
 # Loggin' JS
-A logger similar to the [one used in python](https://docs.python.org/2/library/logging.html) for NodeJS.
-
-> Based on standard RFC3164
+A little customizable logger for NodeJS. Log to the **console**, to a **file**, to a **remote service** or create a custom one.
+> Based on standard **RFC3164**
 
 [![npm version](https://badge.fury.io/js/loggin-js.svg)](https://badge.fury.io/js/loggin-js) [![npm](https://img.shields.io/npm/dm/loggin-js.svg?colorB=blue)](https://www.npmjs.com/package/loggin-js)
 
