@@ -10,7 +10,8 @@ const { Severity } = logging;
 const logger = logging.getLogger({
   level: Severity.DEBUG,
   color: true,
-  port: 8080
+  port: 8080,
+  host: 'myapi.com/post-log'
 });
 
 // Log info message
