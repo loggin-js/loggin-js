@@ -141,8 +141,6 @@ const logger = logging.getLogger({
    *  - c cyan
    *  - m magenta
    *  - (nnn) a number between 0-255 # not implemented yet
-   *
-   * If you use %b lets say it will color until the breakpoint: [-,_|]  
    */
   formater: '[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(data)}'
 });
