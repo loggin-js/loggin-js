@@ -36,7 +36,7 @@
     "lint": "./node_modules/.bin/eslint ./index.js ./lib/**",
     "test-server": "node test-remote/server.js",
     "examples": "node examples/basic-example.js && node examples/file-logging.js && node examples/log-info.js && node examples/custom-formatter.js",
-    "gen:docs": "node_modules/.bin/jsdoc --configure .jsdoc.json lib/**.js"
+    "gen:docs": "jsdoc lib/**.js README.md -t ./node_modules/ink-docstrap/template -c .jsdoc.json  -d C:\\Users\\keff\\Desktop\\cosas\\Dev\\Sites\\nombrekeff.github.io\\loggin-js"
   },
   "postinstall": "./scripts/install-hooks.bash",
   "dependencies": {

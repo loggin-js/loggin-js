@@ -11,10 +11,11 @@ A little customizable logger for NodeJS. Log to the **console**, to a **file**, 
 ### References
 * [Get started](https://github.com/nombrekeff/logging-js/wiki/Get-Started)
 * [Basic Usage](https://github.com/nombrekeff/logging-js/wiki/Basic-Usage)
-* [Loggers](https://github.com/nombrekeff/logging-js/wiki/Logger)
+* [Wiki](https://nombrekeff.github.io/loggin-js/)
+<!-- * [Loggers](https://github.com/nombrekeff/logging-js/wiki/Logger)
 * [Notifiers](https://github.com/nombrekeff/logging-js/wiki/Notifier)
 * [Severity](https://github.com/nombrekeff/logging-js/wiki/Severity)
-* [Examples](https://github.com/nombrekeff/logging-js/wiki/Examples)
+* [Examples](https://github.com/nombrekeff/logging-js/wiki/Examples) -->
 * [Collaborating](#Collaborating)
 
 
