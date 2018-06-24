@@ -11,8 +11,8 @@ class MyCustomNotifier extends Notifiers.Notifier {
   constructor(options) {
     super(options);
 
-    if (!options.formater) {
-      this.options.formater = new Formatter('[{time.toLocaleString}] - <%m{channel}> - {user} - {severityStr} - {message} - {JSON.stringify(message)}');
+    if (!options.formatter) {
+      this.options.formatter = new Formatter('[{time.toLocaleString}] - <%m{channel}> - {user} - {severityStr} - {message} - {JSON.stringify(message)}');
     }
   }
 
@@ -42,11 +42,11 @@ class MyCustomNotifier extends Notifiers.Notifier {
   notify(log) {
 
     // Format the log
-    let output = log.format(this.options.formater);
+    let output = log.format(this.options.formatter);
 
     // If options.color is set we format it with color
     if (this.options.color) {
-      output = log.colored(this.options.formater);
+      output = log.colored(this.options.formatter);
     }
 
     // Output the log

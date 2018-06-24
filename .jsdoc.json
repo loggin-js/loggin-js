@@ -1,3 +1,5 @@
 {
-  "templates": {}
+  "templates": {
+    "header": "![GitHub stars](https://img.shields.io/github/stars/nombrekeff/loggin-js.svg?style=social&label=Stars)"
+  }
 }

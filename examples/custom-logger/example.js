@@ -8,7 +8,7 @@ const MyCustomLogger = require('./custom-logger');
 // You now the deal...
 let customLogger = new MyCustomLogger({
   color: true,
-  formater: '[{time.toLocaleString}] - <%m{channel}> - {user} | {severityStr} | {message} - {data}'
+  formatter: '[{time.toLocaleString}] - <%m{channel}> - {user} | {severityStr} | {message} - {data}'
 });
 
 customLogger.setChannel('custom-logger');

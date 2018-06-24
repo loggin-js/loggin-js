@@ -17,7 +17,8 @@ const logger = logging.getLogger({
   // lineNumbers: true,
 
   // A label to identify this logger instance, default to filename if omitted
-  channel: 'basic-example.js'
+  channel: 'basic-example.js',
+  formatter: 'medium'
 });
 
 // Does the same as passing into settings
@@ -36,10 +37,10 @@ logger.error('error');
 logger.warning('warning');
 logger.alert('alert');
 logger.emergency('emergency');
-logger.critical('critical');
+logger.critical('critical', { dasd: '' });
 logger.debug('debug');
 logger.notice(['notice', 'notice']);
-logger.error('There was an <%rERROR>'); 
+logger.error('There was an <%rERROR>');
 
 // If enabled set to false logs will not be output
 logger.setEnabled(false);

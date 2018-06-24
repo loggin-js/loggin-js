@@ -127,8 +127,8 @@ const logger = logging.getLogger({
   color: true,
 
   /**
-   * You can also use a custom formater if the default one does not satisfy your needs.
-   * In the formater you can access all log properties and you can also set the 
+   * You can also use a custom formatter if the default one does not satisfy your needs.
+   * In the formatter you can access all log properties and you can also set the 
    * color of some segments of the log by using <%L> where L is one of:
    *  - r red
    *  - g green
@@ -139,7 +139,7 @@ const logger = logging.getLogger({
    *  - m magenta
    *  - (nnn) a number between 0-255 # not implemented yet
    */
-  formater: '[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(data)}'
+  formatter: '[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(data)}'
 });
 
 // Set user to root
