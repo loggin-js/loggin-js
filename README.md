@@ -15,6 +15,7 @@ A little customizable logger for NodeJS. Log to the **console**, to a **file**, 
 * [Get started](https://github.com/nombrekeff/logging-js/wiki/Get-Started)
 * [Basic Usage](https://github.com/nombrekeff/logging-js/wiki/Basic-Usage)
 * [Wiki](https://nombrekeff.github.io/loggin-js/)
+* [Examples](/examples)
 * [Collaborating](#Collaborating)
 
 
