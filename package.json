@@ -35,7 +35,8 @@
     "test": "jest",
     "lint": "./node_modules/.bin/eslint ./index.js ./lib/**",
     "test-server": "node test-remote/server.js",
-    "examples": "node examples/basic-example.js && node examples/file-logging.js && node examples/log-info.js && node examples/custom-formatter.js"
+    "examples": "node examples/basic-example.js && node examples/file-logging.js && node examples/log-info.js && node examples/custom-formatter.js",
+    "gen:docs": "node_modules/.bin/jsdoc --configure .jsdoc.json lib/**.js"
   },
   "postinstall": "./scripts/install-hooks.bash",
   "dependencies": {
@@ -51,7 +52,9 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
+    "express": "^4.16.3",
+    "ink-docstrap": "^1.3.2",
     "jest": "^22.4.3",
-    "express": "^4.16.3"
+    "minami": "^1.2.3"
   }
 }
