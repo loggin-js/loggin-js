@@ -5,6 +5,7 @@
 [![CircleCI](https://img.shields.io/circleci/project/github/nombrekeff/loggin-js.svg)](https://www.npmjs.com/package/loggin-js)
 [![David](https://img.shields.io/david/nombrekeff/loggin-js.svg)](https://david-dm.org/nombrekeff/loggin-js?view=tree)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ffe3b2f71c74210987436b935c06720)](https://www.codacy.com/app/manoloedge96/loggin-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nombrekeff/loggin-js&amp;utm_campaign=Badge_Grade)  
+[![Twitter Follow](https://img.shields.io/twitter/follow/keff39006469.svg?style=social&label=Follow)](https://twitter.com/intent/user?screen_name=keff39006469)    
 [![NPM](https://nodei.co/npm/loggin-js.png)](https://nodei.co/npm/loggin-js/)
 
 A little customizable logger for NodeJS. Log to the **console**, to a **file**, to a **remote service** or create a custom one.
