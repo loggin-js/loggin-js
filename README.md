@@ -33,7 +33,7 @@ node run examples/basic-example.js
 ```
 
 * Using in node
-```js
+```javascript
 // Require the logging library
 const logging = require('loggin-js');
 ```
@@ -46,7 +46,7 @@ This means it will output any log to the console as DEBUG englobes all other sev
 We create it making use of the `logging.getLogger(options?)` method that creates a logger based on the options.  
 _There are other ways of creating a Logger as described in the examples and docs_
 
-```js
+```javascript
 // Require the logging library
 const logging = require('loggin-js');
 
@@ -85,7 +85,7 @@ logger.setEnabled(false);
 Log to files instead of the console
 
 We create it making use of the `FileLogger` class.  
-```js
+```javascript
 // Require the logging library
 const logging = require('loggin-js');
 
@@ -126,7 +126,7 @@ logger.alert('Logging a error log');
 
 ##### Custom Formatter Example
 Custom formatter, customize the output of the log 
-```js
+```javascript
 const logging = require('loggin-js');
 const logger = logging.getLogger({
   level: logging.Severity.DEBUG,
