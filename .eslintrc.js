@@ -63,7 +63,7 @@ module.exports = {
         "implicit-arrow-linebreak": "error",
         "indent": "off",
         "indent-legacy": "off",
-        "init-declarations": "error",
+        "init-declarations": "off",
         "jsx-quotes": "error",
         "key-spacing": "error",
         "keyword-spacing": [
@@ -89,7 +89,7 @@ module.exports = {
         "max-statements": "off",
         "max-statements-per-line": "error",
         "multiline-comment-style": "off",
-        "multiline-ternary": "error",
+        "multiline-ternary": "off",
         "new-cap": "error",
         "new-parens": "error",
         "newline-after-var": "off",
@@ -194,7 +194,7 @@ module.exports = {
             "error",
             "always"
         ],
-        "object-property-newline": "error",
+        "object-property-newline": "off",
         "object-shorthand": "off",
         "one-var": "off",
         "one-var-declaration-per-line": "error",
@@ -212,6 +212,7 @@ module.exports = {
         "prefer-spread": "error",
         "prefer-template": "off",
         "quote-props": "off",
+        "no-cond-assign": "off",
         "quotes": [
             "error",
             "single"
