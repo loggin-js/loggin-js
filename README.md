@@ -60,7 +60,8 @@ const { Severity } = logging;
 // Severity DEBUG will output any severity.
 const logger = logging.getLogger({
   level: Severity.DEBUG,
-  color: true
+  color: true,
+  formatter: 'medium'
 });
 
 // Does the same as passing into settings, as done above
