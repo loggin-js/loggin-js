@@ -1,7 +1,5 @@
-'use strict';
-
 /**
- * __Logging to a file__
+ * @name: SeverityFiltering  
  * 
  *  You can output the logs to a file instead of the console/terminal
  *  by creating a `Loggers.FileLogger` and by piping some severity to a file as shown below 

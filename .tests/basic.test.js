@@ -36,7 +36,7 @@ describe('Loggers Should Be Instance Of Logger', () => {
   for (let i = 0; i < loggers.length; i++) {
     let logger = loggers[i];
     it(`${logger.name}`, () => {
-      expect(new logger.constructor()).toBeInstanceOf(Loggers.Logger);
+      expect(new logger.constructor({})).toBeInstanceOf(Loggers.Logger);
     });
   };
 });

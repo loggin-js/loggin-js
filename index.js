@@ -4,7 +4,8 @@ const {
   FileLogger,
   RemoteLogger,
   ConsoleLogger,
-  LoggerPack
+  LoggerPack,
+  MemoryLogger
 } = require('./lib/loggers');
 const Notifiers = require('./lib/notifiers');
 const { Formatter } = require('./lib/formatters');
@@ -68,11 +69,12 @@ function join(loggers, options = {}) {
   return new LoggerPack(options, loggers);
 }
 
-module.exports = {
+const loggin = {
   Loggers: {
     ConsoleLogger,
     FileLogger,
     RemoteLogger,
+    MemoryLogger,
     Logger
   },
   Severity,
@@ -82,3 +84,5 @@ module.exports = {
   join,
   Formatter
 };
+
+module.exports = loggin;

@@ -1,4 +1,6 @@
-'use strict';
+/**
+ * @name: SeverityFiltering  
+ */
 
 // Require the logging library
 const logging = require('../index');

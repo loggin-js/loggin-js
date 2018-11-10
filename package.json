@@ -42,6 +42,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "cli-color": "^1.2.0",
+    "fs-extra": "^7.0.1",
     "request": "^2.85.0",
     "string-format": "^2.0.0"
   },
