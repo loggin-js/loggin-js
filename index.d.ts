@@ -150,7 +150,7 @@ export namespace Loggers {
   interface Options {
     color?: boolean = false;
     lineNumbers?: boolean = false;
-    level?: number = Severity.DEBUG;
+    level?: number | string | Severity;
     user?: string;
     channel?: string;
     formatter?: string;
