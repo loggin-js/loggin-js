@@ -17,21 +17,21 @@ describe('Should get a logger and log', () => {
 
 
 describe('LoggerOptions.level can be string, integer or Severity', () => {
-  const createLoggerAndLog = (level) => () => {
+  const createLogger = (level) => () => {
     let logger = new logging.Loggers.Logger(new logging.Notifiers.MemoryNotifier({ level }), { level });
-    // logger.debug('test');
+    return logger;
   }
 
   it(`options.level must accept a <string>`, () => {
-    expect(createLoggerAndLog('debug')).not.toThrow();
+    expect(createLogger('debug')).not.toThrow();
   });
   it(`options.level must accept a <Severity>`, () => {
-    expect(createLoggerAndLog(logging.Severity.DEBUG)).not.toThrow();
+    expect(createLogger(logging.Severity.DEBUG)).not.toThrow();
   });
   it(`options.level must accept a <number>`, () => {
-    expect(createLoggerAndLog(8)).not.toThrow();
+    expect(createLogger(8)).not.toThrow();
   });
-  it(`options.level should throw when bad level is passed`, () => {
-    expect(createLoggerAndLog(null)).toThrow();
+  it(`options.level should be set to DEBUG by default`, () => {
+    expect(createLogger()().getLevel().level).toEqual(7);
   });
 });

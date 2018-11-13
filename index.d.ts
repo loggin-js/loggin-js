@@ -30,8 +30,8 @@ export namespace Loggers {
     setChannel(channel: boolean);
     getChannel(): boolean;
 
-    setLevel(level: number);
-    getLevel(): number;
+    setLevel(level: number | string | Severity);
+    getLevel(): Severity;
 
     setFormatter(str: string);
     getFormatter(): string;
