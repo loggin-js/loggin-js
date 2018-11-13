@@ -61,14 +61,21 @@ const { Severity } = logging;
 // Get a logger with DEBUG severity. 
 // Severity DEBUG will output any severity.
 const logger = logging.getLogger({
-  level: Severity.DEBUG,
+  
+  // level can be a <string> = 'DEBUG' a <int> = 7 or a <Severity> = Severity.DEBUG 
+  level: 'DEBUG',
+
+  // If output should be colored
   color: true,
-  formatter: 'medium'
+
+  // Set formatter to medium - one of: ['short', 'medium', 'long']
+  formatter: 'medium',
 });
 
 // Does the same as passing into settings, as done above
 logger.setLevel(Severity.DEBUG);
 logger.setColor(true);
+logger.setFormatter('medium');
 
 
 // Available predefined log levels
@@ -79,7 +86,7 @@ logger.alert('alert');
 logger.emergency('emergency');
 logger.critical('critical');
 logger.debug('debug');
-logger.notice(['notice', 'notice']);
+logger.notice('Notice', {}, 'channel');
 
 
 // If enabled set to false logs will not be output
@@ -106,8 +113,10 @@ const logger = new Loggers.FileLogger({
 
   // You can pass a pipes array to the file logger or you can do after instancing (showed below)
   pipes: [
+
     // Here we create a pipe that will pipe level ERROR logs to the file 'logs/error-logs.log'
     new Notifiers.Pipe(Severity.ERROR, 'logs/error-logs.log'),
+
     // This one will pipe level INFO logs to the file 'logs/info-logs.log'
     new Notifiers.Pipe(Severity.INFO, 'logs/info-logs.log')
   ]
@@ -144,6 +153,7 @@ const logger = logging.getLogger({
    * color of some segments of the log by using <%L> where L is one of:
    *  - r red
    *  - g green
+   *  - gr gray
    *  - b blue
    *  - p pink
    *  - y yellow
