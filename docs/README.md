@@ -2,8 +2,7 @@
 
 ![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true)
 
-[![CircleCI](https://img.shields.io/circleci/project/github/nombrekeff/loggin-js.svg)](https://www.npmjs.com/package/loggin-js)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ffe3b2f71c74210987436b935c06720)](https://www.codacy.com/app/manoloedge96/loggin-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nombrekeff/loggin-js&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://semaphoreci.com/api/v1/nombrekeff/loggin-js/branches/master/shields_badge.svg)](https://semaphoreci.com/nombrekeff/loggin-js)[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ffe3b2f71c74210987436b935c06720)](https://www.codacy.com/app/manoloedge96/loggin-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nombrekeff/loggin-js&amp;utm_campaign=Badge_Grade)
 [![npm](https://img.shields.io/npm/dt/loggin-js.svg)](https://www.npmjs.com/package/loggin-js)
 [![David](https://img.shields.io/david/nombrekeff/loggin-js.svg)](https://david-dm.org/nombrekeff/loggin-js?view=tree)  
 
