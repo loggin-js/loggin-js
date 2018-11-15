@@ -2,26 +2,43 @@
 
 ![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true)
 
-[![CircleCI](https://img.shields.io/circleci/project/github/nombrekeff/loggin-js.svg)](https://www.npmjs.com/package/loggin-js)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ffe3b2f71c74210987436b935c06720)](https://www.codacy.com/app/manoloedge96/loggin-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nombrekeff/loggin-js&amp;utm_campaign=Badge_Grade)
-[![npm](https://img.shields.io/npm/dt/loggin-js.svg)](https://www.npmjs.com/package/loggin-js)
+[![Build Status](build-status-badge)](build-status-link)
+[![Code Quality](code-quality-badge)](code-quality-link)
+[![Downloads](download-badge)](download-link)
 [![David](https://img.shields.io/david/nombrekeff/loggin-js.svg)](https://david-dm.org/nombrekeff/loggin-js?view=tree)  
 
 [![NPM](https://nodei.co/npm/loggin-js.png)](https://nodei.co/npm/loggin-js/)
 [![Twitter Follow](https://img.shields.io/twitter/follow/keff39006469.svg?style=social&label=Follow)](https://twitter.com/intent/user?screen_name=keff39006469)  
 
+<!-- Links -->
+[build-status-badge]: https://semaphoreci.com/api/v1/nombrekeff/loggin-js/branches/master/shields_badge.svg
+[build-status-link ]: https://semaphoreci.com/nombrekeff/loggin-js
+
+[code-quality-badge]: http://npm.packagequality.com/shield/loggin-js.svg?style=flat-square
+[code-quality-link ]: https://packagequality.com/#?package=loggin-js
+
+[download-badge]: https://img.shields.io/npm/dt/loggin-js.svg
+[downloads-link]: https://www.npmjs.com/package/loggin-js
+
+[download-badge]: https://img.shields.io/npm/dt/loggin-js.svg
+[downloads-link]: https://www.npmjs.com/package/loggin-js
 
 A little customizable logger for NodeJS.  
 Log to the **console**, to a **file**, to a **remote service** or create a custom one.
-> Based on standard **RFC3164**
+> Based on standard **[RFC3164][RFC3164]**
 
-### References
-* [Get started](https://github.com/nombrekeff/logging-js/wiki/Get-Started)
-* [Basic Usage](https://github.com/nombrekeff/logging-js/wiki/Basic-Usage)
-* [Wiki](https://nombrekeff.github.io/loggin-js/)
-* [Examples](/examples)
-* [Collaborating](#Collaborating)
+### Features
+* ✔︎ Easy 
+* ✔︎ Customizable
+* ✔︎ Lite
+* ✔︎ Follows standard [RFC3164][RFC3164]
 
+### Docs & Community
+* [Get started](#get-started)
+* [Usage](#basic-usage)
+* [Examples](#examples)
+* [Collaborating](#collaborating)
+* [Docs](https://github.com/nombrekeff/logging-js/wiki)
 
 ### Get-Started
 * Install with npm
@@ -34,14 +51,21 @@ npm install loggin-js --save
 node run examples/basic-example.js
 ```
 
-* Using in node
+### Usage
+#### Using in node
 ```javascript
 // Require the logging library
 const logging = require('loggin-js');
 ```
+#### Using in browser
+**UNSUPORTED** - no bandwidth to implement
+```
+<script src="./node_modules/loggin-js/build/loggin-js.min.js"></script>
+```
 
-### Basic-Usage
-##### Basic Example
+
+### Examples
+##### Simple Example
 In this example we create a new logger with a severity of DEBUG, and we set color to true.  
 This means it will output any log to the console as DEBUG englobes all other severities
 
@@ -185,3 +209,6 @@ logger.error('There was an <%rERROR>');
 Hi there, if you like the project don't hesitate in collaborating (_if you like to_), submit a pull request, post an issue, ...   
 It's just a little sideproject, nothing serius, so its just for fun!  
 But any **help** or **ideas** are apreciated!
+
+
+[RFC3164]: https://tools.ietf.org/html/rfc3164
