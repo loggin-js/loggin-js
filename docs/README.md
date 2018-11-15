@@ -37,7 +37,7 @@ Log to the **console**, to a **file**, to a **remote service** or create a custo
 ### Features
 * ✔︎ Easy 
 * ✔︎ Customizable
-* ✔︎ Lite
+* ✔︎ Liteweighted
 * ✔︎ Follows standard [RFC3164][RFC3164]
 
 ### Docs & Community
@@ -66,8 +66,11 @@ const logging = require('loggin-js');
 ```
 #### Using in browser
 **UNSUPORTED** - no bandwidth to implement
-```
+```html
 <script src="./node_modules/loggin-js/build/loggin-js.min.js"></script>
+<script>
+  let logger = loggin.createLogger();
+</script>
 ```
 
 
