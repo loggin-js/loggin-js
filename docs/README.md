@@ -64,14 +64,13 @@ node run examples/basic-example.js
 // Require the logging library
 const logging = require('loggin-js');
 ```
-#### Using in browser
-**UNSUPORTED** - no bandwidth to implement
-```html
+#### Using in browser #IN-PROCESS
+<!-- ```html
 <script src="./node_modules/loggin-js/build/loggin-js.min.js"></script>
 <script>
-  let logger = loggin.createLogger();
+  let logger = LogginJS.createLogger();
 </script>
-```
+``` -->
 
 
 ### Examples

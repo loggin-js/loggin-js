@@ -69,7 +69,7 @@ function join(loggers, options = {}) {
   return new LoggerPack(options, loggers);
 }
 
-const loggin = {
+const LogginJS = {
   Loggers: {
     ConsoleLogger,
     FileLogger,
@@ -85,4 +85,4 @@ const loggin = {
   Formatter
 };
 
-module.exports = loggin;
+module.exports = LogginJS;
