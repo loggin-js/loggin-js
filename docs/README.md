@@ -6,6 +6,7 @@
 [![Code Quality][code-quality-badge]][code-quality-link]
 [![Downloads][download-badge]][download-link]
 [![Dependencies][dependencies-badge]][dependencies-link]  
+[![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
 
 <!-- Links -->
 [build-status-badge]: https://semaphoreci.com/api/v1/nombrekeff/loggin-js/branches/master/shields_badge.svg
@@ -19,6 +20,9 @@
 
 [dependencies-badge]: https://img.shields.io/david/nombrekeff/loggin-js.svg
 [dependencies-link]: https://david-dm.org/nombrekeff/loggin-js?view=tree
+
+[vulnerabilities-badge]: https://snyk.io/test/npm/loggin-js/badge.svg
+[vulnerabilities-link]: https://snyk.io/test/npm/loggin-js
 
 A little customizable logger for NodeJS.  
 Log to the **console**, to a **file**, to a **remote service** or create a custom one.
