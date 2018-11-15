@@ -2,17 +2,17 @@
 
 ![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true)
 
-[![Build Status](build-status-badge)](build-status-link)
-[![Code Quality](code-quality-badge)](code-quality-link)
-[![Downloads](download-badge)](download-link)
-[![Dependencies](dependencies-badge)](dependencies-link)  
+[![Build Status](#build-status-badge)](#build-status-link)
+[![Code Quality](#code-quality-badge)](#code-quality-link)
+[![Downloads](#download-badge)](#download-link)
+[![Dependencies](#dependencies-badge)](#dependencies-link)  
 
 <!-- Links -->
 [build-status-badge]: https://semaphoreci.com/api/v1/nombrekeff/loggin-js/branches/master/shields_badge.svg
-[build-status-link ]: https://semaphoreci.com/nombrekeff/loggin-js
+[build-status-link]: https://semaphoreci.com/nombrekeff/loggin-js
 
 [code-quality-badge]: http://npm.packagequality.com/shield/loggin-js.svg?style=flat-square
-[code-quality-link ]: https://packagequality.com/#?package=loggin-js
+[code-quality-link]: https://packagequality.com/#?package=loggin-js
 
 [download-badge]: https://img.shields.io/npm/dt/loggin-js.svg
 [downloads-link]: https://www.npmjs.com/package/loggin-js
