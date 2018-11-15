@@ -5,10 +5,7 @@
 [![Build Status](build-status-badge)](build-status-link)
 [![Code Quality](code-quality-badge)](code-quality-link)
 [![Downloads](download-badge)](download-link)
-[![David](https://img.shields.io/david/nombrekeff/loggin-js.svg)](https://david-dm.org/nombrekeff/loggin-js?view=tree)  
-
-[![NPM](https://nodei.co/npm/loggin-js.png)](https://nodei.co/npm/loggin-js/)
-[![Twitter Follow](https://img.shields.io/twitter/follow/keff39006469.svg?style=social&label=Follow)](https://twitter.com/intent/user?screen_name=keff39006469)  
+[![Dependencies](dependencies-badge)](dependencies-link)  
 
 <!-- Links -->
 [build-status-badge]: https://semaphoreci.com/api/v1/nombrekeff/loggin-js/branches/master/shields_badge.svg
@@ -20,8 +17,8 @@
 [download-badge]: https://img.shields.io/npm/dt/loggin-js.svg
 [downloads-link]: https://www.npmjs.com/package/loggin-js
 
-[download-badge]: https://img.shields.io/npm/dt/loggin-js.svg
-[downloads-link]: https://www.npmjs.com/package/loggin-js
+[dependencies-badge]: https://img.shields.io/david/nombrekeff/loggin-js.svg
+[dependencies-link]: https://david-dm.org/nombrekeff/loggin-js?view=tree
 
 A little customizable logger for NodeJS.  
 Log to the **console**, to a **file**, to a **remote service** or create a custom one.
