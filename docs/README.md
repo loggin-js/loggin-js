@@ -1,27 +1,34 @@
 # Loggin' JS
 
-![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true)
+<!-- ![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true) -->
 
-[![Build Status](build-status-badge)](build-status-link)
-[![Code Quality](code-quality-badge)](code-quality-link)
-[![Downloads](download-badge)](download-link)
-[![David](https://img.shields.io/david/nombrekeff/loggin-js.svg)](https://david-dm.org/nombrekeff/loggin-js?view=tree)  
 
-[![NPM](https://nodei.co/npm/loggin-js.png)](https://nodei.co/npm/loggin-js/)
-[![Twitter Follow](https://img.shields.io/twitter/follow/keff39006469.svg?style=social&label=Follow)](https://twitter.com/intent/user?screen_name=keff39006469)  
+[![NPM version][npm-image]][npm-url]
+[![NPM quality][code-quality-badge]][code-quality-link]
+[![build status][travis-image]][travis-url]
+[![Downloads][downloads-badge]][downloads-link]
+[![Dependencies][dependencies-badge]][dependencies-link]
+[![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
+
 
 <!-- Links -->
-[build-status-badge]: https://semaphoreci.com/api/v1/nombrekeff/loggin-js/branches/master/shields_badge.svg
-[build-status-link ]: https://semaphoreci.com/nombrekeff/loggin-js
+[npm-image]: https://img.shields.io/npm/v/loggin-js.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/loggin-js
+
+[travis-image]: https://img.shields.io/travis/nombrekeff/loggin-js.svg?style=flat-square
+[travis-url]: https://travis-ci.org/nombrekeff/loggin-js
 
 [code-quality-badge]: http://npm.packagequality.com/shield/loggin-js.svg?style=flat-square
-[code-quality-link ]: https://packagequality.com/#?package=loggin-js
+[code-quality-link]: https://packagequality.com/#?package=loggin-js
 
-[download-badge]: https://img.shields.io/npm/dt/loggin-js.svg
+[downloads-badge]: https://img.shields.io/npm/dt/loggin-js.svg?style=flat-square
 [downloads-link]: https://www.npmjs.com/package/loggin-js
 
-[download-badge]: https://img.shields.io/npm/dt/loggin-js.svg
-[downloads-link]: https://www.npmjs.com/package/loggin-js
+[dependencies-badge]: https://img.shields.io/david/nombrekeff/loggin-js.svg?style=flat-square
+[dependencies-link]: https://david-dm.org/nombrekeff/loggin-js?view=tree
+
+[vulnerabilities-badge]: https://snyk.io/test/npm/loggin-js/badge.svg?style=flat-square
+[vulnerabilities-link]: https://snyk.io/test/npm/loggin-js
 
 A little customizable logger for NodeJS.  
 Log to the **console**, to a **file**, to a **remote service** or create a custom one.
