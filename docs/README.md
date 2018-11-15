@@ -4,7 +4,7 @@
 
 [![NPM version][npm-image]][npm-url]
 [![NPM quality][code-quality-badge]][code-quality-link]
-[![Build Status][build-status-badge]][build-status-link]
+[![build status][travis-image]][travis-url]
 [![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
@@ -14,8 +14,8 @@
 [npm-image]: https://img.shields.io/npm/v/loggin-js.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/loggin-js
 
-[build-status-badge]: https://semaphoreci.com/api/v1/nombrekeff/loggin-js/branches/master/shields_badge.svg?style=flat-square
-[build-status-link]: https://semaphoreci.com/nombrekeff/loggin-js
+[travis-image]: https://img.shields.io/travis/nombrekeff/loggin-js.svg?style=flat-square
+[travis-url]: https://travis-ci.org/nombrekeff/loggin-js
 
 [code-quality-badge]: http://npm.packagequality.com/shield/loggin-js.svg?style=flat-square
 [code-quality-link]: https://packagequality.com/#?package=loggin-js
