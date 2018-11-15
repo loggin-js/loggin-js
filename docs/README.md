@@ -6,7 +6,7 @@
 [![NPM quality][code-quality-badge]][code-quality-link]
 [![Build Status][build-status-badge]][build-status-link]
 [![Downloads][downloads-badge]][downloads-link]
-[![Dependencies][dependencies-badge]][dependencies-link]  
+[![Dependencies][dependencies-badge]][dependencies-link]
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
 
 <!-- Links -->
