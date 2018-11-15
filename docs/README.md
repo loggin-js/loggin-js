@@ -1,6 +1,6 @@
 # Loggin' JS
 
-![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true)
+<!-- ![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true) -->
 
 [![NPM version][npm-image]][npm-url]
 [![NPM quality][code-quality-badge]][code-quality-link]
