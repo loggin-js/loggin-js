@@ -2,6 +2,7 @@
 
 <!-- ![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true) -->
 
+
 [![NPM version][npm-image]][npm-url]
 [![NPM quality][code-quality-badge]][code-quality-link]
 [![build status][travis-image]][travis-url]
@@ -11,7 +12,6 @@
 
 
 <!-- Links -->
-
 [npm-image]: https://img.shields.io/npm/v/loggin-js.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/loggin-js
 
