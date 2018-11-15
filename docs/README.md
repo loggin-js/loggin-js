@@ -9,6 +9,7 @@
 [![Dependencies][dependencies-badge]][dependencies-link]
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
 
+
 <!-- Links -->
 
 [npm-image]: https://img.shields.io/npm/v/loggin-js.svg?style=flat-square
