@@ -4,7 +4,7 @@
 
 [![Build Status][build-status-badge]][build-status-link]
 [![Code Quality][code-quality-badge]][code-quality-link]
-[![Downloads][download-badge]][download-link]
+[![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]  
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
 
@@ -15,7 +15,7 @@
 [code-quality-badge]: http://npm.packagequality.com/shield/loggin-js.svg?style=flat-square
 [code-quality-link]: https://packagequality.com/#?package=loggin-js
 
-[download-badge]: https://img.shields.io/npm/dt/loggin-js.svg
+[downloads-badge]: https://img.shields.io/npm/dt/loggin-js.svg
 [downloads-link]: https://www.npmjs.com/package/loggin-js
 
 [dependencies-badge]: https://img.shields.io/david/nombrekeff/loggin-js.svg
