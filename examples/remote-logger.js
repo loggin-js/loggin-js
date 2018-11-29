@@ -1,9 +1,9 @@
-'use strict';
+/**
+ * @name: RemoteLogger  
+ * This example will show how to make a logger that sends logs to a remote server via http requests
+ */
 
-// Require the logging library
 const logging = require('../index');
-
-// Shortcut for the severity constants
 const { Severity } = logging;
 
 // Get a logger with DEBUG severity. Severity DEBUG will output any severity.

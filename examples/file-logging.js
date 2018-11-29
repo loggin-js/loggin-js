@@ -1,14 +1,11 @@
 /**
- * @name: SeverityFiltering  
+ * @name: FileLogging  
  * 
- *  You can output the logs to a file instead of the console/terminal
+ *  You can output the logs to a file instead of the console
  *  by creating a `Loggers.FileLogger` and by piping some severity to a file as shown below 
  */
 
-// Require the logging library
 const logging = require('../index');
-
-// Shortcut for the severity constants
 const { Severity, Loggers, Notifiers } = logging;
 
 // Create a file logger

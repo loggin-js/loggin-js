@@ -1,11 +1,9 @@
 /**
- * @name: SeverityFiltering  
+ * @name: SeverityFilterinh  
+ * This example will show how to filter logs by severity level
  */
 
-// Require the logging library
 const logging = require('../index');
-
-// Shortcut for the severity constants
 const { Severity } = logging;
 
 // Get a logger with INFO severity. Severity INFO will output only INFO severity logs.

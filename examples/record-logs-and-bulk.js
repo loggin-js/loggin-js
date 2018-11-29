@@ -5,7 +5,6 @@
  * then you can show them on error or when you need to
  */
 
-// Require the logging library
 const { Loggers } = require('../index');
 
 new Loggers.Logger();

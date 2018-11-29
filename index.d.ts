@@ -18,6 +18,10 @@ export namespace Loggers {
     constructor(options: Loggers.Options);
   }
 
+  class LoggerPack extends Loggers.Logger {
+    constructor(options: Loggers.Options);
+  }
+
   class Logger {
     constructor(notifier: Notifiers.Notifier, options: Loggers.Options);
 
@@ -200,3 +204,18 @@ export namespace Notifiers {
     constructor();
   }
 }
+
+/**
+ * Returns a logger based on options
+ * 
+ * #### Example 1
+ * In the following example it will return a FileLogger as pipes are passed
+ * @example 
+ * logging.getLogger({ pipes: [ ... ] });
+ */
+export function getLogger(opts: Loggers.Options): Loggers.Logger;
+
+/**
+ * Packs a set of loggers and makes available a interface for managing both
+ */
+export function pack(loggers: Loggers.Logger[], opts: Loggers.Options): Loggers.Logger;

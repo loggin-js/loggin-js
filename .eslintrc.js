@@ -21,7 +21,7 @@ module.exports = {
         "camelcase": "error",
         "capitalized-comments": "off",
         "class-methods-use-this": "warn",
-        "comma-dangle": "error",
+        "comma-dangle": "off",
         "comma-spacing": [
             "error",
             {
@@ -36,7 +36,7 @@ module.exports = {
         "complexity": "error",
         "computed-property-spacing": "error",
         "consistent-return": "error",
-        "consistent-this": "error",
+        "consistent-this": "warn",
         "curly": "off",
         "default-case": "error",
         "dot-location": "off",
@@ -47,10 +47,7 @@ module.exports = {
         "func-call-spacing": "error",
         "func-name-matching": "error",
         "func-names": "error",
-        "func-style": [
-            "error",
-            "declaration"
-        ],
+        "func-style": 'off',
         "function-paren-newline": "error",
         "generator-star-spacing": "error",
         "getter-return": "error",
