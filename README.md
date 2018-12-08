@@ -30,20 +30,20 @@
 [vulnerabilities-badge]: https://snyk.io/test/npm/loggin-js/badge.svg?style=flat-square
 [vulnerabilities-link]: https://snyk.io/test/npm/loggin-js
 
+[docs:severity]: https://github.com/nombrekeff/loggin-js/wiki/Severity
+
 A little customizable logger for NodeJS.  
 Log to the **console**, to a **file**, to a **remote service** or create a custom one.
-> Based on standard **[RFC3164][RFC3164]**
 
 ### Features
 * ✔︎ Easy 
 * ✔︎ Customizable
 * ✔︎ Liteweighted
-* ✔︎ Follows standard [RFC3164][RFC3164]
 
 ### Docs & Community
 * [Get started](#get-started)
 * [Usage](#basic-usage)
-* [Examples](#examples)
+* [Examples](https://github.com/nombrekeff/loggin-js/tree/master/examples)
 * [Collaborating](#collaborating)
 * [Docs](https://github.com/nombrekeff/logging-js/wiki)
 
@@ -64,7 +64,7 @@ node run examples/basic-example.js
 // Require the logging library
 const logging = require('loggin-js');
 ```
-#### Using in browser #IN-PROCESS
+<!-- #### Using in browser #IN-PROCESS -->
 <!-- ```html
 <script src="./node_modules/loggin-js/build/loggin-js.min.js"></script>
 <script>
@@ -74,13 +74,45 @@ const logging = require('loggin-js');
 
 
 ### Examples
-##### Simple Example
-In this example we create a new logger with a severity of DEBUG (a severity is just the level of the log), and we set color to true.  
+##### Simplest Example
+The fastest way of creating a logger is by using the `.getLogger` method wich creates a logger based on some options.  
+Based on those options it will create one of [**ConsoleLogger**, **FileLogger**, **RemoteLogger**] __explained below_.  
+Here is a little example:
+```js
+const logging = require('loggin-js');
+const logger = loggin.getLogger({ channel: 'my-cool-app' });
+
+logger.debug('User is loggin in');
+```
+
+Now let's check the `.getLogger` method a bit more in depth.  
+All `Loggers` and `.getLogger` accept what is called a `Severity` **level**, wich is used internally for filtering and managing log output. You can check more info about Severities [here]().  
+
+We can set a level in three ways:
+1. Passing a string ([info][docs:severity]): 
+    ```js
+    logger.getLogger({ level: 'DEBUG' })
+    ```
+1. Passing an int ([info][docs:severity]): 
+    ```js
+    logger.getLogger({ level: 9 })
+    ```
+3. Passing a severity instance ([info][docs:severity]): 
+    ```js
+    const { Severity } = logging;
+    logging.getLogger({ level: Severity.DEBUG });
+    ```
+
+You can also pass a set of options, like setting colored output, changing the format, and more.
+
+
+<!-- In this example we create a new logger with a severity of DEBUG (a severity is just the level of the log), and we set color to true.  
 This means it will output any log to the console as DEBUG englobes all other severities
 
 We create it making use of the `logging.getLogger(options?)` method that creates a logger based on the options.  
-_There are other ways of creating a Logger as described in the examples and docs_
+_There are other ways of creating a Logger as described in the examples and docs_ -->
 
+##### Full example
 ```javascript
 // Require the logging library
 const logging = require('loggin-js');
