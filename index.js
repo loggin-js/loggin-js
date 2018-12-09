@@ -20,7 +20,7 @@ let defaultOpts = {
 process.env.DEBUG = false;
 
 /**
- * @function getLogger
+ * @deprecated in favor of .logger
  * @param {Object} options
  * @param {number} options.level?
  * @param {number} options.port?
@@ -61,6 +61,57 @@ function getLogger(options = {}) {
   return logger;
 }
 
+function logger(opts) {
+  return getLogger(opts);
+}
+
+function notifier(opts, args) {
+  if (
+    typeof opts === 'string'
+    && ['file', 'console', 'remote', 'memory'].includes(opts)
+  ) {
+    switch (opts) {
+      case 'file':
+        return new Notifiers.FileNotifier(args);
+      case 'console':
+        return new Notifiers.ConsoleNotifier(args);
+      case 'remote':
+        return new Notifiers.RemoteNotifier(args);
+      case 'memory':
+        return new Notifiers.MemoryNotifier(args);
+      default:
+        return new Notifiers.ConsoleNotifier(args);
+    }
+  } else if (typeof opts === 'object') {
+    return new Notifiers.Notifier(opts);
+  }
+}
+
+function formatter(opts) {
+  if (
+    typeof opts === 'string'
+    && ['short', 'medium', 'long', 'detailed', 'minimal'].includes(opts)
+  ) {
+    switch (opts) {
+      case 'short':
+        return Formatter.SHORT;
+      case 'medium':
+        return Formatter.MEDIUM;
+      case 'long':
+        return Formatter.LONG;
+      case 'detailed':
+        return Formatter.DETAILED;
+      case 'minimal':
+        return Formatter.MINIMAL;
+      default:
+        return Formatter.MEDIUM;
+    }
+  } else if (typeof opts === 'object') {
+    return new Formatter(opts);
+  }
+}
+
+
 /**
  * @function
  * @param {Logger[]} loggers
@@ -86,8 +137,11 @@ const LogginJS = {
   Log,
   Notifiers,
   getLogger,
-  join,
-  Formatter
+  Formatter,
+
+  logger,
+  notifier,
+  formatter,
 };
 
 module.exports = LogginJS;

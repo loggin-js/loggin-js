@@ -1,0 +1,12 @@
+some error
+some error
+detailed
+[<%c2018-12-9 15:58:17> <%grkeff>] v1.x.x-example - ERROR - some error - <gr{"id":"0000"}>
+detailed
+detailed
+[<%c2018-12-9 16:02:20> <%grkeff>] v1.x.x-example - ERROR - some error - <gr{"id":"0000"}>
+[[96m2018-12-9 16:07:04[39m [90mkeff[39m] v1.x.x-example - [91mERROR[39m - some error - <gr{"id":"0000"}>
+[<%c2018-12-9 16:07:49> <%grkeff>] v1.x.x-example - ERROR - some error - <gr{"id":"0000"}>
+[<%c2018-12-9 16:07:58> <%grkeff>] v1.x.x-example - ERROR - some error - <gr{"id":"0000"}>
+[<%c2018-12-9 16:08:40> <%grkeff>] v1.x.x-example - ERROR - some error - <gr{"id":"0000"}>
+[<%c2018-12-9 16:09:07> <%grkeff>] v1.x.x-example - ERROR - some error - <%gr{"id":"0000"}>
