@@ -1,15 +1,11 @@
 # Loggin' JS
 
-<!-- ![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true) -->
-
-
 [![NPM version][npm-image]][npm-url]
 [![NPM quality][code-quality-badge]][code-quality-link]
 [![build status][travis-image]][travis-url]
 [![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
-
 
 <!-- Links -->
 [npm-image]: https://img.shields.io/npm/v/loggin-js.svg?style=flat-square

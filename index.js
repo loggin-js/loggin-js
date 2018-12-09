@@ -32,13 +32,18 @@ process.env.DEBUG = false;
  * @param {string[]} options.pipes?
  * @return {ConsoleLogger|FileLogger|RemoteLogger}
  */
-function getLogger(options = defaultOpts) {
-  let level = options.level || Severity.DEBUG;
-  const filepath = options.filepath;
-  const filepaths = options.filepaths;
+function getLogger(options = {}) {
+  let loggerOpts = {
+    ...defaultOpts,
+    ...options
+  };
+
+  let level = loggerOpts.level || Severity.DEBUG;
+  const filepath = loggerOpts.filepath;
+  const filepaths = loggerOpts.filepaths;
 
   // by default return a console logger
-  let logger = new ConsoleLogger(options);
+  let logger = new ConsoleLogger(loggerOpts);
 
   // If level is a string set level to correct severity object
   if (typeof level === 'string') {
@@ -46,12 +51,12 @@ function getLogger(options = defaultOpts) {
   }
 
   // return remote logger if port or host is passed
-  const isRemote = options.host || options.port;
-  if (isRemote) logger = new RemoteLogger(options);
+  const isRemote = loggerOpts.host || loggerOpts.port;
+  if (isRemote) logger = new RemoteLogger(loggerOpts);
 
-  // return file logger if options contains filepath or filepaths
-  const isFile = filepath || filepaths || options.pipes;
-  if (!isRemote && isFile) logger = new FileLogger(options);
+  // return file logger if loggerOpts contains filepath or filepaths
+  const isFile = filepath || filepaths || loggerOpts.pipes;
+  if (!isRemote && isFile) logger = new FileLogger(loggerOpts);
 
   return logger;
 }
