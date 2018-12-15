@@ -1,22 +1,21 @@
-const Logger = require('../lib/logger');
-const Notifiers = require('../lib/notifiers');
-const Severity = require('../lib/severity');
+const loggin = require('../');
 
-const logger = new Logger.V2({ channel: 'v1.x.x-example' })
-  .color(true)
-  .level('INFO');
 
-const notif1 = new Notifiers.FileNotifier({ channel: 'notif-1' })
-  .pipe(Severity.DEBUG, './debug.log');
+const notif1 = loggin
+  .notifier('file')
+  .pipe(loggin.severity('DEBUG'), './debug.log')
+  .pipe(loggin.severity('ERROR'), './error.log')
+  .pipe(loggin.severity('CRITICAL'), './critical.log');
 
-const notif2 = new Notifiers.FileNotifier({ channel: 'notif-2' })
-  .pipe(Severity.ERROR, './error.log');
 
-const notif3 = new Notifiers.FileNotifier({ channel: 'notif-3' })
-  .pipe(Severity.CRITICAL, './critical.log');
-
-logger.notifier(notif1, notif2, notif3);
-logger.formatter('detailed');
+const logger =
+  loggin
+    .logger()
+    .color()
+    .channel('v1.x.x-example')
+    .level('DEBUG')
+    .notifier(notif1)
+    .formatter('detailed');
 
 logger.debug('debug', { id: '0000' });
 logger.info('info', { id: '0000' });

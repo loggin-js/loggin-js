@@ -61,11 +61,21 @@ function getLogger(options = {}) {
   return logger;
 }
 
-function logger(opts) {
-  return getLogger(opts);
+/**
+ * @param {Object} options
+ * @param {number} options.level?
+ * @param {number} options.port?
+ * @param {string} options.host?
+ * @param {boolean} options.color?
+ * @param {boolean} options.lines?
+ * @param {string} options.filepath?
+ * @param {string} options.formatter?
+ * @param {string[]} options.pipes? */
+function logger(opts = {}) {
+  return new Logger.V2(opts);
 }
 
-function notifier(opts, args) {
+function notifier(opts, args = {}) {
   if (
     typeof opts === 'string'
     && ['file', 'console', 'remote', 'memory'].includes(opts)
@@ -111,6 +121,20 @@ function formatter(opts) {
   }
 }
 
+function severity(level) {
+  let severity = '';
+  if (typeof level === 'string') {
+    severity = Severity.fromString(level);
+  } else if (typeof level === 'number') {
+    severity = Severity.fromInt(level);
+  } else if (level && level.constructor.name === 'Severity') {
+    severity = level;
+  } else {
+    severity = Severity.DEBUG;
+  }
+
+  return severity;
+}
 
 /**
  * @function
@@ -142,6 +166,7 @@ const LogginJS = {
   logger,
   notifier,
   formatter,
+  severity
 };
 
 module.exports = LogginJS;
