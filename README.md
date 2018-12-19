@@ -248,8 +248,7 @@ logger.error('There was an <%rERROR>');
 
 ### Collaborating
 Hi there, if you like the project don't hesitate in collaborating (_if you like to_), submit a pull request, post an issue, ...   
-It's just a little sideproject, nothing serius, so its just for fun!  
-But any **help** or **ideas** are apreciated!
+
 
 
 [RFC3164]: https://tools.ietf.org/html/rfc3164
