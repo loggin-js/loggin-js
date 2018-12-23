@@ -1,4 +1,4 @@
-# :page_facing_up: Loggin' JS
+# Loggin' JS
 <!-- ![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true) -->
 
 
