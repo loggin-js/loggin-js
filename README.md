@@ -4,7 +4,7 @@
 <!-- ![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true) -->
 
 [![NPM quality][code-quality-badge]][code-quality-link] 
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/nombrekeff/loggin-js.svg?columns=all&style=flat-square)](https://waffle.io/nombrekeff/loggin-js)  
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/nombrekeff/loggin-js.svg?columns=Inbox,To+Do&style=flat-square)](https://waffle.io/nombrekeff/loggin-js)  
 [![build status][travis-image]][travis-url]
 [![Greenkeeper badge](https://badges.greenkeeper.io/nombrekeff/loggin-js.svg?style=flat-square)](https://greenkeeper.io/)
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]  
