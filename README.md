@@ -1,4 +1,7 @@
 # Loggin' JS
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/nombrekeff/loggin-js.svg)](https://greenkeeper.io/)
+
 <!-- ![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true) -->
 
 
