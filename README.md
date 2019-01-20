@@ -46,8 +46,8 @@ Log to the **console**, to a **file**, to a **remote service** or create a custo
   - [Full Example](#full-example)
   - [File Logging Example](#file-logging-example)
   - [Custom Formatter Example](#custom-formatter-example)
-- [🐛 Found a bug?](#%F0%9F%90%9B-found-a-bug)
-- [👊 Collaborating](#%F0%9F%91%8A-collaborating)
+- [Found a bug?](#found-a-bug)
+- [Collaborating](#collaborating)
 
 
 ### Installing
@@ -230,12 +230,12 @@ logger.info('info', {data: 'Hi'}); // $ [2018-6-2 00:46:24] - root - INFO - info
 logger.error('There was an <%rERROR>'); 
 ```
 
-### 🐛 Found a bug?
+### Found a bug?
 If you found a **bug** or like to leave a **feature request**, please [leave an issue](https://github.com/nombrekeff/express-loggin-js/issues/new/choose) and we will take care of it.
 > Just make sure it's not already filed.
 
 
-### 👊 Collaborating
+### Collaborating
 Hi there, if you like the project don't hesitate in collaborating (_if you like to_), submit a pull request, post an issue, ...   
 Any **help** or **ideas** are apreciated!
 
