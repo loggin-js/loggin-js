@@ -14,7 +14,7 @@ Its in charge of formating the log through a [Formatter](/Formatter) and process
 #### notify(`log:Log`): `self`
 
 ### Available Premade Notifiers
-#### [ConsoleNotifier](./notifiers/notifiers.md#consolenotifier)
-#### [FileNotifier](./notifiers/notifiers.md#filenotifier)
-#### [RemoteNotifer](./notifiers/notifiers.md#remotenotifier)
+#### [ConsoleNotifier](./notifiers.md#consolenotifier)
+#### [FileNotifier](./notifiers.md#filenotifier)
+#### [RemoteNotifer](./notifiers.md#remotenotifier)
 
