@@ -1,7 +1,4 @@
-# Loggin' JS
-
-<!-- ![Preview](https://github.com/nombrekeff/loggin-js/blob/master/examples/example-output-formater.PNG?raw=true) -->
-
+# Loggin' JS <!-- omit in toc -->
 
 [![NPM version][npm-image]][npm-url]
 [![NPM quality][code-quality-badge]][code-quality-link]
@@ -35,27 +32,28 @@
 A little customizable logger for NodeJS.  
 Log to the **console**, to a **file**, to a **remote service** or create a custom one.
 
-### Features
+### Features <!-- omit in toc -->
 * ✔︎ Easy 
 * ✔︎ Customizable
 * ✔︎ Liteweighted
 
-### Docs & Community
-* [Get started](#get-started)
-* [Usage](#basic-usage)
-* [Examples](https://github.com/nombrekeff/loggin-js/tree/master/examples)
-* [Collaborating](#collaborating)
-* [Docs](https://github.com/nombrekeff/logging-js/wiki)
+### Table Of Content <!-- omit in toc -->
+- [Installing](#installing)
+- [Usage](#usage)
+  - [Using in node](#using-in-node)
+- [Examples](#examples)
+  - [Simplest Example](#simplest-example)
+  - [Full Example](#full-example)
+  - [File Logging Example](#file-logging-example)
+  - [Custom Formatter Example](#custom-formatter-example)
+- [🐛 Found a bug?](#%F0%9F%90%9B-found-a-bug)
+- [👊 Collaborating](#%F0%9F%91%8A-collaborating)
 
-### Get-Started
+
+### Installing
 * Install with npm
 ```bash
 npm install loggin-js --save
-```
-
-* Test it works, and see how it looks:
-```bash
-node run examples/basic-example.js
 ```
 
 ### Usage
@@ -64,17 +62,10 @@ node run examples/basic-example.js
 // Require the logging library
 const logging = require('loggin-js');
 ```
-<!-- #### Using in browser #IN-PROCESS -->
-<!-- ```html
-<script src="./node_modules/loggin-js/build/loggin-js.min.js"></script>
-<script>
-  let logger = LogginJS.createLogger();
-</script>
-``` -->
 
 
 ### Examples
-##### Simplest Example
+#### Simplest Example
 The fastest way of creating a logger is by using the `.getLogger` method wich creates a logger based on some options.  
 Based on those options it will create one of [**ConsoleLogger**, **FileLogger**, **RemoteLogger**] __explained below_.  
 Here is a little example:
@@ -106,13 +97,7 @@ We can set a level in three ways:
 You can also pass a set of options, like setting colored output, changing the format, and more.
 
 
-<!-- In this example we create a new logger with a severity of DEBUG (a severity is just the level of the log), and we set color to true.  
-This means it will output any log to the console as DEBUG englobes all other severities
-
-We create it making use of the `logging.getLogger(options?)` method that creates a logger based on the options.  
-_There are other ways of creating a Logger as described in the examples and docs_ -->
-
-##### Full example
+#### Full Example
 ```javascript
 // Require the logging library
 const logging = require('loggin-js');
@@ -156,7 +141,7 @@ logger.setEnabled(false);
 ```
 
 
-##### File Logging Example
+#### File Logging Example
 Log to files instead of the console
 
 We create it making use of the `FileLogger` class.  
@@ -201,7 +186,7 @@ logger.notice('Logging a notice log');
 logger.alert('Logging a error log');
 ```
 
-##### Custom Formatter Example
+#### Custom Formatter Example
 Custom formatter, customize the output of the log 
 ```javascript
 const logging = require('loggin-js');
@@ -245,11 +230,14 @@ logger.info('info', {data: 'Hi'}); // $ [2018-6-2 00:46:24] - root - INFO - info
 logger.error('There was an <%rERROR>'); 
 ```
 
+### 🐛 Found a bug?
+If you found a **bug** or like to leave a **feature request**, please [leave an issue](https://github.com/nombrekeff/express-loggin-js/issues/new/choose) and we will take care of it.
+> Just make sure it's not already filed.
 
-### Collaborating
+
+### 👊 Collaborating
 Hi there, if you like the project don't hesitate in collaborating (_if you like to_), submit a pull request, post an issue, ...   
-It's just a little sideproject, nothing serius, so its just for fun!  
-But any **help** or **ideas** are apreciated!
+Any **help** or **ideas** are apreciated!
 
 
 [RFC3164]: https://tools.ietf.org/html/rfc3164
