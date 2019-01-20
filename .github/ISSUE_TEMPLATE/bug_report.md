@@ -26,9 +26,9 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
- - Sdk Version: [e.g v1.0.23]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+ - Version: [e.g v1.0.23]
+ - NodeJS Version: [e.g v1.0.23]
+ - NPM Version: [e.g v1.0.23]
 
 **Additional context**
 Add any other context about the problem here.
