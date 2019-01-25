@@ -2,6 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 [![NPM quality][code-quality-badge]][code-quality-link]
+[![Quality](https://img.shields.io/codacy/grade/2ffe3b2f71c74210987436b935c06720.svg?style=flat-square)]()
 [![build status][travis-image]][travis-url]
 [![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]
