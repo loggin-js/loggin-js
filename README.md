@@ -2,6 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 [![NPM quality][code-quality-badge]][code-quality-link]
+[![Quality](https://img.shields.io/codacy/grade/2ffe3b2f71c74210987436b935c06720.svg?style=flat-square)]()
 [![build status][travis-image]][travis-url]
 [![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]
@@ -42,6 +43,7 @@ Log to the **console**, to a **file**, to a **remote service** or create a custo
 - [Usage](#usage)
   - [Using in node](#using-in-node)
   - [Using in express](#using-in-express)
+  - [Wiki](./loggin-js/wiki)
 - [Examples](#examples)
   - [Simplest Example](#simplest-example)
   - [Full Example](#full-example)
@@ -63,6 +65,7 @@ npm install loggin-js --save
 // Require the logging library
 const logging = require('loggin-js');
 ```
+Check the [wiki](./loggin-js/wiki) for more in depth documentation.
 
 #### Using in express
 Check [this](https://github.com/nombrekeff/express-loggin-js) other repo for better integration with express. 
