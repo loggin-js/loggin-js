@@ -27,18 +27,23 @@
 [docs:channel]: https://github.com/nombrekeff/loggin-js/wiki/channel
 [docs:logger-options]: https://github.com/nombrekeff/loggin-js/wiki/logger-options
 
-# Loggin'JS {v1.x.x} Docs
-[![NPM version][npm-image]][npm-url]
+<div align="center">
+
+<h1>Loggin'JS</h1>
+
+<p>
+A little customizable logger for NodeJS.  
+Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or create a custom one.
+</p>
+
+[![CircleCI](https://circleci.com/gh/nombrekeff/loggin-js.svg?style=svg)](https://circleci.com/gh/nombrekeff/loggin-js)  
 [![NPM quality][code-quality-badge]][code-quality-link]
-[![build status][travis-image]][travis-url]
+[![build status][travis-image]][travis-url]  
+[![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
 
-
-A little customizable logger for NodeJS.  
-Log to the **console**, to a **file**, to a **remote service** or create a custom one.
-> **Quick Links:**
 [`🔗 .getLogger`][docs:getLogger]
 [`🔗 Logger`][docs:logger]
 [`🔗 Level`][docs:severity]
@@ -46,9 +51,22 @@ Log to the **console**, to a **file**, to a **remote service** or create a custo
 [`🔗 Formatter`][docs:formatter]
 [`🔗 Notifier`][docs:notifiers]
 [`🔗 Options`][docs:logger-options]
+</div>
 
+****
 
-### Bump to `v1.x`
+## Table Of Content <!-- omit in toc -->
+- [Bump to `v1.x`](#bump-to-v1x)
+- [Features](#features)
+- [Get-Started](#get-started)
+- [Usage](#usage)
+  - [Importing](#importing)
+  - [Examples](#examples)
+    - [Simple example](#simple-example)
+  - [Configuring logger](#configuring-logger)
+  - [Collaborating](#collaborating)
+
+## Bump to `v1.x`
 Bump to version `v1.x` is hopefully an improvement over the old **API** an the general cohesion of the library, here are some features:
 * Straight Forward
 * Comprensible
@@ -61,13 +79,6 @@ Bump to version `v1.x` is hopefully an improvement over the old **API** an the g
 * ✔︎ Easy 
 * ✔︎ Customizable
 * ✔︎ Liteweighted
-
-## Docs & Community
-* [Get started](#get-started)
-* [Usage](#usage)
-* [Examples](#examples)
-* [Collaborating](#collaborating)
-* [Docs](https://github.com/nombrekeff/logging-js/wiki)
 
 ## Get-Started
 * Install with npm
