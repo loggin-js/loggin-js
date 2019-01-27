@@ -22,10 +22,13 @@
 [docs:severity]: https://github.com/nombrekeff/loggin-js/wiki/Severity
 [docs:notifiers]: https://github.com/nombrekeff/loggin-js/wiki/Notifiers
 [docs:formatter]: https://github.com/nombrekeff/loggin-js/wiki/formatters
-[docs:logger]: https://github.com/nombrekeff/loggin-js/wiki/logger
+[docs:Logger]: https://github.com/nombrekeff/loggin-js/wiki/logger
 [docs:getLogger]: https://github.com/nombrekeff/loggin-js/wiki/getLogger
 [docs:channel]: https://github.com/nombrekeff/loggin-js/wiki/channel
 [docs:logger-options]: https://github.com/nombrekeff/loggin-js/wiki/logger-options
+[docs:helper:logger]: https://github.com/nombrekeff/loggin-js/wiki/helper-logger
+[docs:helper:notifier]: https://github.com/nombrekeff/loggin-js/wiki/helper-notifier
+[docs:helper:formatter]: https://github.com/nombrekeff/loggin-js/wiki/helper-formatter
 
 <div align="center">
 
@@ -63,7 +66,9 @@ Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or creat
   - [Importing](#importing)
   - [Examples](#examples)
     - [Simple example](#simple-example)
-  - [Configuring logger](#configuring-logger)
+  - [Customizing the formatter](#customizing-the-formatter)
+  - [Adding notifiers](#adding-notifiers)
+  - [Modifying options](#modifying-options)
   - [Collaborating](#collaborating)
 
 ## Bump to `v1.x`
@@ -99,54 +104,77 @@ const logging = require('loggin-js');
 ```
 
 ### Examples
-#### Simple example
-The easiest way of creating a logger is by using the [`.getLogger`][docs:getLogger] method.  
-It will return a logger based on the options passed, but let's make it simple for now.
+We can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel a.k.a ([Notifiers][docs:notifiers]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
 
-By default it will return a console [**logger**][docs:logger], with a [**level**][docs:severity] of `DEBUG`,   
-and the [**channel**][docs:channel] set to the current filename, the channel is just an identifier for the logger.
+#### Simple example
+The easiest way of creating a logger is by using the [`.logger`][docs:helper:logger] method.  
+It can return several types and pre-configured loggers, but let's make it simple for now,  
+let's create the most simple logger posible:
 ```js
 // You know the drill, import the lib
 const loggin = require('loggin-js');
 
-// Create a default logger
+// create a logger making use of '.logger'
+// and boom, you are rolling! ;)
 const logger = loggin.logger();
 
-// Log a debug message
-logger.debug('A cool message');
+// now you can cut some wood!
+logger.info('A good message');
+logger.error('Not so good, eh?');
 ```
-The above would output something like:
-```bash
-[2018-06-02 00:46:24 root] - example.js - DEBUG - A cool message
+By default `.logger()` will return a logger set to [level][docs:severity] **DEBUG** with a **detailed** [formatter][docs:formatter],  
+wich would output something like this through the **console**:
+```zsh
+$ [2018-06-02 00:46:24 root] - example.js - DEBUG - A cool message
 ```
 
-### Configuring logger
-
-Now let's see how you could configure our logger a bit.
-You can customize mostly every aspect of the logger, you can create custom **Formatters**, custom [**Notifier**][docs:notifiers] and change every important [**option**][docs:logger-options] after creating the logger.
-
-For example we can create a custom [**Formatter**][docs:formatter] that prints just the data we want:
+### Customizing the formatter
+Now let's see how we could configure our logger a bit.  
+For example, let's create a logger that only logs the channel and the message of the log,  
+for this we could do the following:
 ```js
 const logger = loggin.logger();
 
-const formatter = loggin.formatter('[{channel}] {message} - {data!json}');
+// Create a formatter using the 'formatter' helper function,  
+// internally it uses 'strif' for templating
+const formatter = loggin.formatter('[{channel}] {message}');
+
+// now set the formatter
 logger.formatter(formatter);
 ```
+Should output:
+```zsh
+$ [example.js] A cool message
+```
 
-We can also specify one or more [**notifiers**][docs:notifiers], wich could log to a file, 
-to the console, to a remote service or some other custom notifier:
+### Adding notifiers
+We can also specify one or more [**notifiers**][docs:notifiers], wich could log to a **file**, 
+to the **console**, to a remote service or some other custom notifier:
 ```js
 const logger = loggin.logger();
 
-const notifier = new loggin.Notifier.File(opts);
-const notifier2 = new loggin.Notifier.Remote(opts);
-logger.notifier(notifier, notifier2);
-```
+// Easiest way is by using the 'notifier' helper function
+const consoleNotif = loggin.notifier('console', { level: 'debug' });
 
+// You can also use the available class
+const fileNotif = new loggin.Notifier.File({});
+// with file notifiers you can specify where to pipe the logs 
+// based on some severity using the 'pipe' method
+fileNotif.pipe(Severity.ERROR, 'logs/error-logs.log');
+fileNotif.pipe(Severity.DEBUG, 'logs/debug-logs.log');
+
+// Now add them both to the logger
+logger.notifier(consoleNotif, fileNotif);
+```
+Above logger will send every log through both notifiers:
+* **consoleNotif** will log everithing to the console
+* **fileNotif** will log **ERROR** logs to file `logs/error-logs.log` and everything to `logs/debug-logs.log`
+
+
+### Modifying options
 After creating the logger we can change most of the options, like the [**level**][docs:severity], the [**channel**][docs:channel], etc... For example:
 ```js
 const logger = loggin.logger();
-
 
 logger
   .level('DEBUG')
