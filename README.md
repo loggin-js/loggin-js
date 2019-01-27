@@ -39,14 +39,13 @@
 [![build status][travis-image]][travis-url]
 [![NPM quality][code-quality-badge]][code-quality-link]
 
-
-[`🔗 .getLogger`][docs:getLogger]
+<!-- 
 [`🔗 Logger`][docs:logger]
 [`🔗 Level`][docs:severity]
 [`🔗 Channel`][docs:channel]
 [`🔗 Formatter`][docs:formatter]
 [`🔗 Notifier`][docs:notifiers]
-[`🔗 Options`][docs:logger-options]
+[`🔗 Options`][docs:logger-options] -->
 
 <p>
 A little customizable logger for NodeJS.  
