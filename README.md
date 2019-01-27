@@ -76,7 +76,6 @@ Bump to version `v1.x` is hopefully an improvement over the old **API** an the g
 * Straight Forward
 * Comprensible
 * More Composable
-* 
 
 > **!NOTICE!** Api not compatible with v0.x
 
@@ -104,7 +103,7 @@ const logging = require('loggin-js');
 ```
 
 ### Examples
-We can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel a.k.a ([Notifiers][docs:notifiers]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
+You can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel a.k.a ([Notifiers][docs:notifiers]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
 
 #### Simple example
 The easiest way of creating a logger is by using the [`.logger`][docs:helper:logger] method.  
@@ -129,9 +128,10 @@ $ [2018-06-02 00:46:24 root] - example.js - DEBUG - A cool message
 ```
 
 ### Customizing the formatter
-Now let's see how we could configure our logger a bit.  
-For example, let's create a logger that only logs the channel and the message of the log,  
-for this we could do the following:
+Now let's see how you could configure your logger a bit. Internally **loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing, check it out for more details on how to create you own templates.  
+
+For the moment, let's create a logger that only logs the channel and the message of the log,  
+for this you could do the following:
 ```js
 const logger = loggin.logger();
 
