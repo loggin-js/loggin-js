@@ -1,11 +1,4 @@
-# Loggin' JS
 
-[![NPM version][npm-image]][npm-url]
-[![NPM quality][code-quality-badge]][code-quality-link]
-[![build status][travis-image]][travis-url]
-[![Downloads][downloads-badge]][downloads-link]
-[![Dependencies][dependencies-badge]][dependencies-link]
-[![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
 
 <!-- Links -->
 [npm-image]: https://img.shields.io/npm/v/loggin-js.svg?style=flat-square
@@ -27,24 +20,56 @@
 [vulnerabilities-link]: https://snyk.io/test/npm/loggin-js
 
 [docs:severity]: https://github.com/nombrekeff/loggin-js/wiki/Severity
+[docs:notifiers]: https://github.com/nombrekeff/loggin-js/wiki/Notifiers
+[docs:formatter]: https://github.com/nombrekeff/loggin-js/wiki/formatters
+[docs:logger]: https://github.com/nombrekeff/loggin-js/wiki/logger
+[docs:getLogger]: https://github.com/nombrekeff/loggin-js/wiki/getLogger
+[docs:channel]: https://github.com/nombrekeff/loggin-js/wiki/channel
+[docs:logger-options]: https://github.com/nombrekeff/loggin-js/wiki/logger-options
+
+# Loggin'JS {v1.x.x} Docs
+[![NPM version][npm-image]][npm-url]
+[![NPM quality][code-quality-badge]][code-quality-link]
+[![build status][travis-image]][travis-url]
+[![Downloads][downloads-badge]][downloads-link]
+[![Dependencies][dependencies-badge]][dependencies-link]
+[![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
+
 
 A little customizable logger for NodeJS.  
-Log to the **console**, to a **file**, to a **remote service** or some other channel.
+Log to the **console**, to a **file**, to a **remote service** or create a custom one.
+> **Quick Links:**
+[`🔗 .getLogger`][docs:getLogger]
+[`🔗 Logger`][docs:logger]
+[`🔗 Level`][docs:severity]
+[`🔗 Channel`][docs:channel]
+[`🔗 Formatter`][docs:formatter]
+[`🔗 Notifier`][docs:notifiers]
+[`🔗 Options`][docs:logger-options]
 
- 
-### Features
+
+### Bump to `v1.x`
+Bump to version `v1.x` is hopefully an improvement over the old **API** an the general cohesion of the library, here are some features:
+* Straight Forward
+* Comprensible
+* More Composable
+* 
+
+> **!NOTICE!** Api not compatible with v0.x
+
+## Features
 * ✔︎ Easy 
 * ✔︎ Customizable
 * ✔︎ Liteweighted
 
-### Docs & Community
+## Docs & Community
 * [Get started](#get-started)
-* [Usage](#basic-usage)
-* [Examples](https://github.com/nombrekeff/loggin-js/tree/master/examples)
+* [Usage](#usage)
+* [Examples](#examples)
 * [Collaborating](#collaborating)
 * [Docs](https://github.com/nombrekeff/logging-js/wiki)
 
-### Get-Started
+## Get-Started
 * Install with npm
 ```bash
 npm install loggin-js --save
@@ -55,193 +80,70 @@ npm install loggin-js --save
 node run examples/basic-example.js
 ```
 
-### Usage
-#### Using in node
+## Usage
+### Importing
 ```javascript
 // Require the logging library
 const logging = require('loggin-js');
 ```
-<!-- #### Using in browser #IN-PROCESS -->
-<!-- ```html
-<script src="./node_modules/loggin-js/build/loggin-js.min.js"></script>
-<script>
-  let logger = LogginJS.createLogger();
-</script>
-``` -->
-
 
 ### Examples
-##### Simplest Example
-The fastest way of creating a logger is by using the `.getLogger` method wich creates a logger based on some options.  
-Based on those options it will create one of [**ConsoleLogger**, **FileLogger**, **RemoteLogger**] __explained below_.  
-Here is a little example:
+#### Simple example
+The easiest way of creating a logger is by using the [`.getLogger`][docs:getLogger] method.  
+It will return a logger based on the options passed, but let's make it simple for now.
+
+By default it will return a console [**logger**][docs:logger], with a [**level**][docs:severity] of `DEBUG`,   
+and the [**channel**][docs:channel] set to the current filename, the channel is just an identifier for the logger.
 ```js
-const logging = require('loggin-js');
-const logger = loggin.getLogger({ channel: 'my-cool-app' });
+// You know the drill, import the lib
+const loggin = require('loggin-js');
 
-logger.debug('User is loggin in');
+// Create a default logger
+const logger = loggin.logger();
+
+// Log a debug message
+logger.debug('A cool message');
+```
+The above would output something like:
+```bash
+[2018-06-02 00:46:24 root] - example.js - DEBUG - A cool message
 ```
 
-Now let's check the `.getLogger` method a bit more in depth.  
-All `Loggers` and `.getLogger` accept what is called a `Severity` **level**, wich is used internally for filtering and managing log output. You can check more info about Severities [here]().  
+### Configuring logger
 
-We can set a level in three ways:
-1. Passing a string ([info][docs:severity]): 
-    ```js
-    logger.getLogger({ level: 'DEBUG' })
-    ```
-1. Passing an int ([info][docs:severity]): 
-    ```js
-    logger.getLogger({ level: 9 })
-    ```
-3. Passing a severity instance ([info][docs:severity]): 
-    ```js
-    const { Severity } = logging;
-    logging.getLogger({ level: Severity.DEBUG });
-    ```
+Now let's see how you could configure our logger a bit.
+You can customize mostly every aspect of the logger, you can create custom **Formatters**, custom [**Notifier**][docs:notifiers] and change every important [**option**][docs:logger-options] after creating the logger.
 
-You can also pass a set of options, like setting colored output, changing the format, and more.
+For example we can create a custom [**Formatter**][docs:formatter] that prints just the data we want:
+```js
+const logger = loggin.logger();
 
-
-<!-- In this example we create a new logger with a severity of DEBUG (a severity is just the level of the log), and we set color to true.  
-This means it will output any log to the console as DEBUG englobes all other severities
-
-We create it making use of the `logging.getLogger(options?)` method that creates a logger based on the options.  
-_There are other ways of creating a Logger as described in the examples and docs_ -->
-
-##### Full example
-```javascript
-// Require the logging library
-const logging = require('loggin-js');
-
-// Shortcuts
-const { Severity } = logging;
-
-// Get a logger with DEBUG severity. 
-// Severity DEBUG will output any severity.
-const logger = logging.getLogger({
-  
-  // level can be a <string> = 'DEBUG' a <int> = 7 or a <Severity> = Severity.DEBUG 
-  level: 'DEBUG',
-
-  // If output should be colored
-  color: true,
-
-  // Set formatter to medium - one of: ['short', 'medium', 'long']
-  formatter: 'medium',
-});
-
-// Does the same as passing into settings, as done above
-logger.setLevel(Severity.DEBUG);
-logger.setColor(true);
-logger.setFormatter('medium');
-
-
-// Available predefined log levels
-logger.info('info', { user: 'pedro', id: 10 });
-logger.error('error');
-logger.warning('warning');
-logger.alert('alert');
-logger.emergency('emergency');
-logger.critical('critical');
-logger.debug('debug');
-logger.notice('Notice', {}, 'channel');
-
-
-// If enabled set to false logs will not be output
-logger.setEnabled(false);
+const formatter = loggin.formatter('[{channel}] {message} - {data!json}');
+logger.formatter(formatter);
 ```
 
+We can also specify one or more [**notifiers**][docs:notifiers], wich could log to a file, 
+to the console, to a remote service or some other custom notifier:
+```js
+const logger = loggin.logger();
 
-##### File Logging Example
-Log to files instead of the console
-
-We create it making use of the `FileLogger` class.  
-```javascript
-// Require the logging library
-const logging = require('loggin-js');
-
-// Shortcut for the severity constants
-const { Severity, Loggers, Notifiers } = logging;
-
-// Create a file logger
-const logger = new Loggers.FileLogger({
-  
-  // Display line number at the begining of the log 
-  lineNumbers: true,
-
-  // You can pass a pipes array to the file logger or you can do after instancing (showed below)
-  pipes: [
-
-    // Here we create a pipe that will pipe level ERROR logs to the file 'logs/error-logs.log'
-    new Notifiers.Pipe(Severity.ERROR, 'logs/error-logs.log'),
-
-    // This one will pipe level INFO logs to the file 'logs/info-logs.log'
-    new Notifiers.Pipe(Severity.INFO, 'logs/info-logs.log')
-  ]
-});
-
-// You can also add pipes after creating the logger as follows
-logger.pipe(Severity.ERROR, 'logs/error-logs.log');
-logger.pipe(Severity.INFO, 'logs/info-logs.log');
-
-
-// INFO message will log to 'logs/info-logs.log'
-logger.info('Logging a info log');
-
-// ERROR message will log to 'logs/error-logs.log'
-logger.error('Logging a error log', new Error('An error'));
-
-// Will not be logged as only the ERROR and INFO severities will be output to their respective files
-logger.warning('Logging a warning log');
-logger.notice('Logging a notice log');
-logger.alert('Logging a error log');
+const notifier = new loggin.Notifier.File(opts);
+const notifier2 = new loggin.Notifier.Remote(opts);
+logger.notifier(notifier, notifier2);
 ```
 
-##### Custom Formatter Example
-Custom formatter, customize the output of the log 
-```javascript
-const logging = require('loggin-js');
-const logger = logging.getLogger({
-  level: logging.Severity.DEBUG,
-  color: true,
-
-  /**
-   * You can also use a custom formatter if the default one does not satisfy your needs.
-   * In the formatter you can access all log properties and you can also set the 
-   * color of some segments of the log by using <%L> where L is one of:
-   *  - r red
-   *  - g green
-   *  - gr gray
-   *  - b blue
-   *  - p pink
-   *  - y yellow
-   *  - c cyan
-   *  - m magenta
-   *  - (nnn) a number between 0-255 # not implemented yet
-   */
-  formatter: '[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(data)}'
-});
-
-// Set user to root
-logger.setUser('root');
-
-// Set formatter
-logger.setFormatter('[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(message)}');
-
-// Log something
-logger.debug('debug');             // $ [2018-6-2 00:46:24] - root - DEBUG - debug
-logger.info('info', {data: 'Hi'}); // $ [2018-6-2 00:46:24] - root - INFO - info - {"data":"Hi"}
+After creating the logger we can change most of the options, like the [**level**][docs:severity], the [**channel**][docs:channel], etc... For example:
+```js
+const logger = loggin.logger();
 
 
-/**
- * Aditionally you can set the color of some parts of the message:
- * The output will be something like, with the last ERROR beeing red:
- * $ [2018-6-2 00:46:24] - root - ERROR - There was an ERROR 
- */
-logger.error('There was an <%rERROR>'); 
+logger
+  .level('DEBUG')
+  .color(true)
+  .channel('super-app');
+
+logger.debug('A cool message');
 ```
-
 
 ### Collaborating
 Hi there, if you like the project don't hesitate in collaborating (_if you like to_), submit a pull request, post an issue, ...   
