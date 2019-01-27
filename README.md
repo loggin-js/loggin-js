@@ -31,8 +31,6 @@
 A little customizable logger for NodeJS.  
 Log to the **console**, to a **file**, to a **remote service** or some other channel.
 
-### Bump to `v1.x`
-Bump to version `v1.x` is hopefully an inprovement in the api an general cohesion of the library, hopefully you find it so!
  
 ### Features
 * ✔︎ Easy 
