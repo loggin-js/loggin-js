@@ -31,18 +31,14 @@
 
 <h1>Loggin'JS</h1>
 
-<p>
-A little customizable logger for NodeJS.  
-Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or create a custom one.
-</p>
-
-[![CircleCI](https://circleci.com/gh/nombrekeff/loggin-js.svg?style=svg)](https://circleci.com/gh/nombrekeff/loggin-js)  
-[![NPM quality][code-quality-badge]][code-quality-link]
-[![build status][travis-image]][travis-url]  
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]
-[![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
+[![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]  
+[![CircleCI](https://circleci.com/gh/nombrekeff/loggin-js.svg?style=svg)](https://circleci.com/gh/nombrekeff/loggin-js)
+[![build status][travis-image]][travis-url]
+[![NPM quality][code-quality-badge]][code-quality-link]
+
 
 [`🔗 .getLogger`][docs:getLogger]
 [`🔗 Logger`][docs:logger]
@@ -51,6 +47,11 @@ Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or creat
 [`🔗 Formatter`][docs:formatter]
 [`🔗 Notifier`][docs:notifiers]
 [`🔗 Options`][docs:logger-options]
+
+<p>
+A little customizable logger for NodeJS.  
+Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or create a custom one.
+</p>
 </div>
 
 ****
