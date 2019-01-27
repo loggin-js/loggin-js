@@ -40,7 +40,8 @@
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]  
 [![CircleCI](https://circleci.com/gh/nombrekeff/loggin-js.svg?style=svg)](https://circleci.com/gh/nombrekeff/loggin-js)
 [![build status][travis-image]][travis-url]
-[![NPM quality][code-quality-badge]][code-quality-link]
+[![NPM quality][code-quality-badge]][code-quality-link]  
+![](https://img.shields.io/badge/PRs-welcome-green.svg)  
 
 <!-- 
 [`🔗 Logger`][docs:logger]
@@ -187,9 +188,21 @@ logger.debug('A cool message');
 ```
 
 ### Collaborating
-Hi there, if you like the project don't hesitate in collaborating (_if you like to_), submit a pull request, post an issue, ...   
-It's just a little sideproject, nothing serius, so its just for fun!  
-But any **help** or **ideas** are apreciated!
+Pull requests are welcome, as well as any other type of contribution. 
 
+#### Setting up <!-- omit in toc -->
+```zsh
+# clone the repo
+$ git clone git@github.com:nombrekeff/loggin-js.git
+
+# enter the project
+$ cd loggin-js
+
+# install dependencies
+$ npm install
+
+# run tests
+$ npm test
+```
 
 [RFC3164]: https://tools.ietf.org/html/rfc3164
