@@ -32,7 +32,7 @@
 
 <div align="center">
 
-<h1>Loggin'JS</h1>
+# Loggin'JS ![](https://img.shields.io/badge/PRs-welcome-green.svg)
 
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-badge]][downloads-link]
@@ -41,7 +41,7 @@
 [![CircleCI](https://circleci.com/gh/nombrekeff/loggin-js.svg?style=svg)](https://circleci.com/gh/nombrekeff/loggin-js)
 [![build status][travis-image]][travis-url]
 [![NPM quality][code-quality-badge]][code-quality-link]  
-![](https://img.shields.io/badge/PRs-welcome-green.svg)  
+  
 
 <!-- 
 [`🔗 Logger`][docs:logger]
