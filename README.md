@@ -72,12 +72,14 @@ Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or creat
   - [Collaborating](#collaborating)
 
 ## Bump to `v1.x`
-Bump to version `v1.x` is hopefully an improvement over the old **API** an the general cohesion of the library, here are some features:
-* Straight Forward
-* Comprensible
-* More Composable
-
+> Reasons of the bump were primarly design changes in the **API**, and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
 > **!NOTICE!** Api not compatible with v0.x
+
+Hopefully the bump to version `v1.x` is an improvement over the old **API** an the general cohesion of the library, here are some features and changes:
+* Made a bit more straight forward
+* Made more comprensible
+* Made more composable
+
 
 ## Features
 * ✔︎ Easy 
@@ -148,7 +150,7 @@ $ [example.js] A cool message
 ```
 
 ### Adding notifiers
-We can also specify one or more [**notifiers**][docs:notifiers], wich could log to a **file**, 
+You can also specify one or more [**notifiers**][docs:notifiers], wich could log to a **file**, 
 to the **console**, to a remote service or some other custom notifier:
 ```js
 const logger = loggin.logger();
