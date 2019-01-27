@@ -1,5 +1,10 @@
 'use strict';
+
+const path = require('path');
+
 const Logger = require('./lib/logger');
+
+// Remove in next minor version
 const {
   FileLogger,
   RemoteLogger,
@@ -7,8 +12,9 @@ const {
   LoggerPack,
   MemoryLogger
 } = require('./lib/loggers');
+
 const Notifiers = require('./lib/notifiers');
-const { Formatter } = require('./lib/formatters');
+const Formatter = require('./lib/formatters');
 const Severity = require('./lib/severity');
 const Log = require('./lib/log');
 
@@ -33,6 +39,9 @@ process.env.DEBUG = false;
  * @return {ConsoleLogger|FileLogger|RemoteLogger}
  */
 function getLogger(options = {}) {
+
+  console.log('WARN: method "getLogger" is deprecated as of v1.x, please use "logger" instead.');
+
   let loggerOpts = {
     ...defaultOpts,
     ...options
@@ -61,6 +70,15 @@ function getLogger(options = {}) {
   return logger;
 }
 
+const DefaultLoggerOptions = {
+  level: Severity.DEBUG,
+  user: require('os').userInfo().username,
+  channel: path.basename(process.argv[1]),
+  formatter: formatter('detailed'),
+  enabled: true,
+  color: true,
+};
+
 /**
  * @param {Object} options
  * @param {number} options.level?
@@ -71,14 +89,42 @@ function getLogger(options = {}) {
  * @param {string} options.filepath?
  * @param {string} options.formatter?
  * @param {string[]} options.pipes? */
-function logger(opts = {}) {
-  return new Logger.V2(opts);
+function logger(opts = {}, rest) {
+  if (
+    typeof opts === 'string' && ['file', 'console', 'remote', 'memory', 'default'].includes(opts)
+  ) {
+    let options = {
+      ...DefaultLoggerOptions,
+      ...rest
+    }
+    let notifier = new Notifiers.Console(options);
+    switch (opts) {
+      case 'file':
+        notifier = new Notifiers.File(options);
+        break;
+      case 'default':
+        notifier = new Notifiers.Console(options);
+        break;
+      case 'remote':
+        notifier = new Notifiers.Remote(options);
+        break;
+      case 'memory':
+        notifier = new Notifiers.Memory(options);
+        break;
+    }
+    return new Logger.V2(options, notifier);
+  } else if (typeof opts === 'object') {
+    let options = {
+      ...DefaultLoggerOptions,
+      ...opts
+    }
+    return new Logger.V2(options);
+  }
 }
 
 function notifier(opts, args = {}) {
   if (
-    typeof opts === 'string'
-    && ['file', 'console', 'remote', 'memory'].includes(opts)
+    typeof opts === 'string' && ['file', 'console', 'remote', 'memory'].includes(opts)
   ) {
     switch (opts) {
       case 'file':
@@ -99,8 +145,7 @@ function notifier(opts, args = {}) {
 
 function formatter(opts) {
   if (
-    typeof opts === 'string'
-    && ['short', 'medium', 'long', 'detailed', 'minimal'].includes(opts)
+    typeof opts === 'string' && ['short', 'medium', 'long', 'detailed', 'minimal'].includes(opts)
   ) {
     switch (opts) {
       case 'short':
