@@ -61,6 +61,16 @@ Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or creat
 
 ****
 
+## Bump to `v1.x`
+> Reasons of the bump were primarly design changes in the **API**, and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
+> **!NOTICE!** Api not compatible with v0.x
+
+Hopefully the bump to version `v1.x` is an improvement over the old **API** an the general cohesion of the library, here are some features and changes:
+* Made a bit more straight forward
+* Made more comprensible
+* Made more composable
+* Better typing
+
 ## Table Of Content <!-- omit in toc -->
 - [Bump to `v1.x`](#bump-to-v1x)
 - [Features](#features)
@@ -76,16 +86,6 @@ Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or creat
   - [Modifying options](#modifying-options)
   - [Custom Notifiers/Formatters/...](#custom-notifiersformatters)
 - [Collaborating](#collaborating)
-
-## Bump to `v1.x`
-> Reasons of the bump were primarly design changes in the **API**, and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
-> **!NOTICE!** Api not compatible with v0.x
-
-Hopefully the bump to version `v1.x` is an improvement over the old **API** an the general cohesion of the library, here are some features and changes:
-* Made a bit more straight forward
-* Made more comprensible
-* Made more composable
-
 
 ## Features
 * ✔︎ Easy 
