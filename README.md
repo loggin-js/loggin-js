@@ -36,7 +36,7 @@
 
 # Loggin'JS ![](https://img.shields.io/badge/PRs-welcome-green.svg) <!-- omit in toc -->
 
-![](./.github/code-example.png)
+<!-- ![](./.github/code-example.png) -->
 
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-badge]][downloads-link]
