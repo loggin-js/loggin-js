@@ -30,10 +30,11 @@
 [docs:helper:logger]: https://github.com/nombrekeff/loggin-js/wiki/helper-logger
 [docs:helper:notifier]: https://github.com/nombrekeff/loggin-js/wiki/helper-notifier
 [docs:helper:formatter]: https://github.com/nombrekeff/loggin-js/wiki/helper-formatter
+[docs:customizing]: https://github.com/nombrekeff/loggin-js/wiki/customizing
 
 <div align="center">
 
-# Loggin'JS ![](https://img.shields.io/badge/PRs-welcome-green.svg)
+# Loggin'JS ![](https://img.shields.io/badge/PRs-welcome-green.svg) <!-- omit in toc -->
 
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-badge]][downloads-link]
@@ -61,18 +62,20 @@ Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or creat
 ****
 
 ## Table Of Content <!-- omit in toc -->
-- [Loggin'JS ![](https://img.shields.io/badge/PRs-welcome-green.svg)](#logginjs-httpsimgshieldsiobadgeprs-welcome-greensvg)
-  - [Bump to `v1.x`](#bump-to-v1x)
-  - [Features](#features)
-  - [Get-Started](#get-started)
-  - [Usage](#usage)
-    - [Importing](#importing)
-    - [Examples](#examples)
-      - [Simple example](#simple-example)
-    - [Customizing the logger](#customizing-the-logger)
-    - [Adding notifiers](#adding-notifiers)
-    - [Modifying options](#modifying-options)
-    - [Collaborating](#collaborating)
+- [Bump to `v1.x`](#bump-to-v1x)
+- [Features](#features)
+- [Installing](#installing)
+  - [With npm](#with-npm)
+  - [With yarn](#with-yarn)
+- [Usage](#usage)
+  - [Importing](#importing)
+  - [Examples](#examples)
+    - [Simple example](#simple-example)
+  - [Customizing the logger](#customizing-the-logger)
+  - [Adding notifiers](#adding-notifiers)
+  - [Modifying options](#modifying-options)
+  - [Custom Notifiers/Formatters/...](#custom-notifiersformatters)
+- [Collaborating](#collaborating)
 
 ## Bump to `v1.x`
 > Reasons of the bump were primarly design changes in the **API**, and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
@@ -88,16 +91,15 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
 * ✔︎ Easy 
 * ✔︎ Customizable
 * ✔︎ Liteweighted
-
-## Get-Started
-* Install with npm
+## Installing
+### With npm
 ```bash
 npm install loggin-js --save
 ```
 
-* Test it works, and see how it looks:
+### With yarn
 ```bash
-node run examples/basic-example.js
+npm install loggin-js --save
 ```
 
 ## Usage
@@ -205,10 +207,15 @@ logger.debug('A cool message');
 > If you just want to afect one notifier, you must have created it yourself and passed it into the logger.
 ****
 
-### Collaborating
+
+### Custom Notifiers/Formatters/...
+You can create you own Notifiers and Formatters and more, just check [this][docs:customizing] out!
+
+
+## Collaborating
 Pull requests are welcome, as well as any other type of contribution. 
 
-#### Setting up <!-- omit in toc -->
+## Setting up <!-- omit in toc -->
 ```zsh
 # clone the repo
 $ git clone git@github.com:nombrekeff/loggin-js.git
