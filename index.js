@@ -73,7 +73,7 @@ function getLogger(options = {}) {
 const DefaultLoggerOptions = {
   level: Severity.DEBUG,
   user: require('os').userInfo().username,
-  channel: path.basename(process.argv[1]),
+  channel: path.basename(__filename),
   formatter: formatter('detailed'),
   enabled: true,
   color: true,
@@ -128,15 +128,15 @@ function notifier(opts, args = {}) {
   ) {
     switch (opts) {
       case 'file':
-        return new Notifiers.FileNotifier(args);
+        return new Notifiers.File(args);
       case 'console':
-        return new Notifiers.ConsoleNotifier(args);
+        return new Notifiers.Console(args);
       case 'remote':
-        return new Notifiers.RemoteNotifier(args);
+        return new Notifiers.Remote(args);
       case 'memory':
-        return new Notifiers.MemoryNotifier(args);
+        return new Notifiers.Memory(args);
       default:
-        return new Notifiers.ConsoleNotifier(args);
+        return new Notifiers.Console(args);
     }
   } else if (typeof opts === 'object') {
     return new Notifiers.Notifier(opts);
