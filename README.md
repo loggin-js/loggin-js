@@ -33,6 +33,9 @@
 A little customizable logger for NodeJS.  
 Log to the **console**, to a **file**, to a **remote service** or create a custom one.
 
+
+> Check out the new **v1.x** beta [here](https://www.npmjs.com/package/loggin-js/v/1.0.0-beta1)
+
 ### Features <!-- omit in toc -->
 * ✔︎ Easy 
 * ✔︎ Customizable
@@ -43,7 +46,6 @@ Log to the **console**, to a **file**, to a **remote service** or create a custo
 - [Usage](#usage)
   - [Using in node](#using-in-node)
   - [Using in express](#using-in-express)
-  - [Wiki](./loggin-js/wiki)
 - [Examples](#examples)
   - [Simplest Example](#simplest-example)
   - [Full Example](#full-example)
