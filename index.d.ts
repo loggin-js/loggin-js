@@ -1,51 +1,67 @@
 // Type definitions for loggin-js
+const strif = require('strif');
 
+
+export interface Log {
+  message: string;
+  data: string;
+  severity: Severity;
+  channel: string;
+  severityStr: string;
+  time: string;
+  user: string;
+
+  /**
+   * This is kinda weird, need to refactor, PR's welcome
+   */
+  replaceables: [{ regexp: RegExp, fn: (str: string) => string }];
+
+  /**
+   * Colors logs, predefined segments will be colored as well as anything matching `<%gTEXT>`
+   * Check the wiki for more info on formating
+   * @param str 
+   */
+  colored(str): string;
+  format(formatter: Formatter): string;
+}
+
+export interface Formatter {
+  constructor(template: strif.StrifTemplate): Formatter;
+  static format(log, formatter: Formatter, color: boolean = false): string;
+}
 
 export namespace Loggers {
-  class ConsoleLogger extends Loggers.Logger {
+  class Console extends Loggers.Logger {
     constructor(options: Loggers.Options);
   }
 
-  class FileLogger extends Loggers.Logger {
+  class File extends Loggers.Logger {
     constructor(options: Loggers.Options);
   }
 
-  class RemoteLogger extends Loggers.Logger {
+  class Remote extends Loggers.Logger {
     constructor(options: Loggers.Options);
   }
 
-  class MemoryLogger extends Loggers.Logger {
+  class Memory extends Loggers.Logger {
     constructor(options: Loggers.Options);
   }
 
-  class LoggerPack extends Loggers.Logger {
+  class Logger extends Loggers.Logger {
     constructor(options: Loggers.Options);
   }
 
   class Logger {
-    constructor(notifier: Notifiers.Notifier, options: Loggers.Options);
+    constructor(options: Loggers.Options, ...notifier: Notifiers.Notifier);
 
-    setEnabled(enabled: boolean);
-    isEnabled(): boolean;
-
-    setUser(user: string);
-    getUser(): string;
-
-    setChannel(channel: boolean);
-    getChannel(): boolean;
-
-    setLevel(level: number | string | Severity);
-    getLevel(): Severity;
-
-    setFormatter(str: string);
-    getFormatter(): string;
-
-    setColor(enable: boolean);
-    getColor(): boolean;
-
+    enabled(enabled?: boolean): this;
+    user(user?: string): this;
+    channel(channel?: boolean): this;
+    level(level?: number | string | Severity): this;
+    formatter(str?: string): this;
+    color(enable: boolean): this;
+    lineNumbers(show: boolean): this;
     canLog(severity: Severity): boolean;
-
-    showLineNumbers(show: boolean);
 
     /**
      * Log a message to set notifier
@@ -158,6 +174,7 @@ export namespace Loggers {
     user?: string;
     channel?: string;
     formatter?: string;
+    notifiers?: Notifiers.Notifier[]
   }
 }
 
@@ -166,8 +183,6 @@ export namespace Loggers {
  */
 export class Severity {
   constructor(level: number, name: string, englobes: Severity[], fileLogginLevel: Severity);
-
-
 
   static EMERGENCY: Severity;
   static ALERT: Severity;
@@ -180,42 +195,47 @@ export class Severity {
 }
 
 export namespace Notifiers {
-  class ConsoleNotifier extends loggin.Notifiers.Notifier {
-
-  }
-
-  class FileNotifier extends loggin.Notifiers.Notifier {
-
-  }
-
-  class RemoteNotifier extends loggin.Notifiers.Notifier {
-
-  }
-
-  class MemoryNotifier extends loggin.Notifiers.Notifier {
-
-  }
-
+  class Console extends loggin.Notifiers.Notifier { }
+  class File extends loggin.Notifiers.Notifier { }
+  class Remote extends loggin.Notifiers.Notifier { }
+  class Memory extends loggin.Notifiers.Notifier { }
   class Notifier {
-    constructor(options);
+    constructor(options): Notifier;
+
+    canOutput(level: Severity): boolean;
+    level(level?: number | string | Severity): this;
+    formatter(str?: string): this;
+    color(enable?: boolean): this;
+
+    lineNumbers(show?: boolean): this;
+    notify(log: Log): this;
+    pipe?(severity: Severity, filepath: string): this;
   }
 
-  class Pipe {
-    constructor();
+  class Pipe { }
+
+  interface Options extends Loggers.Options {
+    filepath?: string;
+    pipes?: Notifiers.Pipe
   }
 }
 
-/**
- * Returns a logger based on options
- * 
- * #### Example 1
- * In the following example it will return a FileLogger as pipes are passed
- * @example 
- * logging.getLogger({ pipes: [ ... ] });
- */
-export function getLogger(opts: Loggers.Options): Loggers.Logger;
 
-/**
- * Packs a set of loggers and makes available a interface for managing both
- */
-export function pack(loggers: Loggers.Logger[], opts: Loggers.Options): Loggers.Logger;
+export type SuportedLoggers = 'console' | 'file' | 'remote' | 'memory' | 'default';
+export type SuportedSeverities = 'DEBUG' | 'INFO' | 'NOTICE' | 'WARNING' | 'ERROR' | 'CRITICAL' | 'ALERT' | 'EMERGENCY';
+export type SuportedFormatters = 'short' | 'medium' | 'long' | 'detailed' | 'minimal' | 'default';
+
+
+export function logger(name: SuportedLoggers, opts: Loggers.Options): Loggers.Logger;
+export function logger(opts: Loggers.Options, ...args: Notifiers.Notifier): Loggers.Logger;
+
+export function notifier(opts: Notifiers.Options): Notifiers.Notifier;
+export function notifier(name: SuportedLoggers, opts: Notifiers.Options): Notifiers.Notifier;
+
+export function severity(level: SuportedSeverities): Severity<level>;
+export function severity(level: number): Severity<level>;
+export function severity(level: Severity): Severity<level>;
+export function severity(): Severity<'DEBUG'>;
+
+export function formatter(name: SuportedFormatters): Formatter;
+export function formatter(template: strif.StrifTemplate): Formatter;

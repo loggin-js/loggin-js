@@ -1,21 +1,23 @@
-const loggin = require('../');
+const loggin = require('../index.js');
 
+loggin.formatter()
 
-const notif1 = loggin
+const csol = loggin
+  .notifier('console')
+  .color(true)
+  .level('debug')
+  .formatter('medium');
+
+const file = loggin
   .notifier('file')
-  .pipe(loggin.severity('DEBUG'), './debug.log')
+  .formatter(loggin.formatter('detailed'))
+  .pipe(loggin.severity('debug'), './debug.log');
 
-
-console.log(notif1);
 
 const logger =
-  loggin
-  .logger()
-  .color(true)
-  .channel('v1.x.x-example')
-  .level('DEBUG')
-  .notifier(notif1)
-  .formatter('detailed');
+  loggin.logger({
+    notifiers: [csol, file]
+  });
 
 logger.debug('debug', {
   id: '0000'
