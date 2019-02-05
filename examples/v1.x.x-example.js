@@ -6,7 +6,7 @@ const csol = loggin
   .notifier('console')
   .color(true)
   .level('debug')
-  .formatter('medium');
+  .formatter('detailed');
 
 const file = loggin
   .notifier('file')
@@ -25,3 +25,7 @@ logger.debug('debug', {
 logger.info('info');
 logger.error('some <%rerror>');
 logger.critical('critical');
+
+let logger2 = logger.clone();
+logger2.channel('logger2');
+logger2.debug('asdasd');
