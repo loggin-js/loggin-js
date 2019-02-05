@@ -22,6 +22,7 @@
 [docs:severity]: https://github.com/nombrekeff/loggin-js/wiki/Severity
 [docs:notifiers]: https://github.com/nombrekeff/loggin-js/wiki/Notifiers
 [docs:formatter]: https://github.com/nombrekeff/loggin-js/wiki/formatters
+[docs:formatting]: https://github.com/nombrekeff/loggin-js/wiki/formatting
 [docs:Logger]: https://github.com/nombrekeff/loggin-js/wiki/logger
 [docs:getLogger]: https://github.com/nombrekeff/loggin-js/wiki/getLogger
 [docs:channel]: https://github.com/nombrekeff/loggin-js/wiki/channel
@@ -60,17 +61,18 @@ Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or creat
 ****
 
 ## Table Of Content <!-- omit in toc -->
-- [Bump to `v1.x`](#bump-to-v1x)
-- [Features](#features)
-- [Get-Started](#get-started)
-- [Usage](#usage)
-  - [Importing](#importing)
-  - [Examples](#examples)
-    - [Simple example](#simple-example)
-  - [Customizing the formatter](#customizing-the-formatter)
-  - [Adding notifiers](#adding-notifiers)
-  - [Modifying options](#modifying-options)
-  - [Collaborating](#collaborating)
+- [Loggin'JS ![](https://img.shields.io/badge/PRs-welcome-green.svg)](#logginjs-httpsimgshieldsiobadgeprs-welcome-greensvg)
+  - [Bump to `v1.x`](#bump-to-v1x)
+  - [Features](#features)
+  - [Get-Started](#get-started)
+  - [Usage](#usage)
+    - [Importing](#importing)
+    - [Examples](#examples)
+      - [Simple example](#simple-example)
+    - [Customizing the logger](#customizing-the-logger)
+    - [Adding notifiers](#adding-notifiers)
+    - [Modifying options](#modifying-options)
+    - [Collaborating](#collaborating)
 
 ## Bump to `v1.x`
 > Reasons of the bump were primarly design changes in the **API**, and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
@@ -130,47 +132,58 @@ wich would output something like this through the **console**:
 $ [2018-06-02 00:46:24 root] - example.js - DEBUG - A cool message
 ```
 
-### Customizing the formatter
-Now let's see how you could configure your logger a bit. Internally **loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing, check it out for more details on how to create you own templates.  
+### Customizing the logger
+Now let's see how you could configure your logger a bit. Internally **loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing, check it out for more details on how to create [your own templates][docs:formatting].  
 
-For the moment, let's create a logger that only logs the channel and the message of the log,  
-for this you could do the following:
+For the moment, let's use a premade formatter `detailed`  
+**Example:**
 ```js
 const logger = loggin.logger();
 
 // Create a formatter using the 'formatter' helper function,  
 // internally it uses 'strif' for templating
-const formatter = loggin.formatter('[{channel}] {message}');
+// you can pass in a StrifTemplate instead of a premade one
+const formatter = loggin.formatter('detailed');
 
 // now set the formatter
 logger.formatter(formatter);
 ```
-Should output:
+**Should output:**
 ```zsh
 $ [example.js] A cool message
 ```
 
 ### Adding notifiers
 You can also specify one or more [**notifiers**][docs:notifiers], wich could log to a **file**, 
-to the **console**, to a remote service or some other custom notifier:
+to the **console**, to a remote service or some other custom notifier.
+
+The **easiest** way of creating logger is by using the `.notifier` function:
 ```js
-const logger = loggin.logger();
-
-// Easiest way is by using the 'notifier' helper function
 const consoleNotif = loggin.notifier('console', { level: 'debug' });
+consoleNotif.color(true);
+```
 
-// You can also use the available class
-const fileNotif = new loggin.Notifier.File({});
-// with file notifiers you can specify where to pipe the logs 
-// based on some severity using the 'pipe' method
+**Alternatively** you can also use the available class `.Notifier.File` to create a logger: 
+```js
+const fileNotif = new loggin.Notifier.Console({ level: 'DEBUG' });
+```
+
+With **file notifiers** you can specify where to send the logs based on some [Severity][docs:severity] using the `.pipe` method:
+```js
 fileNotif.pipe(Severity.ERROR, 'logs/error-logs.log');
 fileNotif.pipe(Severity.DEBUG, 'logs/debug-logs.log');
+```
 
-// Now add them both to the logger
+You can add them to the logger like this:
+```js
+// Adds logger
 logger.notifier(consoleNotif, fileNotif);
+
+// Overwrites all loggers
+logger.setNotifers([consoleNotif, fileNotif]);
 ```
 Above logger will send every log through both notifiers:
-* **consoleNotif** will log everithing to the console
+* **consoleNotif** will log everything to the console
 * **fileNotif** will log **ERROR** logs to file `logs/error-logs.log` and everything to `logs/debug-logs.log`
 
 
@@ -186,6 +199,11 @@ logger
 
 logger.debug('A cool message');
 ```
+****
+> ### ! NOTICE !
+> Take into account that all **Logger** configuration methods propagate to all the **Notifiers** it has.
+> If you just want to afect one notifier, you must have created it yourself and passed it into the logger.
+****
 
 ### Collaborating
 Pull requests are welcome, as well as any other type of contribution. 
