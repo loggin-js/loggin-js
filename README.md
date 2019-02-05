@@ -36,6 +36,8 @@
 
 # Loggin'JS ![](https://img.shields.io/badge/PRs-welcome-green.svg) <!-- omit in toc -->
 
+![](./.github/code-example.png)
+
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]
@@ -77,11 +79,12 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
 - [Installing](#installing)
   - [With npm](#with-npm)
   - [With yarn](#with-yarn)
+- [Importing](#importing)
+- [Examples](#examples)
+  - [Simple example](#simple-example)
 - [Usage](#usage)
-  - [Importing](#importing)
-  - [Examples](#examples)
-    - [Simple example](#simple-example)
-  - [Customizing the logger](#customizing-the-logger)
+  - [Creating loggers](#creating-loggers)
+  - [Customizing loggers](#customizing-loggers)
   - [Adding notifiers](#adding-notifiers)
   - [Modifying options](#modifying-options)
   - [Custom Notifiers/Formatters/...](#custom-notifiersformatters)
@@ -102,17 +105,16 @@ npm install loggin-js --save
 npm install loggin-js --save
 ```
 
-## Usage
-### Importing
+## Importing
 ```javascript
-// Require the logging library
 const logging = require('loggin-js');
+import logging from 'loggin-js';
 ```
 
-### Examples
+## Examples
 You can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel a.k.a ([Notifiers][docs:notifiers]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
 
-#### Simple example
+### Simple example
 The easiest way of creating a logger is by using the [`.logger`][docs:helper:logger] method.  
 It can return several types and pre-configured loggers, but let's make it simple for now,  
 let's create the most simple logger posible:
@@ -134,7 +136,11 @@ wich would output something like this through the **console**:
 $ [2018-06-02 00:46:24 root] - example.js - DEBUG - A cool message
 ```
 
-### Customizing the logger
+## Usage
+### Creating loggers
+...
+
+### Customizing loggers
 Now let's see how you could configure your logger a bit. Internally **loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing, check it out for more details on how to create [your own templates][docs:formatting].  
 
 For the moment, let's use a premade formatter `detailed`  
