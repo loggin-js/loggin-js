@@ -152,8 +152,13 @@ Check [this]() for docs for options and premades
 
 ### Configuring loggers
 Now let's see how you could **configure** your logger a bit.  
-Mostly every aspect of loggin-js is configurable or editable, there are also a set of [**premade**][docs:premades] instances of all common utilities, like formatters, loggers, etc...  
-For example, you could create a logger by passing in some set of options `loggin.logger({})` or by selecting a premade one `loggin.logger('console')`, this is true for [`logger`, `notifier`, `severity`, `formatter`]
+
+Mostly every aspect of loggin-js is configurable or editable, like the format, what logs are output, if they are colored, etc... 
+there are also a set of [**premade**][docs:premades] instances of all common utilities, this is true for [`logger`, `notifier`, `severity`, `formatter`],  
+for example, this code will return a **minimal** formatter:
+```js
+loggin.formatter('minimal');
+```
 
 #### Formatting
 Internally **loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing, check it out for more details on how to create [your own templates][docs:formatting].  
