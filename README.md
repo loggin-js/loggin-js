@@ -1,12 +1,3 @@
-# Loggin' JS <!-- omit in toc -->
-
-[![NPM version][npm-image]][npm-url]
-[![NPM quality][code-quality-badge]][code-quality-link]
-[![Quality](https://img.shields.io/codacy/grade/2ffe3b2f71c74210987436b935c06720.svg?style=flat-square)]()
-[![build status][travis-image]][travis-url]
-[![Downloads][downloads-badge]][downloads-link]
-[![Dependencies][dependencies-badge]][dependencies-link]
-[![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]
 
 
 <!-- Links -->
@@ -29,223 +20,272 @@
 [vulnerabilities-link]: https://snyk.io/test/npm/loggin-js
 
 [docs:severity]: https://github.com/nombrekeff/loggin-js/wiki/Severity
+[docs:notifiers]: https://github.com/nombrekeff/loggin-js/wiki/Notifiers
+[docs:formatter]: https://github.com/nombrekeff/loggin-js/wiki/formatters
+[docs:formatting]: https://github.com/nombrekeff/loggin-js/wiki/formatting
+[docs:Logger]: https://github.com/nombrekeff/loggin-js/wiki/logger
+[docs:getLogger]: https://github.com/nombrekeff/loggin-js/wiki/getLogger
+[docs:channel]: https://github.com/nombrekeff/loggin-js/wiki/channel
+[docs:logger-options]: https://github.com/nombrekeff/loggin-js/wiki/logger-options
+[docs:helper:logger]: https://github.com/nombrekeff/loggin-js/wiki/helper-logger
+[docs:helper:notifier]: https://github.com/nombrekeff/loggin-js/wiki/helper-notifier
+[docs:helper:formatter]: https://github.com/nombrekeff/loggin-js/wiki/helper-formatter
+[docs:customizing]: https://github.com/nombrekeff/loggin-js/wiki/customizing
 
+<div align="center">
+
+# Loggin'JS ![](https://img.shields.io/badge/PRs-welcome-green.svg) <!-- omit in toc -->
+
+<!-- ![](./.github/code-example.png) -->
+
+[![NPM version][npm-image]][npm-url]
+[![Downloads][downloads-badge]][downloads-link]
+[![Dependencies][dependencies-badge]][dependencies-link]
+[![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]  
+[![CircleCI](https://circleci.com/gh/nombrekeff/loggin-js.svg?style=svg)](https://circleci.com/gh/nombrekeff/loggin-js)
+[![build status][travis-image]][travis-url]
+[![NPM quality][code-quality-badge]][code-quality-link]  
+  
+
+<!-- 
+[`🔗 Logger`][docs:logger]
+[`🔗 Level`][docs:severity]
+[`🔗 Channel`][docs:channel]
+[`🔗 Formatter`][docs:formatter]
+[`🔗 Notifier`][docs:notifiers]
+[`🔗 Options`][docs:logger-options] -->
+
+<p>
 A little customizable logger for NodeJS.  
-Log to the **console**, to a **file**, to a **remote service** or create a custom one.
+Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or create a custom one.
+</p>
+</div>
 
+****
 
-> Check out the new **v1.x** beta [here](https://www.npmjs.com/package/loggin-js/v/1.0.0-beta1)
+## Bump to `v1.x`
+> Reasons of the bump were primarly design changes in the **API**, and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
+> **!NOTICE!** Api not compatible with v0.x
 
-### Features <!-- omit in toc -->
+Hopefully the bump to version `v1.x` is an improvement over the old **API** an the general cohesion of the library, here are some features and changes:
+* Made a bit more straight forward
+* Made more comprensible
+* Made more composable
+* Better typing
+
+## Table Of Content <!-- omit in toc -->
+- [Bump to `v1.x`](#bump-to-v1x)
+- [Features](#features)
+- [Installing](#installing)
+- [Importing](#importing)
+- [Usage](#usage)
+  - [Creating loggers](#creating-loggers)
+  - [Configuring loggers](#configuring-loggers)
+    - [Formatting](#formatting)
+  - [Adding notifiers](#adding-notifiers)
+  - [Modifying options](#modifying-options)
+  - [Setting severity](#setting-severity)
+  - [Custom Notifiers/Formatters/...](#custom-notifiersformatters)
+- [Examples](#examples)
+  - [Simple example](#simple-example)
+  - [Advanced example](#advanced-example)
+- [Collaborating](#collaborating)
+
+## Features
 * ✔︎ Easy 
 * ✔︎ Customizable
 * ✔︎ Liteweighted
 
-### Table Of Content <!-- omit in toc -->
-- [Installing](#installing)
-- [Usage](#usage)
-  - [Using in node](#using-in-node)
-  - [Using in express](#using-in-express)
-- [Examples](#examples)
-  - [Simplest Example](#simplest-example)
-  - [Full Example](#full-example)
-  - [File Logging Example](#file-logging-example)
-  - [Custom Formatter Example](#custom-formatter-example)
-- [Found a bug?](#found-a-bug)
-- [Collaborating](#collaborating)
-
-
-### Installing
-* Install with npm
+## Installing
+With npm
 ```bash
-npm install loggin-js --save
+npm install loggin-js -s
 ```
 
-### Usage
-#### Using in node
-```javascript
-// Require the logging library
-const logging = require('loggin-js');
+With yarn
+```bash
+yarn install loggin-js
 ```
-Check the [wiki](./loggin-js/wiki) for more in depth documentation.
 
-#### Using in express
-Check [this](https://github.com/nombrekeff/express-loggin-js) other repo for better integration with express. 
-
-### Examples
-#### Simplest Example
-The fastest way of creating a logger is by using the `.getLogger` method wich creates a logger based on some options.  
-Based on those options it will create one of [**ConsoleLogger**, **FileLogger**, **RemoteLogger**] __explained below_.  
-Here is a little example:
+## Importing
+Importing in node:
 ```js
 const logging = require('loggin-js');
-const logger = loggin.getLogger({ channel: 'my-cool-app' });
-
-logger.debug('User is loggin in');
 ```
 
-Now let's check the `.getLogger` method a bit more in depth.  
-All `Loggers` and `.getLogger` accept what is called a `Severity` **level**, wich is used internally for filtering and managing log output. You can check more info about Severities [here]().  
+Importing using ES6 import:
+```js
+import logging from 'loggin-js';
+```
 
+
+
+## Usage
+### Creating loggers
+The simplest way of creating a logger is by using the `.logger` method wich creates a logger based on some arguments.  
+Let's see how it works a bit more in depth.  
+
+By default if **no arguments** are passed in it will return a logger with a **console notifier** attached,   
+and a level of **DEBUG** _(check [this][docs:severity] for more info)_, this means it will output all logs to the console.
+```js
+loggin.logger();
+```
+
+You can also pass in a **string** representing the name of a [premade logger][docs:premades:loggers],  
+for example the following code will return a logger with a **file** notifier attached instead:
+```js
+loggin.logger('file');
+```
+
+Alternatively you can pass in an **object** with a set of options to generate a logger,  
+this example will return a logger with two notifers and set to level **INFO**:
+```js
+loggin.logger({
+  level: 'INFO',
+  notifiers: [fileNotifier, consoleNotifier]
+});
+```
+
+> Check [this]() for docs for options and premades
+
+
+### Configuring loggers
+Now let's see how you could **configure** your logger a bit. Mostly every aspect of loggin-js is configurable or editable, there are also a set of **premade** instances of all common utilities, like formatters, loggers, etc...  
+For example, you could create a logger by passing in some set of options `loggin.logger({})` or by selecting a premade one `loggin.logger('console')`, this is true for [`logger`, `notifier`, `severity`, `formatter`]
+
+#### Formatting
+Internally **loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing, check it out for more details on how to create [your own templates][docs:formatting].  
+
+**Basic Example:**
+Create a formatter using the 'formatter' helper function, you can pass in a string representing a premade formatter, or a [`strif.Template`]():
+```js
+const formatter = loggin.formatter('minimal');
+logger.formatter(formatter);
+
+logger.debug('A cool message');
+```
+**Should output:**
+```zsh
+$ example.js - A cool message
+```
+
+### Adding notifiers
+You can also specify one or more [**notifiers**][docs:notifiers], wich could log to a **file**, 
+to the **console**, to a remote service or some other custom notifier.
+
+The **easiest** way of creating logger is by using the `.notifier` function:
+```js
+const consoleNotif = loggin.notifier('console', { level: 'debug' });
+consoleNotif.color(true);
+```
+
+**Alternatively** you can also use the available class `.Notifier.File` to create a logger: 
+```js
+const fileNotif = new loggin.Notifier.Console({ level: 'DEBUG' });
+```
+
+With **file notifiers** you can specify where to send the logs based on some [Severity][docs:severity] using the `.pipe` method:
+```js
+fileNotif.pipe(Severity.ERROR, 'logs/error-logs.log');
+fileNotif.pipe(Severity.DEBUG, 'logs/debug-logs.log');
+```
+
+You can add them to the logger like this:
+```js
+// Adds logger
+logger.notifier(consoleNotif, fileNotif);
+
+// Overwrites all loggers
+logger.setNotifers([consoleNotif, fileNotif]);
+```
+Above logger will send every log through both notifiers:
+* **consoleNotif** will log everything to the console
+* **fileNotif** will log **ERROR** logs to file `logs/error-logs.log` and everything to `logs/debug-logs.log`
+
+
+### Modifying options
+After creating the logger we can change most of the options, like the [**level**][docs:severity], the [**channel**][docs:channel], etc... For example:
+```js
+const logger = loggin.logger();
+
+logger
+  .level('DEBUG')
+  .color(true)
+  .channel('super-app');
+
+logger.debug('A cool message');
+```
+****
+> ### ! NOTICE !
+> Take into account that all **Logger** configuration methods propagate to all the **Notifiers** it has.
+> If you just want to afect one notifier, you must have created it yourself and passed it into the logger.
+****
+
+
+### Setting severity
 We can set a level in three ways:
 1. Passing a string ([info][docs:severity]): 
     ```js
-    logger.getLogger({ level: 'DEBUG' })
+    logger.level('DEBUG');
     ```
-1. Passing an int ([info][docs:severity]): 
+2. Passing an int ([info][docs:severity]): 
     ```js
-    logger.getLogger({ level: 9 })
+    logger.level(9);
     ```
-3. Passing a severity instance ([info][docs:severity]): 
+3. Using `loggin.severity` function:
     ```js
-    const { Severity } = logging;
-    logging.getLogger({ level: Severity.DEBUG });
+    logging.level(loggin.severity('INFO'));
     ```
 
-You can also pass a set of options, like setting colored output, changing the format, and more.
+### Custom Notifiers/Formatters/...
+You can create you own Notifiers and Formatters and more, just check [this][docs:customizing] out!
 
+## Examples
+You can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel ([Notifiers][docs:notifiers]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
 
-#### Full Example
-```javascript
-// Require the logging library
-const logging = require('loggin-js');
+### Simple example
+The easiest way of creating a logger is by using the [`.logger`][docs:helper:logger] method.  
 
-// Shortcuts
-const { Severity } = logging;
+[`.logger`][docs:helper:logger] can return several **pre-configured types** of loggers or it lets you **construct you own**. But let's make it simple for now, 
+let's create the most simple logger posible:
+```js
+// Call `.logger` and boom, you are rollin' ;)
+const logger = loggin.logger();
 
-// Get a logger with DEBUG severity. 
-// Severity DEBUG will output any severity.
-const logger = logging.getLogger({
-  
-  // level can be a <string> = 'DEBUG' a <int> = 7 or a <Severity> = Severity.DEBUG 
-  level: 'DEBUG',
-
-  // If output should be colored
-  color: true,
-
-  // Set formatter to medium - one of: ['short', 'medium', 'long']
-  formatter: 'medium',
-});
-
-// Does the same as passing into settings, as done above
-logger.setLevel(Severity.DEBUG);
-logger.setColor(true);
-logger.setFormatter('medium');
-
-
-// Available predefined log levels
-logger.info('info', { user: 'pedro', id: 10 });
-logger.error('error');
-logger.warning('warning');
-logger.alert('alert');
-logger.emergency('emergency');
-logger.critical('critical');
-logger.debug('debug');
-logger.notice('Notice', {}, 'channel');
-
-
-// If enabled set to false logs will not be output
-logger.setEnabled(false);
+// Now you can start loggin'
+logger.info('A good message');
+logger.error('Not so good, eh?', null, 'other-channel');
 ```
-
-
-#### File Logging Example
-Log to files instead of the console
-
-We create it making use of the `FileLogger` class.  
-```javascript
-// Require the logging library
-const logging = require('loggin-js');
-
-// Shortcut for the severity constants
-const { Severity, Loggers, Notifiers } = logging;
-
-// Create a file logger
-const logger = new Loggers.FileLogger({
-  
-  // Display line number at the begining of the log 
-  lineNumbers: true,
-
-  // You can pass a pipes array to the file logger or you can do after instancing (showed below)
-  pipes: [
-
-    // Here we create a pipe that will pipe level ERROR logs to the file 'logs/error-logs.log'
-    new Notifiers.Pipe(Severity.ERROR, 'logs/error-logs.log'),
-
-    // This one will pipe level INFO logs to the file 'logs/info-logs.log'
-    new Notifiers.Pipe(Severity.INFO, 'logs/info-logs.log')
-  ]
-});
-
-// You can also add pipes after creating the logger as follows
-logger.pipe(Severity.ERROR, 'logs/error-logs.log');
-logger.pipe(Severity.INFO, 'logs/info-logs.log');
-
-
-// INFO message will log to 'logs/info-logs.log'
-logger.info('Logging a info log');
-
-// ERROR message will log to 'logs/error-logs.log'
-logger.error('Logging a error log', new Error('An error'));
-
-// Will not be logged as only the ERROR and INFO severities will be output to their respective files
-logger.warning('Logging a warning log');
-logger.notice('Logging a notice log');
-logger.alert('Logging a error log');
+By default `.logger()` will return a logger set to [level][docs:severity] **DEBUG** with a **detailed** [formatter][docs:formatter],  
+wich would output something similiar to this through the **console**:
+```zsh
+$ 2018-06-02 root example.js - INFO - A good message
+$ 2018-06-02 root other-channel - ERROR - Not so good, eh?
 ```
-
-#### Custom Formatter Example
-Custom formatter, customize the output of the log 
-```javascript
-const logging = require('loggin-js');
-const logger = logging.getLogger({
-  level: logging.Severity.DEBUG,
-  color: true,
-
-  /**
-   * You can also use a custom formatter if the default one does not satisfy your needs.
-   * In the formatter you can access all log properties and you can also set the 
-   * color of some segments of the log by using <%L> where L is one of:
-   *  - r red
-   *  - g green
-   *  - gr gray
-   *  - b blue
-   *  - p pink
-   *  - y yellow
-   *  - c cyan
-   *  - m magenta
-   *  - (nnn) a number between 0-255 # not implemented yet
-   */
-  formatter: '[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(data)}'
-});
-
-// Set user to root
-logger.setUser('root');
-
-// Set formatter
-logger.setFormatter('[{time.toLocaleString}] - <%m{user}> | {severityStr} | {message} - {JSON.stringify(message)}');
-
-// Log something
-logger.debug('debug');             // $ [2018-6-2 00:46:24] - root - DEBUG - debug
-logger.info('info', {data: 'Hi'}); // $ [2018-6-2 00:46:24] - root - INFO - info - {"data":"Hi"}
+> It will show colored output by default!
 
 
-/**
- * Aditionally you can set the color of some parts of the message:
- * The output will be something like, with the last ERROR beeing red:
- * $ [2018-6-2 00:46:24] - root - ERROR - There was an ERROR 
- */
-logger.error('There was an <%rERROR>'); 
+### Advanced example
+
+
+
+
+## Collaborating
+Pull requests are welcome, as well as any other type of contribution. 
+
+## Setting up <!-- omit in toc -->
+```zsh
+# clone the repo
+$ git clone git@github.com:nombrekeff/loggin-js.git
+
+# enter the project
+$ cd loggin-js
+
+# install dependencies
+$ npm install
+
+# run tests
+$ npm test
 ```
-
-### Found a bug?
-If you found a **bug** or like to leave a **feature request**, please [leave an issue](https://github.com/nombrekeff/express-loggin-js/issues/new/choose) and we will take care of it.
-> Just make sure it's not already filed.
-
-
-### Collaborating
-Hi there, if you like the project don't hesitate in collaborating (_if you like to_), submit a pull request, post an issue, ...   
-Any **help** or **ideas** are apreciated!
-
 
 [RFC3164]: https://tools.ietf.org/html/rfc3164
