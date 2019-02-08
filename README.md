@@ -31,6 +31,7 @@
 [docs:helper:notifier]: https://github.com/nombrekeff/loggin-js/wiki/helper-notifier
 [docs:helper:formatter]: https://github.com/nombrekeff/loggin-js/wiki/helper-formatter
 [docs:customizing]: https://github.com/nombrekeff/loggin-js/wiki/customizing
+[docs:premades]: https://github.com/nombrekeff/loggin-js/wiki/premades
 
 <div align="center">
 
@@ -130,7 +131,7 @@ and a level of **DEBUG** _(check [this][docs:severity] for more info)_, this mea
 loggin.logger();
 ```
 
-You can also pass in a **string** representing the name of a [premade logger][docs:premades:loggers],  
+You can also pass in a **string** representing the name of a [premade logger][docs:premades],  
 for example the following code will return a logger with a **file** notifier attached instead:
 ```js
 loggin.logger('file');
@@ -150,13 +151,14 @@ Check [this]() for docs for options and premades
 
 
 ### Configuring loggers
-Now let's see how you could **configure** your logger a bit. Mostly every aspect of loggin-js is configurable or editable, there are also a set of **premade** instances of all common utilities, like formatters, loggers, etc...  
+Now let's see how you could **configure** your logger a bit.  
+Mostly every aspect of loggin-js is configurable or editable, there are also a set of [**premade**][docs:premades] instances of all common utilities, like formatters, loggers, etc...  
 For example, you could create a logger by passing in some set of options `loggin.logger({})` or by selecting a premade one `loggin.logger('console')`, this is true for [`logger`, `notifier`, `severity`, `formatter`]
 
 #### Formatting
 Internally **loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing, check it out for more details on how to create [your own templates][docs:formatting].  
 
-**Basic Example:**
+**Basic Example:**  
 Create a formatter using the 'formatter' helper function, you can pass in a string representing a premade formatter, or a [`strif.Template`]():
 ```js
 const formatter = loggin.formatter('minimal');
@@ -164,7 +166,7 @@ logger.formatter(formatter);
 
 logger.debug('A cool message');
 ```
-**Should output:**
+**Should output:**  
 ```zsh
 $ example.js - A cool message
 ```
