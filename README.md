@@ -77,88 +77,97 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
 - [Bump to `v1.x`](#bump-to-v1x)
 - [Features](#features)
 - [Installing](#installing)
-  - [With npm](#with-npm)
-  - [With yarn](#with-yarn)
 - [Importing](#importing)
-- [Examples](#examples)
-  - [Simple example](#simple-example)
 - [Usage](#usage)
   - [Creating loggers](#creating-loggers)
-  - [Customizing loggers](#customizing-loggers)
+  - [Configuring loggers](#configuring-loggers)
+    - [Formatting](#formatting)
   - [Adding notifiers](#adding-notifiers)
   - [Modifying options](#modifying-options)
+  - [Setting severity](#setting-severity)
   - [Custom Notifiers/Formatters/...](#custom-notifiersformatters)
+- [Examples](#examples)
+  - [Simple example](#simple-example)
+  - [Advanced example](#advanced-example)
 - [Collaborating](#collaborating)
 
 ## Features
 * ✔︎ Easy 
 * ✔︎ Customizable
 * ✔︎ Liteweighted
+
 ## Installing
-### With npm
+With npm
 ```bash
-npm install loggin-js --save
+npm install loggin-js -s
 ```
 
-### With yarn
+With yarn
 ```bash
-npm install loggin-js --save
+yarn install loggin-js
 ```
 
 ## Importing
-```javascript
+Importing in node:
+```js
 const logging = require('loggin-js');
+```
+
+Importing using ES6 import:
+```js
 import logging from 'loggin-js';
 ```
 
-## Examples
-You can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel a.k.a ([Notifiers][docs:notifiers]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
 
-### Simple example
-The easiest way of creating a logger is by using the [`.logger`][docs:helper:logger] method.  
-It can return several types and pre-configured loggers, but let's make it simple for now,  
-let's create the most simple logger posible:
-```js
-// You know the drill, import the lib
-const loggin = require('loggin-js');
-
-// create a logger making use of '.logger'
-// and boom, you are rolling! ;)
-const logger = loggin.logger();
-
-// now you can cut some wood!
-logger.info('A good message');
-logger.error('Not so good, eh?');
-```
-By default `.logger()` will return a logger set to [level][docs:severity] **DEBUG** with a **detailed** [formatter][docs:formatter],  
-wich would output something like this through the **console**:
-```zsh
-$ [2018-06-02 00:46:24 root] - example.js - DEBUG - A cool message
-```
 
 ## Usage
 ### Creating loggers
-...
+The simplest way of creating a logger is by using the `.logger` method wich creates a logger based on some arguments.  
+Let's see how it works a bit more in depth.  
 
-### Customizing loggers
-Now let's see how you could configure your logger a bit. Internally **loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing, check it out for more details on how to create [your own templates][docs:formatting].  
-
-For the moment, let's use a premade formatter `detailed`  
-**Example:**
+By default if **no arguments** are passed in it will return a logger with a **console notifier** attached,   
+and a level of **DEBUG** _(check [this][docs:severity] for more info)_, this means it will output all logs to the console.
 ```js
-const logger = loggin.logger();
+loggin.logger();
+```
 
-// Create a formatter using the 'formatter' helper function,  
-// internally it uses 'strif' for templating
-// you can pass in a StrifTemplate instead of a premade one
-const formatter = loggin.formatter('detailed');
+You can also pass in a **string** representing the name of a [premade logger][docs:premades:loggers],  
+for example the following code will return a logger with a **file** notifier attached instead:
+```js
+loggin.logger('file');
+```
 
-// now set the formatter
+Alternatively you can pass in an **object** with a set of options to generate a logger,  
+this example will return a logger with two notifers and set to level **INFO**:
+```js
+loggin.logger({
+  level: 'INFO',
+  notifiers: [fileNotifier, consoleNotifier]
+});
+```
+> **Notice** you can add, remove and change the notifiers after creating them
+
+Check [this]() for docs for options and premades
+
+
+### Configuring loggers
+Now let's see how you could **configure** your logger a bit. Mostly every aspect of loggin-js is configurable or editable, there are also a set of **premade** instances of all common utilities, like formatters, loggers, etc...  
+For example, you could create a logger by passing in some set of options `loggin.logger({})` or by selecting a premade one `loggin.logger('console')`, this is true for [`logger`, `notifier`, `severity`, `formatter`]
+
+#### Formatting
+Internally **loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing, check it out for more details on how to create [your own templates][docs:formatting].  
+
+**Basic Example:**
+Create a formatter using the 'formatter' helper function, you can pass in a string representing a premade formatter, or a [`strif.Template`]():
+```js
+const formatter = loggin.formatter('minimal');
 logger.formatter(formatter);
+
+logger.debug('A cool message');
 ```
 **Should output:**
 ```zsh
-$ [example.js] A cool message
+$ example.js - A cool message
 ```
 
 ### Adding notifiers
@@ -214,8 +223,52 @@ logger.debug('A cool message');
 ****
 
 
+### Setting severity
+We can set a level in three ways:
+1. Passing a string ([info][docs:severity]): 
+    ```js
+    logger.level('DEBUG');
+    ```
+2. Passing an int ([info][docs:severity]): 
+    ```js
+    logger.level(9);
+    ```
+3. Using `loggin.severity` function:
+    ```js
+    logging.level(loggin.severity('INFO'));
+    ```
+
 ### Custom Notifiers/Formatters/...
 You can create you own Notifiers and Formatters and more, just check [this][docs:customizing] out!
+
+## Examples
+You can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel ([Notifiers][docs:notifiers]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
+
+### Simple example
+The easiest way of creating a logger is by using the [`.logger`][docs:helper:logger] method.  
+
+[`.logger`][docs:helper:logger] can return several **pre-configured types** of loggers or it lets you **construct you own**. But let's make it simple for now, 
+let's create the most simple logger posible:
+```js
+// Call `.logger` and boom, you are rollin' ;)
+const logger = loggin.logger();
+
+// Now you can start loggin'
+logger.info('A good message');
+logger.error('Not so good, eh?', null, 'other-channel');
+```
+By default `.logger()` will return a logger set to [level][docs:severity] **DEBUG** with a **detailed** [formatter][docs:formatter],  
+wich would output something similiar to this through the **console**:
+```zsh
+$ 2018-06-02 root example.js - INFO - A good message
+$ 2018-06-02 root other-channel - ERROR - Not so good, eh?
+```
+> It will show colored output by default!
+
+
+### Advanced example
+
+
 
 
 ## Collaborating
