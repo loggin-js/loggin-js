@@ -5,10 +5,13 @@ let logger = loggin.logger({
     return log.level.toString() == 'INFO';
   },
   preNotify(log, notifier) {
-    log.message = '>>>>> ' + log.message + ' <<<<<';
-  }
+    log.message = '<%b------> <%y' + log.message.toLowerCase() + '> <%b------>';
+    log.level.name = log.level.name.toLowerCase();
+  },
+  color: true,
+  formatter: 'detailed',
+  channel: 'test'
 });
-
 
 logger.debug('wanted');
 logger.debug('wanted');
