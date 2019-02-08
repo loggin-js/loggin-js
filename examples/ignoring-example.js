@@ -2,7 +2,7 @@ const loggin = require('../index.js');
 
 let logger = loggin.logger({
   ignore(log, notifier) {
-    return log.level.toString() == 'INFO';
+    return log.level.name == 'INFO';
   },
   preNotify(log, notifier) {
     log.message = '<%b------> <%y' + log.message.toLowerCase() + '> <%b------>';
@@ -10,7 +10,8 @@ let logger = loggin.logger({
   },
   color: true,
   formatter: 'detailed',
-  channel: 'test'
+  channel: 'test',
+  lineNumbers: true
 });
 
 logger.debug('wanted');
