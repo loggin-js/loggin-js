@@ -1,6 +1,6 @@
 {
   "name": "loggin-js",
-  "version": "1.0.0-beta1",
+  "version": "1.0.0-beta2",
   "description": "A logger based on standard RFC3164 for NodeJS",
   "author": {
     "name": "nombrekeff",
