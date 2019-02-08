@@ -233,6 +233,9 @@ export namespace Notifiers {
     options: Notifiers.Options;
   }
 
+  export function get(opts: Notifiers.Options): Notifiers.Notifier;
+  export function get(name: SuportedLoggers, opts: Notifiers.Options): Notifiers.Notifier;
+  
   class Pipe { }
 
   interface Options extends Loggers.Options {

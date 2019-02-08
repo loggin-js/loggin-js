@@ -9,73 +9,38 @@ const Formatter = require('./lib/formatters');
 const Severity = require('./lib/severity');
 const Log = require('./lib/log');
 
-const DefaultLoggerOptions = {
-  level: Severity.DEBUG,
-  user: require('os').userInfo().username,
-  channel: path.basename(__filename),
-  formatter: formatter('detailed'),
-  enabled: true,
-  color: true,
-};
-
-function logger(opts = 'default', args) {
+function logger(opts = 'default', args = {}) {
   if (
     typeof opts === 'string' && ['file', 'console', 'remote', 'memory', 'default'].includes(opts)
   ) {
-    let options = {
-      ...DefaultLoggerOptions,
-      ...args
-    }
-    let notifier = new Notifiers.Console(options);
+    let notifier = new Notifiers.Console(args);
     switch (opts) {
       case 'file':
-        notifier = new Notifiers.File(options);
+        notifier = new Notifiers.File(args);
         break;
       case 'console':
       case 'default':
-        notifier = new Notifiers.Console(options);
+        notifier = new Notifiers.Console(args);
         break;
       case 'remote':
-        notifier = new Notifiers.Remote(options);
+        notifier = new Notifiers.Remote(args);
         break;
       case 'memory':
-        notifier = new Notifiers.Memory(options);
+        notifier = new Notifiers.Memory(args);
         break;
     }
-    return new Logger(options, [notifier]);
+
+    args.notifiers = [notifier];
+    return new Logger(args);
   } else if (typeof opts === 'object') {
-    let options = {
-      ...DefaultLoggerOptions,
-      ...opts
-    }
-    return new Logger(options, args);
+    return new Logger(opts);
   } else {
     throw new Error('Bad arguments for .logger, (' + opts + ')');
   }
 }
 
 function notifier(opts = 'default', args = {}) {
-  if (
-    typeof opts === 'string' && ['file', 'console', 'remote', 'memory', 'default'].includes(opts)
-  ) {
-    switch (opts) {
-      case 'file':
-        return new Notifiers.File(args);
-      case 'console':
-      case 'default':
-        return new Notifiers.Console(args);
-      case 'remote':
-        return new Notifiers.Remote(args);
-      case 'memory':
-        return new Notifiers.Memory(args);
-      default:
-        return new Notifiers.Console(args);
-    }
-  } else if (typeof opts === 'object') {
-    return new Notifiers.Notifier(opts);
-  } else {
-    throw new Error('Bad arguments for .notifier, (' + opts + ')');
-  }
+  return Notifiers.get(opts);
 }
 
 function formatter(template = 'default') {
