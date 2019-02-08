@@ -28,154 +28,143 @@ export interface Log {
 export interface Formatter {
   constructor(template: strif.StrifTemplate): Formatter;
   static format(log, formatter: Formatter, color: boolean = false): string;
+  static get(val: any): Formatter;
 }
 
-export namespace Loggers {
-  class Console extends Loggers.Logger {
-    constructor(options: Loggers.Options);
-  }
+export class Logger {
+  constructor(options: Loggers.Options, ...notifier: Notifiers.Notifier);
 
-  class File extends Loggers.Logger {
-    constructor(options: Loggers.Options);
-  }
+  enabled(enabled?: boolean): this;
+  user(user?: string): this;
+  channel(channel?: boolean): this;
+  level(level?: number | string | Severity): this;
+  formatter(str?: string): this;
+  color(enable: boolean): this;
+  lineNumbers(show: boolean): this;
+  canLog(severity: Severity): boolean;
 
-  class Remote extends Loggers.Logger {
-    constructor(options: Loggers.Options);
-  }
+  /**
+   * Clone the logger
+   */
+  clone(): Logger;
 
-  class Memory extends Loggers.Logger {
-    constructor(options: Loggers.Options);
-  }
+  /**
+   * Alias for clone
+   */
+  fork(): Logger;
 
-  class Logger extends Loggers.Logger {
-    constructor(options: Loggers.Options);
-  }
+  /**
+   * Log a message to set notifier
+   * @param message - message to be logged
+   * @param data - some data to log
+   * @param channel - overwrite channel
+   * @param level - level of the log
+   * @param time - timestamp of the log
+   * @param user - user who dispatched the log
+   */
+  log(
+    message: string,
+    data: any,
+    level?: int | Severity,
+    channel?: string,
+    time?: date | number,
+    user?: string
+  ): this;
 
-  class Logger {
-    constructor(options: Loggers.Options, ...notifier: Notifiers.Notifier);
+  /**
+   * @description Logs with severity set to DEBUG
+   * @param message - message to be logged
+   * @param data - some data to log
+   * @param channel - overwrite channel
+   */
+  debug(
+    message: string,
+    data?: any,
+    channel?: any
+  ): this;
 
-    enabled(enabled?: boolean): this;
-    user(user?: string): this;
-    channel(channel?: boolean): this;
-    level(level?: number | string | Severity): this;
-    formatter(str?: string): this;
-    color(enable: boolean): this;
-    lineNumbers(show: boolean): this;
-    canLog(severity: Severity): boolean;
+  /**
+   * @description Logs with severity set to WARNING
+   * @param message - message to be logged
+   * @param data - some data to log
+   * @param channel - overwrite channel
+   */
+  warning(
+    message: string,
+    data?: any,
+    channel?: any
+  ): this;
 
-    /**
-     * Log a message to set notifier
-     * @param message - message to be logged
-     * @param data - some data to log
-     * @param channel - overwrite channel
-     * @param level - level of the log
-     * @param time - timestamp of the log
-     * @param user - user who dispatched the log
-     */
-    log(
-      message: string,
-      data: any,
-      level?: int | Severity,
-      channel?: string,
-      time?: date | number,
-      user?: string
-    ): this;
+  /**
+   * @description Logs with severity set to EMERGENCY
+   * @param message - message to be logged
+   * @param data - some data to log
+   * @param channel - overwrite channel
+   */
+  emergency(
+    message: string,
+    data?: any,
+    channel?: any
+  ): this;
 
-    /**
-     * @description Logs with severity set to DEBUG
-     * @param message - message to be logged
-     * @param data - some data to log
-     * @param channel - overwrite channel
-     */
-    debug(
-      message: string,
-      data?: any,
-      channel?: any
-    ): this;
+  /**
+   * @description Logs with severity set to CRITICAL
+   * @param message - message to be logged
+   * @param data - some data to log
+   * @param channel - overwrite channel
+   */
+  critical(
+    message: string,
+    data?: any,
+    channel?: any
+  ): this;
 
-    /**
-     * @description Logs with severity set to WARNING
-     * @param message - message to be logged
-     * @param data - some data to log
-     * @param channel - overwrite channel
-     */
-    warning(
-      message: string,
-      data?: any,
-      channel?: any
-    ): this;
+  /**
+   * @description Logs with severity set to ERROR
+   * @param message - message to be logged
+   * @param data - some data to log
+   * @param channel - overwrite channel
+   */
+  error(
+    message: string,
+    data?: any,
+    channel?: any
+  ): this;
 
-    /**
-     * @description Logs with severity set to EMERGENCY
-     * @param message - message to be logged
-     * @param data - some data to log
-     * @param channel - overwrite channel
-     */
-    emergency(
-      message: string,
-      data?: any,
-      channel?: any
-    ): this;
-
-    /**
-     * @description Logs with severity set to CRITICAL
-     * @param message - message to be logged
-     * @param data - some data to log
-     * @param channel - overwrite channel
-     */
-    critical(
-      message: string,
-      data?: any,
-      channel?: any
-    ): this;
-
-    /**
-     * @description Logs with severity set to ERROR
-     * @param message - message to be logged
-     * @param data - some data to log
-     * @param channel - overwrite channel
-     */
-    error(
-      message: string,
-      data?: any,
-      channel?: any
-    ): this;
-
-    /**
-     * @description Logs with severity set to NOTICE
-     * @param message - message to be logged
-     * @param data - some data to log
-     * @param channel - overwrite channel
-     */
-    notice(
-      message: string,
-      data?: any,
-      channel?: any
-    ): this;
+  /**
+   * @description Logs with severity set to NOTICE
+   * @param message - message to be logged
+   * @param data - some data to log
+   * @param channel - overwrite channel
+   */
+  notice(
+    message: string,
+    data?: any,
+    channel?: any
+  ): this;
 
 
-    /**
-     * @description Logs with severity set to INFO
-     * @param message - message to be logged
-     * @param data - some data to log
-     * @param channel - overwrite channel
-     */
-    info(
-      message: string,
-      data?: any,
-      channel?: any
-    ): this;
-  }
+  /**
+   * @description Logs with severity set to INFO
+   * @param message - message to be logged
+   * @param data - some data to log
+   * @param channel - overwrite channel
+   */
+  info(
+    message: string,
+    data?: any,
+    channel?: any
+  ): this;
+}
 
-  interface Options {
-    color?: boolean = false;
-    lineNumbers?: boolean = false;
-    level?: number | string | Severity;
-    user?: string;
-    channel?: string;
-    formatter?: string;
-    notifiers?: Notifiers.Notifier[]
-  }
+export interface LoggerOptions {
+  color?: boolean = false;
+  lineNumbers?: boolean = false;
+  level?: number | string | Severity;
+  user?: string;
+  channel?: string;
+  formatter?: string;
+  notifiers?: Notifiers.Notifier[]
 }
 
 /**
@@ -192,6 +181,8 @@ export class Severity {
   static NOTICE: Severity;
   static INFO: Severity;
   static DEBUG: Severity;
+
+  static get(val: any): Severity;
 }
 
 export namespace Notifiers {
@@ -200,7 +191,7 @@ export namespace Notifiers {
   class Remote extends loggin.Notifiers.Notifier { }
   class Memory extends loggin.Notifiers.Notifier { }
   class Notifier {
-    constructor(options): Notifier;
+    constructor(options: Notifiers.Options): Notifier;
 
     canOutput(level: Severity): boolean;
     level(level?: number | string | Severity): this;
@@ -210,13 +201,16 @@ export namespace Notifiers {
     lineNumbers(show?: boolean): this;
     notify(log: Log): this;
     pipe?(severity: Severity, filepath: string): this;
+
+    options: Notifiers.Options;
   }
 
   class Pipe { }
 
   interface Options extends Loggers.Options {
     filepath?: string;
-    pipes?: Notifiers.Pipe
+    pipes?: Notifiers.Pipe;
+    level?: Severity;
   }
 }
 
@@ -226,8 +220,8 @@ export type SuportedSeverities = 'DEBUG' | 'INFO' | 'NOTICE' | 'WARNING' | 'ERRO
 export type SuportedFormatters = 'short' | 'medium' | 'long' | 'detailed' | 'minimal' | 'default';
 
 
-export function logger(name: SuportedLoggers, opts: Loggers.Options): Loggers.Logger;
-export function logger(opts: Loggers.Options, ...args: Notifiers.Notifier): Loggers.Logger;
+export function logger(name: SuportedLoggers, opts: LoggerOptions): Logger;
+export function logger(opts: LoggerOptions, ...args: Notifiers.Notifier): Logger;
 
 export function notifier(opts: Notifiers.Options): Notifiers.Notifier;
 export function notifier(name: SuportedLoggers, opts: Notifiers.Options): Notifiers.Notifier;

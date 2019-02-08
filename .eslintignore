@@ -1,5 +1,0 @@
-/__tests__
-/node_modules
-/.circleci
-.eslint*
-/examples

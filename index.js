@@ -18,7 +18,7 @@ const DefaultLoggerOptions = {
   color: true,
 };
 
-function logger(opts = {}, args) {
+function logger(opts = 'default', args) {
   if (
     typeof opts === 'string' && ['file', 'console', 'remote', 'memory', 'default'].includes(opts)
   ) {
@@ -42,7 +42,7 @@ function logger(opts = {}, args) {
         notifier = new Notifiers.Memory(options);
         break;
     }
-    return new Logger(options, notifier);
+    return new Logger(options, [notifier]);
   } else if (typeof opts === 'object') {
     let options = {
       ...DefaultLoggerOptions,
@@ -50,13 +50,13 @@ function logger(opts = {}, args) {
     }
     return new Logger(options, args);
   } else {
-    throw new Error('Bad arguments for .logger, (' + template + ')');
+    throw new Error('Bad arguments for .logger, (' + opts + ')');
   }
 }
 
-function notifier(opts, args = {}) {
+function notifier(opts = 'default', args = {}) {
   if (
-    typeof opts === 'string' && ['file', 'console', 'remote', 'memory'].includes(opts)
+    typeof opts === 'string' && ['file', 'console', 'remote', 'memory', 'default'].includes(opts)
   ) {
     switch (opts) {
       case 'file':
@@ -74,7 +74,7 @@ function notifier(opts, args = {}) {
   } else if (typeof opts === 'object') {
     return new Notifiers.Notifier(opts);
   } else {
-    throw new Error('Bad arguments for .notifier, (' + template + ')');
+    throw new Error('Bad arguments for .notifier, (' + opts + ')');
   }
 }
 
@@ -91,6 +91,7 @@ const LogginJS = {
   Log,
   Notifiers,
   Formatter,
+  Logger,
 
   logger,
   notifier,
