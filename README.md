@@ -123,7 +123,6 @@ import logging from 'loggin-js';
 ## Usage
 ### Creating loggers
 The simplest way of creating a logger is by using the `.logger` method wich creates a logger based on some arguments.  
-Let's see how it works a bit more in depth.  
 
 By default if **no arguments** are passed in it will return a logger with a **console notifier** attached,   
 and a level of **DEBUG** _(check [this][docs:severity] for more info)_, this means it will output all logs to the console.
