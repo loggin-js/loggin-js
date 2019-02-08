@@ -76,7 +76,7 @@ describe('loggin.Logger', () => {
     logger.level('DEBUG');
     expect(() => {
       logger._notifiers.forEach(notif => {
-        if (notif.options.severity != loggin.severity('DEBUG')) {
+        if (notif.options.level != loggin.severity('DEBUG')) {
           throw new Error('level not set correctly on notifier ' + notif.constructor.name);
         }
       });
@@ -111,7 +111,7 @@ describe('loggin.Logger', () => {
     logger.notifier(notif);
     expect(logger._notifiers).toEqual([...prevNotifs, notif]);
   });
-  
+
 
   it(`.clone should return a new logger`, () => {
     let logger = loggin.logger('default');
