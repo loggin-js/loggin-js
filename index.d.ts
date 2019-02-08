@@ -5,9 +5,9 @@ const strif = require('strif');
 export interface Log {
   message: string;
   data: string;
-  severity: Severity;
+  level: Severity;
   channel: string;
-  severityStr: string;
+  levelStr: string;
   time: string;
   user: string;
 
@@ -42,6 +42,12 @@ export class Logger {
   color(enable: boolean): this;
   lineNumbers(show: boolean): this;
   canLog(severity: Severity): boolean;
+
+  _level?: number | string | Severity;
+  _user?: string;
+  _channel?: string;
+  _formatter?: string;
+  options: LoggerOptions;
 
   /**
    * Clone the logger
@@ -164,12 +170,14 @@ export interface LoggerOptions {
   user?: string;
   channel?: string;
   formatter?: string;
-  notifiers?: Notifiers.Notifier[]
+  notifiers?: Notifiers.Notifier[];
+
+  /**
+   * Returns wether to ignore the log or not 
+   */
+  ignore?(log: Log): boolean;
 }
 
-/**
- * 
- */
 export class Severity {
   constructor(level: number, name: string, englobes: Severity[], fileLogginLevel: Severity);
 
@@ -182,7 +190,27 @@ export class Severity {
   static INFO: Severity;
   static DEBUG: Severity;
 
-  static get(val: any): Severity;
+  static get(level: any): Severity;
+
+  level: number;
+  name: string;
+  englobes: Severity[];
+  fileLogginLevel: string;
+
+  /**
+   * Check wether this severity englobes `severity`
+   */
+  canLogSeverity(severity: Severity): boolean;
+
+  /**
+   * Returns string representation of this severity
+   */
+  toString(): string;
+
+  /**
+   * Returns int representation of this severity
+   */
+  toInt(): number;
 }
 
 export namespace Notifiers {
