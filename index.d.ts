@@ -32,7 +32,7 @@ export interface Formatter {
 }
 
 export class Logger {
-  constructor(options: Loggers.Options, ...notifier: Notifiers.Notifier);
+  constructor(options: Loggers.Options);
 
   enabled(enabled?: boolean): this;
   user(user?: string): this;
@@ -173,9 +173,16 @@ export interface LoggerOptions {
   notifiers?: Notifiers.Notifier[];
 
   /**
-   * Returns wether to ignore the log or not 
+   * Runs for each notifier
+   * check wether to ignore loggin to that notifier
    */
-  ignore?(log: Log): boolean;
+  ignore?(log: Log, notifier: Notifiers.Notifier): boolean;
+
+  /**
+   * Runs for each notifier
+   * you can modify the log inside and it will affect the log outputed
+   */
+  preNotify?(log: Log, notifier: Notifiers.Notifier): void;
 }
 
 export class Severity {
@@ -235,7 +242,7 @@ export namespace Notifiers {
 
   export function get(opts: Notifiers.Options): Notifiers.Notifier;
   export function get(name: SuportedLoggers, opts: Notifiers.Options): Notifiers.Notifier;
-  
+
   class Pipe { }
 
   interface Options extends Loggers.Options {

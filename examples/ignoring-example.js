@@ -1,8 +1,11 @@
 const loggin = require('../index.js');
 
 let logger = loggin.logger({
-  ignore(log) {
+  ignore(log, notifier) {
     return log.level.toString() == 'INFO';
+  },
+  preNotify(log, notifier) {
+    log.message = '>>>>> ' + log.message + ' <<<<<';
   }
 });
 
