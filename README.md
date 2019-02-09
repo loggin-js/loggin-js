@@ -84,6 +84,7 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
   - [Configuring loggers](#configuring-loggers)
     - [Formatting](#formatting)
   - [Adding notifiers](#adding-notifiers)
+  - [Accessing notifiers](#accessing-notifiers)
   - [Modifying options](#modifying-options)
   - [Setting severity](#setting-severity)
   - [Custom Notifiers/Formatters/...](#custom-notifiersformatters)
@@ -209,9 +210,15 @@ Above logger will send every log through both notifiers:
 * **consoleNotif** will log everything to the console
 * **fileNotif** will log **ERROR** logs to file `logs/error-logs.log` and everything to `logs/debug-logs.log`
 
-****
-> **Notice** you can get access to notifiers from default loggers by using `logger.getNotifier(name)`.
-****
+### Accessing notifiers
+You can get access to notifiers after creating a logger, if you created a default one or you just want to get access to them.  
+You can do it by using the `Logger.getNotifier(name)` method, here is an example: 
+
+```js
+let logger = loggin.logger('console');
+let csol = consolelogger.getNotifier('console');
+csol.color(true);
+```
 
 ### Modifying options
 After creating the logger we can change most of the options, like the [**level**][docs:severity], the [**channel**][docs:channel], etc... For example:
