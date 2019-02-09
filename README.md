@@ -83,11 +83,11 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
   - [Creating loggers](#creating-loggers)
   - [Configuring loggers](#configuring-loggers)
     - [Formatting](#formatting)
-  - [Adding notifiers](#adding-notifiers)
-  - [Accessing notifiers](#accessing-notifiers)
-  - [Modifying options](#modifying-options)
-  - [Setting severity](#setting-severity)
-  - [Custom Notifiers/Formatters/...](#custom-notifiersformatters)
+    - [Adding notifiers](#adding-notifiers)
+    - [Accessing notifiers](#accessing-notifiers)
+    - [Modifying options](#modifying-options)
+    - [Setting the level](#setting-the-level)
+  - [Customizing Notifiers/Formatters/...](#customizing-notifiersformatters)
 - [Examples](#examples)
   - [Simple example](#simple-example)
   - [Advanced example](#advanced-example)
@@ -177,7 +177,7 @@ logger.debug('A cool message');
 $ example.js - A cool message
 ```
 
-### Adding notifiers
+#### Adding notifiers
 You can also specify one or more [**notifiers**][docs:notifiers], wich could log to a **file**, 
 to the **console**, to a remote service or some other custom notifier.
 
@@ -210,7 +210,7 @@ Above logger will send every log through both notifiers:
 * **consoleNotif** will log everything to the console
 * **fileNotif** will log **ERROR** logs to file `logs/error-logs.log` and everything to `logs/debug-logs.log`
 
-### Accessing notifiers
+#### Accessing notifiers
 You can get access to notifiers after creating a logger, if you created a default one or you just want to get access to them.  
 You can do it by using the `Logger.getNotifier(name)` method, here is an example: 
 
@@ -220,7 +220,7 @@ let csol = consolelogger.getNotifier('console');
 csol.color(true);
 ```
 
-### Modifying options
+#### Modifying options
 After creating the logger we can change most of the options, like the [**level**][docs:severity], the [**channel**][docs:channel], etc... For example:
 ```js
 const logger = loggin.logger();
@@ -239,7 +239,7 @@ logger.debug('A cool message');
 ****
 
 
-### Setting severity
+#### Setting the level
 We can set a level in three ways:
 1. Passing a string ([info][docs:severity]): 
     ```js
@@ -254,8 +254,8 @@ We can set a level in three ways:
     logging.level(loggin.severity('INFO'));
     ```
 
-### Custom Notifiers/Formatters/...
-You can create you own Notifiers and Formatters and more, just check [this][docs:customizing] out!
+### Customizing Notifiers/Formatters/...
+You can create you own **Notifiers**, **Formatters**, **Loggers**, etc... check [this][docs:customizing] out for more examples!
 
 ## Examples
 You can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel ([Notifiers][docs:notifiers]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
