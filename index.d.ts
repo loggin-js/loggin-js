@@ -32,7 +32,7 @@ export interface Formatter {
 }
 
 export class Logger {
-  constructor(options: Loggers.Options);
+  constructor(options: LoggerOptions);
 
   enabled(enabled?: boolean): this;
   user(user?: string): this;
@@ -42,6 +42,11 @@ export class Logger {
   color(enable: boolean): this;
   lineNumbers(show: boolean): this;
   canLog(severity: Severity): boolean;
+
+  notifier(...notifier: Notifiers.Notifier): boolean;
+  hasNotifier(name: string): boolean;
+  getNotifier(name: string): boolean;
+  setNotifiers(notifiers: Notifiers.Notifier[]): boolean;
 
   _level?: number | string | Severity;
   _user?: string;
@@ -245,7 +250,7 @@ export namespace Notifiers {
 
   class Pipe { }
 
-  interface Options extends Loggers.Options {
+  interface Options extends LoggerOptions {
     filepath?: string;
     pipes?: Notifiers.Pipe;
     level?: Severity;
