@@ -209,6 +209,9 @@ Above logger will send every log through both notifiers:
 * **consoleNotif** will log everything to the console
 * **fileNotif** will log **ERROR** logs to file `logs/error-logs.log` and everything to `logs/debug-logs.log`
 
+****
+> **Notice** you can get access to notifiers from default loggers by using `logger.getNotifier(name)`.
+****
 
 ### Modifying options
 After creating the logger we can change most of the options, like the [**level**][docs:severity], the [**channel**][docs:channel], etc... For example:
