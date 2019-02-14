@@ -32,7 +32,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest ./tests",
     "lint": "./node_modules/.bin/eslint ./index.js ./lib/**",
     "test-server": "node test-remote/server.js",
     "examples": "node examples/basic-example.js && node examples/file-logging.js && node examples/log-info.js && node examples/custom-formatter.js",
