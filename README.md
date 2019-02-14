@@ -21,16 +21,16 @@
 
 [docs:severity]: https://github.com/nombrekeff/loggin-js/wiki/Severity
 [docs:notifiers]: https://github.com/nombrekeff/loggin-js/wiki/Notifiers
-[docs:formatter]: https://github.com/nombrekeff/loggin-js/wiki/formatters
-[docs:formatting]: https://github.com/nombrekeff/loggin-js/wiki/formatting
-[docs:Logger]: https://github.com/nombrekeff/loggin-js/wiki/logger
-[docs:getLogger]: https://github.com/nombrekeff/loggin-js/wiki/getLogger
-[docs:channel]: https://github.com/nombrekeff/loggin-js/wiki/channel
-[docs:logger-options]: https://github.com/nombrekeff/loggin-js/wiki/logger-options
-[docs:helper:logger]: https://github.com/nombrekeff/loggin-js/wiki/helper-logger
-[docs:helper:notifier]: https://github.com/nombrekeff/loggin-js/wiki/helper-notifier
-[docs:helper:formatter]: https://github.com/nombrekeff/loggin-js/wiki/helper-formatter
-[docs:customizing]: https://github.com/nombrekeff/loggin-js/wiki/customizing
+[docs:formatter]: https://github.com/nombrekeff/loggin-js/wiki/Formatter
+[docs:formatting]: https://github.com/nombrekeff/loggin-js/wiki/Formatter
+[docs:Logger]: https://github.com/nombrekeff/loggin-js/wiki/Logger
+[docs:channel]: https://github.com/nombrekeff/loggin-js/wiki/Logger#channel
+[docs:logger-options]: https://github.com/nombrekeff/loggin-js/wiki/Logger#options
+[docs:helper:logger]: https://github.com/nombrekeff/loggin-js/wiki/Helper-.logger
+[docs:helper:notifier]: https://github.com/nombrekeff/loggin-js/wiki/Helper-.notifier
+[docs:helper:formatter]: https://github.com/nombrekeff/loggin-js/wiki/Helper-.formatter
+[docs:helper:severity]: https://github.com/nombrekeff/loggin-js/wiki/Helper-.severity
+[docs:customizing]: https://github.com/nombrekeff/loggin-js/wiki/logger#customizing
 [docs:premades]: https://github.com/nombrekeff/loggin-js/wiki/premades
 
 <div align="center">
@@ -47,15 +47,6 @@
 [![build status][travis-image]][travis-url]
 [![NPM quality][code-quality-badge]][code-quality-link]  
   
-
-<!-- 
-[`🔗 Logger`][docs:logger]
-[`🔗 Level`][docs:severity]
-[`🔗 Channel`][docs:channel]
-[`🔗 Formatter`][docs:formatter]
-[`🔗 Notifier`][docs:notifiers]
-[`🔗 Options`][docs:logger-options] -->
-
 <p>
 A little customizable logger for NodeJS.  
 Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or create a custom one.
@@ -283,8 +274,32 @@ $ 2018-06-02 root other-channel - ERROR - Not so good, eh?
 
 
 ### Advanced example
+Here is an advanced example:
+```js
 
+const fileNotif = loggin.notifier('file');
+const consoleNotif = loggin.notifier('console');
 
+fileNotif.pipe('debug', './debug.log');
+fileNotif.pipe('error', './error.log');
+
+consoleNotif.color(true);
+
+const logger = loggin.logger({
+  notifier: [fileNotif, consoleNotif],
+  channel: 'my-app',
+  ignore(log, notifier) {
+    return notifier.name === 'console' && DEBUG === false;
+  },
+  preNotify(log) {
+    log.message = log.message + ' - ' + hash(log)
+  }
+});
+
+// Now you can start loggin'
+logger.info('A good message');
+logger.error('Not so good, eh?', null, 'other-channel');
+```
 
 
 ## Collaborating

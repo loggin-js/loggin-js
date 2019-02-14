@@ -1,7 +1,5 @@
 const loggin = require('../index.js');
 
-loggin.formatter()
-
 const csol = loggin
   .notifier('console')
   .color(true)
@@ -10,7 +8,7 @@ const csol = loggin
 
 const file = loggin
   .notifier('file')
-  .formatter(loggin.formatter('detailed'))
+  .formatter('detailed')
   .pipe(loggin.severity('debug'), './debug.log');
 
 

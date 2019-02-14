@@ -5,4 +5,5 @@
 /examples/package*.json
 /examples/node_modules
 /tests
+/internal
 *.log
