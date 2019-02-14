@@ -2,7 +2,8 @@
 
 [![NPM version][npm-image]][npm-url]
 [![NPM quality][code-quality-badge]][code-quality-link]
-[![Quality](https://img.shields.io/codacy/grade/2ffe3b2f71c74210987436b935c06720.svg?style=flat-square)]()
+[![Quality](https://img.shields.io/codacy/grade/2ffe3b2f71c74210987436b935c06720.svg?style=flat-square)][![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnombrekeff%2Floggin-js.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnombrekeff%2Floggin-js?ref=badge_shield)
+()
 [![build status][travis-image]][travis-url]
 [![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]
@@ -249,3 +250,6 @@ Any **help** or **ideas** are apreciated!
 
 
 [RFC3164]: https://tools.ietf.org/html/rfc3164
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnombrekeff%2Floggin-js.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnombrekeff%2Floggin-js?ref=badge_large)
