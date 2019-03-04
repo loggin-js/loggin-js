@@ -59,9 +59,9 @@ export namespace Loggers {
     log(
       message: string,
       data: any,
-      level?: int | Severity,
+      level?: number | Severity,
       channel?: string,
-      time?: date | number,
+      time?: Date | number | string,
       user?: string
     ): this;
 
@@ -152,8 +152,8 @@ export namespace Loggers {
   }
 
   interface Options {
-    color?: boolean = false;
-    lineNumbers?: boolean = false;
+    color?: boolean;
+    lineNumbers?: boolean;
     level?: number | string | Severity;
     user?: string;
     channel?: string;
@@ -180,19 +180,19 @@ export class Severity {
 }
 
 export namespace Notifiers {
-  class ConsoleNotifier extends loggin.Notifiers.Notifier {
+  class ConsoleNotifier extends Notifiers.Notifier {
 
   }
 
-  class FileNotifier extends loggin.Notifiers.Notifier {
+  class FileNotifier extends Notifiers.Notifier {
 
   }
 
-  class RemoteNotifier extends loggin.Notifiers.Notifier {
+  class RemoteNotifier extends Notifiers.Notifier {
 
   }
 
-  class MemoryNotifier extends loggin.Notifiers.Notifier {
+  class MemoryNotifier extends Notifiers.Notifier {
 
   }
 
@@ -218,4 +218,4 @@ export function getLogger(opts: Loggers.Options): Loggers.Logger;
 /**
  * Packs a set of loggers and makes available a interface for managing both
  */
-export function pack(loggers: Loggers.Logger[], opts: Loggers.Options): Loggers.Logger;
+export function join(loggers: Loggers.Logger[], opts: Loggers.Options): Loggers.Logger;

@@ -8,7 +8,9 @@ const {
   MemoryLogger
 } = require('./lib/loggers');
 const Notifiers = require('./lib/notifiers');
-const { Formatter } = require('./lib/formatters');
+const {
+  Formatter
+} = require('./lib/formatters');
 const Severity = require('./lib/severity');
 const Log = require('./lib/log');
 
@@ -57,13 +59,14 @@ function getLogger(options = defaultOpts) {
 }
 
 /**
- * @function
+ * @function join
  * @param {Logger[]} loggers
  * @param {Object} options
  * @param {number} options.level
  * @param {string} options.filepath?
  * @param {string[]} options.filepaths?
- * @return {LoggerPack} LoggerPack
+ * @return {LoggerPack} 
+ * @version 1.0.0
  */
 function join(loggers, options = {}) {
   return new LoggerPack(options, loggers);
