@@ -4,7 +4,6 @@
  * This example will show how to make a logger that saves not outputed logs to memory and
  * then you can show them on error or when you need to
  */
-
 const { Loggers } = require('../index');
 
 new Loggers.Logger();

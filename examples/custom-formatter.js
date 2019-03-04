@@ -35,7 +35,7 @@ const logger = logging.getLogger({
 logger.setLevel(Severity.DEBUG);
 logger.setColor(true);
 
-// Set user to root
+// Set user to root 
 logger.setUser('root');
 
 

@@ -1,8 +1,12 @@
-'use strict';
+/**
+ * @name: Basic Example  
+ * This is he most basic example on how Loggin'JS works!
+ */
 
-// A basic example on how Loggin'JS is used.
-
-// Require the logging library
+ /**
+  * @step Require the logging library
+  * @line `const logging = require('loggin-js'); // Should be logging-js`
+  */
 // const logging = require('loggin-js'); // Should be logging-js
 const logging = require('../index');
 
@@ -16,7 +20,7 @@ const logger = logging.getLogger({
   color: true,
   // lineNumbers: true,
 
-  // A label to identify this logger instance, default to filename if omitted
+  // A label to identify this logger instance, defaults to filename if omitted
   channel: 'basic-example.js',
   formatter: 'medium'
 });
