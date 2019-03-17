@@ -79,6 +79,7 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
     - [Modifying options](#modifying-options)
     - [Setting the level](#setting-the-level)
   - [Customizing Notifiers/Formatters/...](#customizing-notifiersformatters)
+  - [Ignoring Logs](#ignoring-logs)
 - [Examples](#examples)
   - [Simple example](#simple-example)
   - [Advanced example](#advanced-example)
@@ -103,12 +104,12 @@ yarn install loggin-js
 ## Importing
 Importing in node:
 ```js
-const logging = require('loggin-js');
+const loggin = require('loggin-js');
 ```
 
 Importing using ES6 import:
 ```js
-import logging from 'loggin-js';
+import loggin from 'loggin-js';
 ```
 
 
@@ -207,7 +208,7 @@ You can do it by using the `Logger.getNotifier(name)` method, here is an example
 
 ```js
 let logger = loggin.logger('console');
-let csol = consolelogger.getNotifier('console');
+let csol = logger.getNotifier('console');
 csol.color(true);
 ```
 
@@ -248,8 +249,28 @@ We can set a level in three ways:
 ### Customizing Notifiers/Formatters/...
 You can create you own **Notifiers**, **Formatters**, **Loggers**, etc... check [this][docs:customizing] out for more examples!
 
+### Ignoring Logs
+If you want more control over wich logs are output, you can pass in a `ignore` function to the logger options.  
+If passed it will be called **before** each log is propagated to the Notifiers.  
+It will be called with the `log` as first argument and the selected `notifier` as second argument. _If more than one notifier is set, it will be called for each notifier_ 
+
+```js
+  let logger = loggin.logger({
+    ignore(log, notifier) {
+      return log.level.name == 'INFO';
+    },
+    preNotify(log, notifier) {
+      log.message = '<%b------> <%y' + log.message.toLowerCase() + '> <%b------>';
+      log.level.name = log.level.name.toLowerCase();
+    },
+  })
+```
+> Additionally there is a `preNotify` callback wich will be called before a log is propagated.
+
 ## Examples
 You can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel ([Notifiers][docs:notifiers]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
+
+> Check the [`/examples`](/examples) folder for more examples.
 
 ### Simple example
 The easiest way of creating a logger is by using the [`.logger`][docs:helper:logger] method.  
