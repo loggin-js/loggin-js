@@ -1,7 +1,7 @@
 {
   "name": "loggin-js",
   "version": "1.0.0-beta2",
-  "description": "A logger based on standard RFC3164 for NodeJS",
+  "description": "A customizable and expandable logger for NodeJS",
   "author": {
     "name": "nombrekeff",
     "email": "edgemanolo@chip-chap.com",
@@ -43,7 +43,7 @@
     "cli-color": "^1.2.0",
     "fs-extra": "^7.0.1",
     "request": "^2.85.0",
-    "strif": "^1.1.1"
+    "strif": "^1.1.2"
   },
   "devDependencies": {
     "husky": "^1.3.1",

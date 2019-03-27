@@ -1,7 +1,5 @@
 const loggin = require('../index.js');
 
-loggin.formatter()
-
 const csol = loggin
   .notifier('console')
   .color(true)
@@ -17,15 +15,27 @@ const file = loggin
 const logger =
   loggin.logger({
     notifiers: [csol, file]
-  });
+  }).channel('logger1');
 
-logger.debug('debug', {
-  id: '0000'
-});
 logger.info('info');
+logger.color(false);
+
+// You can modify the notifier any time
 logger.error('some <%rerror>');
 logger.critical('critical');
 
-let logger2 = logger.clone();
-logger2.channel('logger2');
-logger2.debug('asdasd');
+
+console.log('--------------------------------------------------');
+let logger2 = logger.clone({
+  formatter: 'long',
+  channel: 'logger2',
+  color: true
+});
+
+logger2.debug('debug', { id: '0000' });
+logger2.info('info');
+logger2.error('some <%rerror>');
+logger2.critical('critical');
+logger2.silly('critical', null, {
+  formatter: 'short'
+});

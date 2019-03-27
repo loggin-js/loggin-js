@@ -1,12 +1,13 @@
 const loggin = require('../index.js');
 
 let logger = loggin.logger({
-  ignore(log, notifier) {
-    return log.level.name == 'INFO';
-  },
+  // This callback is run before ignore and other logic
   preNotify(log, notifier) {
     log.message = '<%b------> <%y' + log.message.toLowerCase() + '> <%b------>';
     log.level.name = log.level.name.toLowerCase();
+  },
+  ignore(log, notifier) {
+    return log.level.name == 'INFO';
   },
   color: true,
   formatter: 'detailed',

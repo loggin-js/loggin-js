@@ -31,21 +31,21 @@ describe('loggin.Logger', () => {
   it(`.enabled should set correctly`, () => {
     let logger = loggin.logger('default');
     logger.enabled(false);
-    expect(logger._enabled).toEqual(false);
+    expect(logger.options.enabled).toEqual(false);
     logger.enabled(true);
-    expect(logger._enabled).toEqual(true);
+    expect(logger.options.enabled).toEqual(true);
   });
 
   it(`.user should set correctly`, () => {
     let logger = loggin.logger('default');
     logger.user('test');
-    expect(logger._user).toEqual('test');
+    expect(logger.options.user).toEqual('test');
   });
 
   it(`.channel should set correctly`, () => {
     let logger = loggin.logger('default');
     logger.channel('test');
-    expect(logger._channel).toEqual('test');
+    expect(logger.options.channel).toEqual('test');
   });
 
   it(`.color should set correctly`, () => {
@@ -68,7 +68,7 @@ describe('loggin.Logger', () => {
   it(`.level should set correctly on logger`, () => {
     let logger = loggin.logger('default');
     logger.level('DEBUG');
-    expect(logger._level).toEqual(loggin.severity('DEBUG'));
+    expect(logger.options.level).toEqual(loggin.severity('DEBUG'));
   });
 
   it(`.level should set correctly in notifiers`, () => {
