@@ -21,6 +21,10 @@ function severity(level) {
   return Severity.get(level);
 }
 
+function merge(loggers, options) {
+  return Logger.merge(loggers, options);
+}
+
 const LogginJS = {
   Severity,
   Log,
@@ -31,7 +35,8 @@ const LogginJS = {
   logger,
   notifier,
   formatter,
-  severity
+  severity,
+  merge
 };
 
 module.exports = LogginJS;

@@ -51,7 +51,7 @@ describe('loggin.Logger', () => {
   it(`.color should set correctly`, () => {
     let logger = loggin.logger('default');
     logger.color(true);
-    expect(logger.options.color).toEqual(true);
+    expect(logger._color).toEqual(true);
   });
 
   it(`.lineNumbers should set correctly in notifiers`, () => {
