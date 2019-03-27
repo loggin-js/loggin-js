@@ -271,6 +271,14 @@ export namespace Notifiers {
   }
 }
 
+export interface Pipe {
+  severity: Severity;
+  filepath: string;
+}
+export class Pipe implements Pipe {
+  constructor(severity: Severity, filepath: string);
+}
+
 
 
 export function logger(name: SupportedLoggers, opts: LoggerOptions): Logger;
@@ -286,3 +294,5 @@ export function severity(): Severity<'DEBUG'>;
 
 export function formatter(name: SupportedFormatters): Formatter;
 export function formatter(template: strif.StrifTemplate): Formatter;
+
+export function pipe(): Pipe;

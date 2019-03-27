@@ -25,6 +25,10 @@ function merge(loggers, options) {
   return Logger.merge(loggers, options);
 }
 
+function pipe(level, filepath) {
+  return new Pipe(level, filepath);
+}
+
 const LogginJS = {
   Severity,
   Log,
@@ -36,7 +40,8 @@ const LogginJS = {
   notifier,
   formatter,
   severity,
-  merge
+  merge,
+  pipe
 };
 
 module.exports = LogginJS;

@@ -56,17 +56,28 @@ Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or creat
 ****
 
 ## Bump to `v1.x`
-> Reasons of the bump were primarly design changes in the **API**, and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
-> **!NOTICE!** Api not compatible with v0.x
+> **!NOTICE! Not Compatible With v0.x**
+> Reasons of the bump were primarly design changes in the **API** _(wich makes it mostly not compatible with the older one)_,  
+> and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
 
+### Improvements
 Hopefully the bump to version `v1.x` is an improvement over the old **API** an the general cohesion of the library, here are some features and changes:
 * Made a bit more straight forward
 * Made more comprensible
 * Made more composable
 * Better typing
 
+### Changes
+...
+
+
+****
+
+
 ## Table Of Content <!-- omit in toc -->
 - [Bump to `v1.x`](#bump-to-v1x)
+  - [Improvements](#improvements)
+  - [Changes](#changes)
 - [Features](#features)
 - [Installing](#installing)
 - [Importing](#importing)
@@ -83,6 +94,9 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
 - [Examples](#examples)
   - [Simple example](#simple-example)
   - [Advanced example](#advanced-example)
+- [Migrating from `v1.x`](#migrating-from-v1x)
+  - [Example 1](#example-1)
+  - [Example 2](#example-2)
 - [Collaborating](#collaborating)
 
 ## Features
@@ -320,6 +334,62 @@ const logger = loggin.logger({
 // Now you can start loggin'
 logger.info('A good message');
 logger.error('Not so good, eh?', null, 'other-channel');
+```
+
+
+## Migrating from `v1.x`
+Here is a little example on how to migrate `v0.x` to `v1.x`
+
+
+### Example 1
+Method `.getLogger` now becomes `.logger`, and by default return a `console` notifier attached.  
+All `set{Property}` methods are now just `{property}`.
+
+**BEFORE `v0.x`:**
+```js
+const logging = require('loggin-js');
+const logger = loggin.getLogger();
+
+logger.setColor(true);
+logger.setFormatter('medium');
+```
+
+**AFTER: `v1.x`**
+```js
+const logging = require('loggin-js');
+const logger = loggin.logger();
+
+logger.color(true);
+logger.formatter('medium');
+```
+
+### Example 2
+**BEFORE `v0.x`:**
+```js
+const logging = require('loggin-js');
+const logger = new loggin.Loggers.FileLogger({
+  lineNumbers: true,
+  pipes: [
+    new Notifiers.Pipe(Severity.ERROR, 'logs/error-logs.log'),
+    new Notifiers.Pipe(Severity.INFO, 'logs/info-logs.log')
+  ]
+});
+```
+
+**AFTER: `v1.x`**
+```js
+const logging = require('loggin-js');
+
+const file = loggin
+  .notifier('file', { 
+    pipes: [ loggin.pipe(loggin.severity('debug'), './logs/debug.log') ] 
+  })
+  .pipe(loggin.severity('error'), './logs/error.log');
+
+const logger = loggin
+  .logger({
+    notifiers: [file]
+  });
 ```
 
 
