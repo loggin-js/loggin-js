@@ -1,6 +1,6 @@
 {
   "name": "loggin-js",
-  "version": "1.0.0-beta4",
+  "version": "1.0.0",
   "description": "A customizable and expandable logger for NodeJS",
   "author": {
     "name": "nombrekeff",
@@ -11,7 +11,7 @@
     "url": "https://github.com/nombrekeff/logging-js/issues/new/choose",
     "email": "keff@gmail.com"
   },
-  "homepage": "https://nombrekeff.github.io/loggin-js/",
+  "homepage": "https://github.com/nombrekeff/loggin-js/wiki",
   "license": "MIT",
   "keywords": [
     "logging",
@@ -26,7 +26,8 @@
     "js",
     "colored",
     "http",
-    "memory"
+    "memory",
+    "expandable"
   ],
   "repository": {
     "type": "git",
