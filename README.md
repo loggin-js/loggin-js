@@ -57,7 +57,7 @@ Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or creat
 [`🔗 Notifier`][docs:notifier]
 [`🔗 Log`][docs:log]
 [`🔗 Severity`][docs:severity]
-[`🔗 Formatter`][docs:formatter]
+[`🔗 Formatter`][docs:formatter]  
 [`🔗 .logger`][docs:helper:logger]
 [`🔗 .notifier`][docs:helper:notifier]
 [`🔗 .severity`][docs:helper:severity]
