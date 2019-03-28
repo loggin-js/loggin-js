@@ -1,16 +1,18 @@
 const loggin = require('../index.js');
 
-const fileLogger = loggin
-  .logger('file', {
-    formatter: 'detailed'
-  });
+let notif = loggin
+  .notifier('file')
+  .pipe(loggin.severity('debug'), './logs/debug.log')
+  .pipe(loggin.severity('error'), './logs/error.log')
+  .pipe(loggin.severity('warning'), './logs/warning.log');
 
-let notif = fileLogger.getNotifier('file');
-notif.pipe(loggin.severity('DEBUG'), './debug.log');
-notif.pipe(loggin.severity('ERROR'), './error.log');
-notif.pipe(loggin.severity('WARNING'), './warning.log');
+const fileLogger = loggin
+  .logger('default')
+  .setNotifiers([notif]);
 
 
 fileLogger.debug('This is going to ./debug.log');
 fileLogger.error('This is going to ./error.log and ./debug.log');
 fileLogger.warning('This is going to ./warning.log and ./debug.log');
+fileLogger.info('This is going to ./debug.log');
+fileLogger.info('This is going to ./debug.log');

@@ -4,6 +4,7 @@ const Notifiers = require('./lib/notifiers');
 const Formatter = require('./lib/formatters');
 const Severity = require('./lib/severity');
 const Log = require('./lib/log');
+const Pipe = require('./lib/pipe');
 
 function logger(opts = 'default', args = {}) {
   return Logger.get(opts, args);
@@ -35,6 +36,7 @@ const LogginJS = {
   Notifiers,
   Formatter,
   Logger,
+  Pipe,
 
   logger,
   notifier,
