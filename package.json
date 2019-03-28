@@ -1,7 +1,7 @@
 {
   "name": "loggin-js",
-  "version": "0.5.1",
-  "description": "A logger based on standard RFC3164 for NodeJS",
+  "version": "1.0.0",
+  "description": "A customizable and expandable logger for NodeJS",
   "author": {
     "name": "nombrekeff",
     "email": "edgemanolo@chip-chap.com",
@@ -11,20 +11,23 @@
     "url": "https://github.com/nombrekeff/logging-js/issues/new/choose",
     "email": "keff@gmail.com"
   },
-  "homepage": "https://nombrekeff.github.io/loggin-js/",
+  "homepage": "https://github.com/nombrekeff/loggin-js/wiki",
   "license": "MIT",
   "keywords": [
     "logging",
     "logger",
-    "RFC3164",
-    "severities",
+    "severity",
+    "filtering",
     "nodejs",
     "logs",
-    "js logger",
-    "file logger",
-    "remote logger",
     "file",
-    "js"
+    "remote",
+    "file",
+    "js",
+    "colored",
+    "http",
+    "memory",
+    "expandable"
   ],
   "repository": {
     "type": "git",
@@ -32,29 +35,24 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "jest ./tests",
-    "lint": "./node_modules/.bin/eslint ./index.js ./lib/**",
+    "test": "jest",
     "test-server": "node test-remote/server.js",
     "examples": "node examples/basic-example.js && node examples/file-logging.js && node examples/log-info.js && node examples/custom-formatter.js",
     "docs": "jsdoc *.js README.md -t ./node_modules/ink-docstrap/template -c .jsdoc.json  -d ./docs2"
   },
-  "postinstall": "./scripts/install-hooks.bash",
   "dependencies": {
     "cli-color": "^1.2.0",
     "fs-extra": "^7.0.1",
     "request": "^2.85.0",
-    "string-format": "^2.0.0"
+    "strif": "^1.1.2"
   },
   "devDependencies": {
-    "eslint": "^5.12.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-node": "^8.0.1",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "express": "^4.16.3",
-    "ink-docstrap": "^1.3.2",
-    "jest": "^23.6.0",
-    "minami": "^1.2.3"
+    "husky": "^1.3.1",
+    "jest": "^22.4.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
   }
 }

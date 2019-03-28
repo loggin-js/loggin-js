@@ -4,21 +4,17 @@
  */
 
  /**
-  * @step Require the logging library
-  * @line `const logging = require('loggin-js'); // Should be logging-js`
+  * @step Require the loggin library
+  * @line `const loggin = require('loggin-js'); // Should be loggin-js`
   */
-// const logging = require('loggin-js'); // Should be logging-js
-const logging = require('../index');
-
-// Shortcut for the severity constants
-const { Severity } = logging;
+// const loggin = require('loggin-js'); // Should be loggin-js
+const loggin = require('../index');
 
 // Get a logger with DEBUG severity. 
 // Severity DEBUG will output any severity.
-const logger = logging.getLogger({
-  level: Severity.DEBUG,
+const logger = loggin.logger({
+  level: loggin.severity('debug'),
   color: true,
-  // lineNumbers: true,
 
   // A label to identify this logger instance, defaults to filename if omitted
   channel: 'basic-example.js',
@@ -26,11 +22,11 @@ const logger = logging.getLogger({
 });
 
 // Does the same as passing into settings
-logger.setLevel(Severity.DEBUG);
-logger.setColor(true);
+logger.level('debug');
+logger.colo(true);
 
 // Set user to root
-logger.setUser('root');
+logger.user('root');
 
 // Available predefined log levels
 logger.info('info', {
@@ -48,4 +44,4 @@ logger.notice('notice im now an other user');
 logger.error('There was an <%rERROR>');
 
 // If enabled set to false logs will not be output
-logger.setEnabled(false);
+logger.enabled(false);

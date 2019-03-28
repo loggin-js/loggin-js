@@ -1,3 +1,0 @@
-## Collaborating
-Hi there, if you like the project don't hesitate in collaborating (_if you like to_), submit a pull request, post an issue, ...   
-Any **help** or **ideas** are apreciated!

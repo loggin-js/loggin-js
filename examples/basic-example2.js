@@ -3,19 +3,19 @@
  * This is the most basic example on how Loggin'JS works!
  */
 
-const logging = require('../index');
+const loggin = require('../index');
 
 /*
  * Create a logger with the `getLogger` method, with level set to DEBUG.
  * This means it will log all debug logs and below, check this link for more info:
  * https://github.com/nombrekeff/loggin-js/wiki/Severity
  */
-const logger = logging.getLogger({
-    level: 'DEBUG'
+const logger = loggin.logger({
+    level: loggin.severity('debug')
 });
 
 /* You can also change the level after creating it */
-logger.setLevel('DEBUG');
+logger.level('debug');
 
 /* Now we can log some stuff */
 logger.info('info', {
