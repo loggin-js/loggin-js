@@ -20,9 +20,10 @@
 [vulnerabilities-link]: https://snyk.io/test/npm/loggin-js
 
 [docs:severity]: https://github.com/nombrekeff/loggin-js/wiki/Severity
-[docs:notifiers]: https://github.com/nombrekeff/loggin-js/wiki/Notifiers
+[docs:notifier]: https://github.com/nombrekeff/loggin-js/wiki/Notifier
 [docs:formatter]: https://github.com/nombrekeff/loggin-js/wiki/Formatter
 [docs:formatting]: https://github.com/nombrekeff/loggin-js/wiki/Formatter
+[docs:log]: https://github.com/nombrekeff/loggin-js/wiki/Log
 [docs:Logger]: https://github.com/nombrekeff/loggin-js/wiki/Logger
 [docs:channel]: https://github.com/nombrekeff/loggin-js/wiki/Logger#channel
 [docs:logger-options]: https://github.com/nombrekeff/loggin-js/wiki/Logger#options
@@ -51,6 +52,17 @@
 A little customizable logger for NodeJS.  
 Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or create a custom one.
 </p>
+
+[`🔗 Logger`][docs:logger]
+[`🔗 Notifier`][docs:notifier]
+[`🔗 Log`][docs:log]
+[`🔗 Severity`][docs:severity]
+[`🔗 Formatter`][docs:formatter]
+[`🔗 .logger`][docs:helper:logger]
+[`🔗 .notifier`][docs:helper:notifier]
+[`🔗 .severity`][docs:helper:severity]
+[`🔗 .formatter`][docs:helper:formatter]
+
 </div>
 
 ****
