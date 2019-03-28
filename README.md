@@ -323,18 +323,20 @@ consoleNotif.color(true);
 const logger = loggin.logger({
   notifier: [fileNotif, consoleNotif],
   channel: 'my-app',
+  preNotify(log) {
+    log.message = log.message + ' - ' + hash(log);
+  }
   ignore(log, notifier) {
     return notifier.name === 'console' && DEBUG === false;
   },
-  preNotify(log) {
-    log.message = log.message + ' - ' + hash(log)
-  }
 });
 
 // Now you can start loggin'
 logger.info('A good message');
-logger.error('Not so good, eh?', null, 'other-channel');
+logger.error('Not so good, eh?', null, { channel: 'other-channel' });
 ```
+> **NOTE:** `preNotify` is called before ignore and before propagating log to notifiers.  
+> **NOTE:** `preNotify` allows to modify the log
 
 
 ## Migrating from `v1.x`
