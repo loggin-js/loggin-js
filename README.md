@@ -55,29 +55,13 @@ Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or creat
 
 ****
 
-## Bump to `v1.x`
-> **!NOTICE! Not Compatible With v0.x**
-> Reasons of the bump were primarly design changes in the **API** _(wich makes it mostly not compatible with the older one)_,  
-> and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
 
-### Improvements
-Hopefully the bump to version `v1.x` is an improvement over the old **API** an the general cohesion of the library, here are some features and changes:
-* Made a bit more straight forward
-* Made more comprensible
-* Made more composable
-* Better typing
-
-### Changes
-...
-
-
-****
 
 
 ## Table Of Content <!-- omit in toc -->
 - [Bump to `v1.x`](#bump-to-v1x)
+  - [Considerations](#considerations)
   - [Improvements](#improvements)
-  - [Changes](#changes)
 - [Features](#features)
 - [Installing](#installing)
 - [Importing](#importing)
@@ -98,6 +82,24 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
   - [Example 1](#example-1)
   - [Example 2](#example-2)
 - [Collaborating](#collaborating)
+
+
+## Bump to `v1.x`
+> **!NOTICE! Not Compatible With v0.x**  
+> Reasons of the bump were primarly design changes in the **API** _(wich makes it mostly not compatible with the old one)_,   
+> and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
+
+### Considerations
+* You can still check the old `v0.5.0` source code at branch [v0.5.0](https://github.com/nombrekeff/loggin-js/tree/0.5.0)
+
+### Improvements
+Hopefully the bump to version `v1.x` is an improvement over the old **API** an the general cohesion of the library, here are some features and changes:
+* Made a bit more straight forward
+* Made more comprensible
+* Made more composable
+* Better typing
+
+****
 
 ## Features
 * ✔︎ Easy 
@@ -297,7 +299,7 @@ const logger = loggin.logger();
 
 // Now you can start loggin'
 logger.info('A good message');
-logger.error('Not so good, eh?', null, 'other-channel');
+logger.error('Not so good, eh?', null, { channel: 'other-channel' });
 ```
 By default `.logger()` will return a logger set to [level][docs:severity] **DEBUG** with a **detailed** [formatter][docs:formatter],  
 wich would output something similiar to this through the **console**:

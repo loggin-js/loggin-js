@@ -39,6 +39,9 @@ export interface Formatter {
 export class Logger {
   constructor(options: LoggerOptions);
 
+  static get(opts = 'default', args = {}): Logger;
+  static merge(loggers, opts = {}): Logger;
+
   enabled(enabled?: boolean): this;
   user(user?: string): this;
   channel(channel?: boolean): this;
@@ -46,6 +49,7 @@ export class Logger {
   formatter(name?: SupportedFormatters): this;
   color(enable: boolean): this;
   lineNumbers(show: boolean): this;
+
   canLog(severity: Severity): boolean;
 
   notifier(...notifier: Notifiers.Notifier): this;
@@ -217,6 +221,8 @@ export class Severity {
   static DEBUG: Severity;
 
   static get(level: any): Severity;
+  static fromInt(level: number): Severity;
+  static fromString(level: string): Severity;
 
   level: number;
   name: string;
@@ -262,11 +268,9 @@ export namespace Notifiers {
   export function get(opts: Notifiers.Options): Notifiers.Notifier;
   export function get(name: SupportedLoggers, opts: Notifiers.Options): Notifiers.Notifier;
 
-  class Pipe { }
-
   interface Options extends LoggerOptions {
     filepath?: string;
-    pipes?: Notifiers.Pipe;
+    pipes?: Pipe;
     level?: Severity;
   }
 }
@@ -295,4 +299,4 @@ export function severity(): Severity<'DEBUG'>;
 export function formatter(name: SupportedFormatters): Formatter;
 export function formatter(template: strif.StrifTemplate): Formatter;
 
-export function pipe(): Pipe;
+export function pipe(level: string, filepath: string): Pipe;
