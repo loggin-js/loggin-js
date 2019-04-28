@@ -296,7 +296,7 @@ It will be called with the `log` as first argument and the selected `notifier` a
 > Additionally there is a `preNotify` callback wich will be called before a log is propagated.
 
 ## Examples
-You can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel ([Notifiers][docs:notifiers]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
+You can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel ([Notifiers][docs:notifier]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
 
 > Check the [`/examples`](/examples) folder for more examples.
 
