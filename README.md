@@ -10,7 +10,7 @@
 [code-quality-badge]: http://npm.packagequality.com/shield/loggin-js.svg?style=flat-square
 [code-quality-link]: https://packagequality.com/#?package=loggin-js
 
-[downloads-badge]: https://img.shields.io/npm/dt/loggin-js.svg?style=flat-square
+[downloads-badge]: https://img.shields.io/npm/dm/loggin-js.svg?style=flat-square
 [downloads-link]: https://www.npmjs.com/package/loggin-js
 
 [dependencies-badge]: https://img.shields.io/david/nombrekeff/loggin-js.svg?style=flat-square
