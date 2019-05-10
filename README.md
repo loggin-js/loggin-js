@@ -49,9 +49,11 @@
 [![NPM quality][code-quality-badge]][code-quality-link]  
   
 <p>
-A little customizable logger for NodeJS.  
-Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or create a custom one.
+An easy and customizable logger for NodeJS.  
+If you want to log easily or want to create som complex loggin system, this is the tool for you!
 </p>
+
+
 
 [`🔗 Logger`][docs:logger]
 [`🔗 Notifier`][docs:notifier]
