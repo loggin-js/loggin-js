@@ -3,12 +3,10 @@
  * This is he most basic example on how Loggin'JS works!
  */
 
- /**
-  * @step Require the loggin library
-  * @line `const loggin = require('loggin-js'); // Should be loggin-js`
-  */
-// const loggin = require('loggin-js'); // Should be loggin-js
+// const loggin = require('loggin-js');
 const loggin = require('../index');
+
+loggin.notifier('bababa');
 
 // Get a logger with DEBUG severity. 
 // Severity DEBUG will output any severity.

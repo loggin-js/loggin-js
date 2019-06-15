@@ -7,8 +7,8 @@
 
 
 ## v1.1.0
-This is the "Pluginize" version, it adds somewhat of a plugin support
-
-* Added way of extending severity
-* Added way of extending notifiers
-* Added way of extending formatters
+This is the "Pluginize" version, it adds somewhat of a plugin support, now you can:
+* Extend severities
+* Extend notifiers
+* Extend formatters
+* Extend loggers
