@@ -1,19 +1,22 @@
+/**
+* @jest-environment node
+*/
 let loggin = require('../index');
 
 describe('loggin.Notifier tests', () => {
   it(`should be defined`, () => {
-    expect(loggin.Notifiers.Notifier).toBeDefined();
+    expect(loggin.Notifier).toBeDefined();
   });
 
   it(`should construct notifier correctly`, () => {
     expect(() => {
-      let notif = new loggin.Notifiers.Notifier();
+      let notif = new loggin.Notifier();
     }).not.toThrow();
   });
 
   it(`should construct notifier correctly`, () => {
     let sev = loggin.severity('DEBUG');
-    let notif = new loggin.Notifiers.Notifier({
+    let notif = new loggin.Notifier({
       level: sev
     });
 

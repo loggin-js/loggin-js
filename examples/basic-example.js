@@ -3,12 +3,10 @@
  * This is he most basic example on how Loggin'JS works!
  */
 
- /**
-  * @step Require the loggin library
-  * @line `const loggin = require('loggin-js'); // Should be loggin-js`
-  */
-// const loggin = require('loggin-js'); // Should be loggin-js
+// const loggin = require('loggin-js');
 const loggin = require('../index');
+
+loggin.notifier('bababa');
 
 // Get a logger with DEBUG severity. 
 // Severity DEBUG will output any severity.
@@ -23,7 +21,7 @@ const logger = loggin.logger({
 
 // Does the same as passing into settings
 logger.level('debug');
-logger.colo(true);
+logger.color(true);
 
 // Set user to root
 logger.user('root');
@@ -39,7 +37,9 @@ logger.alert('Rice done.');
 logger.debug('Wow I can log stuff');
 logger.emergency('Lemons');
 logger.critical('critical', { error: 'S*** something is bad!' });
-logger.setUser('keff');
+
+logger.user('keff');
+
 logger.notice('notice im now an other user');
 logger.error('There was an <%rERROR>');
 

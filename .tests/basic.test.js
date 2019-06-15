@@ -1,3 +1,7 @@
+/**
+* @jest-environment node
+*/
+
 let loggin = require('../index');
 
 describe('loggin should be defined', () => {
@@ -26,11 +30,11 @@ describe('loggin.notifier', () => {
   });
 
   it(`should return a notifier`, () => {
-    expect(loggin.notifier()).toBeInstanceOf(loggin.Notifiers.Notifier);
+    expect(loggin.notifier()).toBeInstanceOf(loggin.Notifier);
   });
 
   it(`should return a notifier for string instance`, () => {
-    expect(loggin.notifier('console')).toBeInstanceOf(loggin.Notifiers.Notifier);
+    expect(loggin.notifier('console')).toBeInstanceOf(loggin.Notifier);
   });
 });
 
