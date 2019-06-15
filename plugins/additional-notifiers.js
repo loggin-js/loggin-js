@@ -54,11 +54,9 @@ function plugin(loggin) {
                 if (pipe.englobes(level) && (closest != 0 && level.level - pipe.severity.level < closest)) {
                     returnPipe = pipe;
                     closest = level.level - pipe.severity.level;
-                    console.log(level.level, pipe.severity.level, closest);
                 }
             }
 
-            console.log('closest', closest);
             return returnPipe;
         }
 
