@@ -30,6 +30,16 @@ function pipe(level, filepath) {
   return new Pipe(level, filepath);
 }
 
+function use(plugin) {
+  // "this" will resolve to LogginJS
+  if (typeof plugin !== 'function') {
+    throw new Error('"plugin" must be a function');
+  }
+
+  plugin(this);
+}
+
+
 const LogginJS = {
   Severity,
   Log,
@@ -43,7 +53,8 @@ const LogginJS = {
   formatter,
   severity,
   merge,
-  pipe
+  pipe,
+  use
 };
 
 module.exports = LogginJS;

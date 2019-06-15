@@ -23,7 +23,7 @@ const logger = loggin.logger({
 
 // Does the same as passing into settings
 logger.level('debug');
-logger.colo(true);
+logger.color(true);
 
 // Set user to root
 logger.user('root');
@@ -39,7 +39,9 @@ logger.alert('Rice done.');
 logger.debug('Wow I can log stuff');
 logger.emergency('Lemons');
 logger.critical('critical', { error: 'S*** something is bad!' });
-logger.setUser('keff');
+
+logger.user('keff');
+
 logger.notice('notice im now an other user');
 logger.error('There was an <%rERROR>');
 

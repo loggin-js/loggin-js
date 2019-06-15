@@ -220,9 +220,9 @@ export class Severity {
   static INFO: Severity;
   static DEBUG: Severity;
 
-  static get(level: any): Severity;
-  static fromInt(level: number): Severity;
-  static fromString(level: string): Severity;
+  static get(level: number | string | Severity): Severity;
+  static search(level: number | string): Severity;
+  static register(level: number, name: string);
 
   level: number;
   name: string;
