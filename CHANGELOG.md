@@ -7,8 +7,10 @@
 
 
 ## v1.1.0
-This is the "Pluginize" version, it adds somewhat of a plugin support, now you can:
+This is the "Plugin" expandable version, it adds somewhat of a plugin support and mode customization, 
+now you can:
 * Extend severities
 * Extend notifiers
 * Extend formatters
 * Extend loggers
+* Add plugin to LogginJS

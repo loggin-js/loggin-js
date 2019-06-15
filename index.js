@@ -10,6 +10,8 @@ const Pipe = require('./lib/pipe');
 // Default Plugins
 const additionalNotifiers = require('./plugins/additional-notifiers');
 const additionalLoggers = require('./plugins/additional-loggers');
+const additionalSeverities = require('./plugins/additional-severities');
+const additionalFormatters = require('./plugins/additional-formatters');
 
 function logger(opts = 'default', args = {}) {
   return Logger.get(opts, args);
@@ -64,5 +66,7 @@ const LogginJS = {
 
 LogginJS.use(additionalNotifiers);
 LogginJS.use(additionalLoggers);
+LogginJS.use(additionalSeverities);
+LogginJS.use(additionalFormatters);
 
 module.exports = LogginJS;
