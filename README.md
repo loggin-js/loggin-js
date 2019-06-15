@@ -33,6 +33,7 @@
 [docs:helper:severity]: https://github.com/nombrekeff/loggin-js/wiki/Helper-.severity
 [docs:customizing]: https://github.com/nombrekeff/loggin-js/wiki/logger#customizing
 [docs:premades]: https://github.com/nombrekeff/loggin-js/wiki/premades
+[docs:plugins]: https://github.com/nombrekeff/loggin-js/wiki/Plugins
 
 <div align="center">
 
@@ -74,6 +75,7 @@ Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or creat
 - [Bump to `v1.x`](#bump-to-v1x)
   - [Considerations](#considerations)
   - [Improvements](#improvements)
+- [News](#news)
 - [Features](#features)
 - [Installing](#installing)
 - [Importing](#importing)
@@ -98,7 +100,7 @@ Log to the <b>console</b>, to a <b>file</b>, to a <b>remote service</b> or creat
 
 ## Bump to `v1.x`
 > **!NOTICE! Not Compatible With v0.x**  
-> Reasons of the bump were primarly design changes in the **API** _(wich makes it mostly not compatible with the old one)_,   
+> Reasons of the bump were primarly design changes in the **API** _(wich makes it mostly not compatible with the old one)_, 
 > and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
 
 ### Considerations
@@ -112,6 +114,10 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
 * Better typing
 
 ****
+
+## News
+> ### v1.1.0
+> Support for plugins, you can now create custom plugins really easy. Check the [Plugins][docs:plugins] section for more info
 
 ## Features
 * ✔︎ Easy 
