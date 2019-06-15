@@ -104,7 +104,7 @@ If you want to log easily or want to create som complex loggin system, this is t
 
 
 ## Bump to `v1.x`
-> **!NOTICE! Not Compatible With v0.x**  
+> **!NOTICE! Not Compatible With v0.x**   
 > Reasons of the bump were primarly design changes in the **API** _(wich makes it mostly not compatible with the old one)_, 
 > and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
 
@@ -122,7 +122,11 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
 ****
 
 ## News
-> ### v1.1.0
+
+> ### `v1.2.0`
+> Support for browser, it now works but it's limited
+
+> ### `v1.1.0`
 > Support for plugins, you can now create custom plugins really easy. Check the [Plugins][docs:plugins] section for more info
 
 [back to top](#table-of-content-)
