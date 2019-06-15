@@ -386,4 +386,4 @@ export function formatter(name: SupportedFormatters): Formatter;
 export function formatter(template: strif.StrifTemplate): Formatter;
 
 export function pipe(level: string, filepath: string): Pipe;
-export function use(plugin: (loggin: this) => void): void;
+export function use(plugin: (loggin: any) => void): void;

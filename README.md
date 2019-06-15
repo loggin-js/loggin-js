@@ -81,6 +81,7 @@ If you want to log easily or want to create som complex loggin system, this is t
 - [Features](#features)
 - [Installing](#installing)
 - [Importing](#importing)
+- [Oficial plugins:](#oficial-plugins)
 - [Usage](#usage)
   - [Creating loggers](#creating-loggers)
   - [Configuring loggers](#configuring-loggers)
@@ -126,6 +127,7 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
 * ✔︎ Customizable
 * ✔︎ Liteweighted
 
+
 ## Installing
 With npm
 ```bash
@@ -148,7 +150,9 @@ Importing using ES6 import:
 import loggin from 'loggin-js';
 ```
 
-
+## Oficial plugins:
+* [MongoDB](https://github.com/nombrekeff/loggin-js-mongodb)
+* [Express](https://github.com/nombrekeff/loggin-js-express)
 
 ## Usage
 ### Creating loggers
