@@ -220,8 +220,27 @@ export class Severity {
   static INFO: Severity;
   static DEBUG: Severity;
 
+  /**
+   * Alias for search
+   */
   static get(level: number | string | Severity): Severity;
+
+  /**
+   * Searches and tries to find a severity maching level
+   */
   static search(level: number | string): Severity;
+
+  /**
+   * Register a new Severity, can then be used as any other Severity
+   * 
+   * @example
+   * Severity.register(10, 'CUSTOM');
+   * ...
+   * 
+   * logger.level('CUSTOM');
+   * logger.level(Severity.CUSTOM);
+   * logger.level(Severity.get(10));
+   */
   static register(level: number, name: string);
 
   level: number;
@@ -230,9 +249,12 @@ export class Severity {
   fileLogginLevel: string;
 
   /**
-   * Check wether this severity englobes `severity`
+   * Check wether this severity englobes another `severity`.
+   * 
+   * Following standard rfc3164 Severity levels go from 0-7, a level will log itself and any level below  
+   * i.e: A level of `7` _DEBUG_ will log all logs as its the higher value 
    */
-  canLogSeverity(severity: Severity): boolean;
+  canLog(severity: Severity): boolean;
 
   /**
    * Returns string representation of this severity
