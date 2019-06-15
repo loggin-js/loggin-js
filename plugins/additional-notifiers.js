@@ -131,7 +131,6 @@ function plugin(loggin) {
             this.headers = options.headers || {};
             this.request = require('request');
             this.url = `${this.host}:${this.port}/logs`;
-            console.log(this.url);
         }
 
         output(logMsg, level, log) {

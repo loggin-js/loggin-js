@@ -5,8 +5,6 @@ const loggin = require('../../index'); // require('loggin-js');
  */
 function plugin(loggin) {
     const { Severity, Logger, Notifier, Formatter } = loggin;
-    console.log('Initing Formatter plugin');
-
     let formatter = Formatter.register(
         'CUSTOM',
         '[{time} {user}] - {level} - {message} {data}', {
