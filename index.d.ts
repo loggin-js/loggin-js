@@ -1,5 +1,5 @@
 // Type definitions for loggin-js
-const strif = require('strif');
+import strif = require('strif');
 
 export type SupportedLoggers = 'console' | 'file' | 'remote' | 'memory' | 'default';
 export type SupportedSeverities = 'DEBUG' | 'INFO' | 'NOTICE' | 'WARNING' | 'ERROR' | 'CRITICAL' | 'ALERT' | 'EMERGENCY';
@@ -17,7 +17,7 @@ export class Log {
 }
 
 export class Formatter {
-  constructor(template: strif.StrifTemplate): Formatter;
+  constructor(template: strif.StrifTemplate);
 
   /**
    * Format a log
@@ -32,7 +32,7 @@ export class Formatter {
   /**
    * Format a log through any formatter
    */
-  static format(log: Log, formatter: Formatter, color: boolean = false): string;
+  static format(log: Log, formatter: Formatter, color: boolean): string;
 
   /**
    * Alias for search
@@ -71,9 +71,6 @@ export class Formatter {
 export class Logger {
   constructor(options: LoggerOptions);
 
-  static get(opts = 'default', args = {}): Logger;
-  static merge(loggers, opts = {}): Logger;
-
   enabled(enabled?: boolean): this;
   user(user?: string): this;
   channel(channel?: boolean): this;
@@ -84,10 +81,10 @@ export class Logger {
 
   canLog(severity: Severity): boolean;
 
-  notifier(...notifier: Notifiers.Notifier): this;
+  notifier(...notifier: Notifier[]): this;
   hasNotifier(name: string): boolean;
-  getNotifier(name: string): Notifiers.Notifier;
-  setNotifiers(notifiers: Notifiers.Notifier[]): this;
+  getNotifier(name: string): Notifier;
+  setNotifiers(notifiers: Notifier[]): this;
 
   options: LoggerOptions;
 
@@ -209,6 +206,27 @@ export class Logger {
     data?: any,
     options?: LogOptions
   ): this;
+
+  static get(opts: string, args: any): Logger;
+  static merge(loggers, opts: any): Logger;
+
+  /**
+   * Searches and tries to find a formatter
+   */
+  static search(value: any): Notifier;
+
+  /**
+   * Register a new Notifier, can then be used as any other Notifier
+   * 
+   * @example
+   * Notifier.register('CUSTOM', class {});
+   * ...
+   * 
+   * logger.notifier('CUSTOM');
+   * logger.notifier(notifier.CUSTOM);
+   * logger.notifier(notifier.get('CUSTOM'));
+   */
+  static register(name: string, ctor: Function);
 }
 
 export class LogOptions {
@@ -219,25 +237,25 @@ export class LogOptions {
 }
 
 export class LoggerOptions {
-  color?: boolean = false;
-  lineNumbers?: boolean = false;
+  color?: boolean;
+  lineNumbers?: boolean;
   level?: number | string | Severity;
   user?: string;
   channel?: string;
   formatter?: SupportedFormatters;
-  notifiers?: Notifiers.Notifier[];
+  notifiers?: Notifier[];
 
   /**
    * Runs for each notifier
    * check wether to ignore loggin to that notifier
    */
-  ignore?(log: Log, notifier: Notifiers.Notifier): boolean;
+  ignore?(log: Log, notifier: Notifier): boolean;
 
   /**
    * Runs for each notifier
    * you can modify the log inside and it will affect the log outputed
    */
-  preNotify?(log: Log, notifier: Notifiers.Notifier): void;
+  preNotify?(log: Log, notifier: Notifier): void;
 }
 
 export class Severity {
@@ -299,34 +317,50 @@ export class Severity {
   toInt(): number;
 }
 
-export namespace Notifiers {
-  class Console extends loggin.Notifiers.Notifier { }
-  class File extends loggin.Notifiers.Notifier { }
-  class Remote extends loggin.Notifiers.Notifier { }
-  class Memory extends loggin.Notifiers.Notifier { }
-  class Notifier {
-    constructor(options: Notifiers.Options): Notifier;
+export class Notifier {
+  constructor(options: Options);
 
-    canOutput(level: Severity): boolean;
-    level(level?: number | string | Severity): this;
-    formatter(str?: string): this;
-    color(enable?: boolean): this;
+  canOutput(level: Severity): boolean;
+  level(level?: number | string | Severity): this;
+  formatter(str?: string): this;
+  color(enable?: boolean): this;
 
-    lineNumbers(show?: boolean): this;
-    notify(log: Log): this;
-    pipe?(severity: Severity, filepath: string): this;
+  lineNumbers(show?: boolean): this;
+  notify(log: Log): this;
+  pipe?(severity: Severity, filepath: string): this;
 
-    options: Notifiers.Options;
-  }
+  options: Options;
 
-  export function get(opts: Notifiers.Options): Notifiers.Notifier;
-  export function get(name: SupportedLoggers, opts: Notifiers.Options): Notifiers.Notifier;
+  /**
+   * Alias for search
+   */
+  static get(opts: Options): Notifier;
+  static get(value: string, opts: Options): Notifier;
 
-  interface Options extends LoggerOptions {
-    filepath?: string;
-    pipes?: Pipe;
-    level?: Severity;
-  }
+  /**
+   * Searches and tries to find a formatter
+   */
+  static search(value: any): Notifier;
+
+  /**
+   * Register a new Notifier, can then be used as any other Notifier
+   * 
+   * @example
+   * Notifier.register('CUSTOM', class {});
+   * ...
+   * 
+   * logger.notifier('CUSTOM');
+   * logger.notifier(notifier.CUSTOM);
+   * logger.notifier(notifier.get('CUSTOM'));
+   */
+  static register(name: string, ctor: Function);
+}
+
+
+interface Options extends LoggerOptions {
+  filepath?: string;
+  pipes?: Pipe;
+  level?: Severity;
 }
 
 export interface Pipe {
@@ -338,17 +372,18 @@ export class Pipe implements Pipe {
 }
 
 export function logger(name: SupportedLoggers, opts: LoggerOptions): Logger;
-export function logger(opts: LoggerOptions, ...args: Notifiers.Notifier): Logger;
+export function logger(opts: LoggerOptions, ...args: Notifier[]): Logger;
 
-export function notifier(opts: Notifiers.Options): Notifiers.Notifier;
-export function notifier(name: SupportedLoggers, opts: Notifiers.Options): Notifiers.Notifier;
+export function notifier(opts: Options): Notifier;
+export function notifier(name: SupportedLoggers, opts: Options): Notifier;
 
-export function severity(level: SupportedSeverities): Severity<level>;
-export function severity(level: number): Severity<level>;
-export function severity(level: Severity): Severity<level>;
-export function severity(): Severity<'DEBUG'>;
+export function severity(level: SupportedSeverities): Severity;
+export function severity(level: number): Severity;
+export function severity(level: Severity): Severity;
+export function severity(): Severity;
 
 export function formatter(name: SupportedFormatters): Formatter;
 export function formatter(template: strif.StrifTemplate): Formatter;
 
 export function pipe(level: string, filepath: string): Pipe;
+export function use(plugin: (loggin: this) => void): void;

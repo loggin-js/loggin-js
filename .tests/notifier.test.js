@@ -1,3 +1,6 @@
+/**
+* @jest-environment node
+*/
 let loggin = require('../index');
 
 describe('loggin.Notifier tests', () => {
