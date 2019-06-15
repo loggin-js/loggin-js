@@ -3,9 +3,11 @@ const plugin = require('./plugins/severity.js');
 
 loggin.use(plugin);
 
+let formatter = loggin.formatter('long');
 let logger = loggin.logger({
     level: loggin.severity('custom'),
-    color: true
+    color: true,
+    formatter: formatter
 });
 
 logger.debug('asdasd');

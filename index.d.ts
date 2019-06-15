@@ -1,13 +1,12 @@
 // Type definitions for loggin-js
 const strif = require('strif');
 
-
 export type SupportedLoggers = 'console' | 'file' | 'remote' | 'memory' | 'default';
 export type SupportedSeverities = 'DEBUG' | 'INFO' | 'NOTICE' | 'WARNING' | 'ERROR' | 'CRITICAL' | 'ALERT' | 'EMERGENCY';
 export type SupportedFormatters = 'short' | 'medium' | 'long' | 'detailed' | 'minimal' | 'default';
 
 
-export interface Log {
+export class Log {
   message: string;
   data: any;
   level: Severity;
@@ -15,25 +14,58 @@ export interface Log {
   levelStr: string;
   time: number | Date;
   user: string;
+}
+
+export class Formatter {
+  constructor(template: strif.StrifTemplate): Formatter;
+
+  /**
+   * Format a log
+   */
+  public formatLog(log: Log, opts: any): string;
+
+  /**
+   * Process log and color specific segments
+   */
+  public color(str: string): string;
+
+  /**
+   * Format a log through any formatter
+   */
+  static format(log: Log, formatter: Formatter, color: boolean = false): string;
+
+  /**
+   * Alias for search
+   */
+  static get(value: any): Formatter;
+
+  /**
+   * Searches and tries to find a formatter
+   */
+  static search(value: any): Formatter;
+
+  /**
+   * Register a new Formatter, can then be used as any other Formatter
+   * 
+   * @example
+   * Formatter.register(
+   *   'CUSTOM',
+   *   '{prop}', {
+   *     props: { }
+   *   }
+   * );
+   * 
+   * logger.formatter('CUSTOM');
+   * logger.formatter(Formatter.CUSTOM);
+   * logger.formatter(Formatter.get('CUSTOM'));
+   */
+  static register(val: any): Formatter;
+
 
   /**
    * This is kinda weird, need to refactor, PR's welcome
    */
-  replaceables: [{ regexp: RegExp, fn: (str: string) => string }];
-
-  /**
-   * Colors logs, predefined segments will be colored as well as anything matching `<%gTEXT>` where `g` is the color of the segment 
-   * Check the wiki for more info on formating
-   * @param str 
-   */
-  colored(str): string;
-  format(formatter: Formatter): string;
-}
-
-export interface Formatter {
-  constructor(template: strif.StrifTemplate): Formatter;
-  static format(log, formatter: Formatter, color: boolean = false): string;
-  static get(val: any): Formatter;
+  static replaceables: [{ regexp: RegExp, fn: (str: string) => string }];
 }
 
 export class Logger {
@@ -179,14 +211,14 @@ export class Logger {
   ): this;
 }
 
-export interface LogOptions {
+export class LogOptions {
   level?: number | string | Severity;
   user?: string;
   channel?: string;
   time?: number | Date;
 }
 
-export interface LoggerOptions {
+export class LoggerOptions {
   color?: boolean = false;
   lineNumbers?: boolean = false;
   level?: number | string | Severity;
@@ -304,8 +336,6 @@ export interface Pipe {
 export class Pipe implements Pipe {
   constructor(severity: Severity, filepath: string);
 }
-
-
 
 export function logger(name: SupportedLoggers, opts: LoggerOptions): Logger;
 export function logger(opts: LoggerOptions, ...args: Notifiers.Notifier): Logger;

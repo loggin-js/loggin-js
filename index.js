@@ -1,17 +1,21 @@
 'use strict';
+
 const Logger = require('./lib/logger');
-const Notifiers = require('./lib/notifiers');
-const Formatter = require('./lib/formatters');
+const Notifier = require('./lib/notifier');
+const Formatter = require('./lib/formatter');
 const Severity = require('./lib/severity');
 const Log = require('./lib/log');
 const Pipe = require('./lib/pipe');
+
+// Default Plugins
+const additionalFormatter = require('./plugins/additional-notifiers');
 
 function logger(opts = 'default', args = {}) {
   return Logger.get(opts, args);
 }
 
 function notifier(opts = 'default', args = {}) {
-  return Notifiers.get(opts);
+  return Notifier.get(opts);
 }
 
 function formatter(template = 'default') {
@@ -31,11 +35,11 @@ function pipe(level, filepath) {
 }
 
 function use(plugin) {
-  // "this" will resolve to LogginJS
   if (typeof plugin !== 'function') {
     throw new Error('"plugin" must be a function');
   }
 
+  // "this" will resolve to LogginJS
   plugin(this);
 }
 
@@ -43,7 +47,7 @@ function use(plugin) {
 const LogginJS = {
   Severity,
   Log,
-  Notifiers,
+  Notifier,
   Formatter,
   Logger,
   Pipe,
@@ -56,5 +60,7 @@ const LogginJS = {
   pipe,
   use
 };
+
+LogginJS.use(additionalFormatter);
 
 module.exports = LogginJS;
