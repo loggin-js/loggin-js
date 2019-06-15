@@ -118,17 +118,23 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
 * Made more composable
 * Better typing
 
+[back to top](#table-of-content-)
 ****
 
 ## News
 > ### v1.1.0
 > Support for plugins, you can now create custom plugins really easy. Check the [Plugins][docs:plugins] section for more info
 
+[back to top](#table-of-content-)
+****
+
 ## Features
 * ✔︎ Easy 
 * ✔︎ Customizable
 * ✔︎ Liteweighted
 
+[back to top](#table-of-content-)
+****
 
 ## Installing
 With npm
@@ -140,6 +146,9 @@ With yarn
 ```bash
 yarn install loggin-js
 ```
+
+[back to top](#table-of-content-)
+****
 
 ## Importing
 ### Node
@@ -163,6 +172,9 @@ import loggin from 'loggin-js';
   LogginJS.logger();
 </script>
 ```
+
+[back to top](#table-of-content-)
+****
 
 ## Oficial plugins:
 * [MongoDB](https://github.com/nombrekeff/loggin-js-mongodb)
@@ -321,6 +333,9 @@ It will be called with the `log` as first argument and the selected `notifier` a
 ```
 > Additionally there is a `preNotify` callback wich will be called before a log is propagated.
 
+[back to top](#table-of-content-)
+****
+
 ## Examples
 You can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel ([Notifiers][docs:notifier]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
 
@@ -379,9 +394,16 @@ logger.error('Not so good, eh?', null, { channel: 'other-channel' });
 > **NOTE:** `preNotify` allows to modify the log
 
 
+
+[back to top](#table-of-content-)
+****
+
 ## Migrating from `v1.x`
 Here is a little example on how to migrate `v0.x` to `v1.x`
 
+
+[back to top](#table-of-content-)
+****
 
 ### Example 1
 Method `.getLogger` now becomes `.logger`, and by default return a `console` notifier attached.  
@@ -435,8 +457,16 @@ const logger = loggin
 ```
 
 
+
+[back to top](#table-of-content-)
+****
+
 ## Collaborating
 Pull requests are welcome, as well as any other type of contribution. 
+
+
+[back to top](#table-of-content-)
+****
 
 ## Setting up <!-- omit in toc -->
 ```zsh
