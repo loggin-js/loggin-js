@@ -80,6 +80,9 @@ If you want to log easily or want to create som complex loggin system, this is t
 - [Features](#features)
 - [Installing](#installing)
 - [Importing](#importing)
+  - [Node](#node)
+  - [ES6 Import](#es6-import)
+  - [Browser](#browser)
 - [Oficial plugins:](#oficial-plugins)
 - [Usage](#usage)
   - [Creating loggers](#creating-loggers)
@@ -139,14 +142,26 @@ yarn install loggin-js
 ```
 
 ## Importing
-Importing in node:
+### Node
 ```js
 const loggin = require('loggin-js');
 ```
 
-Importing using ES6 import:
+### ES6 Import
 ```js
 import loggin from 'loggin-js';
+```
+
+### Browser
+> ### !! NOTICE !!
+> LogginJS can be used in the browser but it's in its early stages and api may change or may have errors. It is also limited, for now just the `console` notifier works. 
+
+```html
+<script src="loggin-js/dist/loggin.js"></script>
+
+<script>
+  LogginJS.logger();
+</script>
 ```
 
 ## Oficial plugins:
