@@ -4,7 +4,7 @@
 
 // Require the logging library
 // const logging = require('loggin-js'); // Should be logging-js
-const logging = require('../index');
+const logging = require('../');
 
 const logger = logging.logger({
   formatter: 'detailed'

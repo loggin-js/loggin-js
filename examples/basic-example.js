@@ -4,9 +4,7 @@
  */
 
 // const loggin = require('loggin-js');
-const loggin = require('../index');
-
-loggin.notifier('bababa');
+const loggin = require('../');
 
 // Get a logger with DEBUG severity. 
 // Severity DEBUG will output any severity.

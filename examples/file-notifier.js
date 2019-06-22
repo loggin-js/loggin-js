@@ -1,4 +1,4 @@
-const loggin = require('../index.js');
+const loggin = require('../');
 
 let notif = loggin
   .notifier('file')

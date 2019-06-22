@@ -1,4 +1,4 @@
-const loggin = require('../index'); // require('loggin-js');
+const loggin = require('../'); // require('loggin-js');
 const plugin = require('./plugins/severity.js');
 
 loggin.use(plugin);

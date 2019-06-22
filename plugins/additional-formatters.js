@@ -2,6 +2,11 @@
 function plugin(loggin) {
     const { Formatter } = loggin;
 
+    Formatter['JSON'] = Formatter._formatters['JSON'] = {
+        formatLog: (log) => JSON.stringify(log),
+        color: (log) => log,
+    }
+
     Formatter
         .register(
             'SHORT',

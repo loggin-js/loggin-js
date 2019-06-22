@@ -1,4 +1,4 @@
-let loggin = require('../index');
+let loggin = require('../');
 
 let logger = loggin.logger('memory');
 

@@ -3,7 +3,7 @@ import strif = require('strif');
 
 export type SupportedLoggers = 'console' | 'file' | 'remote' | 'memory' | 'default';
 export type SupportedSeverities = 'DEBUG' | 'INFO' | 'NOTICE' | 'WARNING' | 'ERROR' | 'CRITICAL' | 'ALERT' | 'EMERGENCY';
-export type SupportedFormatters = 'short' | 'medium' | 'long' | 'detailed' | 'minimal' | 'default';
+export type SupportedFormatters = 'short' | 'medium' | 'long' | 'detailed' | 'minimal' | 'json' | 'default';
 
 
 export class Log {
