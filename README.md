@@ -73,34 +73,34 @@ If you want to log easily or want to create som complex loggin system, this is t
 
 
 ## Table Of Content <!-- omit in toc -->
-- [Bump to `v1.x`](#bump-to-v1x)
-  - [Considerations](#considerations)
-  - [Improvements](#improvements)
-- [News](#news)
-- [Features](#features)
-- [Installing](#installing)
-- [Importing](#importing)
-  - [Node](#node)
-  - [ES6 Import](#es6-import)
-  - [Browser](#browser)
-- [Oficial plugins:](#oficial-plugins)
-- [Usage](#usage)
-  - [Creating loggers](#creating-loggers)
-  - [Configuring loggers](#configuring-loggers)
-    - [Formatting](#formatting)
-    - [Adding notifiers](#adding-notifiers)
-    - [Accessing notifiers](#accessing-notifiers)
-    - [Modifying options](#modifying-options)
-    - [Setting the level](#setting-the-level)
-  - [Customizing Notifiers/Formatters/...](#customizing-notifiersformatters)
-  - [Ignoring Logs](#ignoring-logs)
-- [Examples](#examples)
-  - [Simple example](#simple-example)
-  - [Advanced example](#advanced-example)
-- [Migrating from `v1.x`](#migrating-from-v1x)
-  - [Example 1](#example-1)
-  - [Example 2](#example-2)
-- [Collaborating](#collaborating)
+- [Bump to `v1.x`](#Bump-to-v1x)
+  - [Considerations](#Considerations)
+  - [Improvements](#Improvements)
+- [News](#News)
+- [Features](#Features)
+- [Installing](#Installing)
+- [Importing](#Importing)
+  - [Node](#Node)
+  - [ES6 Import](#ES6-Import)
+  - [Browser](#Browser)
+- [Oficial plugins](#Oficial-plugins)
+- [Usage](#Usage)
+  - [Creating loggers](#Creating-loggers)
+  - [Configuring loggers](#Configuring-loggers)
+    - [Formatting](#Formatting)
+    - [Adding notifiers](#Adding-notifiers)
+    - [Accessing notifiers](#Accessing-notifiers)
+    - [Modifying options](#Modifying-options)
+    - [Setting the level](#Setting-the-level)
+  - [Customizing Notifiers/Formatters/...](#Customizing-NotifiersFormatters)
+  - [Ignoring Logs](#Ignoring-Logs)
+- [Examples](#Examples)
+  - [Simple example](#Simple-example)
+  - [Advanced example](#Advanced-example)
+- [Migrating from `v1.x`](#Migrating-from-v1x)
+  - [Example 1](#Example-1)
+  - [Example 2](#Example-2)
+- [Collaborating](#Collaborating)
 
 
 ## Bump to `v1.x`
@@ -143,7 +143,7 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
 ## Installing
 With npm
 ```bash
-npm install loggin-js -s
+npm install loggin-js
 ```
 
 With yarn
@@ -167,7 +167,8 @@ import loggin from 'loggin-js';
 
 ### Browser
 > ### !! NOTICE !!
-> LogginJS can be used in the browser but it's in its early stages and api may change or may have errors. It is also limited, for now just the `console` notifier works. 
+> LogginJS can be used in the browser but it's in its early stages and api may change or may have errors. 
+> It is also limited, for now just the `console` notifier works. And color is not working either!
 
 ```html
 <script src="loggin-js/dist/loggin.js"></script>
@@ -180,7 +181,9 @@ import loggin from 'loggin-js';
 [back to top](#table-of-content-)
 ****
 
-## Oficial plugins:
+## Oficial plugins
+This are a couple plugins I've made, If you make a plugin and want it to appear here, 
+you can contact me and if it meets my standards I will add it here!!
 * [MongoDB](https://github.com/nombrekeff/loggin-js-mongodb)
 * [Express](https://github.com/nombrekeff/loggin-js-express)
 
@@ -212,6 +215,8 @@ loggin.logger({
 
 Check [this]() for docs for options and premades
 
+[back to top](#table-of-content-)
+****
 
 ### Configuring loggers
 Now let's see how you could **configure** your logger a bit.  
@@ -238,6 +243,8 @@ logger.debug('A cool message');
 ```zsh
 $ example.js - A cool message
 ```
+[back to top](#table-of-content-)
+****
 
 #### Adding notifiers
 You can also specify one or more [**notifiers**][docs:notifiers], wich could log to a **file**, 
@@ -272,6 +279,9 @@ Above logger will send every log through both notifiers:
 * **consoleNotif** will log everything to the console
 * **fileNotif** will log **ERROR** logs to file `logs/error-logs.log` and everything to `logs/debug-logs.log`
 
+[back to top](#table-of-content-)
+****
+
 #### Accessing notifiers
 You can get access to notifiers after creating a logger, if you created a default one or you just want to get access to them.  
 You can do it by using the `Logger.getNotifier(name)` method, here is an example: 
@@ -298,6 +308,9 @@ logger.debug('A cool message');
 > ### ! NOTICE !
 > Take into account that all **Logger** configuration methods propagate to all the **Notifiers** it has.
 > If you just want to afect one notifier, you must have created it yourself and passed it into the logger.
+****
+
+[back to top](#table-of-content-)
 ****
 
 

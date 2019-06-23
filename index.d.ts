@@ -213,20 +213,18 @@ export class Logger {
   /**
    * Searches and tries to find a formatter
    */
-  static search(value: any): Notifier;
+  static search(value: any): Logger;
 
   /**
-   * Register a new Notifier, can then be used as any other Notifier
+   * Register a new Logger, with a default Notifier attached, can then be used as any other Logger
    * 
    * @example
-   * Notifier.register('CUSTOM', class {});
+   * Logger.register('console', 'Console');
    * ...
    * 
-   * logger.notifier('CUSTOM');
-   * logger.notifier(notifier.CUSTOM);
-   * logger.notifier(notifier.get('CUSTOM'));
+   * logger.logger('console');
    */
-  static register(name: string, ctor: Function);
+  static register(name: string, notifier: string);
 }
 
 export class LogOptions {
