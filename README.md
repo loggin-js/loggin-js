@@ -100,7 +100,7 @@ If you want to log easily or want to create some complex loggin system, this is 
 - [Migrating from `v1.x`](#Migrating-from-v1x)
   - [Example 1](#Example-1)
   - [Example 2](#Example-2)
-- [Collaborating](#Collaborating)
+- [Contributing](#Contributing)
 
 
 ## Bump to `v1.x`
@@ -483,8 +483,8 @@ const logger = loggin
 [back to top](#table-of-content-)
 ****
 
-## Collaborating
-Pull requests are welcome, as well as any other type of contribution. 
+## Contributing
+Pull requests are welcome, as well as any other type of contribution. Check out the contributing guidelines [here](./.github/CONTRIBUTING.md)
 
 
 [back to top](#table-of-content-)
