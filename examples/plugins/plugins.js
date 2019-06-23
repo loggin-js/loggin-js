@@ -1,5 +1,5 @@
-const loggin = require('../'); // require('loggin-js');
-const plugin = require('./plugins/severity.js');
+const loggin = require('../..'); // require('loggin-js');
+const plugin = require('./severity.js');
 
 loggin.use(plugin);
 

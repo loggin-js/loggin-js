@@ -49,8 +49,8 @@
 [![NPM quality][code-quality-badge]][code-quality-link]  
   
 <p>
-An easy and customizable logger for NodeJS.  
-If you want to log easily or want to create som complex loggin system, this is the tool for you!
+An easy and customizable logger for NodeJS and the Browser.  
+If you want to log easily or want to create some complex loggin system, this is the tool for you!
 </p>
 
 

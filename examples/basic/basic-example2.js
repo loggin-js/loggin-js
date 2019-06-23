@@ -3,7 +3,7 @@
  * This is the most basic example on how Loggin'JS works!
  */
 
-const loggin = require('../');
+const loggin = require('../..');
 
 /*
  * Create a logger with the `getLogger` method, with level set to DEBUG.

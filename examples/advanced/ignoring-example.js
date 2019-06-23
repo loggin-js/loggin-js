@@ -1,4 +1,4 @@
-const loggin = require('../');
+const loggin = require('../..');
 
 let logger = loggin.logger({
   // This callback is run before ignore and other logic

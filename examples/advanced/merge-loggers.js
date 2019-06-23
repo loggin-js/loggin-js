@@ -1,4 +1,4 @@
-let loggin = require('../');
+let loggin = require('../..');
 
 let clogger1 = loggin.logger('console', {
   channel: 'clogger1'
