@@ -1,898 +1,12 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-(function (global){
-const LogginJS = require('./lib/index');
-const additionalSeverities = require('./plugins/additional-severities');
-const additionalNotifiers = require('./plugins/browser/additional-notifiers');
-const additionalFormatters = require('./plugins/additional-formatters');
-
-LogginJS.use(additionalSeverities);
-LogginJS.use(additionalNotifiers);
-LogginJS.use(additionalFormatters);
-
-global.LogginJS = LogginJS;
-module.exports = LogginJS;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/index":3,"./plugins/additional-formatters":143,"./plugins/additional-severities":144,"./plugins/browser/additional-notifiers":145}],2:[function(require,module,exports){
-'use strict';
-const strif = require('strif');
-const clicolor = require('cli-color');
-
-const padd = (v) => ` ${v} `;
-
-let colors = {
-  cl_red: s => clicolor.red(s),
-  cl_blue: s => clicolor.blue(s),
-  cl_cyan: s => clicolor.cyan(s),
-  cl_green: s => clicolor.green(s),
-  cl_gray: s => clicolor.blackBright(s),
-  cl_yellow: s => clicolor.yellow(s),
-  cl_orange: s => clicolor.orange(s),
-  cl_purple: s => clicolor.purple(s),
-  cl_black: s => clicolor.black(s),
-  cl_white: s => clicolor.white(s),
-  cl_magenta: s => clicolor.magenta(s),
-};
-
-let labels = {
-  lbl_red: s => clicolor.bgRed(padd(s)),
-  lbl_blue: s => clicolor.bgBlue(padd(s)),
-  lbl_cyan: s => clicolor.bgCyan(padd(s)),
-  lbl_green: s => clicolor.bgGreen(padd(s)),
-  lbl_gray: s => clicolor.bgGray(padd(s)),
-  lbl_yellow: s => clicolor.bgYellow(padd(s)),
-  lbl_orange: s => clicolor.bgOrange(padd(s)),
-  lbl_purple: s => clicolor.bgPurple(padd(s)),
-  lbl_black: s => clicolor.bgBlack(padd(s)),
-  lbl_white: s => clicolor.bgWhite(padd(s)),
-  lbl_magenta: s => clicolor.bgMagenta(padd(s)),
-};
-
-let ignored = [
-  'lbl_red',
-  'lbl_blue',
-  'lbl_cyan',
-  'lbl_green',
-  'lbl_gray',
-  'lbl_yellow',
-  'lbl_orange',
-  'lbl_purple',
-  'lbl_black',
-  'lbl_white',
-  'lbl_magenta',
-
-  'cl_red',
-  'cl_blue',
-  'cl_cyan',
-  'cl_green',
-  'cl_gray',
-  'cl_yellow',
-  'cl_orange',
-  'cl_purple',
-  'cl_black',
-  'cl_white',
-  'cl_magenta',
-]
-
-
-const formatter =
-  strif.create({
-    transformers: {
-      json: s => s ? JSON.stringify(s, null, 2) : s,
-      json_u: s => s ? JSON.stringify(s) : s,
-      upper: s => s ? s.toUpperCase() : s,
-      lower: s => s ? s.toLowerCase() : s,
-      string: s => s ? s.toString() : s,
-      int: s => s ? s.toInt() : s,
-      date: s => s ? new Date(s).toLocaleDateString() : s,
-      ...labels,
-      ...colors
-    }
-  });
-
-class Formatter {
-  constructor(template) {
-    this.template = template;
-  }
-
-  color(str) {
-    Formatter.replaceables.forEach((re) => str = str.replace(re.regexp, re.fn));
-    return str;
-  }
-
-  formatLog(log, opts = { color: false }) {
-    let {
-      message,
-      data,
-      level,
-      channel,
-      levelStr,
-      time,
-      user,
-    } = log;
-
-    return Formatter.format({
-      message,
-      data,
-      level,
-      channel,
-      levelStr,
-      time,
-      user,
-    }, this, opts.color);
-  }
-
-  static format(log, formatter, color = false) {
-    const tmpltType = formatter.template.constructor.name;
-    if (tmpltType !== 'StrifTemplate') {
-      throw Error('options.formatter should be type: "StrifTemplate", not: "' + tmpltType + '"');
-    }
-
-    return formatter.template.compile(log, {
-      ignoreTransformers: color ? false : ignored
-    });
-  }
-
-  static search(value) {
-    for (let key in Formatter._formatters) {
-      let formatter = Formatter._formatters[key];
-      if ((key).toLowerCase() === String(value).toLowerCase()) {
-        return formatter;
-      }
-    }
-
-    return Formatter.LONG;
-  }
-
-  static get(value) {
-    if (value && value.constructor.name === 'Formatter') {
-      return value;
-    }
-
-    return Formatter.search(value);
-  }
-
-  static register(name, template, options = {}) {
-    if (typeof name !== 'string') {
-      throw new Error('"name" must be a string got: ' + typeof name);
-    }
-    if (typeof template !== 'string') {
-      throw new Error('"template" must be a string got: ' + typeof template);
-    }
-
-    let nameUpper = name.toUpperCase();
-
-    Formatter[nameUpper] = Formatter._formatters[nameUpper] =
-      new Formatter(formatter.template(template, options));
-
-    return Formatter;
-  }
-}
-
-/**
- * Array of regexp, transformer pairs, that change the color of a specific pattern
- */
-Formatter.replaceables = [
-  {
-    regexp: /<%bb[^>]+>/g,
-    fn: (str) => clicolor.blueBright(str).replace(/<%bb(.+)>/g, '$1')
-  },
-  {
-    regexp: /<%gr[^>]+>/g,
-    fn: (str) => clicolor.blackBright(str).replace(/<%gr(.+)>/g, '$1')
-  },
-  {
-    regexp: /INFO|INF|<%g[^>]+>/g,
-    fn: (str) => clicolor.greenBright(str).replace(/<%g(.+)>/g, '$1')
-  },
-  {
-    regexp: /SILLY|SIL|<%m[^>]+>/g,
-    fn: (str) => clicolor.magentaBright(str).replace(/<%m(.+)>/g, '$1')
-  },
-  {
-    regexp: /DEBUG|DEB|<%b[^>]+>/g,
-    fn: (str) => clicolor.blueBright(str).replace(/<%b(.+)>/g, '$1')
-  },
-  {
-    regexp: /NOTICE|NOT|<%c[^>]+>/g,
-    fn: (str) => clicolor.cyanBright(str).replace(/<%c(.+)>/g, '$1')
-  },
-  {
-    regexp: /WARNING|WAR|EME|EMERGENCY|<%y[^>]+>/g,
-    fn: (str) => clicolor.yellowBright(str).replace(/<%y(.+)>/g, '$1')
-  },
-  {
-    regexp: /ALERT|ALE|CRITICAL|CRI|ERROR|ERR|<%r[^>]+>/g,
-    fn: (str) => clicolor.redBright(str).replace(/<%r(.+)>/g, '$1')
-  },
-  {
-    regexp: /<%p[^>]+>/g,
-    fn: (str) => clicolor.xterm(13)(str).replace(/<%p(.+)>/g, '$1')
-  },
-  {
-    regexp: /<%m[^>]+>/g,
-    fn: (str) => clicolor.magenta(str).replace(/<%m(.+)>/g, '$1')
-  }
-];
-
-Formatter._formatters = {};
-
-module.exports = Formatter;
-
-},{"cli-color":16,"strif":129}],3:[function(require,module,exports){
-'use strict';
-
-const Logger = require('./logger');
-const Notifier = require('./notifier');
-const Formatter = require('./formatter');
-const Severity = require('./severity');
-const Log = require('./log');
-const Pipe = require('./pipe');
-
-function logger(opts = 'default', args = {}) {
-  return Logger.get(opts, args);
-}
-
-function notifier(opts = 'default', args = {}) {
-  return Notifier.get(opts);
-}
-
-function formatter(template = 'default') {
-  return Formatter.get(template);
-}
-
-function severity(level) {
-  return Severity.get(level);
-}
-
-function merge(loggers, options) {
-  return Logger.merge(loggers, options);
-}
-
-function pipe(level, filepath) {
-  return new Pipe(level, filepath);
-}
-
-function use(plugin) {
-  if (typeof plugin !== 'function') {
-    throw new Error('"plugin" must be a function');
-  }
-
-  // "this" will resolve to LogginJS
-  plugin(this);
-}
-
-
-const LogginJS = {
-  Severity,
-  Log,
-  Notifier,
-  Formatter,
-  Logger,
-  Pipe,
-
-  logger,
-  notifier,
-  formatter,
-  severity,
-  merge,
-  pipe,
-  use
-};
-
-module.exports = LogginJS;
-},{"./formatter":2,"./log":4,"./logger":5,"./notifier":6,"./pipe":7,"./severity":8}],4:[function(require,module,exports){
-'use strict';
-
-const clicolor = require('cli-color');
-const Severity = require('./severity');
-const Formatter = require('./formatter');
-
-
-class Log {
-  constructor(message, data = null, level = Severity.DEBUG, channel = '', time = new Date(), user) {
-    this.message = message;
-    this.data = data;
-    this.level = level;
-    this.channel = channel;
-    this.levelStr = level.toString();
-    this.time = time || new Date();
-    this.user = user;
-  }
-
-  /**
-   * Returns formatted log
-   * @param {string} formatter
-   */
-  format(formatter, opts = {
-    color: false
-  }) {
-    let {
-      message,
-      data,
-      level,
-      channel,
-      levelStr,
-      time,
-      user,
-    } = this;
-
-    return Formatter.format({
-      message,
-      data,
-      level,
-      channel,
-      levelStr,
-      time,
-      user,
-    }, formatter, opts.color);
-  }
-}
-
-module.exports = Log;
-},{"./formatter":2,"./severity":8,"cli-color":16}],5:[function(require,module,exports){
-(function (__filename){
-'use strict';
-
-const Log = require('./log');
-const Notifier = require('./notifier');
-const Severity = require('./severity');
-const Formatter = require('./formatter');
-const os = require('os');
-const path = require('path');
-
-class Logger {
-  constructor(options) {
-    this.options = {
-      ...Logger.DefaultOptions,
-      ...options
-    };
-
-    this._profiles = {};
-    let notifiers = options.notifiers;
-    if (!notifiers || notifiers.length === 0) {
-      notifiers = [Notifier.get('default')];
-    }
-
-    this._level;
-    this._user;
-    this._channel;
-    this._enabled;
-    this._color;
-    this._formatter;
-    this._lineNumbers;
-
-    // .setNotifiers must be done before setting other options
-    // as some of them propagate down options to the notifiers
-    this.setNotifiers(notifiers);
-
-    this.level(this.options.level);
-    this.user(this.options.user);
-    this.channel(this.options.channel);
-    this.enabled(this.options.enabled);
-    this.color(this.options.color);
-    this.formatter(this.options.formatter);
-    this.lineNumbers(this.options.lineNumbers);
-  }
-
-  clone(options = {}) {
-    let logger = new Logger({ ...this.options, ...options }, [...this._notifiers]);
-    return logger;
-  }
-
-  fork(options = {}) {
-    return this.clone(options);
-  }
-
-  // Options
-  enabled(enabled) {
-    this.options.enabled = enabled;
-    return this;
-  }
-
-  user(user) {
-    this.options.user = user;
-    return this;
-  }
-
-  channel(channel) {
-    this.options.channel = channel;
-    return this;
-  }
-
-  level(level) {
-    this.options.level = Severity.get(level) || Severity.DEBUG;
-
-    this._notifiers.forEach(notif =>
-      notif.level(this.options.level));
-
-    return this;
-  }
-
-  formatter(formatter) {
-    this.options.formatter = formatter;
-    this._notifiers.forEach(notif =>
-      notif.formatter(this.options.formatter));
-
-    return this;
-  }
-
-  color(enabled = true) {
-    this._color = true;
-    this._notifiers.forEach(notif =>
-      notif.color(enabled));
-    return this;
-  }
-
-  lineNumbers(show) {
-    this._notifiers.forEach(notif =>
-      notif.lineNumbers(show));
-
-    return this;
-  }
-
-  // Notifier stuff
-  notifier(...notifiers) {
-    this._notifiers = [
-      ...this._notifiers,
-      ...notifiers
-    ];
-    return this;
-  }
-
-  setNotifiers(notifiers) {
-    this._notifiers = notifiers;
-    return this;
-  }
-
-  hasNotifier(name) {
-    return this._notifiers.some(notif =>
-      notif.name === name);
-  }
-
-  getNotifier(name) {
-    if (!this.hasNotifier(name)) {
-      return null;
-    } else {
-      return this._notifiers.filter(notif =>
-        notif.name === name).pop();
-    }
-  }
-
-  color(color = true) {
-    this.options.color = color;
-    this._notifiers.forEach(notif =>
-      notif.color(this.options.color));
-
-    return this;
-  }
-
-  lineNumbers(show) {
-    this.options.lineNumbers = show;
-    this._notifiers.forEach(notif =>
-      notif.lineNumbers(this.options.lineNumbers));
-
-    return this;
-  }
-
-  canLog(severity) {
-    return this.options.level.canLog(severity);
-  }
-
-  log(message, data = null, opts = {}) {
-    const { level, channel, time, user } = {
-      level: this.options.level,
-      channel: this.options.channel,
-      user: this.options.user,
-      time: Date.now(),
-      ...opts
-    };
-
-    if (this.options.enabled) {
-      let log = message;
-      if (!(message instanceof Log)) {
-        log = new Log(message, data, level, channel, time, user);
-      }
-
-      return this._notifiers
-        .forEach(notifier => {
-          if (notifier.canOutput(level)) {
-            if (this.options.preNotify && typeof this.options.preNotify === 'function') {
-              this.options.preNotify(log, notifier);
-            }
-            if (
-              this.options.ignore &&
-              typeof this.options.ignore === 'function' &&
-              this.options.ignore(log, notifier)
-            ) return;
-
-            notifier.notify(log);
-          }
-        });
-    }
-
-    return this;
-  }
-
-
-  debug(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.DEBUG,
-      ...opts
-    });
-
-    return this;
-  }
-
-  warning(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.WARNING,
-      ...opts
-    });
-
-    return this;
-  }
-
-  alert(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.ALERT,
-      ...opts
-    });
-
-    return this;
-  }
-
-  emergency(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.EMERGENCY,
-      ...opts
-    });
-
-    return this;
-  }
-
-  critical(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.CRITICAL,
-      ...opts
-    });
-
-    return this;
-  }
-
-  error(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.ERROR,
-      ...opts
-    });
-
-    return this;
-  }
-
-  notice(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.NOTICE,
-      ...opts
-    });
-
-    return this;
-  }
-
-  info(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.INFO,
-      ...opts
-    });
-
-    return this;
-  }
-
-  silly(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.SILLY,
-      ...opts
-    });
-
-    return this;
-  }
-
-  static search(value) {
-    for (let key in Logger._loggers) {
-      let logger = Logger._loggers[key];
-      if ((key).toLowerCase() === String(value).toLowerCase()) {
-        return logger;
-      }
-    }
-
-    return Notifier.File;
-  }
-
-  static get(opts = 'default', args = {}) {
-    let notifier = Notifier.get(opts, args);
-    if (typeof opts === 'string' && notifier) {
-      args.notifiers = [notifier];
-      return new Logger(args);
-    } else if (typeof opts === 'object') {
-      return new Logger(opts);
-    } else {
-      throw new Error('Bad arguments for .logger, (' + opts + ')');
-    }
-  }
-
-  static merge(loggers, opts = {
-    mergeOptions: true,
-    mergeNotifiers: true
-  }) {
-    let notifiers = [];
-    let options = {};
-    for (let logger of loggers) {
-      if (!(logger instanceof Logger)) {
-        throw new Error('loggers must be an array of loggers');
-      } else {
-        if (opts.mergeOptions === true) {
-          options = Object.assign(options, logger.options);
-        }
-
-        if (opts.mergeNotifiers === true) {
-          notifiers.push(...logger._notifiers);
-        }
-      }
-    }
-
-    let logger = new Logger(options);
-    logger.setNotifiers(notifiers);
-
-    return logger;
-  }
-
-  static register(name, notifierName) {
-    if (typeof name !== 'string') {
-      throw new Error('"name" must be a string got: ' + typeof name);
-    }
-    if (typeof notifierName !== 'string') {
-      throw new Error('"notifierName" must be a string got: ' + typeof notifierName);
-    }
-
-    Logger[name] = Logger._loggers[name] = notifierName;
-
-    return Logger;
-  }
-}
-
-Logger._loggers = {};
-Logger.DefaultOptions = {
-  user: os.userInfo ? os.userInfo().username: 'browser',
-  ignore: null,
-  level: Severity.DEBUG,
-  channel: path.basename(__filename),
-  formatter: Formatter.get('detailed'),
-  enabled: true,
-  color: false,
-};
-
-module.exports = Logger;
-}).call(this,"/lib/logger.js")
-},{"./formatter":2,"./log":4,"./notifier":6,"./severity":8,"os":147,"path":148}],6:[function(require,module,exports){
-'use strict';
-
-const Severity = require('./severity');
-const Formatter = require('./formatter');
-
-function isConstructor(obj) {
-  return !!obj.prototype && !!obj.prototype.constructor.name;
-}
-
-class Notifier {
-  constructor(options = {}) {
-    options = {
-      ...Notifier.DefaultOptions,
-      ...options
-    }
-
-    if (options.level && !(options.level instanceof Severity)) {
-      throw new Error(`ERROR: "options.level" should be an instance of Severity. at: options.level = ${options.level}`);
-    }
-
-    this.name = 'abstract';
-    this.options = options;
-    this.options.level = Severity.get(this.options.level);
-    this.options.color = options.color;
-    this.options.lineNumbers = this.options.lineNumbers;
-
-    this.pipes = [];
-    this.lineIndex = 0;
-
-    if (!this.options.formatter) {
-      this.formatter('detailed');
-    } else if (typeof this.options.formatter === 'string') {
-      this.formatter(this.options.formatter);
-    }
-  }
-
-  canOutput(level) {
-    return this.options.level.canLog(level);
-  }
-
-  level(level) {
-    this.options.level = Severity.get(level);
-    return this;
-  }
-
-  formatter(formatter) {
-    this.options.formatter = Formatter.get(formatter);
-    return this;
-  }
-
-  color(val) {
-    this.options.color = val;
-    return this;
-  }
-
-  lineNumbers(show) {
-    this.options.lineNumbers = show;
-    return this;
-  }
-
-  getLineWithNumber(log) {
-    let lineNum = this.lineIndex++;
-    return '(' + lineNum + ') ' + log;
-  }
-
-  notify(log) {
-    let { formatter, color } = this.options;
-    let output = formatter.formatLog(log, { color: color });
-
-    if (color) {
-      output = formatter.color(output);
-    }
-
-    this.output(output, log.level, log);
-
-    return this;
-  }
-
-  output(log) {
-    return;
-  }
-
-  pipe(severity, cb) {
-    console.warn('WARN - Pipe has not been configured in this notifier');
-  }
-
-  static search(value) {
-    for (let key in Notifier._notifiers) {
-      let notifier = Notifier._notifiers[key];
-      if ((key).toLowerCase() === String(value).toLowerCase()) {
-        return notifier;
-      }
-    }
-
-    return Notifier.Console;
-  }
-
-  static get(value, opts = {}) {
-    if (value && value.constructor.name === 'Notifier') {
-      return value;
-    }
-
-    let Ctor = Notifier.search(value);
-
-    if (!isConstructor(Ctor)) {
-      throw new Error('Coult not find Notifier with name (' + value + ') | \nIf it\'s a custom made notifier, please register it before using it. I.e: Notifier.register(\'name\', Constructor)');
-    }
-
-    return new Ctor(opts);
-  }
-
-  static register(name, ctor) {
-    if (typeof name !== 'string') {
-      throw new Error('"name" must be a string got: ' + typeof name);
-    }
-    if (typeof ctor !== 'function') {
-      throw new Error('"ctor" must be a constructor function got: ' + typeof ctor);
-    }
-
-    Notifier[name] = Notifier._notifiers[name] = ctor;
-
-    return Notifier;
-  }
-}
-
-Notifier._notifiers = {};
-
-Notifier.DefaultOptions = {
-  color: false
-};
-
-
-module.exports = Notifier;
-},{"./formatter":2,"./severity":8}],7:[function(require,module,exports){
-'use strict';
-class Pipe {
-  constructor(severity, filepath) {
-    this.severity = severity;
-    this.filepath = filepath;
-  }
-
-
-  /**
-   * Does this pipe englobe said severity
-   * @argument severity {Severity}
-   */
-  englobes(severity) {
-    return this.severity.canLog(severity)
-  }
-}
-
-module.exports = Pipe;
-},{}],8:[function(require,module,exports){
-'use strict';
-class Severity {
-  constructor(level, name) {
-    this.level = level;
-    this.name = name;
-    this.fileLogginLevel = this.level;
-  }
-
-  canLog(severity) {
-    return this.level >= severity.level;
-  }
-
-  getFileLoggingLevel() {
-    return this.fileLogginLevel;
-  }
-
-  toString() {
-    return String(this.name).substr(0, 3);
-  }
-
-  toInt() {
-    return this.level;
-  }
-
-  valueOf() {
-    return this.toInt();
-  }
-
-  static search(value) {
-    for (let key in Severity._severities) {
-      let severity = Severity._severities[key];
-      if (severity.level === value || (severity.name).toLowerCase() === String(value).toLowerCase()) {
-        return severity;
-      }
-    }
-
-    return null;
-  }
-
-  static get(level) {
-    if (level && level.constructor.name === 'Severity') {
-      return level;
-    }
-
-    return Severity.search(level);
-  }
-
-  static register(level, name) {
-    if (typeof name !== 'string') {
-      throw new Error('"name" must be a string got: ' + typeof name);
-    }
-    Severity[name] = Severity._severities[name] = new Severity(level, name);
-
-    return Severity;
-  }
-}
-
-Severity._severities = {};
-
-module.exports = Severity;
-},{}],9:[function(require,module,exports){
 'use strict';
 module.exports = function () {
 	return /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-PRZcf-nqry=><]/g;
 };
 
-},{}],10:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
+
+},{}],3:[function(require,module,exports){
 "use strict";
 
 var object        = require("es5-ext/object/valid-object")
@@ -907,7 +21,7 @@ module.exports = function (text, style) {
 	return result;
 };
 
-},{"es5-ext/object/valid-object":80,"es5-ext/object/validate-stringifiable-value":82,"es6-iterator/for-of":94}],11:[function(require,module,exports){
+},{"es5-ext/object/valid-object":73,"es5-ext/object/validate-stringifiable-value":75,"es6-iterator/for-of":87}],4:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -982,12 +96,12 @@ module.exports = Object.defineProperties(getFn(), {
 });
 
 }).call(this,require('_process'))
-},{"./lib/sgr":17,"./lib/xterm-match":19,"_process":149,"d":27,"es5-ext/object/assign":58,"es5-ext/object/for-each":64,"es5-ext/object/map":72,"es5-ext/object/primitive-set":75,"es5-ext/object/set-prototype-of":76,"memoizee":114,"memoizee/methods":121}],12:[function(require,module,exports){
+},{"./lib/sgr":10,"./lib/xterm-match":12,"_process":124,"d":20,"es5-ext/object/assign":51,"es5-ext/object/for-each":57,"es5-ext/object/map":65,"es5-ext/object/primitive-set":68,"es5-ext/object/set-prototype-of":69,"memoizee":107,"memoizee/methods":114}],5:[function(require,module,exports){
 "use strict";
 
 module.exports = "\x07";
 
-},{}],13:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 "use strict";
 
 var generate          = require("es5-ext/array/generate")
@@ -1045,7 +159,7 @@ module.exports = function (inputRows/*, options*/) {
 	);
 };
 
-},{"./get-stripped-length":15,"es5-ext/array/from":33,"es5-ext/array/generate":36,"es5-ext/iterable/validate-object":45,"es5-ext/object/is-value":68,"es5-ext/object/validate-stringifiable":83,"es5-ext/string/#/repeat":88}],14:[function(require,module,exports){
+},{"./get-stripped-length":8,"es5-ext/array/from":26,"es5-ext/array/generate":29,"es5-ext/iterable/validate-object":38,"es5-ext/object/is-value":61,"es5-ext/object/validate-stringifiable":76,"es5-ext/string/#/repeat":81}],7:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -1057,7 +171,7 @@ module.exports = {
 	lineRight: "\x1b[K"
 };
 
-},{}],15:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 "use strict";
 
 /*
@@ -1070,7 +184,7 @@ module.exports = function (str) {
 	return strip(str).length;
 };
 
-},{"./strip":23}],16:[function(require,module,exports){
+},{"./strip":16}],9:[function(require,module,exports){
 "use strict";
 
 var d = require("d");
@@ -1089,7 +203,7 @@ module.exports = Object.defineProperties(require("./bare"), {
 	art: d(require("./art"))
 });
 
-},{"./art":10,"./bare":11,"./beep":12,"./columns":13,"./erase":14,"./get-stripped-length":15,"./move":20,"./reset":21,"./slice":22,"./strip":23,"./throbber":24,"./window-size":25,"d":27}],17:[function(require,module,exports){
+},{"./art":3,"./bare":4,"./beep":5,"./columns":6,"./erase":7,"./get-stripped-length":8,"./move":13,"./reset":14,"./slice":15,"./strip":16,"./throbber":17,"./window-size":18,"d":20}],10:[function(require,module,exports){
 "use strict";
 
 /* CSI - control sequence introducer */
@@ -1193,7 +307,7 @@ sgr.extractCode = extractCode;
 
 module.exports = sgr;
 
-},{"es5-ext/array/#/for-each-right":31,"es5-ext/array/#/uniq.js":32,"es5-ext/object/assign":58,"es5-ext/object/first-key":63,"es5-ext/object/for-each":64,"es5-ext/string/#/contains":85}],18:[function(require,module,exports){
+},{"es5-ext/array/#/for-each-right":24,"es5-ext/array/#/uniq.js":25,"es5-ext/object/assign":51,"es5-ext/object/first-key":56,"es5-ext/object/for-each":57,"es5-ext/string/#/contains":78}],11:[function(require,module,exports){
 "use strict";
 
 module.exports = [
@@ -1248,7 +362,7 @@ module.exports = [
 	"bcbcbc", "c6c6c6", "d0d0d0", "dadada", "e4e4e4", "eeeeee"
 ];
 
-},{}],19:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 "use strict";
 
 var push = Array.prototype.push
@@ -1302,7 +416,7 @@ push.apply(
 	})
 );
 
-},{"./xterm-colors":18}],20:[function(require,module,exports){
+},{"./xterm-colors":11}],13:[function(require,module,exports){
 "use strict";
 
 var d     = require("d")
@@ -1347,12 +461,12 @@ module.exports = Object.defineProperties(
 	}
 );
 
-},{"d":27,"es5-ext/math/trunc":49}],21:[function(require,module,exports){
+},{"d":20,"es5-ext/math/trunc":42}],14:[function(require,module,exports){
 "use strict";
 
 module.exports = "\x1b[2J\x1b[0;0H";
 
-},{}],22:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 "use strict";
 
 var reAnsi        = require("ansi-regex")
@@ -1495,7 +609,7 @@ module.exports = function (str/*, begin, end*/) {
 		.join("");
 };
 
-},{"./get-stripped-length":15,"./lib/sgr":17,"ansi-regex":9,"es5-ext/object/validate-stringifiable-value":82}],23:[function(require,module,exports){
+},{"./get-stripped-length":8,"./lib/sgr":10,"ansi-regex":1,"es5-ext/object/validate-stringifiable-value":75}],16:[function(require,module,exports){
 // Strip ANSI formatting from string
 
 "use strict";
@@ -1505,7 +619,7 @@ var stringifiable = require("es5-ext/object/validate-stringifiable")
 
 module.exports = function (str) { return stringifiable(str).replace(r, ""); };
 
-},{"ansi-regex":9,"es5-ext/object/validate-stringifiable":83}],24:[function(require,module,exports){
+},{"ansi-regex":1,"es5-ext/object/validate-stringifiable":76}],17:[function(require,module,exports){
 "use strict";
 
 var compose      = require("es5-ext/function/#/compose")
@@ -1559,7 +673,7 @@ module.exports = exports = function (write, interval/*, format*/) {
 
 Object.defineProperty(exports, "Iterator", d(ThrobberIterator));
 
-},{"d":27,"es5-ext/function/#/compose":39,"es5-ext/object/valid-callable":79,"timers-ext/valid-timeout":131}],25:[function(require,module,exports){
+},{"d":20,"es5-ext/function/#/compose":32,"es5-ext/object/valid-callable":72,"timers-ext/valid-timeout":128}],18:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -1571,7 +685,7 @@ Object.defineProperties(exports, {
 });
 
 }).call(this,require('_process'))
-},{"_process":149,"d":27}],26:[function(require,module,exports){
+},{"_process":124,"d":20}],19:[function(require,module,exports){
 "use strict";
 
 var isValue             = require("type/value/is")
@@ -1606,7 +720,7 @@ module.exports = function (props/*, options*/) {
 	return map(props, function (desc, name) { return define(name, desc, options); });
 };
 
-},{"es5-ext/object/copy":61,"es5-ext/object/map":72,"es5-ext/object/normalize-options":74,"type/plain-function/ensure":137,"type/value/ensure":141,"type/value/is":142}],27:[function(require,module,exports){
+},{"es5-ext/object/copy":54,"es5-ext/object/map":65,"es5-ext/object/normalize-options":67,"type/plain-function/ensure":134,"type/value/ensure":138,"type/value/is":139}],20:[function(require,module,exports){
 "use strict";
 
 var isValue         = require("type/value/is")
@@ -1670,7 +784,7 @@ d.gs = function (dscr, get, set/*, options*/) {
 	return !options ? desc : assign(normalizeOpts(options), desc);
 };
 
-},{"es5-ext/object/assign":58,"es5-ext/object/normalize-options":74,"es5-ext/string/#/contains":85,"type/plain-function/is":138,"type/value/is":142}],28:[function(require,module,exports){
+},{"es5-ext/object/assign":51,"es5-ext/object/normalize-options":67,"es5-ext/string/#/contains":78,"type/plain-function/is":135,"type/value/is":139}],21:[function(require,module,exports){
 "use strict";
 
 var isPlainFunction = require("type/plain-function/is")
@@ -1787,7 +901,7 @@ module.exports = function (props) {
 	return map(props, function (desc, name) { return define(name, desc); });
 };
 
-},{"es5-ext/object/map":72,"es5-ext/string/#/contains":85,"type/plain-function/is":138,"type/value/ensure":141,"type/value/is":142}],29:[function(require,module,exports){
+},{"es5-ext/object/map":65,"es5-ext/string/#/contains":78,"type/plain-function/is":135,"type/value/ensure":138,"type/value/is":139}],22:[function(require,module,exports){
 // Inspired by Google Closure:
 // http://closure-library.googlecode.com/svn/docs/
 // closure_goog_array_array.js.html#goog.array.clear
@@ -1801,7 +915,7 @@ module.exports = function () {
 	return this;
 };
 
-},{"../../object/valid-value":81}],30:[function(require,module,exports){
+},{"../../object/valid-value":74}],23:[function(require,module,exports){
 "use strict";
 
 var numberIsNaN       = require("../../number/is-nan")
@@ -1831,7 +945,7 @@ module.exports = function (searchElement /*, fromIndex*/) {
 	return -1;
 };
 
-},{"../../number/is-nan":52,"../../number/to-pos-integer":56,"../../object/valid-value":81}],31:[function(require,module,exports){
+},{"../../number/is-nan":45,"../../number/to-pos-integer":49,"../../object/valid-value":74}],24:[function(require,module,exports){
 "use strict";
 
 var toPosInt          = require("../../number/to-pos-integer")
@@ -1852,7 +966,7 @@ module.exports = function (cb /*, thisArg*/) {
 	}
 };
 
-},{"../../number/to-pos-integer":56,"../../object/valid-callable":79,"../../object/valid-value":81}],32:[function(require,module,exports){
+},{"../../number/to-pos-integer":49,"../../object/valid-callable":72,"../../object/valid-value":74}],25:[function(require,module,exports){
 "use strict";
 
 var indexOf = require("./e-index-of")
@@ -1869,14 +983,14 @@ module.exports = function () {
  return filter.call(this, isFirst, this);
 };
 
-},{"./e-index-of":30}],33:[function(require,module,exports){
+},{"./e-index-of":23}],26:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./is-implemented")()
 	? Array.from
 	: require("./shim");
 
-},{"./is-implemented":34,"./shim":35}],34:[function(require,module,exports){
+},{"./is-implemented":27,"./shim":28}],27:[function(require,module,exports){
 "use strict";
 
 module.exports = function () {
@@ -1887,7 +1001,7 @@ module.exports = function () {
 	return Boolean(result && (result !== arr) && (result[1] === "dwa"));
 };
 
-},{}],35:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 "use strict";
 
 var iteratorSymbol = require("es6-symbol").iterator
@@ -2008,7 +1122,7 @@ module.exports = function (arrayLike /*, mapFn, thisArg*/) {
 	return arr;
 };
 
-},{"../../function/is-arguments":41,"../../function/is-function":42,"../../number/to-pos-integer":56,"../../object/is-value":68,"../../object/valid-callable":79,"../../object/valid-value":81,"../../string/is-string":91,"es6-symbol":100}],36:[function(require,module,exports){
+},{"../../function/is-arguments":34,"../../function/is-function":35,"../../number/to-pos-integer":49,"../../object/is-value":61,"../../object/valid-callable":72,"../../object/valid-value":74,"../../string/is-string":84,"es6-symbol":93}],29:[function(require,module,exports){
 "use strict";
 
 var toPosInt = require("../number/to-pos-integer")
@@ -2028,7 +1142,7 @@ module.exports = function (length /*, …fill*/) {
 	return arr;
 };
 
-},{"../number/to-pos-integer":56,"../object/valid-value":81}],37:[function(require,module,exports){
+},{"../number/to-pos-integer":49,"../object/valid-value":74}],30:[function(require,module,exports){
 "use strict";
 
 var from = require("./from")
@@ -2039,7 +1153,7 @@ module.exports = function (arrayLike) {
 	return isArray(arrayLike) ? arrayLike : from(arrayLike);
 };
 
-},{"./from":33}],38:[function(require,module,exports){
+},{"./from":26}],31:[function(require,module,exports){
 "use strict";
 
 var assign            = require("../object/assign")
@@ -2061,7 +1175,7 @@ exports = module.exports = function (message /*, code, ext*/) {
 	return err;
 };
 
-},{"../object/assign":58,"../object/is-object":67,"../object/is-value":68}],39:[function(require,module,exports){
+},{"../object/assign":51,"../object/is-object":60,"../object/is-value":61}],32:[function(require,module,exports){
 "use strict";
 
 var isValue  = require("../../object/is-value")
@@ -2083,7 +1197,7 @@ module.exports = function (fnIgnored/*, …fnn*/) {
 	return function (argIgnored) { return fns.reduce(callFn, apply.call(first, this, arguments)); };
 };
 
-},{"../../array/from":33,"../../object/is-value":68,"../../object/valid-callable":79}],40:[function(require,module,exports){
+},{"../../array/from":26,"../../object/is-value":61,"../../object/valid-callable":72}],33:[function(require,module,exports){
 "use strict";
 
 var toPosInt = require("../number/to-pos-integer");
@@ -2141,7 +1255,7 @@ if (test.length === 1) {
 	};
 }
 
-},{"../number/to-pos-integer":56,"../object/mixin":73}],41:[function(require,module,exports){
+},{"../number/to-pos-integer":49,"../object/mixin":66}],34:[function(require,module,exports){
 "use strict";
 
 var objToString = Object.prototype.toString
@@ -2155,7 +1269,7 @@ module.exports = function (value) {
 	return objToString.call(value) === id;
 };
 
-},{}],42:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 "use strict";
 
 var objToString = Object.prototype.toString, id = objToString.call(require("./noop"));
@@ -2164,13 +1278,13 @@ module.exports = function (value) {
 	return typeof value === "function" && objToString.call(value) === id;
 };
 
-},{"./noop":43}],43:[function(require,module,exports){
+},{"./noop":36}],36:[function(require,module,exports){
 "use strict";
 
 // eslint-disable-next-line no-empty-function
 module.exports = function () {};
 
-},{}],44:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 "use strict";
 
 var iteratorSymbol = require("es6-symbol").iterator
@@ -2183,7 +1297,7 @@ module.exports = function (value) {
 	return isArrayLike(value);
 };
 
-},{"../object/is-array-like":65,"../object/is-value":68,"es6-symbol":100}],45:[function(require,module,exports){
+},{"../object/is-array-like":58,"../object/is-value":61,"es6-symbol":93}],38:[function(require,module,exports){
 "use strict";
 
 var isObject = require("../object/is-object")
@@ -2194,14 +1308,14 @@ module.exports = function (value) {
 	throw new TypeError(value + " is not an iterable or array-like object");
 };
 
-},{"../object/is-object":67,"./is":44}],46:[function(require,module,exports){
+},{"../object/is-object":60,"./is":37}],39:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./is-implemented")()
 	? Math.sign
 	: require("./shim");
 
-},{"./is-implemented":47,"./shim":48}],47:[function(require,module,exports){
+},{"./is-implemented":40,"./shim":41}],40:[function(require,module,exports){
 "use strict";
 
 module.exports = function () {
@@ -2210,7 +1324,7 @@ module.exports = function () {
 	return (sign(10) === 1) && (sign(-20) === -1);
 };
 
-},{}],48:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 "use strict";
 
 module.exports = function (value) {
@@ -2219,14 +1333,14 @@ module.exports = function (value) {
 	return value > 0 ? 1 : -1;
 };
 
-},{}],49:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./is-implemented")()
 	? Math.trunc
 	: require("./shim");
 
-},{"./is-implemented":50,"./shim":51}],50:[function(require,module,exports){
+},{"./is-implemented":43,"./shim":44}],43:[function(require,module,exports){
 "use strict";
 
 module.exports = function () {
@@ -2235,7 +1349,7 @@ module.exports = function () {
 	return (trunc(13.67) === 13) && (trunc(-13.67) === -13);
 };
 
-},{}],51:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 "use strict";
 
 var floor = Math.floor;
@@ -2250,14 +1364,14 @@ module.exports = function (value) {
 	return -floor(-value);
 };
 
-},{}],52:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./is-implemented")()
 	? Number.isNaN
 	: require("./shim");
 
-},{"./is-implemented":53,"./shim":54}],53:[function(require,module,exports){
+},{"./is-implemented":46,"./shim":47}],46:[function(require,module,exports){
 "use strict";
 
 module.exports = function () {
@@ -2266,7 +1380,7 @@ module.exports = function () {
 	return !numberIsNaN({}) && numberIsNaN(NaN) && !numberIsNaN(34);
 };
 
-},{}],54:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 "use strict";
 
 module.exports = function (value) {
@@ -2274,7 +1388,7 @@ module.exports = function (value) {
 	return value !== value;
 };
 
-},{}],55:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 "use strict";
 
 var sign = require("../math/sign")
@@ -2288,7 +1402,7 @@ module.exports = function (value) {
 	return sign(value) * floor(abs(value));
 };
 
-},{"../math/sign":46}],56:[function(require,module,exports){
+},{"../math/sign":39}],49:[function(require,module,exports){
 "use strict";
 
 var toInteger = require("./to-integer")
@@ -2299,7 +1413,7 @@ module.exports = function (value) {
  return max(0, toInteger(value));
 };
 
-},{"./to-integer":55}],57:[function(require,module,exports){
+},{"./to-integer":48}],50:[function(require,module,exports){
 // Internal method, used by iteration functions.
 // Calls a function for each key-value pair found in object
 // Optionally takes compareFn to iterate object in specific order
@@ -2331,14 +1445,14 @@ module.exports = function (method, defVal) {
 	};
 };
 
-},{"./valid-callable":79,"./valid-value":81}],58:[function(require,module,exports){
+},{"./valid-callable":72,"./valid-value":74}],51:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./is-implemented")()
 	? Object.assign
 	: require("./shim");
 
-},{"./is-implemented":59,"./shim":60}],59:[function(require,module,exports){
+},{"./is-implemented":52,"./shim":53}],52:[function(require,module,exports){
 "use strict";
 
 module.exports = function () {
@@ -2349,7 +1463,7 @@ module.exports = function () {
 	return (obj.foo + obj.bar + obj.trzy) === "razdwatrzy";
 };
 
-},{}],60:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 "use strict";
 
 var keys  = require("../keys")
@@ -2374,7 +1488,7 @@ module.exports = function (dest, src /*, …srcn*/) {
 	return dest;
 };
 
-},{"../keys":69,"../valid-value":81}],61:[function(require,module,exports){
+},{"../keys":62,"../valid-value":74}],54:[function(require,module,exports){
 "use strict";
 
 var aFrom  = require("../array/from")
@@ -2395,7 +1509,7 @@ module.exports = function (obj/*, propertyNames, options*/) {
 	return result;
 };
 
-},{"../array/from":33,"./assign":58,"./valid-value":81}],62:[function(require,module,exports){
+},{"../array/from":26,"./assign":51,"./valid-value":74}],55:[function(require,module,exports){
 // Workaround for http://code.google.com/p/v8/issues/detail?id=2804
 
 "use strict";
@@ -2445,7 +1559,7 @@ module.exports = (function () {
 	};
 }());
 
-},{"./set-prototype-of/is-implemented":77,"./set-prototype-of/shim":78}],63:[function(require,module,exports){
+},{"./set-prototype-of/is-implemented":70,"./set-prototype-of/shim":71}],56:[function(require,module,exports){
 "use strict";
 
 var value                   = require("./valid-value")
@@ -2460,12 +1574,12 @@ module.exports = function (obj) {
 	return null;
 };
 
-},{"./valid-value":81}],64:[function(require,module,exports){
+},{"./valid-value":74}],57:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./_iterate")("forEach");
 
-},{"./_iterate":57}],65:[function(require,module,exports){
+},{"./_iterate":50}],58:[function(require,module,exports){
 "use strict";
 
 var isFunction = require("../function/is-function")
@@ -2484,7 +1598,7 @@ module.exports = function (value) {
 	);
 };
 
-},{"../function/is-function":42,"./is-object":67,"./is-value":68}],66:[function(require,module,exports){
+},{"../function/is-function":35,"./is-object":60,"./is-value":61}],59:[function(require,module,exports){
 // Deprecated
 
 "use strict";
@@ -2493,7 +1607,7 @@ module.exports = function (obj) {
  return typeof obj === "function";
 };
 
-},{}],67:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 "use strict";
 
 var isValue = require("./is-value");
@@ -2504,7 +1618,7 @@ module.exports = function (value) {
 	return (isValue(value) && map[typeof value]) || false;
 };
 
-},{"./is-value":68}],68:[function(require,module,exports){
+},{"./is-value":61}],61:[function(require,module,exports){
 "use strict";
 
 var _undefined = require("../function/noop")(); // Support ES3 engines
@@ -2513,12 +1627,12 @@ module.exports = function (val) {
  return (val !== _undefined) && (val !== null);
 };
 
-},{"../function/noop":43}],69:[function(require,module,exports){
+},{"../function/noop":36}],62:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./is-implemented")() ? Object.keys : require("./shim");
 
-},{"./is-implemented":70,"./shim":71}],70:[function(require,module,exports){
+},{"./is-implemented":63,"./shim":64}],63:[function(require,module,exports){
 "use strict";
 
 module.exports = function () {
@@ -2530,7 +1644,7 @@ module.exports = function () {
 	}
 };
 
-},{}],71:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 "use strict";
 
 var isValue = require("../is-value");
@@ -2539,7 +1653,7 @@ var keys = Object.keys;
 
 module.exports = function (object) { return keys(isValue(object) ? Object(object) : object); };
 
-},{"../is-value":68}],72:[function(require,module,exports){
+},{"../is-value":61}],65:[function(require,module,exports){
 "use strict";
 
 var callable = require("./valid-callable")
@@ -2555,7 +1669,7 @@ module.exports = function (obj, cb /*, thisArg*/) {
 	return result;
 };
 
-},{"./for-each":64,"./valid-callable":79}],73:[function(require,module,exports){
+},{"./for-each":57,"./valid-callable":72}],66:[function(require,module,exports){
 "use strict";
 
 var value = require("./valid-value")
@@ -2588,7 +1702,7 @@ module.exports = function (target, source) {
 	return target;
 };
 
-},{"./valid-value":81}],74:[function(require,module,exports){
+},{"./valid-value":74}],67:[function(require,module,exports){
 "use strict";
 
 var isValue = require("./is-value");
@@ -2610,7 +1724,7 @@ module.exports = function (opts1 /*, …options*/) {
 	return result;
 };
 
-},{"./is-value":68}],75:[function(require,module,exports){
+},{"./is-value":61}],68:[function(require,module,exports){
 "use strict";
 
 var forEach = Array.prototype.forEach, create = Object.create;
@@ -2624,14 +1738,14 @@ module.exports = function (arg /*, …args*/) {
 	return set;
 };
 
-},{}],76:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./is-implemented")()
 	? Object.setPrototypeOf
 	: require("./shim");
 
-},{"./is-implemented":77,"./shim":78}],77:[function(require,module,exports){
+},{"./is-implemented":70,"./shim":71}],70:[function(require,module,exports){
 "use strict";
 
 var create = Object.create, getPrototypeOf = Object.getPrototypeOf, plainObject = {};
@@ -2642,7 +1756,7 @@ module.exports = function (/* CustomCreate*/) {
 	return getPrototypeOf(setPrototypeOf(customCreate(null), plainObject)) === plainObject;
 };
 
-},{}],78:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 /* eslint no-proto: "off" */
 
 // Big thanks to @WebReflection for sorting this out
@@ -2730,7 +1844,7 @@ module.exports = (function (status) {
 
 require("../create");
 
-},{"../create":62,"../is-object":67,"../valid-value":81}],79:[function(require,module,exports){
+},{"../create":55,"../is-object":60,"../valid-value":74}],72:[function(require,module,exports){
 "use strict";
 
 module.exports = function (fn) {
@@ -2738,7 +1852,7 @@ module.exports = function (fn) {
 	return fn;
 };
 
-},{}],80:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 "use strict";
 
 var isObject = require("./is-object");
@@ -2748,7 +1862,7 @@ module.exports = function (value) {
 	return value;
 };
 
-},{"./is-object":67}],81:[function(require,module,exports){
+},{"./is-object":60}],74:[function(require,module,exports){
 "use strict";
 
 var isValue = require("./is-value");
@@ -2758,7 +1872,7 @@ module.exports = function (value) {
 	return value;
 };
 
-},{"./is-value":68}],82:[function(require,module,exports){
+},{"./is-value":61}],75:[function(require,module,exports){
 "use strict";
 
 var ensureValue   = require("./valid-value")
@@ -2768,7 +1882,7 @@ module.exports = function (value) {
 	return stringifiable(ensureValue(value));
 };
 
-},{"./valid-value":81,"./validate-stringifiable":83}],83:[function(require,module,exports){
+},{"./valid-value":74,"./validate-stringifiable":76}],76:[function(require,module,exports){
 "use strict";
 
 var isCallable = require("./is-callable");
@@ -2782,7 +1896,7 @@ module.exports = function (stringifiable) {
 	}
 };
 
-},{"./is-callable":66}],84:[function(require,module,exports){
+},{"./is-callable":59}],77:[function(require,module,exports){
 "use strict";
 
 var isCallable = require("./object/is-callable");
@@ -2796,14 +1910,14 @@ module.exports = function (value) {
 	}
 };
 
-},{"./object/is-callable":66}],85:[function(require,module,exports){
+},{"./object/is-callable":59}],78:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./is-implemented")()
 	? String.prototype.contains
 	: require("./shim");
 
-},{"./is-implemented":86,"./shim":87}],86:[function(require,module,exports){
+},{"./is-implemented":79,"./shim":80}],79:[function(require,module,exports){
 "use strict";
 
 var str = "razdwatrzy";
@@ -2813,7 +1927,7 @@ module.exports = function () {
 	return (str.contains("dwa") === true) && (str.contains("foo") === false);
 };
 
-},{}],87:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 "use strict";
 
 var indexOf = String.prototype.indexOf;
@@ -2822,14 +1936,14 @@ module.exports = function (searchString/*, position*/) {
 	return indexOf.call(this, searchString, arguments[1]) > -1;
 };
 
-},{}],88:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./is-implemented")()
 	? String.prototype.repeat
 	: require("./shim");
 
-},{"./is-implemented":89,"./shim":90}],89:[function(require,module,exports){
+},{"./is-implemented":82,"./shim":83}],82:[function(require,module,exports){
 "use strict";
 
 var str = "foo";
@@ -2839,7 +1953,7 @@ module.exports = function () {
 	return str.repeat(2) === "foofoo";
 };
 
-},{}],90:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 // Thanks
 // @rauchma http://www.2ality.com/2014/01/efficient-string-repeat.html
 // @mathiasbynens https://github.com/mathiasbynens/String.prototype.repeat/blob/4a4b567def/repeat.js
@@ -2865,7 +1979,7 @@ module.exports = function (count) {
 	return result;
 };
 
-},{"../../../number/to-integer":55,"../../../object/valid-value":81}],91:[function(require,module,exports){
+},{"../../../number/to-integer":48,"../../../object/valid-value":74}],84:[function(require,module,exports){
 "use strict";
 
 var objToString = Object.prototype.toString, id = objToString.call("");
@@ -2880,7 +1994,7 @@ module.exports = function (value) {
 	);
 };
 
-},{}],92:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 "use strict";
 
 var safeToString = require("./safe-to-string");
@@ -2898,7 +2012,7 @@ module.exports = function (value) {
 	return string;
 };
 
-},{"./safe-to-string":84}],93:[function(require,module,exports){
+},{"./safe-to-string":77}],86:[function(require,module,exports){
 "use strict";
 
 var setPrototypeOf = require("es5-ext/object/set-prototype-of")
@@ -2932,7 +2046,7 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 });
 defineProperty(ArrayIterator.prototype, Symbol.toStringTag, d("c", "Array Iterator"));
 
-},{"./":96,"d":27,"es5-ext/object/set-prototype-of":76,"es5-ext/string/#/contains":85,"es6-symbol":100}],94:[function(require,module,exports){
+},{"./":89,"d":20,"es5-ext/object/set-prototype-of":69,"es5-ext/string/#/contains":78,"es6-symbol":93}],87:[function(require,module,exports){
 "use strict";
 
 var isArguments = require("es5-ext/function/is-arguments")
@@ -2981,7 +2095,7 @@ module.exports = function (iterable, cb /*, thisArg*/) {
 	}
 };
 
-},{"./get":95,"es5-ext/function/is-arguments":41,"es5-ext/object/valid-callable":79,"es5-ext/string/is-string":91}],95:[function(require,module,exports){
+},{"./get":88,"es5-ext/function/is-arguments":34,"es5-ext/object/valid-callable":72,"es5-ext/string/is-string":84}],88:[function(require,module,exports){
 "use strict";
 
 var isArguments    = require("es5-ext/function/is-arguments")
@@ -2998,7 +2112,7 @@ module.exports = function (obj) {
 	return new ArrayIterator(obj);
 };
 
-},{"./array":93,"./string":98,"./valid-iterable":99,"es5-ext/function/is-arguments":41,"es5-ext/string/is-string":91,"es6-symbol":100}],96:[function(require,module,exports){
+},{"./array":86,"./string":91,"./valid-iterable":92,"es5-ext/function/is-arguments":34,"es5-ext/string/is-string":84,"es6-symbol":93}],89:[function(require,module,exports){
 "use strict";
 
 var clear    = require("es5-ext/array/#/clear")
@@ -3106,7 +2220,7 @@ defineProperty(
 	})
 );
 
-},{"d":27,"d/auto-bind":26,"es5-ext/array/#/clear":29,"es5-ext/object/assign":58,"es5-ext/object/valid-callable":79,"es5-ext/object/valid-value":81,"es6-symbol":100}],97:[function(require,module,exports){
+},{"d":20,"d/auto-bind":19,"es5-ext/array/#/clear":22,"es5-ext/object/assign":51,"es5-ext/object/valid-callable":72,"es5-ext/object/valid-value":74,"es6-symbol":93}],90:[function(require,module,exports){
 "use strict";
 
 var isArguments = require("es5-ext/function/is-arguments")
@@ -3124,7 +2238,7 @@ module.exports = function (value) {
 	return typeof value[iteratorSymbol] === "function";
 };
 
-},{"es5-ext/function/is-arguments":41,"es5-ext/object/is-value":68,"es5-ext/string/is-string":91,"es6-symbol":100}],98:[function(require,module,exports){
+},{"es5-ext/function/is-arguments":34,"es5-ext/object/is-value":61,"es5-ext/string/is-string":84,"es6-symbol":93}],91:[function(require,module,exports){
 // Thanks @mathiasbynens
 // http://mathiasbynens.be/notes/javascript-unicode#iterating-over-symbols
 
@@ -3165,7 +2279,7 @@ StringIterator.prototype = Object.create(Iterator.prototype, {
 });
 defineProperty(StringIterator.prototype, Symbol.toStringTag, d("c", "String Iterator"));
 
-},{"./":96,"d":27,"es5-ext/object/set-prototype-of":76,"es6-symbol":100}],99:[function(require,module,exports){
+},{"./":89,"d":20,"es5-ext/object/set-prototype-of":69,"es6-symbol":93}],92:[function(require,module,exports){
 "use strict";
 
 var isIterable = require("./is-iterable");
@@ -3175,12 +2289,12 @@ module.exports = function (value) {
 	return value;
 };
 
-},{"./is-iterable":97}],100:[function(require,module,exports){
+},{"./is-iterable":90}],93:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./is-implemented')() ? Symbol : require('./polyfill');
 
-},{"./is-implemented":101,"./polyfill":103}],101:[function(require,module,exports){
+},{"./is-implemented":94,"./polyfill":96}],94:[function(require,module,exports){
 'use strict';
 
 var validTypes = { object: true, symbol: true };
@@ -3199,7 +2313,7 @@ module.exports = function () {
 	return true;
 };
 
-},{}],102:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 'use strict';
 
 module.exports = function (x) {
@@ -3210,7 +2324,7 @@ module.exports = function (x) {
 	return (x[x.constructor.toStringTag] === 'Symbol');
 };
 
-},{}],103:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 // ES2015 Symbol polyfill for environments that do not (or partially) support it
 
 'use strict';
@@ -3330,7 +2444,7 @@ defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toStringTag,
 defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
 	d('c', SymbolPolyfill.prototype[SymbolPolyfill.toPrimitive]));
 
-},{"./validate-symbol":104,"d":27}],104:[function(require,module,exports){
+},{"./validate-symbol":97,"d":20}],97:[function(require,module,exports){
 'use strict';
 
 var isSymbol = require('./is-symbol');
@@ -3340,7 +2454,7 @@ module.exports = function (value) {
 	return value;
 };
 
-},{"./is-symbol":102}],105:[function(require,module,exports){
+},{"./is-symbol":95}],98:[function(require,module,exports){
 'use strict';
 
 var d        = require('d')
@@ -3474,14 +2588,14 @@ module.exports = exports = function (o) {
 };
 exports.methods = methods;
 
-},{"d":27,"es5-ext/object/valid-callable":79}],106:[function(require,module,exports){
+},{"d":20,"es5-ext/object/valid-callable":72}],99:[function(require,module,exports){
 module.exports = isPromise;
 
 function isPromise(obj) {
   return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
 }
 
-},{}],107:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 'use strict';
 
 var toPosInt = require('es5-ext/number/to-pos-integer')
@@ -3531,7 +2645,7 @@ module.exports = function (limit) {
 	};
 };
 
-},{"es5-ext/number/to-pos-integer":56}],108:[function(require,module,exports){
+},{"es5-ext/number/to-pos-integer":49}],101:[function(require,module,exports){
 /* eslint consistent-this: 0, no-shadow:0, no-eq-null: 0, eqeqeq: 0, no-unused-vars: 0 */
 
 // Support for asynchronous functions
@@ -3687,7 +2801,7 @@ require("../lib/registered-extensions").async = function (tbi, conf) {
 	});
 };
 
-},{"../lib/registered-extensions":117,"es5-ext/array/from":33,"es5-ext/function/_define-length":40,"es5-ext/object/map":72,"es5-ext/object/mixin":73,"next-tick":128}],109:[function(require,module,exports){
+},{"../lib/registered-extensions":110,"es5-ext/array/from":26,"es5-ext/function/_define-length":33,"es5-ext/object/map":65,"es5-ext/object/mixin":66,"next-tick":121}],102:[function(require,module,exports){
 // Call dispose callback on each cache purge
 
 "use strict";
@@ -3722,7 +2836,7 @@ extensions.dispose = function (dispose, conf, options) {
 	});
 };
 
-},{"../lib/registered-extensions":117,"es5-ext/object/for-each":64,"es5-ext/object/valid-callable":79}],110:[function(require,module,exports){
+},{"../lib/registered-extensions":110,"es5-ext/object/for-each":57,"es5-ext/object/valid-callable":72}],103:[function(require,module,exports){
 /* eslint consistent-this: 0 */
 
 // Timeout cached values
@@ -3814,7 +2928,7 @@ extensions.maxAge = function (maxAge, conf, options) {
 	});
 };
 
-},{"../lib/registered-extensions":117,"es5-ext/array/from":33,"es5-ext/object/for-each":64,"is-promise":106,"next-tick":128,"timers-ext/valid-timeout":131}],111:[function(require,module,exports){
+},{"../lib/registered-extensions":110,"es5-ext/array/from":26,"es5-ext/object/for-each":57,"is-promise":99,"next-tick":121,"timers-ext/valid-timeout":128}],104:[function(require,module,exports){
 // Limit cache size, LRU (least recently used) algorithm.
 
 "use strict";
@@ -3843,7 +2957,7 @@ extensions.max = function (max, conf, options) {
 	conf.on("clear" + postfix, queue.clear);
 };
 
-},{"../lib/registered-extensions":117,"es5-ext/number/to-pos-integer":56,"lru-queue":107}],112:[function(require,module,exports){
+},{"../lib/registered-extensions":110,"es5-ext/number/to-pos-integer":49,"lru-queue":100}],105:[function(require,module,exports){
 /* eslint max-statements: 0 */
 
 // Support for functions returning promise
@@ -3992,7 +3106,7 @@ require("../lib/registered-extensions").promise = function (mode, conf) {
 	});
 };
 
-},{"../lib/registered-extensions":117,"es5-ext/object/map":72,"es5-ext/object/primitive-set":75,"es5-ext/object/validate-stringifiable-value":82,"es5-ext/to-short-string-representation":92,"is-promise":106,"next-tick":128}],113:[function(require,module,exports){
+},{"../lib/registered-extensions":110,"es5-ext/object/map":65,"es5-ext/object/primitive-set":68,"es5-ext/object/validate-stringifiable-value":75,"es5-ext/to-short-string-representation":85,"is-promise":99,"next-tick":121}],106:[function(require,module,exports){
 // Reference counter, useful for garbage collector like functionality
 
 "use strict";
@@ -4042,7 +3156,7 @@ extensions.refCounter = function (ignore, conf, options) {
 	});
 };
 
-},{"../lib/registered-extensions":117,"d":27}],114:[function(require,module,exports){
+},{"../lib/registered-extensions":110,"d":20}],107:[function(require,module,exports){
 "use strict";
 
 var normalizeOpts = require("es5-ext/object/normalize-options")
@@ -4078,7 +3192,7 @@ module.exports = function (fn/*, options*/) {
 	return plain(fn, options);
 };
 
-},{"./ext/async":108,"./ext/dispose":109,"./ext/max":111,"./ext/max-age":110,"./ext/promise":112,"./ext/ref-counter":113,"./lib/resolve-length":118,"./normalizers/get":125,"./normalizers/get-1":122,"./normalizers/get-fixed":123,"./normalizers/get-primitive-fixed":124,"./normalizers/primitive":126,"./plain":127,"es5-ext/object/normalize-options":74}],115:[function(require,module,exports){
+},{"./ext/async":101,"./ext/dispose":102,"./ext/max":104,"./ext/max-age":103,"./ext/promise":105,"./ext/ref-counter":106,"./lib/resolve-length":111,"./normalizers/get":118,"./normalizers/get-1":115,"./normalizers/get-fixed":116,"./normalizers/get-primitive-fixed":117,"./normalizers/primitive":119,"./plain":120,"es5-ext/object/normalize-options":67}],108:[function(require,module,exports){
 /* eslint no-eq-null: 0, eqeqeq: 0, no-unused-vars: 0 */
 
 "use strict";
@@ -4262,7 +3376,7 @@ module.exports = function (original, length, options) {
 	return conf;
 };
 
-},{"./resolve-normalize":119,"./resolve-resolve":120,"d":27,"es5-ext/error/custom":38,"es5-ext/function/_define-length":40,"event-emitter":105}],116:[function(require,module,exports){
+},{"./resolve-normalize":112,"./resolve-resolve":113,"d":20,"es5-ext/error/custom":31,"es5-ext/function/_define-length":33,"event-emitter":98}],109:[function(require,module,exports){
 "use strict";
 
 var forEach       = require("es5-ext/object/for-each")
@@ -4296,10 +3410,10 @@ module.exports = function (memoize) {
 	};
 };
 
-},{"./registered-extensions":117,"./resolve-length":118,"d/lazy":28,"es5-ext/object/for-each":64,"es5-ext/object/normalize-options":74,"es5-ext/object/valid-callable":79}],117:[function(require,module,exports){
+},{"./registered-extensions":110,"./resolve-length":111,"d/lazy":21,"es5-ext/object/for-each":57,"es5-ext/object/normalize-options":67,"es5-ext/object/valid-callable":72}],110:[function(require,module,exports){
 "use strict";
 
-},{}],118:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 "use strict";
 
 var toPosInt = require("es5-ext/number/to-pos-integer");
@@ -4316,7 +3430,7 @@ module.exports = function (optsLength, fnLength, isAsync) {
 	return toPosInt(optsLength);
 };
 
-},{"es5-ext/number/to-pos-integer":56}],119:[function(require,module,exports){
+},{"es5-ext/number/to-pos-integer":49}],112:[function(require,module,exports){
 "use strict";
 
 var callable = require("es5-ext/object/valid-callable");
@@ -4335,7 +3449,7 @@ module.exports = function (userNormalizer) {
 	return normalizer;
 };
 
-},{"es5-ext/object/valid-callable":79}],120:[function(require,module,exports){
+},{"es5-ext/object/valid-callable":72}],113:[function(require,module,exports){
 "use strict";
 
 var toArray  = require("es5-ext/array/to-array")
@@ -4358,12 +3472,12 @@ module.exports = function (resolvers) {
 	return resolveArgs.bind(resolvers);
 };
 
-},{"es5-ext/array/to-array":37,"es5-ext/object/is-value":68,"es5-ext/object/valid-callable":79}],121:[function(require,module,exports){
+},{"es5-ext/array/to-array":30,"es5-ext/object/is-value":61,"es5-ext/object/valid-callable":72}],114:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./lib/methods")(require("./"));
 
-},{"./":114,"./lib/methods":116}],122:[function(require,module,exports){
+},{"./":107,"./lib/methods":109}],115:[function(require,module,exports){
 "use strict";
 
 var indexOf = require("es5-ext/array/#/e-index-of");
@@ -4394,7 +3508,7 @@ module.exports = function () {
 	};
 };
 
-},{"es5-ext/array/#/e-index-of":30}],123:[function(require,module,exports){
+},{"es5-ext/array/#/e-index-of":23}],116:[function(require,module,exports){
 "use strict";
 
 var indexOf = require("es5-ext/array/#/e-index-of")
@@ -4467,7 +3581,7 @@ module.exports = function (length) {
 	};
 };
 
-},{"es5-ext/array/#/e-index-of":30}],124:[function(require,module,exports){
+},{"es5-ext/array/#/e-index-of":23}],117:[function(require,module,exports){
 "use strict";
 
 module.exports = function (length) {
@@ -4485,7 +3599,7 @@ module.exports = function (length) {
 	};
 };
 
-},{}],125:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
 /* eslint max-statements: 0 */
 
 "use strict";
@@ -4577,7 +3691,7 @@ module.exports = function () {
 	};
 };
 
-},{"es5-ext/array/#/e-index-of":30}],126:[function(require,module,exports){
+},{"es5-ext/array/#/e-index-of":23}],119:[function(require,module,exports){
 "use strict";
 
 module.exports = function (args) {
@@ -4588,7 +3702,7 @@ module.exports = function (args) {
 	return id;
 };
 
-},{}],127:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 "use strict";
 
 var callable      = require("es5-ext/object/valid-callable")
@@ -4627,7 +3741,7 @@ module.exports = function self(fn /*, options */) {
 	return conf.memoized;
 };
 
-},{"./lib/configure-map":115,"./lib/registered-extensions":117,"./lib/resolve-length":118,"es5-ext/object/for-each":64,"es5-ext/object/valid-callable":79}],128:[function(require,module,exports){
+},{"./lib/configure-map":108,"./lib/registered-extensions":110,"./lib/resolve-length":111,"es5-ext/object/for-each":57,"es5-ext/object/valid-callable":72}],121:[function(require,module,exports){
 (function (process,setImmediate){
 'use strict';
 
@@ -4702,546 +3816,7 @@ module.exports = (function () {
 }());
 
 }).call(this,require('_process'),require("timers").setImmediate)
-},{"_process":149,"timers":150}],129:[function(require,module,exports){
-(function (global){
-const fs = require('fs');
-const path = require('path');
-
-class StrifVar {
-  constructor(name, opts) {
-    if (!name) {
-      throw new Error('name is required');
-    } else if (typeof name != 'string') {
-      throw new Error('name is required to be a string');
-    } else {
-      this.name = name;
-    }
-
-    this.accessor = opts.accessor || name;
-    this.transformers = opts.transformers;
-    this.opts = opts;
-  }
-
-  getFromObject(obj) {
-    let str = this.accessor.replace(/\[(\w+)\]/g, '.$1').replace(/^\./, '');
-    for (let k of str.split('.')) {
-      if (k in obj) obj = obj[k] || null;
-      else return null;
-    }
-
-    if (this.opts.type && !(typeof obj === this.opts.type)) {
-      throw new Error(`Var {${this.name}} type does not match "${this.opts.type}"`);
-    }
-    return obj;
-  }
-}
-
-class StrifTemplate {
-  constructor(template, transformers, options = {}) {
-    if (!template) {
-      throw new Error('template is required');
-    } else if (typeof template != 'string') {
-      throw new Error('template is required to be a string');
-    } else {
-      this.template = template;
-    }
-    this._options = options;
-    this._transformers = transformers;
-    this._props = [];
-
-    if (options.props) {
-      for (let key in options.props) {
-        let prop = options.props[key];
-        this.prop(key, prop);
-      }
-    }
-  }
-
-  prop(name, opts = {}) {
-    this._props.push(new StrifVar(name, opts));
-    return this;
-  }
-
-  compile(data, options = {}) {
-    options = {
-      ...StrifTemplate.DefaultCompileOptions,
-      ...options
-    }
-
-    let transformers = this._transformers;
-    if (options.ignoreTransformers) {
-      transformers = {};
-      Object.keys(this._transformers).forEach(key => {
-        transformers[key] = this._transformers[key];
-        if (options.ignoreTransformers.includes(key)) {
-          transformers[key].ignore = true;
-        }
-      });
-    } else {
-      Object.keys(this._transformers).forEach(key => {
-        transformers[key].ignore = false;
-      });
-    }
-
-    let map = data;
-    for (let prop of this._props) {
-      let propData = prop.getFromObject(data);
-      if (propData) {
-        map[prop.name] = propData;
-      }
-      if (prop.transformers) {
-        map[prop.name] = prop.transformers
-          .reduce((prev, curr) => {
-            if (!transformers[curr]) {
-              throw new Error('Transformer not found: ' + curr);
-            } else if (transformers[curr].ignore) {
-              return prev;
-            } else {
-              return transformers[curr](prev);
-            }
-          }, map[prop.name]);
-      }
-    }
-
-    return StrifTemplate.compile(this.template, map, options);
-  }
-
-  // TODO: compile should accept arrays of data and replace $0 $1 $2, ... 
-  static compile(template, data, options) {
-    return template.replace(
-      /([{}])\1|[{](.*?)(?:!(.+?))?[}]/g,
-      (m, l, key) => {
-        if (key) {
-          let val = data[key] || '';
-          return val;
-        } else return data;
-      });
-  }
-}
-
-StrifTemplate.DefaultCompileOptions = {
-  ignoreTransformers: null
-};
-
-class StrifFormatter {
-  /**
-   * @param {object} opts 
-   * @param {object} opts.transformers
-   * @param {string[]} opts.plugins
-   */
-  constructor(opts = {}) {
-    this.opts = opts;
-
-    this.transformers = {
-      ...StrifFormatter.DEFAULT_TRANSFORMERS,
-      ...this.opts.transformers
-    };
-
-    if (opts.plugins) {
-      this.opts.plugins.forEach(plugPath => {
-        let plugin = require(path.resolve(plugPath));
-        if (plugin.transformers) {
-          this.transformers = {
-            ...this.transformers,
-            ...plugin.transformers,
-          };
-        }
-      });
-    }
-  }
-
-  /**
-   * @param {string} template 
-   * @param {object} options 
-   */
-  template(template, options) {
-    return new StrifTemplate(template, this.transformers, options);
-  }
-
-  /**
-   * @param {string} path 
-   * @param {object} options 
-   */
-  fromFile(path, options) {
-    if (!path) {
-      throw new Error(
-        'path is required');
-    } else if (typeof path != 'string') {
-      throw new Error(
-        'path is required to be a string');
-    }
-
-    let template = fs.readFileSync(path).toString();
-    return new StrifTemplate(template, this.transformers, options);
-  }
-}
-StrifFormatter.DEFAULT_TRANSFORMERS = {};
-
-const DEFAULT_FORMATTER_OPTS = {
-  transformers: {
-    date: s => new Date(s),
-    lds: d => d.toLocaleString()
-  }
-};
-
-let strif = new StrifFormatter(DEFAULT_FORMATTER_OPTS);
-strif.Formatter = StrifFormatter;
-strif.Template = StrifTemplate;
-strif.Var = StrifVar;
-
-strif.create = (opts) => new StrifFormatter(opts);
-strif.compile = StrifTemplate.compile;
-
-
-global.strif = strif;
-module.exports = strif;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"fs":146,"path":148}],130:[function(require,module,exports){
-"use strict";
-
-module.exports = 2147483647;
-
-},{}],131:[function(require,module,exports){
-"use strict";
-
-var toPosInt   = require("es5-ext/number/to-pos-integer")
-  , maxTimeout = require("./max-timeout");
-
-module.exports = function (value) {
-	value = toPosInt(value);
-	if (value > maxTimeout) throw new TypeError(value + " exceeds maximum possible timeout");
-	return value;
-};
-
-},{"./max-timeout":130,"es5-ext/number/to-pos-integer":56}],132:[function(require,module,exports){
-"use strict";
-
-var isPrototype = require("../prototype/is");
-
-module.exports = function (value) {
-	if (typeof value !== "function") return false;
-
-	if (!hasOwnProperty.call(value, "length")) return false;
-
-	try {
-		if (typeof value.length !== "number") return false;
-		if (typeof value.call !== "function") return false;
-		if (typeof value.apply !== "function") return false;
-	} catch (error) {
-		return false;
-	}
-
-	return !isPrototype(value);
-};
-
-},{"../prototype/is":139}],133:[function(require,module,exports){
-"use strict";
-
-var isValue       = require("../value/is")
-  , isObject      = require("../object/is")
-  , stringCoerce  = require("../string/coerce")
-  , toShortString = require("./to-short-string");
-
-var resolveMessage = function (message, value) {
-	return message.replace("%v", toShortString(value));
-};
-
-module.exports = function (value, defaultMessage, inputOptions) {
-	if (!isObject(inputOptions)) throw new TypeError(resolveMessage(defaultMessage, value));
-	if (!isValue(value)) {
-		if ("default" in inputOptions) return inputOptions["default"];
-		if (inputOptions.isOptional) return null;
-	}
-	var errorMessage = stringCoerce(inputOptions.errorMessage);
-	if (!isValue(errorMessage)) errorMessage = defaultMessage;
-	throw new TypeError(resolveMessage(errorMessage, value));
-};
-
-},{"../object/is":136,"../string/coerce":140,"../value/is":142,"./to-short-string":135}],134:[function(require,module,exports){
-"use strict";
-
-module.exports = function (value) {
-	try {
-		return value.toString();
-	} catch (error) {
-		try { return String(value); }
-		catch (error2) { return null; }
-	}
-};
-
-},{}],135:[function(require,module,exports){
-"use strict";
-
-var safeToString = require("./safe-to-string");
-
-var reNewLine = /[\n\r\u2028\u2029]/g;
-
-module.exports = function (value) {
-	var string = safeToString(value);
-	if (string === null) return "<Non-coercible to string value>";
-	// Trim if too long
-	if (string.length > 100) string = string.slice(0, 99) + "…";
-	// Replace eventual new lines
-	string = string.replace(reNewLine, function (char) {
-		switch (char) {
-			case "\n":
-				return "\\n";
-			case "\r":
-				return "\\r";
-			case "\u2028":
-				return "\\u2028";
-			case "\u2029":
-				return "\\u2029";
-			/* istanbul ignore next */
-			default:
-				throw new Error("Unexpected character");
-		}
-	});
-	return string;
-};
-
-},{"./safe-to-string":134}],136:[function(require,module,exports){
-"use strict";
-
-var isValue = require("../value/is");
-
-// prettier-ignore
-var possibleTypes = { "object": true, "function": true, "undefined": true /* document.all */ };
-
-module.exports = function (value) {
-	if (!isValue(value)) return false;
-	return hasOwnProperty.call(possibleTypes, typeof value);
-};
-
-},{"../value/is":142}],137:[function(require,module,exports){
-"use strict";
-
-var resolveException = require("../lib/resolve-exception")
-  , is               = require("./is");
-
-module.exports = function (value/*, options*/) {
-	if (is(value)) return value;
-	return resolveException(value, "%v is not a plain function", arguments[1]);
-};
-
-},{"../lib/resolve-exception":133,"./is":138}],138:[function(require,module,exports){
-"use strict";
-
-var isFunction = require("../function/is");
-
-var classRe = /^\s*class[\s{/}]/, functionToString = Function.prototype.toString;
-
-module.exports = function (value) {
-	if (!isFunction(value)) return false;
-	if (classRe.test(functionToString.call(value))) return false;
-	return true;
-};
-
-},{"../function/is":132}],139:[function(require,module,exports){
-"use strict";
-
-var isObject = require("../object/is");
-
-module.exports = function (value) {
-	if (!isObject(value)) return false;
-	try {
-		if (!value.constructor) return false;
-		return value.constructor.prototype === value;
-	} catch (error) {
-		return false;
-	}
-};
-
-},{"../object/is":136}],140:[function(require,module,exports){
-"use strict";
-
-var isValue  = require("../value/is")
-  , isObject = require("../object/is");
-
-var objectToString = Object.prototype.toString;
-
-module.exports = function (value) {
-	if (!isValue(value)) return null;
-	if (isObject(value)) {
-		// Reject Object.prototype.toString coercion
-		var valueToString = value.toString;
-		if (typeof valueToString !== "function") return null;
-		if (valueToString === objectToString) return null;
-		// Note: It can be object coming from other realm, still as there's no ES3 and CSP compliant
-		// way to resolve its realm's Object.prototype.toString it's left as not addressed edge case
-	}
-	try {
-		return "" + value; // Ensure implicit coercion
-	} catch (error) {
-		return null;
-	}
-};
-
-},{"../object/is":136,"../value/is":142}],141:[function(require,module,exports){
-"use strict";
-
-var resolveException = require("../lib/resolve-exception")
-  , is               = require("./is");
-
-module.exports = function (value/*, options*/) {
-	if (is(value)) return value;
-	return resolveException(value, "Cannot use %v", arguments[1]);
-};
-
-},{"../lib/resolve-exception":133,"./is":142}],142:[function(require,module,exports){
-"use strict";
-
-// ES3 safe
-var _undefined = void 0;
-
-module.exports = function (value) { return value !== _undefined && value !== null; };
-
-},{}],143:[function(require,module,exports){
-
-function plugin(loggin) {
-    const { Formatter } = loggin;
-
-    Formatter
-        .register(
-            'SHORT',
-            '[{time}] - {level} - {message}', {
-                props: {
-                    time: {
-                        transformers: ['date'],
-                    },
-                    level: {
-                        transformers: ['string']
-                    },
-                    message: {
-
-                    }
-                }
-            }
-        );
-    Formatter
-        .register(
-            'MEDIUM',
-            '[{time}] - {level} - {message} {data}', {
-                props: {
-                    time: {
-                        transformers: ['date']
-                    },
-                    level: {
-                        transformers: ['string']
-                    },
-                    message: {},
-                    data: {
-                        transformers: ['json', 'cl_gray']
-                    }
-                }
-            }
-        );
-    Formatter
-        .register(
-            'LONG',
-            '[{time} {user}] - {level} - {message} {data}', {
-                props: {
-                    time: {
-                        transformers: ['date', 'cl_blue']
-                    },
-                    user: {
-                        transformers: ['cl_gray']
-                    },
-                    level: {
-                        transformers: ['string']
-                    },
-                    message: {},
-                    data: {
-                        transformers: ['json_u', 'cl_gray']
-                    }
-                }
-            }
-        );
-    Formatter
-        .register(
-            'DETAILED',
-            '{time} {user} {channel} - {level} - {message} {data}', {
-                props: {
-                    time: {
-                        transformers: ['date', 'lbl_cyan']
-                    },
-                    user: {
-                        transformers: ['cl_gray']
-                    },
-                    level: {
-                        transformers: ['string']
-                    },
-                    data: {
-                        transformers: ['json', 'cl_gray']
-                    },
-                    channel: {},
-                    message: {},
-                }
-            }
-        );
-    Formatter
-        .register(
-            'MINIMAL',
-            '{channel} - {message}', {
-                props: {
-                    message: {},
-                    channel: {},
-                }
-            }
-        );
-};
-
-module.exports = plugin;
-},{}],144:[function(require,module,exports){
-
-function plugin(loggin) {
-    const { Severity } = loggin;
-
-    Severity
-        .register(0, 'EMERGENCY')
-        .register(1, 'ALERT')
-        .register(2, 'CRITICAL')
-        .register(3, 'ERROR')
-        .register(4, 'WARNING')
-        .register(5, 'NOTICE')
-        .register(6, 'INFO')
-        .register(7, 'DEBUG')
-        .register(8, 'SILLY');
-};
-
-module.exports = plugin;
-},{}],145:[function(require,module,exports){
-
-function plugin(loggin) {
-    const { Notifier, Pipe } = loggin;
-
-    class ConsoleNotifier extends Notifier {
-        constructor(options) {
-            super(options);
-            this.name = 'console';
-            this.lineIndex = 0;
-        }
-
-        output(log) {
-            let logOut = log;
-            if (this.options.lineNumbers) {
-                logOut = this.getLineWithNumber(log);
-            }
-
-            // Dont remove
-            console.log(logOut);
-            return this;
-        }
-    }
-
-    Notifier.register('Console', ConsoleNotifier);
-};
-
-module.exports = plugin;
-},{}],146:[function(require,module,exports){
-
-},{}],147:[function(require,module,exports){
+},{"_process":124,"timers":126}],122:[function(require,module,exports){
 exports.endianness = function () { return 'LE' };
 
 exports.hostname = function () {
@@ -5292,7 +3867,7 @@ exports.homedir = function () {
 	return '/'
 };
 
-},{}],148:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 (function (process){
 // .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
 // backported and transplited with Babel, with backwards-compat fixes
@@ -5598,7 +4173,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":149}],149:[function(require,module,exports){
+},{"_process":124}],124:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -5784,7 +4359,202 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],150:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
+(function (global){
+const fs = require('fs');
+const path = require('path');
+
+class StrifVar {
+  constructor(name, opts) {
+    if (!name) {
+      throw new Error('name is required');
+    } else if (typeof name != 'string') {
+      throw new Error('name is required to be a string');
+    } else {
+      this.name = name;
+    }
+
+    this.accessor = opts.accessor || name;
+    this.transformers = opts.transformers;
+    this.opts = opts;
+  }
+
+  getFromObject(obj) {
+    let str = this.accessor.replace(/\[(\w+)\]/g, '.$1').replace(/^\./, '');
+    for (let k of str.split('.')) {
+      if (k in obj) obj = obj[k] || null;
+      else return null;
+    }
+
+    if (this.opts.type && !(typeof obj === this.opts.type)) {
+      throw new Error(`Var {${this.name}} type does not match "${this.opts.type}"`);
+    }
+    return obj;
+  }
+}
+
+class StrifTemplate {
+  constructor(template, transformers, options = {}) {
+    if (!template) {
+      throw new Error('template is required');
+    } else if (typeof template != 'string') {
+      throw new Error('template is required to be a string');
+    } else {
+      this.template = template;
+    }
+    this._options = options;
+    this._transformers = transformers;
+    this._props = [];
+
+    if (options.props) {
+      for (let key in options.props) {
+        let prop = options.props[key];
+        this.prop(key, prop);
+      }
+    }
+  }
+
+  prop(name, opts = {}) {
+    this._props.push(new StrifVar(name, opts));
+    return this;
+  }
+
+  compile(data, options = {}) {
+    options = {
+      ...StrifTemplate.DefaultCompileOptions,
+      ...options
+    }
+
+    let transformers = this._transformers;
+    if (options.ignoreTransformers) {
+      transformers = {};
+      Object.keys(this._transformers).forEach(key => {
+        transformers[key] = this._transformers[key];
+        if (options.ignoreTransformers.includes(key)) {
+          transformers[key].ignore = true;
+        }
+      });
+    } else {
+      Object.keys(this._transformers).forEach(key => {
+        transformers[key].ignore = false;
+      });
+    }
+
+    let map = data;
+    for (let prop of this._props) {
+      let propData = prop.getFromObject(data);
+      if (propData) {
+        map[prop.name] = propData;
+      }
+      if (prop.transformers) {
+        map[prop.name] = prop.transformers
+          .reduce((prev, curr) => {
+            if (!transformers[curr]) {
+              throw new Error('Transformer not found: ' + curr);
+            } else if (transformers[curr].ignore) {
+              return prev;
+            } else {
+              return transformers[curr](prev);
+            }
+          }, map[prop.name]);
+      }
+    }
+
+    return StrifTemplate.compile(this.template, map, options);
+  }
+
+  // TODO: compile should accept arrays of data and replace $0 $1 $2, ... 
+  static compile(template, data, options) {
+    return template.replace(
+      /([{}])\1|[{](.*?)(?:!(.+?))?[}]/g,
+      (m, l, key) => {
+        if (key) {
+          let val = data[key] || '';
+          return val;
+        } else return data;
+      });
+  }
+}
+
+StrifTemplate.DefaultCompileOptions = {
+  ignoreTransformers: null
+};
+
+class StrifFormatter {
+  /**
+   * @param {object} opts 
+   * @param {object} opts.transformers
+   * @param {string[]} opts.plugins
+   */
+  constructor(opts = {}) {
+    this.opts = opts;
+
+    this.transformers = {
+      ...StrifFormatter.DEFAULT_TRANSFORMERS,
+      ...this.opts.transformers
+    };
+
+    if (opts.plugins) {
+      this.opts.plugins.forEach(plugPath => {
+        let plugin = require(path.resolve(plugPath));
+        if (plugin.transformers) {
+          this.transformers = {
+            ...this.transformers,
+            ...plugin.transformers,
+          };
+        }
+      });
+    }
+  }
+
+  /**
+   * @param {string} template 
+   * @param {object} options 
+   */
+  template(template, options) {
+    return new StrifTemplate(template, this.transformers, options);
+  }
+
+  /**
+   * @param {string} path 
+   * @param {object} options 
+   */
+  fromFile(path, options) {
+    if (!path) {
+      throw new Error(
+        'path is required');
+    } else if (typeof path != 'string') {
+      throw new Error(
+        'path is required to be a string');
+    }
+
+    let template = fs.readFileSync(path).toString();
+    return new StrifTemplate(template, this.transformers, options);
+  }
+}
+StrifFormatter.DEFAULT_TRANSFORMERS = {};
+
+const DEFAULT_FORMATTER_OPTS = {
+  transformers: {
+    date: s => new Date(s),
+    lds: d => d.toLocaleString()
+  }
+};
+
+let strif = new StrifFormatter(DEFAULT_FORMATTER_OPTS);
+strif.Formatter = StrifFormatter;
+strif.Template = StrifTemplate;
+strif.Var = StrifVar;
+
+strif.create = (opts) => new StrifFormatter(opts);
+strif.compile = StrifTemplate.compile;
+
+
+global.strif = strif;
+module.exports = strif;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"fs":2,"path":123}],126:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -5863,4 +4633,1232 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":149,"timers":150}]},{},[1]);
+},{"process/browser.js":124,"timers":126}],127:[function(require,module,exports){
+"use strict";
+
+module.exports = 2147483647;
+
+},{}],128:[function(require,module,exports){
+"use strict";
+
+var toPosInt   = require("es5-ext/number/to-pos-integer")
+  , maxTimeout = require("./max-timeout");
+
+module.exports = function (value) {
+	value = toPosInt(value);
+	if (value > maxTimeout) throw new TypeError(value + " exceeds maximum possible timeout");
+	return value;
+};
+
+},{"./max-timeout":127,"es5-ext/number/to-pos-integer":49}],129:[function(require,module,exports){
+"use strict";
+
+var isPrototype = require("../prototype/is");
+
+module.exports = function (value) {
+	if (typeof value !== "function") return false;
+
+	if (!hasOwnProperty.call(value, "length")) return false;
+
+	try {
+		if (typeof value.length !== "number") return false;
+		if (typeof value.call !== "function") return false;
+		if (typeof value.apply !== "function") return false;
+	} catch (error) {
+		return false;
+	}
+
+	return !isPrototype(value);
+};
+
+},{"../prototype/is":136}],130:[function(require,module,exports){
+"use strict";
+
+var isValue       = require("../value/is")
+  , isObject      = require("../object/is")
+  , stringCoerce  = require("../string/coerce")
+  , toShortString = require("./to-short-string");
+
+var resolveMessage = function (message, value) {
+	return message.replace("%v", toShortString(value));
+};
+
+module.exports = function (value, defaultMessage, inputOptions) {
+	if (!isObject(inputOptions)) throw new TypeError(resolveMessage(defaultMessage, value));
+	if (!isValue(value)) {
+		if ("default" in inputOptions) return inputOptions["default"];
+		if (inputOptions.isOptional) return null;
+	}
+	var errorMessage = stringCoerce(inputOptions.errorMessage);
+	if (!isValue(errorMessage)) errorMessage = defaultMessage;
+	throw new TypeError(resolveMessage(errorMessage, value));
+};
+
+},{"../object/is":133,"../string/coerce":137,"../value/is":139,"./to-short-string":132}],131:[function(require,module,exports){
+"use strict";
+
+module.exports = function (value) {
+	try {
+		return value.toString();
+	} catch (error) {
+		try { return String(value); }
+		catch (error2) { return null; }
+	}
+};
+
+},{}],132:[function(require,module,exports){
+"use strict";
+
+var safeToString = require("./safe-to-string");
+
+var reNewLine = /[\n\r\u2028\u2029]/g;
+
+module.exports = function (value) {
+	var string = safeToString(value);
+	if (string === null) return "<Non-coercible to string value>";
+	// Trim if too long
+	if (string.length > 100) string = string.slice(0, 99) + "…";
+	// Replace eventual new lines
+	string = string.replace(reNewLine, function (char) {
+		switch (char) {
+			case "\n":
+				return "\\n";
+			case "\r":
+				return "\\r";
+			case "\u2028":
+				return "\\u2028";
+			case "\u2029":
+				return "\\u2029";
+			/* istanbul ignore next */
+			default:
+				throw new Error("Unexpected character");
+		}
+	});
+	return string;
+};
+
+},{"./safe-to-string":131}],133:[function(require,module,exports){
+"use strict";
+
+var isValue = require("../value/is");
+
+// prettier-ignore
+var possibleTypes = { "object": true, "function": true, "undefined": true /* document.all */ };
+
+module.exports = function (value) {
+	if (!isValue(value)) return false;
+	return hasOwnProperty.call(possibleTypes, typeof value);
+};
+
+},{"../value/is":139}],134:[function(require,module,exports){
+"use strict";
+
+var resolveException = require("../lib/resolve-exception")
+  , is               = require("./is");
+
+module.exports = function (value/*, options*/) {
+	if (is(value)) return value;
+	return resolveException(value, "%v is not a plain function", arguments[1]);
+};
+
+},{"../lib/resolve-exception":130,"./is":135}],135:[function(require,module,exports){
+"use strict";
+
+var isFunction = require("../function/is");
+
+var classRe = /^\s*class[\s{/}]/, functionToString = Function.prototype.toString;
+
+module.exports = function (value) {
+	if (!isFunction(value)) return false;
+	if (classRe.test(functionToString.call(value))) return false;
+	return true;
+};
+
+},{"../function/is":129}],136:[function(require,module,exports){
+"use strict";
+
+var isObject = require("../object/is");
+
+module.exports = function (value) {
+	if (!isObject(value)) return false;
+	try {
+		if (!value.constructor) return false;
+		return value.constructor.prototype === value;
+	} catch (error) {
+		return false;
+	}
+};
+
+},{"../object/is":133}],137:[function(require,module,exports){
+"use strict";
+
+var isValue  = require("../value/is")
+  , isObject = require("../object/is");
+
+var objectToString = Object.prototype.toString;
+
+module.exports = function (value) {
+	if (!isValue(value)) return null;
+	if (isObject(value)) {
+		// Reject Object.prototype.toString coercion
+		var valueToString = value.toString;
+		if (typeof valueToString !== "function") return null;
+		if (valueToString === objectToString) return null;
+		// Note: It can be object coming from other realm, still as there's no ES3 and CSP compliant
+		// way to resolve its realm's Object.prototype.toString it's left as not addressed edge case
+	}
+	try {
+		return "" + value; // Ensure implicit coercion
+	} catch (error) {
+		return null;
+	}
+};
+
+},{"../object/is":133,"../value/is":139}],138:[function(require,module,exports){
+"use strict";
+
+var resolveException = require("../lib/resolve-exception")
+  , is               = require("./is");
+
+module.exports = function (value/*, options*/) {
+	if (is(value)) return value;
+	return resolveException(value, "Cannot use %v", arguments[1]);
+};
+
+},{"../lib/resolve-exception":130,"./is":139}],139:[function(require,module,exports){
+"use strict";
+
+// ES3 safe
+var _undefined = void 0;
+
+module.exports = function (value) { return value !== _undefined && value !== null; };
+
+},{}],140:[function(require,module,exports){
+(function (global){
+const LogginJS = require('./lib/index');
+const additionalSeverities = require('./plugins/additional-severities');
+const additionalNotifiers = require('./plugins/browser/additional-notifiers');
+const additionalFormatters = require('./plugins/additional-formatters');
+
+LogginJS.use(additionalSeverities);
+LogginJS.use(additionalNotifiers);
+LogginJS.use(additionalFormatters);
+
+global.LogginJS = LogginJS;
+module.exports = LogginJS;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./lib/index":142,"./plugins/additional-formatters":148,"./plugins/additional-severities":149,"./plugins/browser/additional-notifiers":150}],141:[function(require,module,exports){
+'use strict';
+const strif = require('strif');
+const clicolor = require('cli-color');
+
+const padd = (v) => ` ${v} `;
+
+let colors = {
+  cl_red: s => clicolor.red(s),
+  cl_blue: s => clicolor.blue(s),
+  cl_cyan: s => clicolor.cyan(s),
+  cl_green: s => clicolor.green(s),
+  cl_gray: s => clicolor.blackBright(s),
+  cl_yellow: s => clicolor.yellow(s),
+  cl_orange: s => clicolor.orange(s),
+  cl_purple: s => clicolor.purple(s),
+  cl_black: s => clicolor.black(s),
+  cl_white: s => clicolor.white(s),
+  cl_magenta: s => clicolor.magenta(s),
+};
+
+let labels = {
+  lbl_red: s => clicolor.bgRed(padd(s)),
+  lbl_blue: s => clicolor.bgBlue(padd(s)),
+  lbl_cyan: s => clicolor.bgCyan(padd(s)),
+  lbl_green: s => clicolor.bgGreen(padd(s)),
+  lbl_gray: s => clicolor.bgGray(padd(s)),
+  lbl_yellow: s => clicolor.bgYellow(padd(s)),
+  lbl_orange: s => clicolor.bgOrange(padd(s)),
+  lbl_purple: s => clicolor.bgPurple(padd(s)),
+  lbl_black: s => clicolor.bgBlack(padd(s)),
+  lbl_white: s => clicolor.bgWhite(padd(s)),
+  lbl_magenta: s => clicolor.bgMagenta(padd(s)),
+};
+
+let ignored = [
+  'lbl_red',
+  'lbl_blue',
+  'lbl_cyan',
+  'lbl_green',
+  'lbl_gray',
+  'lbl_yellow',
+  'lbl_orange',
+  'lbl_purple',
+  'lbl_black',
+  'lbl_white',
+  'lbl_magenta',
+
+  'cl_red',
+  'cl_blue',
+  'cl_cyan',
+  'cl_green',
+  'cl_gray',
+  'cl_yellow',
+  'cl_orange',
+  'cl_purple',
+  'cl_black',
+  'cl_white',
+  'cl_magenta',
+]
+
+
+const formatter =
+  strif.create({
+    transformers: {
+      json: s => s ? JSON.stringify(s, null, 2) : s,
+      json_u: s => s ? JSON.stringify(s) : s,
+      upper: s => s ? s.toUpperCase() : s,
+      lower: s => s ? s.toLowerCase() : s,
+      string: s => s ? s.toString() : s,
+      int: s => s ? s.toInt() : s,
+      date: s => s ? new Date(s).toLocaleDateString() : s,
+      ...labels,
+      ...colors
+    }
+  });
+
+class Formatter {
+  constructor(template) {
+    this.template = template;
+  }
+
+  color(str) {
+    Formatter.replaceables.forEach((re) => str = str.replace(re.regexp, re.fn));
+    return str;
+  }
+
+  formatLog(log, opts = { color: false }) {
+    let {
+      message,
+      data,
+      level,
+      channel,
+      levelStr,
+      time,
+      user,
+    } = log;
+
+    return Formatter.format({
+      message,
+      data,
+      level,
+      channel,
+      levelStr,
+      time,
+      user,
+    }, this, opts.color);
+  }
+
+  static format(log, formatter, color = false) {
+    const tmpltType = formatter.template.constructor.name;
+    if (tmpltType !== 'StrifTemplate') {
+      throw Error('options.formatter should be type: "StrifTemplate", not: "' + tmpltType + '"');
+    }
+
+    return formatter.template.compile(log, {
+      ignoreTransformers: color ? false : ignored
+    });
+  }
+
+  static search(value) {
+    for (let key in Formatter._formatters) {
+      let formatter = Formatter._formatters[key];
+      if ((key).toLowerCase() === String(value).toLowerCase()) {
+        return formatter;
+      }
+    }
+
+    return Formatter.LONG;
+  }
+
+  static get(value) {
+    if (value && value.constructor.name === 'Formatter') {
+      return value;
+    }
+
+    return Formatter.search(value);
+  }
+
+  static register(name, template, options = {}) {
+    if (typeof name !== 'string') {
+      throw new Error('"name" must be a string got: ' + typeof name);
+    }
+    if (typeof template !== 'string') {
+      throw new Error('"template" must be a string got: ' + typeof template);
+    }
+
+    let nameUpper = name.toUpperCase();
+
+    Formatter[nameUpper] = Formatter._formatters[nameUpper] =
+      new Formatter(formatter.template(template, options));
+
+    return Formatter;
+  }
+}
+
+/**
+ * Array of regexp, transformer pairs, that change the color of a specific pattern
+ */
+Formatter.replaceables = [
+  {
+    regexp: /<%bb[^>]+>/g,
+    fn: (str) => clicolor.blueBright(str).replace(/<%bb(.+)>/g, '$1')
+  },
+  {
+    regexp: /<%gr[^>]+>/g,
+    fn: (str) => clicolor.blackBright(str).replace(/<%gr(.+)>/g, '$1')
+  },
+  {
+    regexp: /INFO|INF|<%g[^>]+>/g,
+    fn: (str) => clicolor.greenBright(str).replace(/<%g(.+)>/g, '$1')
+  },
+  {
+    regexp: /SILLY|SIL|<%m[^>]+>/g,
+    fn: (str) => clicolor.magentaBright(str).replace(/<%m(.+)>/g, '$1')
+  },
+  {
+    regexp: /DEBUG|DEB|<%b[^>]+>/g,
+    fn: (str) => clicolor.blueBright(str).replace(/<%b(.+)>/g, '$1')
+  },
+  {
+    regexp: /NOTICE|NOT|<%c[^>]+>/g,
+    fn: (str) => clicolor.cyanBright(str).replace(/<%c(.+)>/g, '$1')
+  },
+  {
+    regexp: /WARNING|WAR|EME|EMERGENCY|<%y[^>]+>/g,
+    fn: (str) => clicolor.yellowBright(str).replace(/<%y(.+)>/g, '$1')
+  },
+  {
+    regexp: /ALERT|ALE|CRITICAL|CRI|ERROR|ERR|<%r[^>]+>/g,
+    fn: (str) => clicolor.redBright(str).replace(/<%r(.+)>/g, '$1')
+  },
+  {
+    regexp: /<%p[^>]+>/g,
+    fn: (str) => clicolor.xterm(13)(str).replace(/<%p(.+)>/g, '$1')
+  },
+  {
+    regexp: /<%m[^>]+>/g,
+    fn: (str) => clicolor.magenta(str).replace(/<%m(.+)>/g, '$1')
+  }
+];
+
+Formatter._formatters = {};
+
+module.exports = Formatter;
+
+},{"cli-color":9,"strif":125}],142:[function(require,module,exports){
+'use strict';
+
+const Logger = require('./logger');
+const Notifier = require('./notifier');
+const Formatter = require('./formatter');
+const Severity = require('./severity');
+const Log = require('./log');
+const Pipe = require('./pipe');
+
+function logger(opts = 'default', args = {}) {
+  return Logger.get(opts, args);
+}
+
+function notifier(opts = 'default', args = {}) {
+  return Notifier.get(opts);
+}
+
+function formatter(template = 'default') {
+  return Formatter.get(template);
+}
+
+function severity(level) {
+  return Severity.get(level);
+}
+
+function merge(loggers, options) {
+  return Logger.merge(loggers, options);
+}
+
+function pipe(level, filepath) {
+  return new Pipe(level, filepath);
+}
+
+function use(plugin) {
+  if (typeof plugin !== 'function') {
+    throw new Error('"plugin" must be a function');
+  }
+
+  // "this" will resolve to LogginJS
+  plugin(this);
+}
+
+
+const LogginJS = {
+  Severity,
+  Log,
+  Notifier,
+  Formatter,
+  Logger,
+  Pipe,
+
+  logger,
+  notifier,
+  formatter,
+  severity,
+  merge,
+  pipe,
+  use
+};
+
+module.exports = LogginJS;
+},{"./formatter":141,"./log":143,"./logger":144,"./notifier":145,"./pipe":146,"./severity":147}],143:[function(require,module,exports){
+'use strict';
+
+const clicolor = require('cli-color');
+const Severity = require('./severity');
+const Formatter = require('./formatter');
+
+
+class Log {
+  constructor(message, data = null, level = Severity.DEBUG, channel = '', time = new Date(), user) {
+    this.message = message;
+    this.data = data;
+    this.level = level;
+    this.channel = channel;
+    this.levelStr = level.toString();
+    this.time = time || new Date();
+    this.user = user;
+  }
+
+  /**
+   * Returns formatted log
+   * @param {string} formatter
+   */
+  format(formatter, opts = {
+    color: false
+  }) {
+    let {
+      message,
+      data,
+      level,
+      channel,
+      levelStr,
+      time,
+      user,
+    } = this;
+
+    return Formatter.format({
+      message,
+      data,
+      level,
+      channel,
+      levelStr,
+      time,
+      user,
+    }, formatter, opts.color);
+  }
+}
+
+module.exports = Log;
+},{"./formatter":141,"./severity":147,"cli-color":9}],144:[function(require,module,exports){
+(function (__filename){
+'use strict';
+
+const Log = require('./log');
+const Notifier = require('./notifier');
+const Severity = require('./severity');
+const Formatter = require('./formatter');
+const os = require('os');
+const path = require('path');
+
+class Logger {
+  constructor(options) {
+    this.options = {
+      ...Logger.DefaultOptions,
+      ...options
+    };
+
+    this._profiles = {};
+    let notifiers = options.notifiers;
+    if (!notifiers || notifiers.length === 0) {
+      notifiers = [Notifier.get('default')];
+    }
+
+    this._level;
+    this._user;
+    this._channel;
+    this._enabled;
+    this._color;
+    this._formatter;
+    this._lineNumbers;
+
+    // .setNotifiers must be done before setting other options
+    // as some of them propagate down options to the notifiers
+    this.setNotifiers(notifiers);
+
+    this.level(this.options.level);
+    this.user(this.options.user);
+    this.channel(this.options.channel);
+    this.enabled(this.options.enabled);
+    this.color(this.options.color);
+    this.formatter(this.options.formatter);
+    this.lineNumbers(this.options.lineNumbers);
+  }
+
+  clone(options = {}) {
+    let logger = new Logger({ ...this.options, ...options }, [...this._notifiers]);
+    return logger;
+  }
+
+  fork(options = {}) {
+    return this.clone(options);
+  }
+
+  // Options
+  enabled(enabled) {
+    this.options.enabled = enabled;
+    return this;
+  }
+
+  user(user) {
+    this.options.user = user;
+    return this;
+  }
+
+  channel(channel) {
+    this.options.channel = channel;
+    return this;
+  }
+
+  level(level) {
+    this.options.level = Severity.get(level) || Severity.DEBUG;
+
+    this._notifiers.forEach(notif =>
+      notif.level(this.options.level));
+
+    return this;
+  }
+
+  formatter(formatter) {
+    this.options.formatter = formatter;
+    this._notifiers.forEach(notif =>
+      notif.formatter(this.options.formatter));
+
+    return this;
+  }
+
+  lineNumbers(show) {
+    this._notifiers.forEach(notif =>
+      notif.lineNumbers(show));
+
+    return this;
+  }
+
+  // Notifier stuff
+  notifier(...notifiers) {
+    this._notifiers = [
+      ...this._notifiers,
+      ...notifiers
+    ];
+    return this;
+  }
+
+  setNotifiers(notifiers) {
+    this._notifiers = notifiers;
+    return this;
+  }
+
+  hasNotifier(name) {
+    return this._notifiers.some(notif =>
+      notif.name === name);
+  }
+
+  getNotifier(name) {
+    if (!this.hasNotifier(name)) {
+      return null;
+    } else {
+      return this._notifiers.filter(notif =>
+        notif.name === name).pop();
+    }
+  }
+
+  color(color = true) {
+    this.options.color = color;
+    this._notifiers.forEach(notif =>
+      notif.color(this.options.color));
+
+    return this;
+  }
+
+  lineNumbers(show) {
+    this.options.lineNumbers = show;
+    this._notifiers.forEach(notif =>
+      notif.lineNumbers(this.options.lineNumbers));
+
+    return this;
+  }
+
+  canLog(severity) {
+    return this.options.level.canLog(severity);
+  }
+
+  log(message, data = null, opts = {}) {
+    const { level, channel, time, user } = {
+      level: this.options.level,
+      channel: this.options.channel,
+      user: this.options.user,
+      time: Date.now(),
+      ...opts
+    };
+
+    if (this.options.enabled) {
+      let log = message;
+      if (!(message instanceof Log)) {
+        log = new Log(message, data, level, channel, time, user);
+      }
+
+      return this._notifiers
+        .forEach(notifier => {
+          if (notifier.canOutput(level)) {
+            if (this.options.preNotify && typeof this.options.preNotify === 'function') {
+              this.options.preNotify(log, notifier);
+            }
+            if (
+              this.options.ignore &&
+              typeof this.options.ignore === 'function' &&
+              this.options.ignore(log, notifier)
+            ) return;
+
+            notifier.notify(log);
+          }
+        });
+    }
+
+    return this;
+  }
+
+
+  debug(message, data = null, opts = {}) {
+    this.log(message, data, {
+      level: Severity.DEBUG,
+      ...opts
+    });
+
+    return this;
+  }
+
+  warning(message, data = null, opts = {}) {
+    this.log(message, data, {
+      level: Severity.WARNING,
+      ...opts
+    });
+
+    return this;
+  }
+
+  alert(message, data = null, opts = {}) {
+    this.log(message, data, {
+      level: Severity.ALERT,
+      ...opts
+    });
+
+    return this;
+  }
+
+  emergency(message, data = null, opts = {}) {
+    this.log(message, data, {
+      level: Severity.EMERGENCY,
+      ...opts
+    });
+
+    return this;
+  }
+
+  critical(message, data = null, opts = {}) {
+    this.log(message, data, {
+      level: Severity.CRITICAL,
+      ...opts
+    });
+
+    return this;
+  }
+
+  error(message, data = null, opts = {}) {
+    this.log(message, data, {
+      level: Severity.ERROR,
+      ...opts
+    });
+
+    return this;
+  }
+
+  notice(message, data = null, opts = {}) {
+    this.log(message, data, {
+      level: Severity.NOTICE,
+      ...opts
+    });
+
+    return this;
+  }
+
+  info(message, data = null, opts = {}) {
+    this.log(message, data, {
+      level: Severity.INFO,
+      ...opts
+    });
+
+    return this;
+  }
+
+  silly(message, data = null, opts = {}) {
+    this.log(message, data, {
+      level: Severity.SILLY,
+      ...opts
+    });
+
+    return this;
+  }
+
+  static search(value) {
+    for (let key in Logger._loggers) {
+      let logger = Logger._loggers[key];
+      if ((key).toLowerCase() === String(value).toLowerCase()) {
+        return logger;
+      }
+    }
+
+    return Notifier.File;
+  }
+
+  static get(opts = 'default', args = {}) {
+    let notifier = Notifier.get(opts, args);
+    if (typeof opts === 'string' && notifier) {
+      args.notifiers = [notifier];
+      return new Logger(args);
+    } else if (typeof opts === 'object') {
+      return new Logger(opts);
+    } else {
+      throw new Error('Bad arguments for .logger, (' + opts + ')');
+    }
+  }
+
+  static merge(loggers, opts = {
+    mergeOptions: true,
+    mergeNotifiers: true
+  }) {
+    let notifiers = [];
+    let options = {};
+    for (let logger of loggers) {
+      if (!(logger instanceof Logger)) {
+        throw new Error('loggers must be an array of loggers');
+      } else {
+        if (opts.mergeOptions === true) {
+          options = Object.assign(options, logger.options);
+        }
+
+        if (opts.mergeNotifiers === true) {
+          notifiers.push(...logger._notifiers);
+        }
+      }
+    }
+
+    let logger = new Logger(options);
+    logger.setNotifiers(notifiers);
+
+    return logger;
+  }
+
+  static register(name, notifierName) {
+    if (typeof name !== 'string') {
+      throw new Error('"name" must be a string got: ' + typeof name);
+    }
+    if (typeof notifierName !== 'string') {
+      throw new Error('"notifierName" must be a string got: ' + typeof notifierName);
+    }
+
+    Logger[name] = Logger._loggers[name] = notifierName;
+
+    return Logger;
+  }
+}
+
+Logger._loggers = {};
+Logger.DefaultOptions = {
+  user: os.userInfo ? os.userInfo().username : 'browser',
+  ignore: null,
+  level: Severity.DEBUG,
+  channel: path.basename(__filename),
+  formatter: Formatter.get('detailed'),
+  enabled: true,
+  color: false,
+};
+
+module.exports = Logger;
+}).call(this,"/src/lib/logger.js")
+},{"./formatter":141,"./log":143,"./notifier":145,"./severity":147,"os":122,"path":123}],145:[function(require,module,exports){
+'use strict';
+
+const Severity = require('./severity');
+const Formatter = require('./formatter');
+
+function isConstructor(obj) {
+  return !!obj.prototype && !!obj.prototype.constructor.name;
+}
+
+class Notifier {
+  constructor(options = {}) {
+    options = {
+      ...Notifier.DefaultOptions,
+      ...options
+    }
+
+    if (options.level && !(options.level instanceof Severity)) {
+      throw new Error(`ERROR: "options.level" should be an instance of Severity. at: options.level = ${options.level}`);
+    }
+
+    this.name = 'abstract';
+    this.options = options;
+    this.options.level = Severity.get(this.options.level);
+    this.options.color = options.color;
+    this.options.lineNumbers = options.lineNumbers;
+
+    this.pipes = [];
+    this.lineIndex = 0;
+
+    if (!this.options.formatter) {
+      this.formatter('detailed');
+    } else if (typeof this.options.formatter === 'string') {
+      this.formatter(this.options.formatter);
+    }
+  }
+
+  canOutput(level) {
+    return this.options.level.canLog(level);
+  }
+
+  level(level) {
+    this.options.level = Severity.get(level);
+    return this;
+  }
+
+  formatter(formatter) {
+    this.options.formatter = Formatter.get(formatter);
+    return this;
+  }
+
+  color(val) {
+    this.options.color = val;
+    return this;
+  }
+
+  lineNumbers(show) {
+    this.options.lineNumbers = show;
+    return this;
+  }
+
+  getLineWithNumber(log) {
+    let lineNum = this.lineIndex++;
+    return '(' + lineNum + ') ' + log;
+  }
+
+  notify(log) {
+    let { formatter, color } = this.options;
+    let output = formatter.formatLog(log, { color: color });
+
+    if (color) {
+      output = formatter.color(output);
+    }
+
+    this.output(output, log.level, log);
+
+    return this;
+  }
+
+  output(log) {
+    return;
+  }
+
+  pipe(severity, cb) {
+    console.warn('WARN - Pipe has not been configured in this notifier');
+  }
+
+  static search(value) {
+    for (let key in Notifier._notifiers) {
+      let notifier = Notifier._notifiers[key];
+      if ((key).toLowerCase() === String(value).toLowerCase()) {
+        return notifier;
+      }
+    }
+
+    return Notifier.Console;
+  }
+
+  static get(value, opts = {}) {
+    if (value && value.constructor.name === 'Notifier') {
+      return value;
+    }
+
+    let Ctor = Notifier.search(value);
+
+    if (!isConstructor(Ctor)) {
+      throw new Error('Coult not find Notifier with name (' + value + ') | \nIf it\'s a custom made notifier, please register it before using it. I.e: Notifier.register(\'name\', Constructor)');
+    }
+
+    return new Ctor(opts);
+  }
+
+  static register(name, ctor) {
+    if (typeof name !== 'string') {
+      throw new Error('"name" must be a string got: ' + typeof name);
+    }
+    if (typeof ctor !== 'function') {
+      throw new Error('"ctor" must be a constructor function got: ' + typeof ctor);
+    }
+
+    Notifier[name] = Notifier._notifiers[name] = ctor;
+
+    return Notifier;
+  }
+}
+
+Notifier._notifiers = {};
+
+Notifier.DefaultOptions = {
+  color: false
+};
+
+
+module.exports = Notifier;
+},{"./formatter":141,"./severity":147}],146:[function(require,module,exports){
+'use strict';
+class Pipe {
+  constructor(severity, filepath) {
+    this.severity = severity;
+    this.filepath = filepath;
+  }
+
+
+  /**
+   * Does this pipe englobe said severity
+   * @argument severity {Severity}
+   */
+  englobes(severity) {
+    return this.severity.canLog(severity)
+  }
+}
+
+module.exports = Pipe;
+},{}],147:[function(require,module,exports){
+'use strict';
+class Severity {
+  constructor(level, name) {
+    this.level = level;
+    this.name = name;
+    this.fileLogginLevel = this.level;
+  }
+
+  canLog(severity) {
+    return this.level >= severity.level;
+  }
+
+  getFileLoggingLevel() {
+    return this.fileLogginLevel;
+  }
+
+  toString() {
+    return String(this.name).substr(0, 3);
+  }
+
+  toInt() {
+    return this.level;
+  }
+
+  valueOf() {
+    return this.toInt();
+  }
+
+  static search(value) {
+    for (let key in Severity._severities) {
+      let severity = Severity._severities[key];
+      if (severity.level === value || (severity.name).toLowerCase() === String(value).toLowerCase()) {
+        return severity;
+      }
+    }
+
+    return null;
+  }
+
+  static get(level) {
+    if (level && level.constructor.name === 'Severity') {
+      return level;
+    }
+
+    return Severity.search(level);
+  }
+
+  static register(level, name) {
+    if (typeof name !== 'string') {
+      throw new Error('"name" must be a string got: ' + typeof name);
+    }
+    Severity[name] = Severity._severities[name] = new Severity(level, name);
+
+    return Severity;
+  }
+}
+
+Severity._severities = {};
+
+module.exports = Severity;
+},{}],148:[function(require,module,exports){
+
+function plugin(loggin) {
+    const { Formatter } = loggin;
+
+    Formatter['JSON'] = Formatter._formatters['JSON'] = {
+        formatLog: (log) => JSON.stringify(log),
+        color: (log) => log,
+    }
+
+    Formatter
+        .register(
+            'SHORT',
+            '[{time}] - {level} - {message}', {
+                props: {
+                    time: {
+                        transformers: ['date'],
+                    },
+                    level: {
+                        transformers: ['string']
+                    },
+                    message: {
+
+                    }
+                }
+            }
+        );
+    Formatter
+        .register(
+            'MEDIUM',
+            '[{time}] - {level} - {message} {data}', {
+                props: {
+                    time: {
+                        transformers: ['date']
+                    },
+                    level: {
+                        transformers: ['string']
+                    },
+                    message: {},
+                    data: {
+                        transformers: ['json', 'cl_gray']
+                    }
+                }
+            }
+        );
+    Formatter
+        .register(
+            'LONG',
+            '[{time} {user}] - {level} - {message} {data}', {
+                props: {
+                    time: {
+                        transformers: ['date', 'cl_blue']
+                    },
+                    user: {
+                        transformers: ['cl_gray']
+                    },
+                    level: {
+                        transformers: ['string']
+                    },
+                    message: {},
+                    data: {
+                        transformers: ['json_u', 'cl_gray']
+                    }
+                }
+            }
+        );
+    Formatter
+        .register(
+            'DETAILED',
+            '{time} {user} {channel} - {level} - {message} {data}', {
+                props: {
+                    time: {
+                        transformers: ['date', 'lbl_cyan']
+                    },
+                    user: {
+                        transformers: ['cl_gray']
+                    },
+                    level: {
+                        transformers: ['string']
+                    },
+                    data: {
+                        transformers: ['json', 'cl_gray']
+                    },
+                    channel: {},
+                    message: {},
+                }
+            }
+        );
+    Formatter
+        .register(
+            'MINIMAL',
+            '{channel} - {message}', {
+                props: {
+                    message: {},
+                    channel: {},
+                }
+            }
+        );
+};
+
+module.exports = plugin;
+},{}],149:[function(require,module,exports){
+
+function plugin(loggin) {
+    const { Severity } = loggin;
+
+    Severity
+        .register(0, 'EMERGENCY')
+        .register(1, 'ALERT')
+        .register(2, 'CRITICAL')
+        .register(3, 'ERROR')
+        .register(4, 'WARNING')
+        .register(5, 'NOTICE')
+        .register(6, 'INFO')
+        .register(7, 'DEBUG')
+        .register(8, 'SILLY');
+};
+
+module.exports = plugin;
+},{}],150:[function(require,module,exports){
+
+function plugin(loggin) {
+    const { Notifier, Pipe } = loggin;
+
+    class ConsoleNotifier extends Notifier {
+        constructor(options) {
+            super(options);
+            this.name = 'console';
+            this.lineIndex = 0;
+        }
+
+        output(log) {
+            let logOut = log;
+            if (this.options.lineNumbers) {
+                logOut = this.getLineWithNumber(log);
+            }
+
+            // Dont remove
+            console.log(logOut);
+            return this;
+        }
+    }
+
+    Notifier.register('Console', ConsoleNotifier);
+};
+
+module.exports = plugin;
+},{}]},{},[140]);

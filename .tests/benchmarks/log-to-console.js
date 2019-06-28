@@ -1,4 +1,4 @@
-const loggin = require('../../node.js');
+const loggin = require('../../src/node.js');
 const TEST_DEPTH = 5000;
 
 const clic = require('cli-color');
