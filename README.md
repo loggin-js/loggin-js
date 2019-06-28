@@ -171,12 +171,17 @@ import loggin from 'loggin-js';
 > It is also limited, for now just the `console` notifier works. And color is not working either!
 
 ```html
-<script src="loggin-js/dist/loggin.js"></script>
+<!-- Import from node_modules -->
+<script src="node_modules/loggin-js/dist/loggin.js"></script>
+<!-- Or use a cdn -->
+<script src="https://cdn.jsdelivr.net/npm/loggin-js@1.2.2/dist/loggin.js"></script>
 
 <script>
   LogginJS.logger();
 </script>
 ```
+
+> Also you can use a cdn
 
 [back to top](#table-of-content-)
 ****
