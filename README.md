@@ -174,7 +174,7 @@ import loggin from 'loggin-js';
 <!-- Import from node_modules -->
 <script src="node_modules/loggin-js/dist/loggin.js"></script>
 <!-- Or use a cdn -->
-<script src="https://cdn.jsdelivr.net/npm/loggin-js@1.2.2/dist/loggin.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/loggin-js@latest/dist/loggin.js"></script>
 
 <script>
   LogginJS.logger();

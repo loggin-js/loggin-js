@@ -8,8 +8,7 @@ function plugin(loggin) {
 
     class ConsoleNotifier extends Notifier {
         constructor(options) {
-            super(options);
-            this.name = 'console';
+            super(options, 'console');
             this.lineIndex = 0;
         }
 
@@ -27,8 +26,7 @@ function plugin(loggin) {
 
     class FileNotifier extends Notifier {
         constructor(options) {
-            super(options);
-            this.name = 'file';
+            super(options, 'file');
             this.fs = require('fs');
 
             // Setup default pipe if filepath is passed for options.level
@@ -124,8 +122,7 @@ function plugin(loggin) {
 
     class RemoteNotifier extends Notifier {
         constructor(options) {
-            super(options);
-            this.name = 'remote';
+            super(options, 'remote');
             this.host = options.host || '127.0.0.1';
             this.port = options.port || '8080';
             this.headers = options.headers || {};
@@ -157,8 +154,7 @@ function plugin(loggin) {
 
     class MemoryNotifier extends Notifier {
         constructor(options) {
-            super(options);
-            this.name = 'memory';
+            super(options, 'memory');
             this._buffer = Buffer.from(`Logging'JS Log Dump for ${options.channel || 'loggin-js'} [${(new Date()).toLocaleString()}]\n\n`);
         }
 

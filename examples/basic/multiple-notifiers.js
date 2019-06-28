@@ -1,7 +1,7 @@
 const loggin = require('../..');
 
 const csol = loggin
-  .notifier('console')
+  .notifier('console', { name: 'csol' })
   .color(true)
   .level('debug')
   .formatter('detailed');
@@ -35,6 +35,12 @@ let logger2 = logger.clone({
 logger2.debug('debug', { id: '0000' });
 logger2.info('info');
 logger2.error('some <%rerror>');
+logger2.critical('critical');
+
+// Deactivate one notifier 
+logger2.getNotifier('csol').active(false);
+
+logger2.critical('not logged to console');
 logger2.critical('critical');
 logger2.silly('critical', null, {
   formatter: 'short'

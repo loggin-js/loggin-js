@@ -12,7 +12,7 @@ function logger(opts = 'default', args = {}) {
 }
 
 function notifier(opts = 'default', args = {}) {
-  return Notifier.get(opts);
+  return Notifier.get(opts, args);
 }
 
 function formatter(template = 'default') {
