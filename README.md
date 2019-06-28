@@ -19,21 +19,21 @@
 [vulnerabilities-badge]: https://snyk.io/test/npm/loggin-js/badge.svg?style=flat-square
 [vulnerabilities-link]: https://snyk.io/test/npm/loggin-js
 
-[docs:severity]: https://github.com/nombrekeff/loggin-js/wiki/Severity
-[docs:notifier]: https://github.com/nombrekeff/loggin-js/wiki/Notifier
-[docs:formatter]: https://github.com/nombrekeff/loggin-js/wiki/Formatter
-[docs:formatting]: https://github.com/nombrekeff/loggin-js/wiki/Formatter
-[docs:log]: https://github.com/nombrekeff/loggin-js/wiki/Log
-[docs:Logger]: https://github.com/nombrekeff/loggin-js/wiki/Logger
-[docs:channel]: https://github.com/nombrekeff/loggin-js/wiki/Logger#channel
-[docs:logger-options]: https://github.com/nombrekeff/loggin-js/wiki/Logger#options
-[docs:helper:logger]: https://github.com/nombrekeff/loggin-js/wiki/Helper-.logger
-[docs:helper:notifier]: https://github.com/nombrekeff/loggin-js/wiki/Helper-.notifier
-[docs:helper:formatter]: https://github.com/nombrekeff/loggin-js/wiki/Helper-.formatter
-[docs:helper:severity]: https://github.com/nombrekeff/loggin-js/wiki/Helper-.severity
-[docs:customizing]: https://github.com/nombrekeff/loggin-js/wiki/logger#customizing
-[docs:premades]: https://github.com/nombrekeff/loggin-js/wiki/premades
-[docs:plugins]: https://github.com/nombrekeff/loggin-js/wiki/Plugins
+[docs:severity]: https://github.com/loggin-js/loggin-js/wiki/Severity
+[docs:notifier]: https://github.com/loggin-js/loggin-js/wiki/Notifier
+[docs:formatter]: https://github.com/loggin-js/loggin-js/wiki/Formatter
+[docs:formatting]: https://github.com/loggin-js/loggin-js/wiki/Formatter
+[docs:log]: https://github.com/loggin-js/loggin-js/wiki/Log
+[docs:Logger]: https://github.com/loggin-js/loggin-js/wiki/Logger
+[docs:channel]: https://github.com/loggin-js/loggin-js/wiki/Logger#channel
+[docs:logger-options]: https://github.com/loggin-js/loggin-js/wiki/Logger#options
+[docs:helper:logger]: https://github.com/loggin-js/loggin-js/wiki/Helper-.logger
+[docs:helper:notifier]: https://github.com/loggin-js/loggin-js/wiki/Helper-.notifier
+[docs:helper:formatter]: https://github.com/loggin-js/loggin-js/wiki/Helper-.formatter
+[docs:helper:severity]: https://github.com/loggin-js/loggin-js/wiki/Helper-.severity
+[docs:customizing]: https://github.com/loggin-js/loggin-js/wiki/logger#customizing
+[docs:premades]: https://github.com/loggin-js/loggin-js/wiki/premades
+[docs:plugins]: https://github.com/loggin-js/loggin-js/wiki/Plugins
 
 <div align="center">
 
@@ -109,7 +109,7 @@ If you want to log easily or want to create some complex loggin system, this is 
 > and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
 
 ### Considerations
-* You can still check the old `v0.5.0` source code at branch [v0.5.0](https://github.com/nombrekeff/loggin-js/tree/0.5.0)
+* You can still check the old `v0.5.0` source code at branch [v0.5.0](https://github.com/loggin-js/loggin-js/tree/0.5.0)
 
 ### Improvements
 Hopefully the bump to version `v1.x` is an improvement over the old **API** an the general cohesion of the library, here are some features and changes:
@@ -488,7 +488,7 @@ Pull requests are welcome, as well as any other type of contribution.
 ## Setting up <!-- omit in toc -->
 ```zsh
 # clone the repo
-$ git clone git@github.com:nombrekeff/loggin-js.git
+$ git clone git@github.com:loggin-js/loggin-js.git
 
 # enter the project
 $ cd loggin-js

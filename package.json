@@ -8,10 +8,10 @@
     "url": "https://github.com/nombrekeff"
   },
   "bugs": {
-    "url": "https://github.com/nombrekeff/logging-js/issues/new/choose",
+    "url": "https://github.com/loggin-js/logging-js/issues/new/choose",
     "email": "manoloedge96@gmail.com"
   },
-  "homepage": "https://github.com/nombrekeff/loggin-js/wiki",
+  "homepage": "https://github.com/loggin-js/loggin-js/wiki",
   "license": "MIT",
   "keywords": [
     "logging",
@@ -31,7 +31,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/nombrekeff/loggin-js.git"
+    "url": "https://github.com/loggin-js/loggin-js.git"
   },
   "main": "node.js",
   "scripts": {

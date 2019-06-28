@@ -1,2 +1,6 @@
 /examples
 /.tests
+/logs
+/node_modules
+.travis.yml
+CHANGELOG.md
