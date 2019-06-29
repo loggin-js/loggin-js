@@ -73,18 +73,35 @@ If you want to log easily or want to create some complex loggin system, this is 
 
 
 ## Table Of Content <!-- omit in toc -->
-- [Bump to `v1.x`](#Bump-to-v1x)
+
+<details>
+  <summary><a href="#Bump-to-v1x">Bump to <code>v1.x</code></a></summary>
+
   - [Considerations](#Considerations)
   - [Improvements](#Improvements)
-- [News](#News)
-- [Features](#Features)
-- [Installing](#Installing)
-- [Importing](#Importing)
+</details>
+<details>
+  <summary><a href="#News">News</a></summary>
+</details>
+<details>
+  <summary><a href="#Features">Features</a></summary>
+</details>
+<details>
+  <summary><a href="#Installing">Installing</a></summary>
+</details>
+<details open>
+  <summary><a href="#Importing">Importing</a></summary>
+  
   - [Node](#Node)
   - [ES6 Import](#ES6-Import)
   - [Browser](#Browser)
-- [Oficial plugins](#Oficial-plugins)
-- [Usage](#Usage)
+</details>
+<details>
+  <summary><a href="#Oficial-plugins">Oficial plugins</a></summary>
+</details>
+<details>
+  <summary><a href="#Usage">Usage</a></summary>
+  
   - [Creating loggers](#Creating-loggers)
   - [Configuring loggers](#Configuring-loggers)
     - [Formatting](#Formatting)
@@ -94,14 +111,22 @@ If you want to log easily or want to create some complex loggin system, this is 
     - [Setting the level](#Setting-the-level)
   - [Customizing Notifiers/Formatters/...](#Customizing-NotifiersFormatters)
   - [Ignoring Logs](#Ignoring-Logs)
-- [Examples](#Examples)
+</details>
+<details>
+  <summary><a href="#Examples">Examples</a></summary>
+  
   - [Simple example](#Simple-example)
   - [Advanced example](#Advanced-example)
-- [Migrating from `v1.x`](#Migrating-from-v1x)
+</details>
+<details>
+  <summary><a href="##Migrating-from-v1x">Migrating from <code>v1.x</code></a></summary>
+  
   - [Example 1](#Example-1)
   - [Example 2](#Example-2)
-- [Contributing](#Contributing)
-
+</details>
+<details>
+  <summary><a href="#Contributing">Contributing</a></summary>
+</details>
 
 ## Bump to `v1.x`
 > **!NOTICE! Not Compatible With v0.x**   
