@@ -97,9 +97,6 @@ If you want to log easily or want to create some complex loggin system, this is 
   - [Browser](#Browser)
 </details>
 <details>
-  <summary><a href="#Oficial-plugins">Oficial plugins</a></summary>
-</details>
-<details>
   <summary><a href="#Usage">Usage</a></summary>
   
   - [Creating loggers](#Creating-loggers)
@@ -119,7 +116,10 @@ If you want to log easily or want to create some complex loggin system, this is 
   - [Advanced example](#Advanced-example)
 </details>
 <details>
-  <summary><a href="##Migrating-from-v1x">Migrating from <code>v1.x</code></a></summary>
+  <summary><a href="#Oficial-plugins">Oficial plugins</a></summary>
+</details>
+<details>
+  <summary><a href="#Migrating-from-v1x">Migrating from <code>v1.x</code></a></summary>
   
   - [Example 1](#Example-1)
   - [Example 2](#Example-2)
@@ -210,12 +210,6 @@ import loggin from 'loggin-js';
 
 [back to top](#table-of-content-)
 ****
-
-## Oficial plugins
-This are a couple plugins I've made, If you make a plugin and want it to appear here, 
-you can contact me and if it meets my standards I will add it here!!
-* [MongoDB](https://github.com/nombrekeff/loggin-js-mongodb)
-* [Express](https://github.com/nombrekeff/loggin-js-express)
 
 ## Usage
 ### Creating loggers
@@ -444,6 +438,14 @@ logger.error('Not so good, eh?', null, { channel: 'other-channel' });
 
 [back to top](#table-of-content-)
 ****
+
+
+
+## Oficial plugins
+This are a couple plugins I've made, If you make a plugin and want it to appear here, 
+you can contact me and if it meets my standards I will add it here!!
+* [MongoDB](https://github.com/nombrekeff/loggin-js-mongodb)
+* [Express](https://github.com/nombrekeff/loggin-js-express)
 
 ## Migrating from `v1.x`
 Here is a little example on how to migrate `v0.x` to `v1.x`
