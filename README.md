@@ -96,7 +96,7 @@ If you want to log easily or want to create some complex loggin system, this is 
   - [ES6 Import](#ES6-Import)
   - [Browser](#Browser)
 </details>
-<details>
+<details usage>
   <summary><a href="#Usage">Usage</a></summary>
   
   - [Creating loggers](#Creating-loggers)
