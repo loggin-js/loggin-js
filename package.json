@@ -27,7 +27,8 @@
     "colored",
     "http",
     "memory",
-    "expandable"
+    "expandable",
+    "browser"
   ],
   "repository": {
     "type": "git",

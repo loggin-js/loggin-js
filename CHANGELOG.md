@@ -1,5 +1,5 @@
 
-## v1.3.0
+## v1.2.4
 * notifiers can be activated ad deactivated individualy
 * notifiers can have custom names now
 
