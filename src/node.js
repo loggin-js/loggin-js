@@ -11,4 +11,4 @@ LogginJS.use(additionalLoggers);
 LogginJS.use(additionalSeverities);
 LogginJS.use(additionalFormatters);
 
-module.exports = LogginJS;
+module.exports = Object.assign(LogginJS.logger('default'), LogginJS);
