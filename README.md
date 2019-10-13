@@ -212,12 +212,23 @@ import loggin from 'loggin-js';
 ****
 
 ## Usage
+### Using the default logger
+The simplest way of using Loggin'JS is by using the default logger.
+
+```js
+const loggin = require('loggin-js');
+
+loggin.debug('Check this log out!!', { foo: 'var' }, { channel: 'Wabalabadubdub!' });
+```
+
+
 ### Creating loggers
-The simplest way of creating a logger is by using the `.logger` method wich creates a logger based on some arguments.  
+If you want to create a custom logger, you cad do so by using the `.logger` function, that creates a logger based on some arguments.  
 
 By default if **no arguments** are passed in it will return a logger with a **console notifier** attached,   
 and a level of **DEBUG** _(check [this][docs:severity] for more info)_, this means it will output all logs to the console.
 ```js
+const loggin = require('loggin-js');
 loggin.logger();
 ```
 
@@ -225,6 +236,7 @@ You can also pass in a **string** representing the name of a [premade logger][do
 for example the following code will return a logger with a **file** notifier attached instead:
 ```js
 loggin.logger('file');
+loggin.logger('file', { /* opts */ });
 ```
 
 Alternatively you can pass in an **object** with a set of options to generate a logger,  
