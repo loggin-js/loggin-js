@@ -7,5 +7,4 @@ LogginJS.use(additionalSeverities);
 LogginJS.use(additionalNotifiers);
 LogginJS.use(additionalFormatters);
 
-global.LogginJS = LogginJS;
-module.exports = LogginJS;
+module.exports = global.LogginJS = Object.assign(LogginJS.logger('default'), LogginJS);

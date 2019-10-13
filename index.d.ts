@@ -332,8 +332,8 @@ export class Notifier {
   /**
    * Alias for search
    */
-  static get(opts: Options): Notifier;
-  static get(value: string, opts: Options): Notifier;
+  static get(opts?: Options): Notifier;
+  static get(value?: string, opts?: Options): Notifier;
 
   /**
    * Searches and tries to find a formatter
@@ -369,19 +369,19 @@ export class Pipe implements Pipe {
   constructor(severity: Severity, filepath: string);
 }
 
-export function logger(name: SupportedLoggers, opts: LoggerOptions): Logger;
-export function logger(opts: LoggerOptions, ...args: Notifier[]): Logger;
+export function logger(name?: SupportedLoggers, opts?: LoggerOptions): Logger;
+export function logger(opts?: LoggerOptions, ...args: Notifier[]): Logger;
 
-export function notifier(opts: Options): Notifier;
-export function notifier(name: SupportedLoggers, opts: Options): Notifier;
+export function notifier(opt?: Options): Notifier;
+export function notifier(name?: SupportedLoggers, opts?: Options): Notifier;
 
-export function severity(level: SupportedSeverities): Severity;
-export function severity(level: number): Severity;
-export function severity(level: Severity): Severity;
+export function severity(level?: SupportedSeverities): Severity;
+export function severity(level?: number): Severity;
+export function severity(level?: Severity): Severity;
 export function severity(): Severity;
 
-export function formatter(name: SupportedFormatters): Formatter;
-export function formatter(template: strif.StrifTemplate): Formatter;
+export function formatter(name?: SupportedFormatters): Formatter;
+export function formatter(template?: strif.StrifTemplate): Formatter;
 
 export function pipe(level: string, filepath: string): Pipe;
 export function use(plugin: (loggin: any) => void): void;
