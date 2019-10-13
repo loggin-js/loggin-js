@@ -97,7 +97,7 @@ If you want to log easily or want to create some complex loggin system, this is 
   - [Browser](#Browser)
 </details>
 <details open>
-  <summary><a href="#Usage">Usage</a></summary>
+  <summary><a href="#Getting-Started">Getting Started</a></summary>
   
   - [Creating loggers](#Creating-loggers)
   - [Configuring loggers](#Configuring-loggers)
@@ -211,7 +211,7 @@ import loggin from 'loggin-js';
 [back to top](#table-of-content-)
 ****
 
-## Usage
+## Getting Started
 ### Using the default logger
 The simplest way of using Loggin'JS is by using the default logger.
 
