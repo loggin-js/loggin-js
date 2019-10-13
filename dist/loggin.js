@@ -4844,8 +4844,7 @@ LogginJS.use(additionalSeverities);
 LogginJS.use(additionalNotifiers);
 LogginJS.use(additionalFormatters);
 
-global.LogginJS = LogginJS;
-module.exports = LogginJS;
+module.exports = global.LogginJS = Object.assign(LogginJS.logger('default'), LogginJS);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./lib/index":142,"./plugins/additional-formatters":148,"./plugins/additional-severities":149,"./plugins/browser/additional-notifiers":150}],141:[function(require,module,exports){
@@ -5069,7 +5068,7 @@ function logger(opts = 'default', args = {}) {
 }
 
 function notifier(opts = 'default', args = {}) {
-  return Notifier.get(opts);
+  return Notifier.get(opts, args);
 }
 
 function formatter(template = 'default') {
@@ -5324,7 +5323,7 @@ class Logger {
 
       return this._notifiers
         .forEach(notifier => {
-          if (notifier.canOutput(level)) {
+          if (notifier.canOutput(level) && notifier.options.active) {
             if (this.options.preNotify && typeof this.options.preNotify === 'function') {
               this.options.preNotify(log, notifier);
             }
@@ -5511,7 +5510,7 @@ function isConstructor(obj) {
 }
 
 class Notifier {
-  constructor(options = {}) {
+  constructor(options = {}, name) {
     options = {
       ...Notifier.DefaultOptions,
       ...options
@@ -5521,11 +5520,12 @@ class Notifier {
       throw new Error(`ERROR: "options.level" should be an instance of Severity. at: options.level = ${options.level}`);
     }
 
-    this.name = 'abstract';
+    this.name = options.name || name || 'notifier';
     this.options = options;
     this.options.level = Severity.get(this.options.level);
     this.options.color = options.color;
     this.options.lineNumbers = options.lineNumbers;
+    this.options.active = options.active;
 
     this.pipes = [];
     this.lineIndex = 0;
@@ -5539,6 +5539,11 @@ class Notifier {
 
   canOutput(level) {
     return this.options.level.canLog(level);
+  }
+
+  active(active) {
+    this.options.active = active;
+    return this;
   }
 
   level(level) {
@@ -5629,7 +5634,8 @@ class Notifier {
 Notifier._notifiers = {};
 
 Notifier.DefaultOptions = {
-  color: false
+  color: false,
+  active: true
 };
 
 
