@@ -67,7 +67,7 @@ describe('loggin.logger', () => {
 });
 
 describe('loggin should be instance of Logger', () => {
-  it(`loggin should`, () => {
+  it(`instance`, () => {
     expect(loggin).toBeInstanceOf(loggin.Logger);
   });
 });
