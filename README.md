@@ -247,7 +247,8 @@ loggin.logger({
   notifiers: [fileNotifier, consoleNotifier]
 });
 ```
-> **Notice** you can add, remove and change the notifiers after creating them
+> **Notice** you can add, remove and change the notifiers after creating them  
+> Check [this](#adding-notifiers) for info on creating notifiers
 
 Check [this]() for docs for options and premades
 
@@ -305,7 +306,7 @@ fileNotif.pipe(Severity.DEBUG, 'logs/debug-logs.log');
 
 You can add them to the logger like this:
 ```js
-// Adds logger
+// Adds notifier
 logger.notifier(consoleNotif, fileNotif);
 
 // Overwrites all loggers
