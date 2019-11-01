@@ -99,21 +99,21 @@ If you want to log easily or want to create some complex loggin system, this is 
 <details open>
   <summary><a href="#Getting-Started">Getting Started</a></summary>
   
-  - [Creating loggers](#Creating-loggers)
-  - [Configuring loggers](#Configuring-loggers)
+  - [Creating Loggers](#Creating-loggers)
+  - [Configuring Loggers](#Configuring-loggers)
     - [Formatting](#Formatting)
-    - [Adding notifiers](#Adding-notifiers)
-    - [Accessing notifiers](#Accessing-notifiers)
-    - [Modifying options](#Modifying-options)
-    - [Setting the level](#Setting-the-level)
+    - [Adding Notifiers](#Adding-notifiers)
+    - [Accessing Notifiers](#Accessing-notifiers)
+    - [Modifying Options](#Modifying-options)
+    - [Setting the Level](#Setting-the-level)
   - [Customizing Notifiers/Formatters/...](#Customizing-NotifiersFormatters)
   - [Ignoring Logs](#Ignoring-Logs)
 </details>
 <details>
   <summary><a href="#Examples">Examples</a></summary>
   
-  - [Simple example](#Simple-example)
-  - [Advanced example](#Advanced-example)
+  - [Simple Example](#Simple-example)
+  - [Advanced Example](#Advanced-example)
 </details>
 <details>
   <summary><a href="#Oficial-plugins">Oficial plugins</a></summary>
@@ -130,18 +130,19 @@ If you want to log easily or want to create some complex loggin system, this is 
 
 ## Bump to `v1.x`
 > **!NOTICE! Not Compatible With v0.x**   
-> Reasons of the bump were primarly design changes in the **API** _(wich makes it mostly not compatible with the old one)_, 
-> and the change in the formatting library, now: [strif](https://github.com/nombrekeff/strif)  
+> The primary reasons for the bump to `v1.x` were design changes in the **API** _ that made the previous versions incompatible. 
+> Also, the change in formatting library; now [strif](https://github.com/nombrekeff/strif).  
 
 ### Considerations
-* You can still check the old `v0.5.0` source code at branch [v0.5.0](https://github.com/loggin-js/loggin-js/tree/0.5.0)
+* You can still check the old `v0.5.0` source code at branch [v0.5.0](https://github.com/loggin-js/loggin-js/tree/0.5.0).
 
 ### Improvements
-Hopefully the bump to version `v1.x` is an improvement over the old **API** an the general cohesion of the library, here are some features and changes:
-* Made a bit more straight forward
-* Made more comprensible
-* Made more composable
-* Better typing
+Hopefully the bump to version `v1.x` is an improvement over the old **API**, and an improvement to the general cohesion of the library.
+Here are some features and changes:
+* Made a bit more straightforward.
+* Made more comprensible.
+* Made more composable.
+* Better typing.
 
 [back to top](#table-of-content-)
 ****
@@ -149,10 +150,10 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
 ## News
 
 > ### `v1.2.0`
-> Support for browser, it now works but it's limited
+> Support for browser. It now works, but it's limited.
 
 > ### `v1.1.0`
-> Support for plugins, you can now create custom plugins really easy. Check the [Plugins][docs:plugins] section for more info
+> Support for plugins, you can now easily create custom plugins. Check the [Plugins][docs:plugins] section for more info.
 
 [back to top](#table-of-content-)
 ****
@@ -160,18 +161,18 @@ Hopefully the bump to version `v1.x` is an improvement over the old **API** an t
 ## Features
 * ✔︎ Easy 
 * ✔︎ Customizable
-* ✔︎ Liteweighted
+* ✔︎ Lightweight
 
 [back to top](#table-of-content-)
 ****
 
 ## Installing
-With npm
+With npm:
 ```bash
 npm install loggin-js
 ```
 
-With yarn
+With yarn:
 ```bash
 yarn install loggin-js
 ```
@@ -192,28 +193,29 @@ import loggin from 'loggin-js';
 
 ### Browser
 > ### !! NOTICE !!
-> LogginJS can be used in the browser but it's in its early stages and api may change or may have errors. 
-> It is also limited, for now just the `console` notifier works. And color is not working either!
+> Loggin'JS can be used in the browser, but it's still in it's early stages, and the API may change or have errors. 
+> It is also limited. For now, only the `console` notifier works. Color is not working either!
 
 ```html
 <!-- Import from node_modules -->
 <script src="node_modules/loggin-js/dist/loggin.js"></script>
-<!-- Or use a cdn -->
-<script src="https://cdn.jsdelivr.net/npm/loggin-js@latest/dist/loggin.js"></script>
 
 <script>
   LogginJS.logger();
 </script>
 ```
 
-> Also you can use a cdn
+> You can also use a CDN:
+```html
+<script src="https://cdn.jsdelivr.net/npm/loggin-js@latest/dist/loggin.js"></script>
+```
 
 [back to top](#table-of-content-)
 ****
 
 ## Getting Started
-### Using the default logger
-The simplest way of using Loggin'JS is by using the default logger.
+### Using the Default Logger
+The default logger is the simplest way to use Loggin'JS.
 
 ```js
 const loggin = require('loggin-js');
@@ -222,11 +224,11 @@ loggin.debug('Check this log out!!', { foo: 'var' }, { channel: 'Wabalabadubdub!
 ```
 
 
-### Creating loggers
-If you want to create a custom logger, you cad do so by using the `.logger` function, that creates a logger based on some arguments.  
+### Creating Custom Loggers
+You can create a logger that's based on custom arguments by using the `.logger` function.  
 
-By default if **no arguments** are passed in it will return a logger with a **console notifier** attached,   
-and a level of **DEBUG** _(check [this][docs:severity] for more info)_, this means it will output all logs to the console.
+By default if **no arguments** are passed, it will return a logger with a **console notifier** attached,   
+and a level of **DEBUG** _(see [here][docs:severity] for more info)_, this means it will output all logs to the console.
 ```js
 const loggin = require('loggin-js');
 loggin.logger();
@@ -247,10 +249,10 @@ loggin.logger({
   notifiers: [fileNotifier, consoleNotifier]
 });
 ```
-> **Notice** you can add, remove and change the notifiers after creating them  
-> Check [this](#adding-notifiers) for info on creating notifiers
+> **Notice** you can add, remove and change the notifiers after creating them.  
+> See [here](#adding-notifiers) for info on creating notifiers.
 
-Check [this]() for docs for options and premades
+See [here]() for docs for options and premades.
 
 [back to top](#table-of-content-)
 ****
@@ -259,14 +261,14 @@ Check [this]() for docs for options and premades
 Now let's see how you could **configure** your logger a bit.  
 
 Mostly every aspect of loggin-js is configurable or editable, like the format, what logs are output, if they are colored, etc... 
-there are also a set of [**premade**][docs:premades] instances of all common utilities, this is true for [`logger`, `notifier`, `severity`, `formatter`],  
-for example, this code will return a **minimal** formatter:
+There is also a set of [**premade**][docs:premades] instances of all common utilities, this is true for [`logger`, `notifier`, `severity`, `formatter`],  
+For example, this code will return a **minimal** formatter:
 ```js
 loggin.formatter('minimal');
 ```
 
 #### Formatting
-Internally **loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing, check it out for more details on how to create [your own templates][docs:formatting].  
+**Loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing. Check out the [strif repo](https://github.com/nombrekeff/strif) for more details on how to create [your own templates][docs:formatting].  
 
 **Basic Example:**  
 Create a formatter using the 'formatter' helper function, you can pass in a string representing a premade formatter, or a [`strif.Template`]():
@@ -284,7 +286,7 @@ $ example.js - A cool message
 ****
 
 #### Adding notifiers
-You can also specify one or more [**notifiers**][docs:notifiers], wich could log to a **file**, 
+You can also specify one or more [**notifiers**][docs:notifiers], which could log to a **file**, 
 to the **console**, to a remote service or some other custom notifier.
 
 The **easiest** way of creating logger is by using the `.notifier` function:
@@ -313,15 +315,15 @@ logger.notifier(consoleNotif, fileNotif);
 logger.setNotifers([consoleNotif, fileNotif]);
 ```
 Above logger will send every log through both notifiers:
-* **consoleNotif** will log everything to the console
-* **fileNotif** will log **ERROR** logs to file `logs/error-logs.log` and everything to `logs/debug-logs.log`
+* **consoleNotif** will log everything to the console.
+* **fileNotif** will log **ERROR** logs to file `logs/error-logs.log` and everything to `logs/debug-logs.log`.
 
 [back to top](#table-of-content-)
 ****
 
 #### Accessing notifiers
-You can get access to notifiers after creating a logger, if you created a default one or you just want to get access to them.  
-You can do it by using the `Logger.getNotifier(name)` method, here is an example: 
+You can get access to notifiers after creating a logger, whether you created a default logger or you just want to access the loggers.  
+You can do it by using the `Logger.getNotifier(name)` method. Here is an example: 
 
 ```js
 let logger = loggin.logger('console');
@@ -343,8 +345,8 @@ logger.debug('A cool message');
 ```
 ****
 > ### ! NOTICE !
-> Take into account that all **Logger** configuration methods propagate to all the **Notifiers** it has.
-> If you just want to afect one notifier, you must have created it yourself and passed it into the logger.
+> Remember that all **Logger** configuration methods propagate to all the **Notifiers** that they have.
+> If you just want to affect one notifier, you must have created that notifier yourself, and passed it into the logger.
 ****
 
 [back to top](#table-of-content-)
@@ -367,12 +369,12 @@ We can set a level in three ways:
     ```
 
 ### Customizing Notifiers/Formatters/...
-You can create you own **Notifiers**, **Formatters**, **Loggers**, etc... check [this][docs:customizing] out for more examples!
+You can create you own **Notifiers**, **Formatters**, **Loggers**, etc... see [here][docs:customizing] for more examples!
 
 ### Ignoring Logs
-If you want more control over wich logs are output, you can pass in a `ignore` function to the logger options.  
-If passed it will be called **before** each log is propagated to the Notifiers.  
-It will be called with the `log` as first argument and the selected `notifier` as second argument. _If more than one notifier is set, it will be called for each notifier_ 
+If you want more control over which logs are output, you can pass in a `ignore` function to the logger options.  
+If passed, the `ignore` function will be called **before** each log is propagated to the Notifiers.  
+`Ignore` will be called with the `log` as first argument, and the selected `notifier` as second argument. _If more than one notifier is set, the function will be called for each notifier_ 
 
 ```js
   let logger = loggin.logger({
@@ -385,21 +387,21 @@ It will be called with the `log` as first argument and the selected `notifier` a
     },
   })
 ```
-> Additionally there is a `preNotify` callback wich will be called before a log is propagated.
+> Additionally, there is a `preNotify` callback function that will be called before a log is propagated.
 
 [back to top](#table-of-content-)
 ****
 
 ## Examples
-You can configure almost every aspect of the logger, you can customize the [format][docs:formatter] of your logs, the output channel ([Notifiers][docs:notifier]), what logs are output ([Severity][docs:severity]), etc... Here are some examples.
+You can configure almost every aspect of the logger. You can customize the [format][docs:formatter] of your logs, the output channel ([Notifiers][docs:notifier]), what logs are output ([Severity][docs:severity]), etc... 
 
-> Check the [`/examples`](/examples) folder for more examples.
+Check the [`/examples`](/examples) folder for more examples.
 
-### Simple example
-The easiest way of creating a logger is by using the [`.logger`][docs:helper:logger] method.  
+### Simple Example
+The easiest way to create a logger is by using the [`.logger`][docs:helper:logger] method.  
 
-[`.logger`][docs:helper:logger] can return several **pre-configured types** of loggers or it lets you **construct you own**. But let's make it simple for now, 
-let's create the most simple logger posible:
+[`.logger`][docs:helper:logger] can return several **pre-configured types** of loggers, you can **construct you own**. But, let's make it simple for now by 
+creating the simplest logger posible:
 ```js
 // Call `.logger` and boom, you are rollin' ;)
 const logger = loggin.logger();
@@ -408,8 +410,8 @@ const logger = loggin.logger();
 logger.info('A good message');
 logger.error('Not so good, eh?', null, { channel: 'other-channel' });
 ```
-By default `.logger()` will return a logger set to [level][docs:severity] **DEBUG** with a **detailed** [formatter][docs:formatter],  
-wich would output something similiar to this through the **console**:
+By default `.logger()` will return a logger set to [level][docs:severity] **DEBUG** with a **detailed** [formatter][docs:formatter], 
+which would output something similiar to this through the **console**:
 ```zsh
 $ 2018-06-02 root example.js - INFO - A good message
 $ 2018-06-02 root other-channel - ERROR - Not so good, eh?
@@ -444,8 +446,8 @@ const logger = loggin.logger({
 logger.info('A good message');
 logger.error('Not so good, eh?', null, { channel: 'other-channel' });
 ```
-> **NOTE:** `preNotify` is called before ignore and before propagating log to notifiers.  
-> **NOTE:** `preNotify` allows to modify the log
+> **NOTE:** `preNotify` is called before `ignore`, and before propagating the log to Notifiers.  
+> **NOTE:** `preNotify` allows modification of the log.
 
 
 
@@ -454,18 +456,18 @@ logger.error('Not so good, eh?', null, { channel: 'other-channel' });
 
 
 
-## Oficial plugins
-This are a couple plugins I've made, If you make a plugin and want it to appear here, 
-you can contact me and if it meets my standards I will add it here!!
+## Oficial Plugins
+These are a couple of plugins that I've made. If you make a plugin and want it to appear here, 
+you can contact me, and if it meets my standards I will add it here!!
 * [MongoDB](https://github.com/nombrekeff/loggin-js-mongodb)
 * [Express](https://github.com/nombrekeff/loggin-js-express)
 
-## Migrating from `v1.x`
-Here is a little example on how to migrate `v0.x` to `v1.x`
-
-
 [back to top](#table-of-content-)
 ****
+
+## Migrating from `v1.x`
+Here is a little example on how to migrate `v0.x` to `v1.x`.
+
 
 ### Example 1
 Method `.getLogger` now becomes `.logger`, and by default return a `console` notifier attached.  
@@ -480,7 +482,7 @@ logger.setColor(true);
 logger.setFormatter('medium');
 ```
 
-**AFTER: `v1.x`**
+**AFTER `v1.x`:**
 ```js
 const logging = require('loggin-js');
 const logger = loggin.logger();
@@ -502,7 +504,7 @@ const logger = new loggin.Loggers.FileLogger({
 });
 ```
 
-**AFTER: `v1.x`**
+**AFTER `v1.x`:**
 ```js
 const logging = require('loggin-js');
 
@@ -524,7 +526,7 @@ const logger = loggin
 ****
 
 ## Contributing
-Pull requests are welcome, as well as any other type of contribution. Check out the contributing guidelines [here](./.github/CONTRIBUTING.md)
+Pull requests are welcome, as well as any other type of contribution. Check out the contributing guidelines [here](./.github/CONTRIBUTING.md).
 
 
 [back to top](#table-of-content-)
