@@ -1,0 +1,5 @@
+docs:
+  - ./**/*.md
+  - ./*.md
+tests:addition:
+  - .tests/**/*.test.js
