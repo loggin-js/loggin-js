@@ -1,5 +1,5 @@
 {
-  "name": "@loggin-js/core",
+  "name": "loggin-js",
   "version": "1.3.2",
   "description": "A customizable and expandable logger for NodeJS and the browser",
   "author": {
@@ -39,7 +39,7 @@
     "build:browser": "browserify src/browser.js -o dist/loggin.js"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
     "cli-color": "^1.2.0",
