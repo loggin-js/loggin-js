@@ -27,10 +27,10 @@
 [docs:Logger]: https://github.com/loggin-js/loggin-js/wiki/Logger
 [docs:channel]: https://github.com/loggin-js/loggin-js/wiki/Logger#channel
 [docs:logger-options]: https://github.com/loggin-js/loggin-js/wiki/Logger#options
-[docs:helper:logger]: https://github.com/loggin-js/loggin-js/wiki/Helper-.logger
-[docs:helper:notifier]: https://github.com/loggin-js/loggin-js/wiki/Helper-.notifier
-[docs:helper:formatter]: https://github.com/loggin-js/loggin-js/wiki/Helper-.formatter
-[docs:helper:severity]: https://github.com/loggin-js/loggin-js/wiki/Helper-.severity
+[docs:helper:logger]: https://github.com/loggin-js/loggin-js/wiki/Helpers#logger
+[docs:helper:notifier]: https://github.com/loggin-js/loggin-js/wiki/Helper#notifier
+[docs:helper:formatter]: https://github.com/loggin-js/loggin-js/wiki/Helper#formatter
+[docs:helper:severity]: https://github.com/loggin-js/loggin-js/wiki/Helper#severity
 [docs:customizing]: https://github.com/loggin-js/loggin-js/wiki/logger#customizing
 [docs:premades]: https://github.com/loggin-js/loggin-js/wiki/premades
 [docs:plugins]: https://github.com/loggin-js/loggin-js/wiki/Plugins
