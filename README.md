@@ -286,10 +286,10 @@ $ example.js - A cool message
 ****
 
 #### Adding notifiers
-You can also specify one or more [**notifiers**][docs:notifiers], which could log to a **file**, 
+You can also specify one or more [**notifiers**][docs:notifier], which could log to a **file**, 
 to the **console**, to a remote service or some other custom notifier.
 
-The **easiest** way of creating logger is by using the `.notifier` function:
+The **easiest** way of creating a logger is by using the `.notifier` function:
 ```js
 const consoleNotif = loggin.notifier('console', { level: 'debug' });
 consoleNotif.color(true);
@@ -297,7 +297,7 @@ consoleNotif.color(true);
 
 **Alternatively** you can also use the available class `.Notifier.File` to create a logger: 
 ```js
-const fileNotif = new loggin.Notifier.Console({ level: 'DEBUG' });
+const fileNotif = new loggin.Notifier.File({ level: 'DEBUG' });
 ```
 
 With **file notifiers** you can specify where to send the logs based on some [Severity][docs:severity] using the `.pipe` method:
