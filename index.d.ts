@@ -14,6 +14,8 @@ export class Log {
   levelStr: string;
   time: number | Date;
   user: string;
+
+  constructor(message: string, data: any, level: Severity, channel: string, time: Date | number, user: string);
 }
 
 export class Formatter {
@@ -325,6 +327,7 @@ export class Notifier {
 
   lineNumbers(show?: boolean): this;
   notify(log: Log): this;
+  output(message: string, log: Log): this;
   pipe?(severity: Severity, filepath: string): this;
 
   options: Options;
