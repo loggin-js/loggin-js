@@ -77,7 +77,7 @@ class Notifier {
       output = formatter.color(output);
     }
 
-    this.output(output, log.level, log);
+    this.output(output, log);
 
     return this;
   }

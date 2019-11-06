@@ -1,7 +1,35 @@
 
 const path = require('path');
-const fs = require('fs-extra');
+const fs = require('fs');
 
+function mkDirByPathSync(targetDir, { isRelativeToScript = false } = {}) {
+    const sep = path.sep;
+    const initDir = path.isAbsolute(targetDir) ? sep : '';
+    const baseDir = isRelativeToScript ? __dirname : '.';
+
+    return targetDir.split(sep).reduce((parentDir, childDir) => {
+        const curDir = path.resolve(baseDir, parentDir, childDir);
+        try {
+            fs.mkdirSync(curDir);
+        } catch (err) {
+            if (err.code === 'EEXIST') { // curDir already exists!
+                return curDir;
+            }
+
+            // To avoid `EISDIR` error on Mac and `EACCES`-->`ENOENT` and `EPERM` on Windows.
+            if (err.code === 'ENOENT') { // Throw the original parentDir error on curDir `ENOENT` failure.
+                throw new Error(`EACCES: permission denied, mkdir '${parentDir}'`);
+            }
+
+            const caughtErr = ['EACCES', 'EPERM', 'EISDIR'].indexOf(err.code) > -1;
+            if (!caughtErr || caughtErr && curDir === path.resolve(targetDir)) {
+                throw err; // Throw if it's just the last created dir.
+            }
+        }
+
+        return curDir;
+    }, initDir);
+}
 
 function plugin(loggin) {
     const { Notifier, Pipe } = loggin;
@@ -27,7 +55,6 @@ function plugin(loggin) {
     class FileNotifier extends Notifier {
         constructor(options) {
             super(options, 'file');
-            this.fs = require('fs');
 
             // Setup default pipe if filepath is passed for options.level
             if (this.options.filepath) {
@@ -67,8 +94,9 @@ function plugin(loggin) {
             return this.options.filepath;
         }
 
-        output(message, level, log) {
+        output(message, log) {
             let logOut = message;
+            let level = log.level;
 
             if (!this.pipes.length) {
                 throw new Error('"options.pipes" cannot be empty and must be an array of pipes');
@@ -80,27 +108,27 @@ function plugin(loggin) {
 
                     // Create path if it does not exist
                     let path_ = path.dirname(pipe.filepath);
-                    if (!this.fs.existsSync(path_)) {
-                        this.fs.mkdirSync(path_);
+                    if (!fs.existsSync(path_)) {
+                        mkDirByPathSync(path_);
                     }
 
                     // Add line numbers is set
                     if (this.options.lineNumbers) {
                         let lines = 0;
-                        if (this.fs.existsSync(pipe.filepath)) {
-                            lines = this.fs.readFileSync(pipe.filepath).toString()
+                        if (fs.existsSync(pipe.filepath)) {
+                            lines = fs.readFileSync(pipe.filepath).toString()
                                 .split('\n').length;
                         }
                         this.lineIndex = lines;
                         logOut = this.getLineWithNumber(logOut);
                     }
 
-                    if (!this.fs.existsSync(pipe.filepath)) {
-                        this.fs.writeFileSync(pipe.filepath, '');
+                    if (!fs.existsSync(pipe.filepath)) {
+                        fs.writeFileSync(pipe.filepath, '');
                     }
 
                     // Create path if it does not exist
-                    this.fs.appendFileSync(pipe.filepath, `${logOut}\n`);
+                    fs.appendFileSync(pipe.filepath, `${logOut}\n`);
                 }
             }
         }
@@ -130,7 +158,7 @@ function plugin(loggin) {
             this.url = `${this.host}:${this.port}/logs`;
         }
 
-        output(logMsg, level, log) {
+        output(logMsg, log) {
             this.request({
                 url: `http://${this.url}`,
                 method: 'POST',
@@ -183,7 +211,7 @@ function plugin(loggin) {
 
             // Create file if it does not exist
             if (!fs.existsSync(filepath)) {
-                fs.ensureFileSync(filepath);
+                mkDirByPathSync(filepath);
             }
 
             console.log('Log dump file can be found at: ' + filepath);

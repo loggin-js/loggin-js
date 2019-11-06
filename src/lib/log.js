@@ -5,6 +5,9 @@ const Severity = require('./severity');
 const Formatter = require('./formatter');
 
 
+/**
+ * TODO: Add type checking in constructor
+ */
 class Log {
   constructor(message, data = null, level = Severity.DEBUG, channel = '', time = new Date(), user) {
     this.message = message;
