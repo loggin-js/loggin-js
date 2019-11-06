@@ -162,9 +162,9 @@ Here are some features and changes:
 ****
 
 ## Features
-* ✔︎ **Simple**       - By using the default logger
-* ✔︎ **Customizable** - Create your own Notifiers
-* ✔︎ **Lightweight**  - 
+* ✔︎ **Simple**       
+* ✔︎ **Customizable** 
+* ✔︎ **Lightweight**  
 
 [back to top](#table-of-content-)
 ****
