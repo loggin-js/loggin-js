@@ -10,6 +10,9 @@
 [code-quality-badge]: http://npm.packagequality.com/shield/loggin-js.svg?style=flat-square
 [code-quality-link]: https://packagequality.com/#?package=loggin-js
 
+[pkg-size-badge]: https://badgen.net/bundlephobia/minzip/loggin-js
+[pkg-size-link]: https://bundlephobia.com/result?p=loggin-js
+
 [downloads-badge]: https://img.shields.io/npm/dm/loggin-js.svg?style=flat-square
 [downloads-link]: https://www.npmjs.com/package/loggin-js
 
@@ -41,12 +44,12 @@
 
 <!-- ![](./.github/code-example.png) -->
 
-[![NPM version][npm-image]][npm-url]
+[![NPM Version][npm-image]][npm-url]
 [![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]  
-[![build status][travis-image]][travis-url]
-[![NPM quality][code-quality-badge]][code-quality-link]  
+[![NPM Package Quality][code-quality-badge]][code-quality-link]  
+[![NPM Package Size][pkg-size-badge]][pkg-size-link]  
   
 <p>
 An easy and customizable logger for NodeJS and the Browser.  
