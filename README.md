@@ -10,7 +10,7 @@
 [code-quality-badge]: http://npm.packagequality.com/shield/loggin-js.svg?style=flat-square
 [code-quality-link]: https://packagequality.com/#?package=loggin-js
 
-[pkg-size-badge]: https://badgen.net/bundlephobia/minzip/loggin-js
+[pkg-size-badge]: https://img.shields.io/bundlephobia/minzip/loggin-js?style=flat-square
 [pkg-size-link]: https://bundlephobia.com/result?p=loggin-js
 
 [downloads-badge]: https://img.shields.io/npm/dm/loggin-js.svg?style=flat-square
