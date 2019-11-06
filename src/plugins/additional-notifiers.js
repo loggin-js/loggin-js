@@ -1,6 +1,8 @@
 
 const path = require('path');
 const fs = require('fs');
+const url = require('url');
+const phin = require('phin');
 
 function mkDirByPathSync(targetDir, { isRelativeToScript = false } = {}) {
     const sep = path.sep;
@@ -142,41 +144,28 @@ function plugin(loggin) {
             this.pipes.push(new Pipe(level, filepath));
             return this;
         }
-
-        getLogPaths() {
-            return this.pipes;
-        }
     }
 
     class RemoteNotifier extends Notifier {
         constructor(options) {
-            super(options, 'remote');
-            this.host = options.host || '127.0.0.1';
-            this.port = options.port || '8080';
             this.headers = options.headers || {};
-            this.request = require('request');
-            this.url = `${this.host}:${this.port}/logs`;
+            this.url = new url.URL('http://p.com');
+            this.url.protocol = options.protocol;
+            this.url.host = options.host;
+            this.url.port = options.port;
+            this.url.pathname = options.path;
         }
 
-        output(logMsg, log) {
-            this.request({
-                url: `http://${this.url}`,
+        async output(logMsg, log) {
+            return await phin({
+                url: this.url.toString(),
                 method: 'POST',
-                json: true,
-                body: {
-                    logMsg,
+                headers: this.headers,
+                data: {
+                    message: logMsg,
                     log
-                },
-                headers: this.headers
-            },
-                (error, response, body) => {
-                    if (!error && response.statusCode === 200) {
-                        console.log(body);
-                    } else {
-                        console.log('Error', error);
-                    }
                 }
-            );
+            });
         }
     }
 

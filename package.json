@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "cli-color": "^2.0.0",
-    "request": "^2.85.0",
+    "phin": "^3.4.0",
     "strif": "^1.1.2"
   },
   "devDependencies": {
