@@ -28,7 +28,8 @@
     "http",
     "memory",
     "expandable",
-    "browser"
+    "browser",
+    "customizable"
   ],
   "repository": "git://github.com/loggin-js/loggin-js.git",
   "main": "src/node.js",
@@ -43,7 +44,6 @@
   },
   "dependencies": {
     "cli-color": "^2.0.0",
-    "fs-extra": "^8.1.0",
     "request": "^2.85.0",
     "strif": "^1.1.2"
   },
