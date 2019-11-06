@@ -530,21 +530,6 @@ Pull requests are welcome, as well as any other type of contribution. Check out 
 ## Versioning
 We use [semantic versioning](https://docs.npmjs.com/about-semantic-versioning) for the npm package.
 
-<!-- ## Roadmap
-### 1.4.0
-* Complete docs
-* Complete types
-* Bugfixes
-
-### 1.5.0
-* Bugfixes
-
-### 2.0.0
-- Browser Support:
-  - **Colors** for supported browsers (firefox, chrome)
-  - **Plugins**
-- More Notifiers (Http, WS, File) -->
-
 [back to top](#table-of-content-)
 ****
 
