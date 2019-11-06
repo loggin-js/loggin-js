@@ -159,9 +159,9 @@ Here are some features and changes:
 ****
 
 ## Features
-* ✔︎ Easy 
-* ✔︎ Customizable
-* ✔︎ Lightweight
+* ✔︎ **Simple**       - By using the default logger
+* ✔︎ **Customizable** - Create your own Notifiers
+* ✔︎ **Lightweight**  - 
 
 [back to top](#table-of-content-)
 ****
@@ -227,8 +227,7 @@ loggin.debug('Check this log out!!', { foo: 'var' }, { channel: 'Wabalabadubdub!
 ### Creating Custom Loggers
 You can create a logger that's based on custom arguments by using the `.logger` function.  
 
-By default if **no arguments** are passed, it will return a logger with a **console notifier** attached,   
-and a level of **DEBUG** _(see [here][docs:severity] for more info)_, this means it will output all logs to the console.
+By default if **no arguments** are passed, it will return a logger with a **console notifier** attached, and a level of **DEBUG** _(see [here][docs:severity] for more info)_, this means it will output all logs to the console.
 ```js
 const loggin = require('loggin-js');
 loggin.logger();
@@ -528,6 +527,23 @@ const logger = loggin
 ## Contributing
 Pull requests are welcome, as well as any other type of contribution. Check out the contributing guidelines [here](./.github/CONTRIBUTING.md).
 
+## Versioning
+We use [semantic versioning](https://docs.npmjs.com/about-semantic-versioning) for the npm package.
+
+<!-- ## Roadmap
+### 1.4.0
+* Complete docs
+* Complete types
+* Bugfixes
+
+### 1.5.0
+* Bugfixes
+
+### 2.0.0
+- Browser Support:
+  - **Colors** for supported browsers (firefox, chrome)
+  - **Plugins**
+- More Notifiers (Http, WS, File) -->
 
 [back to top](#table-of-content-)
 ****
