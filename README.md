@@ -84,9 +84,6 @@ If you want to log easily or want to create some complex loggin system, this is 
   - [Improvements](#Improvements)
 </details>
 <details>
-  <summary><a href="#News">News</a></summary>
-</details>
-<details>
   <summary><a href="#Features">Features</a></summary>
 </details>
 <details>
@@ -146,17 +143,6 @@ Here are some features and changes:
 * Made more comprensible.
 * Made more composable.
 * Better typing.
-
-[back to top](#table-of-content-)
-****
-
-## News
-
-> ### `v1.2.0`
-> Support for browser. It now works, but it's limited.
-
-> ### `v1.1.0`
-> Support for plugins, you can now easily create custom plugins. Check the [Plugins][docs:plugins] section for more info.
 
 [back to top](#table-of-content-)
 ****
@@ -528,10 +514,8 @@ const logger = loggin
 ****
 
 ## Contributing
-Pull requests are welcome, as well as any other type of contribution. Check out the contributing guidelines [here](./.github/CONTRIBUTING.md).
-
-## Versioning
-We use [semantic versioning](https://docs.npmjs.com/about-semantic-versioning) for the npm package.
+Pull requests are welcome, as well as any other type of contribution.  
+Check out the contributing guidelines [here](./.github/CONTRIBUTING.md).
 
 [back to top](#table-of-content-)
 ****
