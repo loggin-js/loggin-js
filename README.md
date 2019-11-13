@@ -164,7 +164,7 @@ Here are some features and changes:
 ## Features
 * ✔︎ **Simple**       
 * ✔︎ **Customizable** 
-* ✔︎ **Lightweight**  
+* ✔︎ **Lightweight**  - `20.9kb` minzipped
 
 [back to top](#table-of-content-)
 ****
