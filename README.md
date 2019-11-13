@@ -528,10 +528,8 @@ const logger = loggin
 ****
 
 ## Contributing
-Pull requests are welcome, as well as any other type of contribution. Check out the contributing guidelines [here](./.github/CONTRIBUTING.md).
-
-## Versioning
-We use [semantic versioning](https://docs.npmjs.com/about-semantic-versioning) for the npm package.
+Pull requests are welcome, as well as any other type of contribution.  
+Check out the contributing guidelines [here](./.github/CONTRIBUTING.md).
 
 [back to top](#table-of-content-)
 ****
