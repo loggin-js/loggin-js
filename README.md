@@ -449,6 +449,7 @@ These are a couple of plugins that I've made. If you make a plugin and want it t
 you can contact me, and if it meets my standards I will add it here!!
 * [MongoDB](https://github.com/nombrekeff/loggin-js-mongodb)
 * [Express](https://github.com/nombrekeff/loggin-js-express)
+* [WebSocket](https://github.com/loggin-js/loggin-js-ws)
 
 [back to top](#table-of-content-)
 ****

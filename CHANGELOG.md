@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [1.4.1](https://github.com/loggin-js/loggin-js/compare/v1.4.0...v1.4.1) (2019-11-13)
 
-
 ### Bug Fixes
 
 * added standard-version package to manage releasing ([14a6747](https://github.com/loggin-js/loggin-js/commit/14a674752c64080d82bd45ae78874adeff829da2))
