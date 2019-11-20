@@ -23,7 +23,7 @@ class Notifier {
     this.options.level = Severity.get(this.options.level);
     this.options.color = options.color;
     this.options.lineNumbers = options.lineNumbers;
-    this.options.active = options.active;
+    this.options.enabled = options.enabled;
 
     this.pipes = [];
     this.lineIndex = 0;
@@ -39,8 +39,8 @@ class Notifier {
     return this.options.level.canLog(level);
   }
 
-  active(active) {
-    this.options.active = active;
+  enabled(enabled) {
+    this.options.enabled = enabled;
     return this;
   }
 
@@ -133,7 +133,7 @@ Notifier._notifiers = {};
 
 Notifier.DefaultOptions = {
   color: false,
-  active: true
+  enabled: true
 };
 
 
