@@ -1,30 +1,13 @@
+'use strict';
+
+// A basic example on how Loggin'JS formatter is used.
+
+// Require the logging library
+// const logging = require('loggin-js'); // Should be logging-js
 const logging = require('../..');
 
-// You can add a new formatter by registering it as follows:
-logging.Formatter.register(
-  'CUSTOM',
-  '{time} - {user} | {channel} - {level} - {message} {data}', {
-  props: {
-    time: {
-      transformers: ['date', 'lbl_cyan']
-    },
-    user: {
-      transformers: ['cl_gray']
-    },
-    level: {
-      transformers: ['string']
-    },
-    data: {
-      transformers: ['json', 'cl_gray']
-    },
-    channel: {},
-    message: {},
-  }
-}
-);
-
 const logger = logging.logger({
-  formatter: 'custom'
+  formatter: 'detailed'
 });
 
 // Available predefined log levels

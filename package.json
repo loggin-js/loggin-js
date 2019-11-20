@@ -38,7 +38,7 @@
     "test-server": "node test-remote/server.js",
     "examples": "node examples/basic-example.js && node examples/file-logging.js && node examples/log-info.js && node examples/custom-formatter.js",
     "build:browser": "browserify src/browser.js -o dist/loggin.js",
-    "release": "npm build:browser && standard-version && git push --follow-tags origin master && npm publish"
+    "release": "standard-version"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
