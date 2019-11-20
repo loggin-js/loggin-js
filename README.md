@@ -48,7 +48,7 @@
 [![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]  
-[![NPM Package Quality][code-quality-badge]][code-quality-link]
+[![NPM Package Quality][code-quality-badge]][code-quality-link]  
 [![NPM Package Size][pkg-size-badge]][pkg-size-link]  
   
 <p>
@@ -89,7 +89,7 @@ If you want to log easily or want to create some complex loggin system, this is 
 <details>
   <summary><a href="#Installing">Installing</a></summary>
 </details>
-<details>
+<details open>
   <summary><a href="#Importing">Importing</a></summary>
   
   - [Node](#Node)
@@ -258,7 +258,8 @@ loggin.formatter('minimal');
 #### Formatting
 **Loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing. Check out the [strif repo](https://github.com/nombrekeff/strif) for more details on how to create [your own templates][docs:formatting].  
 
-You can set a premade formatter or a [`strif.Template`]() (_see [here][docs:formatting] for more info_) on a logger:
+**Basic Example:**  
+Create a formatter using the 'formatter' helper function, you can pass in a string representing a premade formatter, or a [`strif.Template`]():
 ```js
 const formatter = loggin.formatter('minimal');
 logger.formatter(formatter);
@@ -269,12 +270,6 @@ logger.debug('A cool message');
 ```zsh
 $ example.js - A cool message
 ```
-
-You can set a json formatter, the log will output a json string
-```js
-const formatter = loggin.formatter('json');
-```
-
 [back to top](#table-of-content-)
 ****
 

@@ -22,19 +22,4 @@ describe('loggin.Notifier tests', () => {
 
     expect(notif.options.level).toEqual(sev);
   });
-
-  it(`.enabled should set correctly`, () => {
-    let notifier = loggin.notifier('default');
-    notifier.enabled(false);
-    expect(notifier.options.enabled).toEqual(false);
-    notifier.enabled(true);
-    expect(notifier.options.enabled).toEqual(true);
-  });
-
-  it(`.level should set correctly`, () => {
-    let notifier = loggin.notifier('default');
-    notifier.level('DEBUG');
-    expect(notifier.options.level).toEqual(loggin.severity('DEBUG'));
-  });
-
 });
