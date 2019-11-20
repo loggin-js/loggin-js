@@ -2,13 +2,6 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [1.4.2](https://github.com/loggin-js/loggin-js/compare/v1.4.1...v1.4.2) (2019-11-20)
-
-
-### Bug Fixes
-
-* **docs:** added reference to WebSocket plugin ([fa88265](https://github.com/loggin-js/loggin-js/commit/fa8826511211480c9df9c9550d487080d04abeab))
-
 ### [1.4.1](https://github.com/loggin-js/loggin-js/compare/v1.4.0...v1.4.1) (2019-11-13)
 
 ### Bug Fixes
