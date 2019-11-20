@@ -38,7 +38,7 @@ logger2.error('some <%rerror>');
 logger2.critical('critical');
 
 // Deactivate one notifier 
-logger2.getNotifier('csol').active(false);
+logger2.getNotifier('csol').enabled(false);
 
 logger2.critical('not logged to console');
 logger2.critical('critical');

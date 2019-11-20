@@ -238,11 +238,11 @@ export class LogOptions {
 
 export class LoggerOptions {
   color?: boolean;
+  channel?: string;
+  formatter?: SupportedFormatters;
   lineNumbers?: boolean;
   level?: number | string | Severity;
   user?: string;
-  channel?: string;
-  formatter?: SupportedFormatters;
   notifiers?: Notifier[];
 
   /**

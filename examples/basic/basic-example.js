@@ -1,45 +1,48 @@
-/**
- * @name: Basic Example  
- * This is he most basic example on how Loggin'JS works!
- */
+// Demo-1
+// https://runkit.com/nombrekeff/loggin-js-demo-1
 
-// const loggin = require('loggin-js');
-const loggin = require('../..');
+const loggin = require('../../');
 
-// Get a logger with DEBUG severity. 
-// Severity DEBUG will output any severity.
+// Create a logger with a set of options
+// `level`   - Set output level to DEBUG (all logs will output)
+// `color`   - Set color for all notifiers
+// `channel` - Label to identify this logger instance, defaults to filename if omitted
+// ...
+// See https://github.com/loggin-js/loggin-js/wiki/type.LoggerOptions#interface
 const logger = loggin.logger({
   level: loggin.severity('debug'),
   color: true,
-
-  // A label to identify this logger instance, defaults to filename if omitted
-  channel: 'basic-example.js',
-  formatter: 'medium'
+  channel: 'demo-1',
+  formatter: 'long'
 });
 
-// Does the same as passing into settings
+// You can change options after creation
+// See https://github.com/loggin-js/loggin-js/wiki/Logger#interface
 logger.level('debug');
-logger.color(true);
-
-// Set user to root
+logger.color(false);
 logger.user('root');
 
-// Available predefined log levels
+// Available predefined log methods
+// See https://github.com/loggin-js/loggin-js/wiki/Logger#interface
 logger.info('info', {
   user: 'Jeffrey',
   id: 101
 });
 logger.error('Teaching a snake to kick! :D');
-logger.warning('Whats that');
-logger.alert('Rice done.');
-logger.debug('Wow I can log stuff');
 logger.emergency('Lemons');
 logger.critical('critical', { error: 'S*** something is bad!' });
 
+// Change user
 logger.user('keff');
 
 logger.notice('notice im now an other user');
 logger.error('There was an <%rERROR>');
 
-// If enabled set to false logs will not be output
+// Change some options for an individual log
+logger.info('info', null, { channel: 'demo-2' });
+
+// Disable logger
 logger.enabled(false);
+
+// Will no be outputed
+logger.error('There was an <%rERROR>');
