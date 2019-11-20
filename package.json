@@ -1,6 +1,6 @@
 {
   "name": "loggin-js",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A customizable and expandable logger for NodeJS and the browser",
   "author": {
     "name": "nombrekeff",
@@ -38,7 +38,8 @@
     "test-server": "node test-remote/server.js",
     "examples": "node examples/basic-example.js && node examples/file-logging.js && node examples/log-info.js && node examples/custom-formatter.js",
     "build:browser": "browserify src/browser.js -o dist/loggin.js",
-    "release": "npm build:browser && standard-version && git push --follow-tags origin master && npm publish"
+    "release": "npm build:browser && git push --follow-tags origin master && npm publish",
+    "standard-version": "standard-version"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
