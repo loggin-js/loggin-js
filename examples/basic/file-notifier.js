@@ -1,5 +1,5 @@
-// Demo-1
-// https://runkit.com/nombrekeff/loggin-js-demo-1
+// FileNotifier
+// https://runkit.com/nombrekeff/loggin-js-file-notifier
 
 const loggin = require('../../');
 const fs = require('fs');
