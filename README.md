@@ -48,7 +48,7 @@
 [![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]  
-[![NPM Package Quality][code-quality-badge]][code-quality-link]  
+[![NPM Package Quality][code-quality-badge]][code-quality-link]
 [![NPM Package Size][pkg-size-badge]][pkg-size-link]  
   
 <p>
@@ -89,7 +89,7 @@ If you want to log easily or want to create some complex loggin system, this is 
 <details>
   <summary><a href="#Installing">Installing</a></summary>
 </details>
-<details open>
+<details>
   <summary><a href="#Importing">Importing</a></summary>
   
   - [Node](#Node)
