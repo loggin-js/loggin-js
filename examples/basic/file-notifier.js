@@ -24,7 +24,7 @@ fileLogger.error('This is going to ./error.log and ./debug.log');
 fileLogger.warning('This is going to ./warning.log and ./debug.log');
 fileLogger.info('This is going to ./debug.log');
 
-fileNotifier.active(false);
+fileNotifier.enabled(false);
 fileLogger.info('This will not log to file');
 
 let str = fs.readFileSync('./debug.log').toString();

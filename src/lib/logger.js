@@ -155,7 +155,7 @@ class Logger {
 
       return this._notifiers
         .forEach(notifier => {
-          if (notifier.canOutput(level) && notifier.options.active) {
+          if (notifier.canOutput(level) && notifier.options.enabled) {
             if (this.options.preNotify && typeof this.options.preNotify === 'function') {
               this.options.preNotify(log, notifier);
             }
