@@ -1,12 +1,10 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change. 
+> First off, thank you for considering contributing to Loggin'JS. We can make Loggin'JS a great tool!
 
-Please note we have a code of conduct, please follow it in all your interactions with the project.
+Loggin'JS is an open source project and we like to receive contributions from our community — you! There are many ways to contribute, from writing tutorials or blog posts, improving the documentation, submitting bug reports and feature requests or writing code which can be incorporated into Loggin'JS itself.
 
-## Versioning
-We use [standard-version](https://github.com/conventional-changelog/standard-version) to manage releasing and CHANGELOG generation (with semver and [conventional commit messages](https://www.conventionalcommits.org/en/v1.0.0/)) using [@conventional-changelog/standard-version](https://github.com/conventional-changelog/standard-version).
+Please note we have a [code of conduct](#code-of-conduct), please follow it in all your interactions with the project.
 
 ## Pull Request Process
 1. Ensure any **install or build dependencies are removed** before the end of the layer when doing a 
@@ -19,16 +17,20 @@ We use [standard-version](https://github.com/conventional-changelog/standard-ver
 5. You may merge the Pull Request in once you have the sign-off of two other developers, or if you 
    do not have permission to do that, you may request the second reviewer to merge it for you.
 
+
+## Where to start?
+Unsure where to begin contributing to Loggin'JS? You can start by looking through these **help-wanted** issues: 
+- [Beginner issues](https://github.com/loggin-js/loggin-js/issues?q=is%3Aissue+is%3Aopen+sort%3Acomments-desc+label%3Agood-first-issue) - issues which should only require a few lines of code, a test or two, or some docs changes. 
+- [Help wanted issues](https://github.com/loggin-js/loggin-js/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22+sort%3Acomments-desc) - issues which should be a bit more involved than beginner issues. 
+
+
+## Versioning
+We use [standard-version](https://github.com/conventional-changelog/standard-version) to manage releasing and CHANGELOG generation (with semver and [conventional commit messages](https://www.conventionalcommits.org/en/v1.0.0/)) using [@conventional-changelog/standard-version](https://github.com/conventional-changelog/standard-version).
+
 ## Code of Conduct
 
 ### Our Pledge
-
-In the interest of fostering an open and welcoming environment, we as
-contributors and maintainers pledge to making participation in our project and
-our community a harassment-free experience for everyone, regardless of age, body
-size, disability, ethnicity, gender identity and expression, level of experience,
-nationality, personal appearance, race, religion, or sexual identity and
-orientation.
+Be welcoming to newcomers and encourage diverse new contributors from all backgrounds. 
 
 ### Our Standards
 
