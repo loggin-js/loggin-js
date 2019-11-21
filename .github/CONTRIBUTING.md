@@ -7,18 +7,16 @@ Loggin'JS is an open source project and we like to receive contributions from ou
 Please note we have a [code of conduct](#code-of-conduct), please follow it in all your interactions with the project.
 
 ## Pull Request Process
-1. Ensure any **install or build dependencies are removed** before the end of the layer when doing a 
-   build.
-2. **Add tests** if new functionality is added or if it affects the system.
-3. **Update the README.md and Wiki** with details of changes to the interface, this includes new methods, 
+1. **Add tests** if new functionality is added or if it affects the system.
+2. **Update the README.md and Wiki** with details of changes to the interface, this includes new methods, 
    exposed functions and classes, useful file locations, etc....
-4. **Increase the version numbers** in any examples files and the README.md to the new version that this
+3. **Increase the version numbers** in any examples files and the README.md to the new version that this
    Pull Request would represent. We automate this using [standard-version](https://github.com/conventional-changelog/standard-version).
-5. You may merge the Pull Request in once you have the sign-off of two other developers, or if you 
+4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you 
    do not have permission to do that, you may request the second reviewer to merge it for you.
 
 
-## Where to start?
+## Where to start?
 Unsure where to begin contributing to Loggin'JS? You can start by looking through these **help-wanted** issues: 
 - [Beginner issues](https://github.com/loggin-js/loggin-js/issues?q=is%3Aissue+is%3Aopen+label%3Abeginner-friendly) - issues which should only require a few lines of code, a test or two, or some docs changes. 
 - [Help wanted issues](https://github.com/loggin-js/loggin-js/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22+sort%3Acomments-desc) - issues which should be a bit more involved than beginner issues. 
