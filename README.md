@@ -37,6 +37,7 @@ If you want to log easily or want to create some complex loggin system, this is 
   - [Browser](#browser)
   - [Basic Usage](#basic-usage)
 - [Examples](#examples)
+- [Oficial Plugins](#oficial-plugins)
 - [Contributing](#contributing)
 
 ## Getting Started
@@ -111,6 +112,13 @@ Here are some usage examples:
 * [Multiple Notifiers](https://runkit.com/nombrekeff/multiple-notifiers)
 
 > If you have any usefull examples you can send in a PR adding it here.
+
+## Oficial Plugins
+These are a couple of official plugins. If you make a plugin and want it to appear here, 
+you can contact me, and if it meets my standards I will add it here!!
+* [MongoDB](https://github.com/loggin-js/loggin-js-mongodb)
+* [Express](https://github.com/loggin-js/loggin-js-express)
+* [WebSocket](https://github.com/loggin-js/loggin-js-ws)
 
 ## Contributing
 > First off, thank you for considering contributing to Loggin'JS.
