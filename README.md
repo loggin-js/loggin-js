@@ -46,7 +46,6 @@ You can configure almost every aspect of the loggers. You can customize the [for
 Check the [wiki](https://github.com/loggin-js/loggin-js/wiki) for more detailed documentation.
 
 ### Installing
-With npm:
 ```bash
 $ npm i loggin-js
 # or
