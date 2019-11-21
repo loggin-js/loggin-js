@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/loggin-js/loggin-js/compare/v1.5.0...v1.5.1) (2019-11-21)
+
+
+### Bug Fixes
+
+* **FileNotifier:** super call missing?? ([d2ee16e](https://github.com/loggin-js/loggin-js/commit/d2ee16e809a7794710f66f62004e410e2e13d30a))
+
 ### [1.5.0](https://github.com/loggin-js/loggin-js/compare/v1.4.2...v1.5.0) (2019-11-21)
 
 ### Features
