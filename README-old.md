@@ -1,43 +1,4 @@
 
-
-<!-- Links -->
-[npm-image]: https://img.shields.io/npm/v/loggin-js.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/loggin-js
-
-[travis-image]: https://img.shields.io/travis/nombrekeff/loggin-js.svg?style=flat-square
-[travis-url]: https://travis-ci.org/nombrekeff/loggin-js
-
-[code-quality-badge]: http://npm.packagequality.com/shield/loggin-js.svg?style=flat-square
-[code-quality-link]: https://packagequality.com/#?package=loggin-js
-
-[pkg-size-badge]: https://img.shields.io/bundlephobia/minzip/loggin-js?style=flat-square
-[pkg-size-link]: https://bundlephobia.com/result?p=loggin-js
-
-[downloads-badge]: https://img.shields.io/npm/dm/loggin-js.svg?style=flat-square
-[downloads-link]: https://www.npmjs.com/package/loggin-js
-
-[dependencies-badge]: https://img.shields.io/david/nombrekeff/loggin-js.svg?style=flat-square
-[dependencies-link]: https://david-dm.org/nombrekeff/loggin-js?view=tree
-
-[vulnerabilities-badge]: https://snyk.io/test/npm/loggin-js/badge.svg?style=flat-square
-[vulnerabilities-link]: https://snyk.io/test/npm/loggin-js
-
-[docs:severity]: https://github.com/loggin-js/loggin-js/wiki/Severity
-[docs:notifier]: https://github.com/loggin-js/loggin-js/wiki/Notifier
-[docs:formatter]: https://github.com/loggin-js/loggin-js/wiki/Formatter
-[docs:formatting]: https://github.com/loggin-js/loggin-js/wiki/Formatter
-[docs:log]: https://github.com/loggin-js/loggin-js/wiki/Log
-[docs:Logger]: https://github.com/loggin-js/loggin-js/wiki/Logger
-[docs:channel]: https://github.com/loggin-js/loggin-js/wiki/Logger#channel
-[docs:logger-options]: https://github.com/loggin-js/loggin-js/wiki/Logger#options
-[docs:helper:logger]: https://github.com/loggin-js/loggin-js/wiki/Helpers#logger
-[docs:helper:notifier]: https://github.com/loggin-js/loggin-js/wiki/Helper#notifier
-[docs:helper:formatter]: https://github.com/loggin-js/loggin-js/wiki/Helper#formatter
-[docs:helper:severity]: https://github.com/loggin-js/loggin-js/wiki/Helper#severity
-[docs:customizing]: https://github.com/loggin-js/loggin-js/wiki/logger#customizing
-[docs:premades]: https://github.com/loggin-js/loggin-js/wiki/premades
-[docs:plugins]: https://github.com/loggin-js/loggin-js/wiki/Plugins
-
 <div align="center">
 
 # Loggin'JS ![](https://img.shields.io/badge/PRs-welcome-green.svg) <!-- omit in toc -->
@@ -203,189 +164,30 @@ import loggin from 'loggin-js';
 ****
 
 ## Getting Started
-### Using the Default Logger
 The default logger is the simplest way to use Loggin'JS.
 
 ```js
 const loggin = require('loggin-js');
-
 loggin.debug('Check this log out!!', { foo: 'var' }, { channel: 'Wabalabadubdub!' });
 ```
 
-
-### Creating Custom Loggers
-You can create a logger that's based on custom arguments by using the `.logger` function.  
-
-By default if **no arguments** are passed, it will return a logger with a **console notifier** attached, and a level of **DEBUG** _(see [here][docs:severity] for more info)_, this means it will output all logs to the console.
+Or create a custom logger:
 ```js
 const loggin = require('loggin-js');
-loggin.logger();
+const logger = loggin.logger({ channel: 'my-logger' });
+
+loggin.debug('Check this log out!!', { foo: 'var' });
 ```
 
-You can also pass in a **string** representing the name of a [premade logger][docs:premades],  
-for example the following code will return a logger with a **file** notifier attached instead:
+Add notifier:
 ```js
-loggin.logger('file');
-loggin.logger('file', { /* opts */ });
+const loggin = require('loggin-js');
+const logger = loggin.logger({ channel: 'my-logger' });
+
+loggin.debug('Check this log out!!', { foo: 'var' });
 ```
 
-Alternatively you can pass in an **object** with a set of options to generate a logger,  
-this example will return a logger with two notifers and set to level **INFO**:
-```js
-loggin.logger({
-  level: 'INFO',
-  notifiers: [fileNotifier, consoleNotifier]
-});
-```
-> **Notice** you can add, remove and change the notifiers after creating them.  
-> See [here](#adding-notifiers) for info on creating notifiers.
-
-See [here]() for docs for options and premades.
-
-[back to top](#table-of-content-)
-****
-
-### Configuring loggers
-Now let's see how you could **configure** your logger a bit.  
-
-Mostly every aspect of loggin-js is configurable or editable, like the format, what logs are output, if they are colored, etc... 
-There is also a set of [**premade**][docs:premades] instances of all common utilities, this is true for [`logger`, `notifier`, `severity`, `formatter`],  
-For example, this code will return a **minimal** formatter:
-```js
-loggin.formatter('minimal');
-```
-
-#### Formatting
-**Loggin-js** uses [strif](https://github.com/nombrekeff/strif) for template procesing. Check out the [strif repo](https://github.com/nombrekeff/strif) for more details on how to create [your own templates][docs:formatting].  
-
-You can set a premade formatter or a [`strif.Template`]() (_see [here][docs:formatting] for more info_) on a logger:
-```js
-const formatter = loggin.formatter('minimal');
-logger.formatter(formatter);
-
-logger.debug('A cool message');
-```
-**Should output:**  
-```zsh
-$ example.js - A cool message
-```
-
-You can set a json formatter, the log will output a json string
-```js
-const formatter = loggin.formatter('json');
-```
-
-[back to top](#table-of-content-)
-****
-
-#### Adding notifiers
-You can also specify one or more [**notifiers**][docs:notifier], which could log to a **file**, 
-to the **console**, to a remote service or some other custom notifier.
-
-The **easiest** way of creating a logger is by using the `.notifier` function:
-```js
-const consoleNotif = loggin.notifier('console', { level: 'debug' });
-consoleNotif.color(true);
-```
-
-**Alternatively** you can also use the available class `.Notifier.File` to create a logger: 
-```js
-const fileNotif = new loggin.Notifier.File({ level: 'DEBUG' });
-```
-
-With **file notifiers** you can specify where to send the logs based on some [Severity][docs:severity] using the `.pipe` method:
-```js
-fileNotif.pipe(Severity.ERROR, 'logs/error-logs.log');
-fileNotif.pipe(Severity.DEBUG, 'logs/debug-logs.log');
-```
-
-You can add them to the logger like this:
-```js
-// Adds notifier
-logger.notifier(consoleNotif, fileNotif);
-
-// Overwrites all loggers
-logger.setNotifers([consoleNotif, fileNotif]);
-```
-Above logger will send every log through both notifiers:
-* **consoleNotif** will log everything to the console.
-* **fileNotif** will log **ERROR** logs to file `logs/error-logs.log` and everything to `logs/debug-logs.log`.
-
-[back to top](#table-of-content-)
-****
-
-#### Accessing notifiers
-You can get access to notifiers after creating a logger, whether you created a default logger or you just want to access the loggers.  
-You can do it by using the `Logger.getNotifier(name)` method. Here is an example: 
-
-```js
-let logger = loggin.logger('console');
-let csol = logger.getNotifier('console');
-csol.color(true);
-```
-
-#### Modifying options
-After creating the logger we can change most of the options, like the [**level**][docs:severity], the [**channel**][docs:channel], etc... For example:
-```js
-const logger = loggin.logger();
-
-logger
-  .level('DEBUG')
-  .color(true)
-  .channel('super-app');
-
-logger.debug('A cool message');
-```
-****
-> ### ! NOTICE !
-> Remember that all **Logger** configuration methods propagate to all the **Notifiers** that they have.
-> If you just want to affect one notifier, you must have created that notifier yourself, and passed it into the logger.
-****
-
-[back to top](#table-of-content-)
-****
-
-
-#### Setting the level
-We can set a level in three ways:
-1. Passing a string ([info][docs:severity]): 
-    ```js
-    logger.level('DEBUG');
-    ```
-2. Passing an int ([info][docs:severity]): 
-    ```js
-    logger.level(9);
-    ```
-3. Using `loggin.severity` function:
-    ```js
-    logging.level(loggin.severity('INFO'));
-    ```
-
-### Customizing Notifiers/Formatters/...
-You can create you own **Notifiers**, **Formatters**, **Loggers**, etc... see [here][docs:customizing] for more examples!
-
-### Ignoring Logs
-If you want more control over which logs are output, you can pass in a `ignore` function to the logger options.  
-If passed, the `ignore` function will be called **before** each log is propagated to the Notifiers.  
-`Ignore` will be called with the `log` as first argument, and the selected `notifier` as second argument. _If more than one notifier is set, the function will be called for each notifier_ 
-
-```js
-  let logger = loggin.logger({
-    ignore(log, notifier) {
-      return log.level.name == 'INFO';
-    },
-    preNotify(log, notifier) {
-      log.message = '<%b------> <%y' + log.message.toLowerCase() + '> <%b------>';
-      log.level.name = log.level.name.toLowerCase();
-    },
-  })
-```
-> Additionally, there is a `preNotify` callback function that will be called before a log is propagated.
-
-[back to top](#table-of-content-)
-****
-
-## Examples
+### Examples
 You can configure almost every aspect of the logger. You can customize the [format][docs:formatter] of your logs, the output channel ([Notifiers][docs:notifier]), what logs are output ([Severity][docs:severity]), etc... 
 
 Check the [`/examples`](/examples) folder for more examples.
@@ -459,65 +261,26 @@ you can contact me, and if it meets my standards I will add it here!!
 [back to top](#table-of-content-)
 ****
 
-## Migrating from `v1.x`
-Here is a little example on how to migrate `v0.x` to `v1.x`.
+## Migrating to `v1.x`
+Check this little guide on how to migrate from `v0.x` to `v1.x`
+
+## Contributing
+> First off, thank you for considering contributing to Loggin'JS.
+
+We accept any type of contribution here at Loggin'JS. Check out the [contributing guidelines](./.github/CONTRIBUTING.md) for more information.
 
 
-### Example 1
-Method `.getLogger` now becomes `.logger`, and by default return a `console` notifier attached.  
-All `set{Property}` methods are now just `{property}`.
+## Versioning
+We use [standard-version](https://github.com/conventional-changelog/standard-version) to manage releasing and CHANGELOG generation (with semver and [conventional commit messages](https://www.conventionalcommits.org/en/v1.0.0/)) using [@conventional-changelog/standard-version](https://github.com/conventional-changelog/standard-version). For the versions available, see the [tags on this repository](https://github.com/loggin-js/loggin-js/tags). 
 
-**BEFORE `v0.x`:**
-```js
-const logging = require('loggin-js');
-const logger = loggin.getLogger();
+## Authors
 
-logger.setColor(true);
-logger.setFormatter('medium');
-```
+* **Manolo Edge** - *Initial work* - [nombrekeff](https://github.com/nombrekeff)
 
-**AFTER `v1.x`:**
-```js
-const logging = require('loggin-js');
-const logger = loggin.logger();
+You can also check out the list of [contributors](https://github.com/loggin-js/loggin-js/contributors) who participated in this project.
 
-logger.color(true);
-logger.formatter('medium');
-```
-
-### Example 2
-**BEFORE `v0.x`:**
-```js
-const logging = require('loggin-js');
-const logger = new loggin.Loggers.FileLogger({
-  lineNumbers: true,
-  pipes: [
-    new Notifiers.Pipe(Severity.ERROR, 'logs/error-logs.log'),
-    new Notifiers.Pipe(Severity.INFO, 'logs/info-logs.log')
-  ]
-});
-```
-
-**AFTER `v1.x`:**
-```js
-const logging = require('loggin-js');
-
-const file = loggin
-  .notifier('file', { 
-    pipes: [ loggin.pipe(loggin.severity('debug'), './logs/debug.log') ] 
-  })
-  .pipe(loggin.severity('error'), './logs/error.log');
-
-const logger = loggin
-  .logger({
-    notifiers: [file]
-  });
-```
-
-
-
-[back to top](#table-of-content-)
-****
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Contributing
 Pull requests are welcome, as well as any other type of contribution.  
@@ -541,4 +304,42 @@ $ npm install
 $ npm test
 ```
 
+<!-- Links -->
+
 [RFC3164]: https://tools.ietf.org/html/rfc3164
+[npm-image]: https://img.shields.io/npm/v/loggin-js.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/loggin-js
+
+[travis-image]: https://img.shields.io/travis/nombrekeff/loggin-js.svg?style=flat-square
+[travis-url]: https://travis-ci.org/nombrekeff/loggin-js
+
+[code-quality-badge]: http://npm.packagequality.com/shield/loggin-js.svg?style=flat-square
+[code-quality-link]: https://packagequality.com/#?package=loggin-js
+
+[pkg-size-badge]: https://img.shields.io/bundlephobia/minzip/loggin-js?style=flat-square
+[pkg-size-link]: https://bundlephobia.com/result?p=loggin-js
+
+[downloads-badge]: https://img.shields.io/npm/dm/loggin-js.svg?style=flat-square
+[downloads-link]: https://www.npmjs.com/package/loggin-js
+
+[dependencies-badge]: https://img.shields.io/david/nombrekeff/loggin-js.svg?style=flat-square
+[dependencies-link]: https://david-dm.org/nombrekeff/loggin-js?view=tree
+
+[vulnerabilities-badge]: https://snyk.io/test/npm/loggin-js/badge.svg?style=flat-square
+[vulnerabilities-link]: https://snyk.io/test/npm/loggin-js
+
+[docs:severity]: https://github.com/loggin-js/loggin-js/wiki/Severity
+[docs:notifier]: https://github.com/loggin-js/loggin-js/wiki/Notifier
+[docs:formatter]: https://github.com/loggin-js/loggin-js/wiki/Formatter
+[docs:formatting]: https://github.com/loggin-js/loggin-js/wiki/Formatter
+[docs:log]: https://github.com/loggin-js/loggin-js/wiki/Log
+[docs:Logger]: https://github.com/loggin-js/loggin-js/wiki/Logger
+[docs:channel]: https://github.com/loggin-js/loggin-js/wiki/Logger#channel
+[docs:logger-options]: https://github.com/loggin-js/loggin-js/wiki/Logger#options
+[docs:helper:logger]: https://github.com/loggin-js/loggin-js/wiki/Helpers#logger
+[docs:helper:notifier]: https://github.com/loggin-js/loggin-js/wiki/Helper#notifier
+[docs:helper:formatter]: https://github.com/loggin-js/loggin-js/wiki/Helper#formatter
+[docs:helper:severity]: https://github.com/loggin-js/loggin-js/wiki/Helper#severity
+[docs:customizing]: https://github.com/loggin-js/loggin-js/wiki/logger#customizing
+[docs:premades]: https://github.com/loggin-js/loggin-js/wiki/premades
+[docs:plugins]: https://github.com/loggin-js/loggin-js/wiki/Plugins
