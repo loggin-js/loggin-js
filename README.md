@@ -84,9 +84,9 @@ Chek out the [wiki](https://github.com/loggin-js/loggin-js/wiki) for a more deta
 
 ## Examples
 Here are some usage examples:
-* [Basic Example] -  [/nombrekeff/loggin-js-demo-1](https://runkit.com/nombrekeff/loggin-js-demo-1)
+* [Basic Example](https://runkit.com/nombrekeff/loggin-js-demo-1)
 * [File Notifier](https://runkit.com/nombrekeff/loggin-js-file-notifier)
-* [Multiple Notifiers] - [/nombrekeff/multiple-notifiers](https://runkit.com/nombrekeff/multiple-notifiers)
+* [Multiple Notifiers](https://runkit.com/nombrekeff/multiple-notifiers)
 
 > if you have any usefull examples you can send in a PR adding it here.
 
