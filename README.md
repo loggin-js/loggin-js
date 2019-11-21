@@ -29,6 +29,16 @@ If you want to log easily or want to create some complex loggin system, this is 
 
 ****
 
+## Table Of Content
+- [Table Of Content](#table-of-content)
+- [Getting Started](#getting-started)
+  - [Installing](#installing)
+  - [Importing](#importing)
+  - [Browser](#browser)
+  - [Basic Usage](#basic-usage)
+- [Examples](#examples)
+- [Contributing](#contributing)
+
 ## Getting Started
 You can configure almost every aspect of the loggers. You can customize the [format][docs:formatter] of your logs, the output channel ([Notifiers][docs:notifier]), what logs are output ([Severity][docs:severity]), etc... 
 
@@ -77,6 +87,18 @@ const loggin = require('loggin-js');
 loggin.debug('Check this log out!!', { foo: 'var' }, { channel: 'Wabalabadubdub!' });
 ```
 
+Additionaly you can create a custom logger:
+```js
+const loggin = require('loggin-js');
+const logger = loggin.logger('file', { channel: 'my-logger' });
+
+logger
+    .getNotifier('file')
+    .pipe(loggin.pipe('DEBUG', './debug.log'));
+    
+loggin.debug('Check this log out!!', { foo: 'var' });
+```
+
 Chek out the [wiki](https://github.com/loggin-js/loggin-js/wiki) for a more detailed guide. 
 
 [back to top](#table-of-content-)
@@ -88,23 +110,23 @@ Here are some usage examples:
 * [File Notifier](https://runkit.com/nombrekeff/loggin-js-file-notifier)
 * [Multiple Notifiers](https://runkit.com/nombrekeff/multiple-notifiers)
 
-> if you have any usefull examples you can send in a PR adding it here.
+> If you have any usefull examples you can send in a PR adding it here.
 
 ## Contributing
 > First off, thank you for considering contributing to Loggin'JS.
 
 Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
-## Versioning
+## Versioning <!-- omit in toc -->
 We use [standard-version](https://github.com/conventional-changelog/standard-version) to manage releasing and CHANGELOG generation (with semver and [conventional commit messages](https://www.conventionalcommits.org/en/v1.0.0/)) using [@conventional-changelog/standard-version](https://github.com/conventional-changelog/standard-version). For the versions available, see the [tags on this repository](https://github.com/loggin-js/loggin-js/tags). 
 
-## Authors
+## Authors <!-- omit in toc -->
 
 * *Initial work* - [nombrekeff](https://github.com/nombrekeff)
 
 See also the list of [contributors](https://github.com/loggin-js/loggin-js/contributors) who participated in this project.
 
-## License
+## License <!-- omit in toc -->
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
 <!-- Links -->

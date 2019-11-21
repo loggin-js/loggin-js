@@ -20,7 +20,7 @@ Please note we have a [code of conduct](#code-of-conduct), please follow it in a
 
 ## Where to start?
 Unsure where to begin contributing to Loggin'JS? You can start by looking through these **help-wanted** issues: 
-- [Beginner issues](https://github.com/loggin-js/loggin-js/issues?q=is%3Aissue+is%3Aopen+sort%3Acomments-desc+label%3Agood-first-issue) - issues which should only require a few lines of code, a test or two, or some docs changes. 
+- [Beginner issues](https://github.com/loggin-js/loggin-js/issues?q=is%3Aissue+is%3Aopen+label%3Abeginner-friendly) - issues which should only require a few lines of code, a test or two, or some docs changes. 
 - [Help wanted issues](https://github.com/loggin-js/loggin-js/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22+sort%3Acomments-desc) - issues which should be a bit more involved than beginner issues. 
 
 
