@@ -148,6 +148,7 @@ function plugin(loggin) {
 
     class RemoteNotifier extends Notifier {
         constructor(options) {
+            super(options, 'remote');
             this.headers = options.headers || {};
             this.url = new url.URL('http://p.com');
             this.url.protocol = options.protocol;
