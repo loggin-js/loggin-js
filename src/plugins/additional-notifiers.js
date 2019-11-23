@@ -148,12 +148,16 @@ function plugin(loggin) {
 
     class RemoteNotifier extends Notifier {
         constructor(options) {
-            this.headers = options.headers || {};
-            this.url = new url.URL('http://p.com');
-            this.url.protocol = options.protocol;
-            this.url.host = options.host;
-            this.url.port = options.port;
-            this.url.pathname = options.path;
+            super(options, 'remote');
+            this.headers = this.options.headers || {};
+            this.url = new url.URL(this.options.url || 'https://localhost:3000');
+
+            if (!this.options.url) {
+                this.url.protocol = this.options.protocol;
+                this.url.host = this.options.host;
+                this.url.port = this.options.port;
+                this.url.pathname = this.options.path;
+            }
         }
 
         async output(logMsg, log) {
