@@ -38,6 +38,7 @@ If you want to log easily or want to create some complex loggin system, this is 
   - [Basic Usage](#basic-usage)
 - [Examples](#examples)
 - [Oficial Plugins](#oficial-plugins)
+- [Browser Support Status](#browser-support-status)
 - [Contributing](#contributing)
 
 ## Getting Started
@@ -109,6 +110,7 @@ Here are some usage examples:
 * [Basic Example](https://runkit.com/nombrekeff/loggin-js-demo-1)
 * [File Notifier](https://runkit.com/nombrekeff/loggin-js-file-notifier)
 * [Multiple Notifiers](https://runkit.com/nombrekeff/multiple-notifiers)
+* [Http Notifier](https://runkit.com/nombrekeff/loggin-js-remote-notifier)
 
 > If you have any usefull examples you can send in a PR adding it here.
 
@@ -118,6 +120,22 @@ you can contact me, and if it meets my standards I will add it here!!
 * [MongoDB](https://github.com/loggin-js/loggin-js-mongodb)
 * [Express](https://github.com/loggin-js/loggin-js-express)
 * [WebSocket](https://github.com/loggin-js/loggin-js-ws)
+
+
+## Browser Support Status
+* 🔍 - Research or planing.
+* 👷 - Working beeing done.
+* ✔️ - Fully implemented.
+
+| **Feature**      | Browser | Node |
+| ---------------- | ------- | ---- |
+| File Notifier    | 👷      | ✔️   |
+| Remote Notifier  | 👷      | ✔️   |
+| Console Notifier | ✔️      | ✔️   |
+| Color            | 🔍      | ✔️   |
+| Plugins          | 🔍      | ✔️   |
+
+
 
 ## Contributing
 > First off, thank you for considering contributing to Loggin'JS.
