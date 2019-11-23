@@ -7,11 +7,15 @@ const path = require('path');
 
 describe('loggin.Notifier.Remote tests', () => {
     let httpServer = null;
-    afterAll(() => {
+    afterAll((done) => {
+        console.log('ajsdkas');
         try {
-            httpServer.close();
+            httpServer.on('close', done);
+            httpServer.close(() => {
+                console.log('ajsdkas');
+            });
         } catch (error) {
-
+            console.log('error', error);
         }
     });
 
