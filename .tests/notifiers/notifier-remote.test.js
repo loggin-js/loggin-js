@@ -5,7 +5,7 @@ const loggin = require('../..');
 const http = require('http');
 const path = require('path');
 
-fdescribe('loggin.Notifier.Remote tests', () => {
+describe('loggin.Notifier.Remote tests', () => {
     let httpServer = null;
     afterAll(() => {
         try {
