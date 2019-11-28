@@ -121,6 +121,11 @@ you can contact me, and if it meets my standards I will add it here!!
 * [Express](https://github.com/loggin-js/loggin-js-express)
 * [WebSocket](https://github.com/loggin-js/loggin-js-ws)
 
+Comming:
+* Telegram
+* Mail - maybe?
+* Sentry, and similar
+* ...
 
 ## Browser Support Status
 * 🔍 - Research or planing.
