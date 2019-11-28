@@ -112,7 +112,7 @@ Here are some usage examples:
 * [Multiple Notifiers](https://runkit.com/nombrekeff/multiple-notifiers)
 * [Http Notifier](https://runkit.com/nombrekeff/loggin-js-remote-notifier)
 
-> If you have any usefull examples you can send in a PR adding it here.
+> If you want to add an example, or find some error leave an issue or send in a PR.
 
 ## Oficial Plugins
 These are a couple of official plugins. If you make a plugin and want it to appear here, 
