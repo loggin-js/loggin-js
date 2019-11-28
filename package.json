@@ -47,7 +47,7 @@
   "dependencies": {
     "cli-color": "^2.0.0",
     "phin": "^3.4.0",
-    "strif": "^1.1.2"
+    "strif": "^1.1.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",

@@ -57,7 +57,7 @@ $ yarn add loggin-js
 ```js
 const loggin = require('loggin-js');
 // Or
-import loggin from 'loggin-js';
+import * as loggin from 'loggin-js';
 ```
 
 ### Browser
@@ -85,7 +85,7 @@ The default logger is the simplest way to use Loggin'JS.
 ```js
 const loggin = require('loggin-js');
 
-loggin.debug('Check this log out!!', { foo: 'var' }, { channel: 'Wabalabadubdub!' });
+loggin.debug('Check this log out!!', { foo: 'var' }, { channel: 'my-logger' });
 ```
 
 Additionaly you can create a custom logger:
@@ -94,8 +94,8 @@ const loggin = require('loggin-js');
 const logger = loggin.logger('file', { channel: 'my-logger' });
 
 logger
-    .getNotifier('file')
-    .pipe(loggin.pipe('DEBUG', './debug.log'));
+  .getNotifier('file')
+  .pipe(loggin.pipe('DEBUG', './debug.log'));
     
 loggin.debug('Check this log out!!', { foo: 'var' });
 ```
