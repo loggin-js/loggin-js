@@ -1,11 +1,14 @@
 'use strict';
 
+const os = require('os');
+const path = require('path');
+
 const Log = require('./log');
 const Notifier = require('./notifier');
 const Severity = require('./severity');
 const Formatter = require('./formatter');
-const os = require('os');
-const path = require('path');
+const { isFunction } = require('./util');
+
 
 class Logger {
   constructor(options) {
@@ -154,13 +157,13 @@ class Logger {
 
       return this._notifiers
         .forEach(notifier => {
-          if (notifier.canOutput(level) && notifier.options.enabled) {
-            if (this.options.preNotify && typeof this.options.preNotify === 'function') {
+          if (notifier.canOutput(log) && notifier.options.enabled) {
+            if (isFunction(this.options.preNotify)) {
               this.options.preNotify(log, notifier);
             }
+
             if (
-              this.options.ignore &&
-              typeof this.options.ignore === 'function' &&
+              isFunction(this.options.ignore) &&
               this.options.ignore(log, notifier)
             ) return;
 
@@ -266,8 +269,8 @@ class Logger {
   }
 
   static get(opts = 'default', args = {}) {
-    let notifier = Notifier.get(opts, args);
-    if (typeof opts === 'string' && notifier) {
+    let notifier;
+    if (typeof opts === 'string' && (notifier = Notifier.get(opts, args))) {
       args.notifiers = [notifier];
       return new Logger(args);
     } else if (typeof opts === 'object') {

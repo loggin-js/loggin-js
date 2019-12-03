@@ -247,7 +247,7 @@ export class LoggerOptions {
 
   /**
    * Runs for each notifier
-   * check wether to ignore loggin to that notifier
+   * check wether to ignore the log
    */
   ignore?(log: Log, notifier: Notifier): boolean;
 
@@ -363,6 +363,16 @@ interface Options extends LoggerOptions {
   filepath?: string;
   pipes?: Pipe;
   level?: Severity;
+
+  /**
+   * check wether to ignore the log
+   */
+  ignore?(log: Log): boolean;
+
+  /**
+   * Allows to modify the log
+   */
+  preNotify?(log: Log): void;
 }
 
 export interface Pipe {
