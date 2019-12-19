@@ -8,3 +8,4 @@
 /internal
 *.log
 /coverage
+!/coverage/*.svg

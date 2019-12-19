@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 'use strict';
 const strif = require('strif');
 const clicolor = require('cli-color');

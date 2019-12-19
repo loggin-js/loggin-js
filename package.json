@@ -39,7 +39,9 @@
     "examples": "node examples/basic-example.js && node examples/file-logging.js && node examples/log-info.js && node examples/custom-formatter.js",
     "build:browser": "browserify src/browser.js -o dist/loggin.js",
     "release": "npm run build:browser && git push --follow-tags origin master && npm publish",
-    "standard-version": "standard-version"
+    "standard-version": "standard-version",
+
+    "coverage": "npm run test && jest-coverage-badges output \"./.github/badges\""
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -56,6 +58,7 @@
     "browserify": "^16.5.0",
     "husky": "^1.3.1",
     "jest": "^22.4.3",
+    "jest-coverage-badges": "^1.1.2",
     "jest-environment-node": "^24.9.0",
     "standard-version": "^7.0.0",
     "uglify-js": "^3.6.7"
@@ -63,6 +66,11 @@
   "jest": {
     "collectCoverageFrom": [
       "src/lib/**/{!(ignore-me),}.js"
+    ],
+    "coverageReporters": [
+      "json-summary", 
+      "text",
+      "lcov"
     ]
   },
   "husky": {
