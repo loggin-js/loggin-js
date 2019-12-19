@@ -7,3 +7,4 @@
 /tests
 /internal
 *.log
+/coverage

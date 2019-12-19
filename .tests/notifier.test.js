@@ -8,19 +8,40 @@ describe('loggin.Notifier tests', () => {
     expect(loggin.Notifier).toBeDefined();
   });
 
-  it(`should construct notifier correctly`, () => {
+  it(`instance notifier correctly no args`, () => {
     expect(() => {
       let notif = new loggin.Notifier();
     }).not.toThrow();
   });
 
-  it(`should construct notifier correctly`, () => {
+  it(`instance notifier correctly with severity`, () => {
+    expect(() => {
+      let sev = loggin.severity('DEBUG');
+      let notif = new loggin.Notifier({
+        level: sev
+      });
+    }).not.toThrow();
+  });
+
+  it(`instance with incorrect severity`, () => {
+    expect(() => {
+      let sev = loggin.severity('DEBUG');
+      let notif = new loggin.Notifier({
+        level: 12
+      });
+    }).toThrow();
+  });
+ 
+  it(`Sets options correctly`, () => {
     let sev = loggin.severity('DEBUG');
+    let formatter = loggin.formatter('detailed');
     let notif = new loggin.Notifier({
-      level: sev
+      level: sev,
+      formatter: 'detailed',
     });
 
     expect(notif.options.level).toEqual(sev);
+    expect(notif.options.formatter).toMatchObject(formatter);
   });
 
   it(`.enabled should set correctly`, () => {
@@ -37,4 +58,9 @@ describe('loggin.Notifier tests', () => {
     expect(notifier.options.level).toEqual(loggin.severity('DEBUG'));
   });
 
+  it(`.getLineWithNumber should work`, () => {
+    let notifier = loggin.notifier('default');
+    let line = notifier.getLineWithNumber('test');
+    expect(line).toEqual('(0) test');
+  });
 });
