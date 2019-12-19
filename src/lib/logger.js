@@ -42,8 +42,7 @@ class Logger {
   }
 
   clone(options = {}) {
-    let logger = new Logger({ ...this.options, ...options }, [...this._notifiers]);
-    return logger;
+    return new Logger({ ...this.options, ...options });
   }
 
   fork(options = {}) {

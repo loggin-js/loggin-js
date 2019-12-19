@@ -1,0 +1,4 @@
+queries:
+    - exclude: dist
+    - exclude: examples
+    - exclude: .tests
