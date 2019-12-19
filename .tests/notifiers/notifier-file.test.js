@@ -4,6 +4,7 @@
 let loggin = require('../..');
 let fs = require('fs');
 let filePath = '../logs/test-file.log';
+let fileErrorPath = '../logs/error-file.log';
 
 describe('loggin.Notifier.File tests', () => {
     it(`should be registered`, () => {
@@ -21,8 +22,10 @@ describe('loggin.Notifier.File tests', () => {
     });
 
     it(`should log correctly to file`, () => {
-        let notif = loggin.notifier('file');
-        notif.pipe(loggin.severity('debug'), filePath);
+        let notif = loggin.notifier('file', {
+            pipes: [loggin.pipe(loggin.severity('debug'), filePath)]
+        });
+        notif.pipe(loggin.severity('error'), fileErrorPath);
 
         let log = new loggin.Log('Test', null, loggin.severity('DEBUG'));
         notif.output(log.message, log);
