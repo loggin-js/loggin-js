@@ -34,7 +34,7 @@
   "repository": "git://github.com/loggin-js/loggin-js.git",
   "main": "src/node.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "test-server": "node test-remote/server.js",
     "examples": "node examples/basic-example.js && node examples/file-logging.js && node examples/log-info.js && node examples/custom-formatter.js",
     "build:browser": "browserify src/browser.js -o dist/loggin.js",
@@ -47,7 +47,7 @@
   "dependencies": {
     "cli-color": "^2.0.0",
     "phin": "^3.4.0",
-    "strif": "^1.1.2"
+    "strif": "^1.1.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
@@ -61,7 +61,9 @@
     "uglify-js": "^3.6.7"
   },
   "jest": {
-    "verbose": true
+    "collectCoverageFrom": [
+      "src/lib/**/{!(ignore-me),}.js"
+    ]
   },
   "husky": {
     "hooks": {

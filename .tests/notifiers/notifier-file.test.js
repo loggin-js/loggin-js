@@ -1,9 +1,9 @@
 /**
 * @jest-environment node
 */
-let loggin = require('..');
+let loggin = require('../..');
 let fs = require('fs');
-let filePath = './logs/test-file.log';
+let filePath = '../logs/test-file.log';
 
 describe('loggin.Notifier.File tests', () => {
     it(`should be registered`, () => {

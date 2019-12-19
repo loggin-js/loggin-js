@@ -1,6 +1,4 @@
 'use strict';
-
-const clicolor = require('cli-color');
 const Severity = require('./severity');
 const Formatter = require('./formatter');
 
@@ -45,6 +43,10 @@ class Log {
       time,
       user,
     }, formatter, opts.color);
+  }
+
+  static fromObject(obj) {
+    return new Log(obj.message, obj.data, obj.level, obj.channel, obj.time, obj.user);
   }
 }
 
