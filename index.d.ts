@@ -399,3 +399,22 @@ export function formatter(template?: strif.StrifTemplate): Formatter;
 
 export function pipe(level: string, filepath: string): Pipe;
 export function use(plugin: (loggin: any) => void): void;
+
+export default interface LogginJS {
+  logger(name?: SupportedLoggers, opts?: LoggerOptions): Logger;
+  logger(opts?: LoggerOptions, ...args: Notifier[]): Logger;
+
+  notifier(opt?: Options): Notifier;
+  notifier(name?: SupportedLoggers, opts?: Options): Notifier;
+
+  severity(level?: SupportedSeverities): Severity;
+  severity(level?: number): Severity;
+  severity(level?: Severity): Severity;
+  severity(): Severity;
+
+  formatter(name?: SupportedFormatters): Formatter;
+  formatter(template?: strif.StrifTemplate): Formatter;
+
+  pipe(level: string, filepath: string): Pipe;
+  use(plugin: (loggin: any) => void): void;
+}

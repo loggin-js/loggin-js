@@ -56,7 +56,7 @@ let ignored = [
   'cl_black',
   'cl_white',
   'cl_magenta',
-]
+];
 
 
 const formatter =
@@ -80,7 +80,9 @@ class Formatter {
   }
 
   color(str) {
-    Formatter.replaceables.forEach((re) => str = str.replace(re.regexp, re.fn));
+    Formatter.replaceables.forEach(
+      (re) => str = str.replace(re.regexp, re.fn)
+    );
     return str;
   }
 
