@@ -40,8 +40,7 @@
     "build:browser": "browserify src/browser.js -o dist/loggin.js",
     "release": "npm run build:browser && git push --follow-tags origin master && npm publish",
     "standard-version": "standard-version",
-
-    "coverage": "npm run test && jest-coverage-badges output \"./.github/badges\""
+    "coverage": "jest-coverage-badges output \"./.github/badges\""
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -68,14 +67,14 @@
       "src/lib/**/{!(ignore-me),}.js"
     ],
     "coverageReporters": [
-      "json-summary", 
+      "json-summary",
       "text",
       "lcov"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test"
+      "pre-commit": "npm run test && npm run coverage"
     }
   }
 }
