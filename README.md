@@ -8,6 +8,7 @@
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]  
 [![NPM Package Quality][code-quality-badge]][code-quality-link]
 [![NPM Package Size][pkg-size-badge]][pkg-size-link]  
+
   
 <p>
 An easy and customizable logger for NodeJS and the Browser.  
@@ -38,7 +39,8 @@ If you want to log easily or want to create some complex loggin system, this is 
   - [Basic Usage](#basic-usage)
 - [Examples](#examples)
 - [Oficial Plugins](#oficial-plugins)
-- [Browser Support Status](#browser-support-status)
+- [Browser Support](#browser-support)
+- [Coverage](#coverage)
 - [Contributing](#contributing)
 
 ## Getting Started
@@ -127,7 +129,7 @@ Comming:
 * Sentry, and similar
 * ...
 
-## Browser Support Status
+## Browser Support
 * 🔍 - Research or planing.
 * 👷 - Working beeing done.
 * ✔️ - Fully implemented.
@@ -140,6 +142,11 @@ Comming:
 | Color            | 🔍      | ✔️   |
 | Plugins          | 🔍      | ✔️   |
 
+## Coverage
+[![Coverage][coverage-lines-badge]]() 
+[![Coverage][coverage-functions-badge]]() 
+[![Coverage][coverage-statements-badge]]() 
+[![Coverage][coverage-branches-badge]]() 
 
 
 ## Contributing
@@ -180,6 +187,11 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 [vulnerabilities-badge]: https://snyk.io/test/npm/loggin-js/badge.svg?style=flat-square
 [vulnerabilities-link]: https://snyk.io/test/npm/loggin-js
+
+[coverage-lines-badge]: ./.github/badges/badge-lines.svg
+[coverage-functions-badge]: ./.github/badges/badge-functions.svg
+[coverage-branches-badge]: ./.github/badges/badge-branches.svg
+[coverage-statements-badge]: ./.github/badges/badge-statements.svg
 
 [docs:severity]: https://github.com/loggin-js/loggin-js/wiki/Severity
 [docs:notifier]: https://github.com/loggin-js/loggin-js/wiki/Notifier
