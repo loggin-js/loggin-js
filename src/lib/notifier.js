@@ -3,6 +3,7 @@
 const Severity = require('./severity');
 const Formatter = require('./formatter');
 const Pipe = require('./pipe');
+const { isFunction } = require('./util');
 
 function isConstructor(obj) {
   return !!obj.prototype && !!obj.prototype.constructor.name;
@@ -44,8 +45,15 @@ class Notifier {
     }
   }
 
-  canOutput(level) {
-    return this.options.level.canLog(level);
+  canOutput(log) {
+    const { level, ignore } = this.options;
+    const canLogLevel = level.canLog(log.level);
+    const isIgnored = (ignore && typeof ignore === 'function' && ignore(log));
+
+    return [
+      canLogLevel,
+      !isIgnored,
+    ].reduce((prev, curr) => curr);
   }
 
   enabled(enabled) {
@@ -79,11 +87,15 @@ class Notifier {
   }
 
   notify(log) {
-    let { formatter, color } = this.options;
+    let { formatter, color, preNotify } = this.options;
     let output = formatter.formatLog(log, { color: color });
 
     if (color) {
       output = formatter.color(output);
+    }
+
+    if (isFunction(preNotify)) {
+      preNotify(log);
     }
 
     this.output(output, log);

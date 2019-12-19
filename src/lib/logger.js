@@ -1,11 +1,14 @@
 'use strict';
 
+const os = require('os');
+const path = require('path');
+
 const Log = require('./log');
 const Notifier = require('./notifier');
 const Severity = require('./severity');
 const Formatter = require('./formatter');
-const os = require('os');
-const path = require('path');
+const { isFunction } = require('./util');
+
 
 class Logger {
   constructor(options) {
@@ -137,30 +140,32 @@ class Logger {
     return this.options.level.canLog(severity);
   }
 
-  log(message, data = null, opts = {}) {
-    const { level, channel, time, user } = {
-      level: this.options.level,
-      channel: this.options.channel,
-      user: this.options.user,
-      time: Date.now(),
-      ...opts
+  log(message, data = null, options = {}) {
+    const opts = {
+      level: options.level || this.options.level,
+      channel: options.channel || this.options.channel,
+      user: options.user || this.options.user,
+      time: options.time || Date.now(),
+      data,
+      message,
     };
 
     if (this.options.enabled) {
       let log = message;
       if (!(message instanceof Log)) {
-        log = new Log(message, data, level, channel, time, user);
+        log = Log.fromObject(opts);
       }
 
       return this._notifiers
         .forEach(notifier => {
-          if (notifier.canOutput(level) && notifier.options.enabled) {
-            if (this.options.preNotify && typeof this.options.preNotify === 'function') {
+          if (notifier.canOutput(log) && notifier.options.enabled) {
+
+            if (isFunction(this.options.preNotify)) {
               this.options.preNotify(log, notifier);
             }
+
             if (
-              this.options.ignore &&
-              typeof this.options.ignore === 'function' &&
+              isFunction(this.options.ignore) &&
               this.options.ignore(log, notifier)
             ) return;
 
@@ -266,8 +271,8 @@ class Logger {
   }
 
   static get(opts = 'default', args = {}) {
-    let notifier = Notifier.get(opts, args);
-    if (typeof opts === 'string' && notifier) {
+    let notifier;
+    if (typeof opts === 'string' && (notifier = Notifier.get(opts, args))) {
       args.notifiers = [notifier];
       return new Logger(args);
     } else if (typeof opts === 'object') {
@@ -321,6 +326,7 @@ Logger._loggers = {};
 Logger.DefaultOptions = {
   user: os.userInfo ? os.userInfo().username : 'browser',
   ignore: null,
+  preNotify: null,
   level: Severity.DEBUG,
   channel: path.basename(__filename),
   formatter: Formatter.get('detailed'),
