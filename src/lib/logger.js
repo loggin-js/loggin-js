@@ -142,37 +142,38 @@ class Logger {
 
   log(message, data = null, options = {}) {
     const opts = {
-      level: options.level || this.options.level,
-      channel: options.channel || this.options.channel,
-      user: options.user || this.options.user,
+      level: options.level || this.options.level,
+      channel: options.channel || this.options.channel,
+      user: options.user || this.options.user,
       time: options.time || Date.now(),
       data,
       message,
     };
 
-    if (this.options.enabled) {
-      let log = message;
-      if (!(message instanceof Log)) {
-        log = Log.fromObject(opts);
-      }
+    if (!this.options.enabled) return;
 
-      return this._notifiers
-        .forEach(notifier => {
-          if (notifier.canOutput(log) && notifier.options.enabled) {
-
-            if (isFunction(this.options.preNotify)) {
-              this.options.preNotify(log, notifier);
-            }
-
-            if (
-              isFunction(this.options.ignore) &&
-              this.options.ignore(log, notifier)
-            ) return;
-
-            notifier.notify(log);
-          }
-        });
+    let log = message;
+    if (!(message instanceof Log)) {
+      log = Log.fromObject(opts);
     }
+
+    this._notifiers
+      .forEach(notifier => {
+        if (!notifier.canOutput(log) || !notifier.options.enabled) {
+          return;
+        }
+
+        if (isFunction(this.options.preNotify)) {
+          this.options.preNotify(log, notifier);
+        }
+
+        if (
+          isFunction(this.options.ignore) &&
+          this.options.ignore(log, notifier)
+        ) return;
+
+        notifier.notify(log);
+      });
 
     return this;
   }
