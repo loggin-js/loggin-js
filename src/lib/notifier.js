@@ -2,6 +2,7 @@
 
 const Severity = require('./severity');
 const Formatter = require('./formatter');
+const Pipe = require('./pipe');
 const { isFunction } = require('./util');
 
 function isConstructor(obj) {
@@ -28,6 +29,14 @@ class Notifier {
 
     this.pipes = [];
     this.lineIndex = 0;
+
+    if (options.pipes instanceof Array) {
+      options.pipes.forEach((pipe, i) => {
+        if (!(pipe instanceof Pipe)) {
+          throw new Error(`ERROR: "options.pipes" should be an array of Pipes, got ${pipe} instead at index ${i}`);
+        }
+      });
+    }
 
     if (!this.options.formatter) {
       this.formatter('detailed');
