@@ -1,5 +1,11 @@
-docs:
+pr:docs:
   - ./**/*.md
   - ./*.md
-tests:addition:
+pr:tests:
   - .tests/**/*.test.js
+pr:plugins:
+  - src/plugins/**/*.js
+pr:lib:
+  - src/lib/**/*.js
+pr:examples:
+  - examples/**/*.js
