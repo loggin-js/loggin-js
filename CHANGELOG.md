@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.3](https://github.com/loggin-js/loggin-js/compare/v1.5.2...v1.5.3) (2019-12-21)
+
+
+### Bug Fixes
+
+* **Logger:** fixed superfluous argument passed into new Logger in Logger.clone ([e793865](https://github.com/loggin-js/loggin-js/commit/e79386594df18982709f7c9f2b3195a1e66c3e29))
+* **Notifier:** improved .canOutput method, to accept a ignore function to be passed as an option ([cb53fb1](https://github.com/loggin-js/loggin-js/commit/cb53fb180ab2a9ddcd85ce65822464bebab72981))
+* removing complexity from logger.log method ([ca2c854](https://github.com/loggin-js/loggin-js/commit/ca2c85430cf6d24d0e5d735298b7fee9d405b931))
+* removing complexity from Logger.merge method ([2e2cb3c](https://github.com/loggin-js/loggin-js/commit/2e2cb3c05654b72256b3ecaddc73fb622bb71d57))
+
 ### [1.5.2](https://github.com/loggin-js/loggin-js/compare/v1.5.1...v1.5.2) (2019-11-21)
 
 ### [1.5.1](https://github.com/loggin-js/loggin-js/compare/v1.5.0...v1.5.1) (2019-11-21)
