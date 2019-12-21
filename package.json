@@ -59,8 +59,7 @@
     "jest": "^22.4.3",
     "jest-coverage-badges": "^1.1.2",
     "jest-environment-node": "^24.9.0",
-    "standard-version": "^7.0.0",
-    "uglify-js": "^3.6.7"
+    "standard-version": "^7.0.0"
   },
   "jest": {
     "collectCoverageFrom": [
