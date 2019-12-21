@@ -39,7 +39,7 @@ If you want to log easily or want to create some complex loggin system, this is 
   - [Basic Usage](#basic-usage)
 - [Examples](#examples)
 - [Oficial Plugins](#oficial-plugins)
-- [Browser Support](#browser-support)
+- [Features](#features)
 - [Coverage](#coverage)
 - [Contributing](#contributing)
 
@@ -113,6 +113,7 @@ Here are some usage examples:
 * [File Notifier](https://runkit.com/nombrekeff/loggin-js-file-notifier)
 * [Multiple Notifiers](https://runkit.com/nombrekeff/multiple-notifiers)
 * [Http Notifier](https://runkit.com/nombrekeff/loggin-js-remote-notifier)
+* You can also check the [`examples`](./examples) for more examples.
 
 > If you want to add an example, or find some error leave an issue or send in a PR.
 
@@ -129,7 +130,7 @@ Comming:
 * Sentry, and similar
 * ...
 
-## Browser Support
+## Features
 * 🔍 - Research or planing.
 * 👷 - Working beeing done.
 * ✔️ - Fully implemented.
@@ -141,6 +142,7 @@ Comming:
 | Console Notifier | ✔️      | ✔️   |
 | Color            | 🔍      | ✔️   |
 | Plugins          | 🔍      | ✔️   |
+
 
 ## Coverage
 [![Coverage][coverage-lines-badge]]() 
