@@ -292,14 +292,14 @@ class Logger {
     for (let logger of loggers) {
       if (!(logger instanceof Logger)) {
         throw new Error('loggers must be an array of loggers');
-      } else {
-        if (opts.mergeOptions === true) {
-          options = Object.assign(options, logger.options);
-        }
+      }
 
-        if (opts.mergeNotifiers === true) {
-          notifiers.push(...logger._notifiers);
-        }
+      if (opts.mergeOptions === true) {
+        options = Object.assign(options, logger.options);
+      }
+
+      if (opts.mergeNotifiers === true) {
+        notifiers.push(...logger._notifiers);
       }
     }
 
