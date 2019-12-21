@@ -1,11 +1,14 @@
 'use strict';
 
+const os = require('os');
+const path = require('path');
+
 const Log = require('./log');
 const Notifier = require('./notifier');
 const Severity = require('./severity');
 const Formatter = require('./formatter');
-const os = require('os');
-const path = require('path');
+const { isFunction } = require('./util');
+
 
 class Logger {
   constructor(options) {
@@ -137,37 +140,40 @@ class Logger {
     return this.options.level.canLog(severity);
   }
 
-  log(message, data = null, opts = {}) {
-    const { level, channel, time, user } = {
-      level: this.options.level,
-      channel: this.options.channel,
-      user: this.options.user,
-      time: Date.now(),
-      ...opts
+  log(message, data = null, options = {}) {
+    const opts = {
+      level: options.level || this.options.level,
+      channel: options.channel || this.options.channel,
+      user: options.user || this.options.user,
+      time: options.time || Date.now(),
+      data,
+      message,
     };
 
-    if (this.options.enabled) {
-      let log = message;
-      if (!(message instanceof Log)) {
-        log = new Log(message, data, level, channel, time, user);
-      }
+    if (!this.options.enabled) return;
 
-      return this._notifiers
-        .forEach(notifier => {
-          if (notifier.canOutput(level) && notifier.options.enabled) {
-            if (this.options.preNotify && typeof this.options.preNotify === 'function') {
-              this.options.preNotify(log, notifier);
-            }
-            if (
-              this.options.ignore &&
-              typeof this.options.ignore === 'function' &&
-              this.options.ignore(log, notifier)
-            ) return;
-
-            notifier.notify(log);
-          }
-        });
+    let log = message;
+    if (!(message instanceof Log)) {
+      log = Log.fromObject(opts);
     }
+
+    this._notifiers
+      .forEach(notifier => {
+        if (!notifier.canOutput(log) || !notifier.options.enabled) {
+          return;
+        }
+
+        if (isFunction(this.options.preNotify)) {
+          this.options.preNotify(log, notifier);
+        }
+
+        if (
+          isFunction(this.options.ignore) &&
+          this.options.ignore(log, notifier)
+        ) return;
+
+        notifier.notify(log);
+      });
 
     return this;
   }
@@ -266,8 +272,8 @@ class Logger {
   }
 
   static get(opts = 'default', args = {}) {
-    let notifier = Notifier.get(opts, args);
-    if (typeof opts === 'string' && notifier) {
+    let notifier;
+    if (typeof opts === 'string' && (notifier = Notifier.get(opts, args))) {
       args.notifiers = [notifier];
       return new Logger(args);
     } else if (typeof opts === 'object') {
@@ -286,14 +292,14 @@ class Logger {
     for (let logger of loggers) {
       if (!(logger instanceof Logger)) {
         throw new Error('loggers must be an array of loggers');
-      } else {
-        if (opts.mergeOptions === true) {
-          options = Object.assign(options, logger.options);
-        }
+      }
 
-        if (opts.mergeNotifiers === true) {
-          notifiers.push(...logger._notifiers);
-        }
+      if (opts.mergeOptions === true) {
+        options = Object.assign(options, logger.options);
+      }
+
+      if (opts.mergeNotifiers === true) {
+        notifiers.push(...logger._notifiers);
       }
     }
 
@@ -321,6 +327,7 @@ Logger._loggers = {};
 Logger.DefaultOptions = {
   user: os.userInfo ? os.userInfo().username : 'browser',
   ignore: null,
+  preNotify: null,
   level: Severity.DEBUG,
   channel: path.basename(__filename),
   formatter: Formatter.get('detailed'),

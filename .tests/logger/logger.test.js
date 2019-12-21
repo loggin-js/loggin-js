@@ -1,7 +1,7 @@
 /**
 * @jest-environment node
 */
-let loggin = require('../src/node');
+let loggin = require('../../src/node');
 
 describe('loggin.Logger', () => {
   let logger = loggin.logger('default');
@@ -53,8 +53,11 @@ describe('loggin.Logger', () => {
 
   it(`.color should set correctly`, () => {
     let logger = loggin.logger('default');
-    logger.color(true);
+    logger.color();
     expect(logger.options.color).toEqual(true);
+
+    logger.color(false);
+    expect(logger.options.color).toEqual(false);
   });
 
   it(`.lineNumbers should set correctly in notifiers`, () => {
@@ -124,5 +127,20 @@ describe('loggin.Logger', () => {
   it(`.fork should return a new logger`, () => {
     let logger = loggin.logger('default');
     expect(logger.fork()).toBeInstanceOf(loggin.Logger)
+  });
+
+  it(`.hasNotifier should work`, () => {
+    let logger = loggin.logger('console');
+    expect(logger.hasNotifier('console')).toBeTruthy();
+    expect(logger.hasNotifier('file')).not.toBeTruthy();
+  });
+
+  it(`.getNotifier should work`, () => {
+    let csol = loggin.notifier('console');
+    let logger = loggin.logger({
+      notifiers: [csol]
+    });
+    expect(logger.getNotifier('console')).toEqual(csol);
+    expect(logger.getNotifier('file')).toEqual(null);
   });
 });
