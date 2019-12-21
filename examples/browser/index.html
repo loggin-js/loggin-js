@@ -6,13 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="./dist/loggin.js"></script>
 
 </head>
 
 <body>
-    <!-- <script module src="./dist/loggin.dist.js"></script> -->
-    <script type="module">
-        import * as loggin from '../../dist/loggin.dist.js';
+    <script>
         let logger = LogginJS.logger('console', { formatter: 'detailed' })
         logger.debug('This is a test');
     </script>
