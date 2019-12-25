@@ -1,5 +1,6 @@
 /examples
 /.tests
+/.github
 /logs
 /node_modules
 .travis.yml
