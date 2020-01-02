@@ -22,7 +22,7 @@ function plugin(loggin) {
 
     class HttpNotifier extends Notifier {
         constructor(options) {
-            super(options, 'tttp');
+            super(options, 'http');
             this.headers = this.options.headers || {};
         }
 
