@@ -20,9 +20,9 @@ function plugin(loggin) {
         }
     }
 
-    class RemoteNotifier extends Notifier {
+    class HttpNotifier extends Notifier {
         constructor(options) {
-            super(options, 'remote');
+            super(options, 'tttp');
             this.headers = this.options.headers || {};
         }
 
@@ -39,7 +39,7 @@ function plugin(loggin) {
     }
 
     Notifier.register('Console', ConsoleNotifier);
-    Notifier.register('Http', RemoteNotifier);
+    Notifier.register('Http', HttpNotifier);
 };
 
 module.exports = plugin;
