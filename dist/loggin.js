@@ -4447,8 +4447,15 @@ process.umask = function() { return 0; };
 
 },{}],132:[function(require,module,exports){
 (function (global){
-const fs = require('fs');
-const path = require('path');
+let fs = null;
+let path = null;
+
+try {
+  fs = require('fs');
+  path = require('path');
+} catch (error) {
+  console.warn('WARN [strif]', 'StrifFormatter.fromFile will not work on the Browser');
+}
 
 class StrifVar {
   constructor(name, opts) {
@@ -4478,7 +4485,6 @@ class StrifVar {
     return obj;
   }
 }
-
 class StrifTemplate {
   constructor(template, transformers, options = {}) {
     if (!template) {
@@ -4545,17 +4551,15 @@ class StrifTemplate {
           }, map[prop.name]);
       }
     }
-
     return StrifTemplate.compile(this.template, map, options);
   }
 
-  // TODO: compile should accept arrays of data and replace $0 $1 $2, ... 
   static compile(template, data, options) {
     return template.replace(
       /([{}])\1|[{](.*?)(?:!(.+?))?[}]/g,
       (m, l, key) => {
-        if (key) {
-          let val = data[key] || '';
+        if (key || l) {
+          let val = data[key || l] || '';
           return val;
         } else return data;
       });
@@ -4581,6 +4585,10 @@ class StrifFormatter {
     };
 
     if (opts.plugins) {
+      if (!path) {
+        return console.warn('WARN [strif]', '"Plugins" don not work on the browser... for now...');
+      }
+
       this.opts.plugins.forEach(plugPath => {
         let plugin = require(path.resolve(plugPath));
         if (plugin.transformers) {
@@ -4605,16 +4613,20 @@ class StrifFormatter {
    * @param {string} path 
    * @param {object} options 
    */
-  fromFile(path, options) {
-    if (!path) {
-      throw new Error(
-        'path is required');
-    } else if (typeof path != 'string') {
-      throw new Error(
-        'path is required to be a string');
+  fromFile(filePath, options) {
+    if (!fs) {
+      return console.warn('WARN [strif]', '"StrifFormatter.fromFile "does not work on the browser');
     }
 
-    let template = fs.readFileSync(path).toString();
+    if (!filePath) {
+      throw new Error(
+        'filePath is required');
+    } else if (typeof filePath != 'string') {
+      throw new Error(
+        'filePath is required to be a string');
+    }
+
+    let template = fs.readFileSync(filePath).toString();
     return new StrifTemplate(template, this.transformers, options);
   }
 }
@@ -4930,10 +4942,12 @@ LogginJS.use(additionalSeverities);
 LogginJS.use(additionalNotifiers);
 LogginJS.use(additionalFormatters);
 
-module.exports = global.LogginJS = Object.assign(LogginJS.logger('default'), LogginJS);
+const loggin = Object.assign(LogginJS.logger('default'), LogginJS);
+module.exports = global.LogginJS = loggin;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/index":149,"./plugins/additional-formatters":155,"./plugins/additional-severities":156,"./plugins/browser/additional-notifiers":157}],148:[function(require,module,exports){
+},{"./lib/index":149,"./plugins/additional-formatters":156,"./plugins/additional-severities":157,"./plugins/browser/additional-notifiers":158}],148:[function(require,module,exports){
+/* istanbul ignore file */
 'use strict';
 const strif = require('strif');
 const clicolor = require('cli-color');
@@ -4992,7 +5006,7 @@ let ignored = [
   'cl_black',
   'cl_white',
   'cl_magenta',
-]
+];
 
 
 const formatter =
@@ -5016,7 +5030,9 @@ class Formatter {
   }
 
   color(str) {
-    Formatter.replaceables.forEach((re) => str = str.replace(re.regexp, re.fn));
+    Formatter.replaceables.forEach(
+      (re) => str = str.replace(re.regexp, re.fn)
+    );
     return str;
   }
 
@@ -5203,8 +5219,6 @@ const LogginJS = {
 module.exports = LogginJS;
 },{"./formatter":148,"./log":150,"./logger":151,"./notifier":152,"./pipe":153,"./severity":154}],150:[function(require,module,exports){
 'use strict';
-
-const clicolor = require('cli-color');
 const Severity = require('./severity');
 const Formatter = require('./formatter');
 
@@ -5250,19 +5264,26 @@ class Log {
       user,
     }, formatter, opts.color);
   }
+
+  static fromObject(obj) {
+    return new Log(obj.message, obj.data, obj.level, obj.channel, obj.time, obj.user);
+  }
 }
 
 module.exports = Log;
-},{"./formatter":148,"./severity":154,"cli-color":9}],151:[function(require,module,exports){
+},{"./formatter":148,"./severity":154}],151:[function(require,module,exports){
 (function (__filename){
 'use strict';
+
+const os = require('os');
+const path = require('path');
 
 const Log = require('./log');
 const Notifier = require('./notifier');
 const Severity = require('./severity');
 const Formatter = require('./formatter');
-const os = require('os');
-const path = require('path');
+const { isFunction } = require('./util');
+
 
 class Logger {
   constructor(options) {
@@ -5299,8 +5320,7 @@ class Logger {
   }
 
   clone(options = {}) {
-    let logger = new Logger({ ...this.options, ...options }, [...this._notifiers]);
-    return logger;
+    return new Logger({ ...this.options, ...options });
   }
 
   fork(options = {}) {
@@ -5395,37 +5415,40 @@ class Logger {
     return this.options.level.canLog(severity);
   }
 
-  log(message, data = null, opts = {}) {
-    const { level, channel, time, user } = {
-      level: this.options.level,
-      channel: this.options.channel,
-      user: this.options.user,
-      time: Date.now(),
-      ...opts
+  log(message, data = null, options = {}) {
+    const opts = {
+      level: options.level || this.options.level,
+      channel: options.channel || this.options.channel,
+      user: options.user || this.options.user,
+      time: options.time || Date.now(),
+      data,
+      message,
     };
 
-    if (this.options.enabled) {
-      let log = message;
-      if (!(message instanceof Log)) {
-        log = new Log(message, data, level, channel, time, user);
-      }
+    if (!this.options.enabled) return;
 
-      return this._notifiers
-        .forEach(notifier => {
-          if (notifier.canOutput(level) && notifier.options.active) {
-            if (this.options.preNotify && typeof this.options.preNotify === 'function') {
-              this.options.preNotify(log, notifier);
-            }
-            if (
-              this.options.ignore &&
-              typeof this.options.ignore === 'function' &&
-              this.options.ignore(log, notifier)
-            ) return;
-
-            notifier.notify(log);
-          }
-        });
+    let log = message;
+    if (!(message instanceof Log)) {
+      log = Log.fromObject(opts);
     }
+
+    this._notifiers
+      .forEach(notifier => {
+        if (!notifier.canOutput(log) || !notifier.options.enabled) {
+          return;
+        }
+
+        if (isFunction(this.options.preNotify)) {
+          this.options.preNotify(log, notifier);
+        }
+
+        if (
+          isFunction(this.options.ignore) &&
+          this.options.ignore(log, notifier)
+        ) return;
+
+        notifier.notify(log);
+      });
 
     return this;
   }
@@ -5524,8 +5547,8 @@ class Logger {
   }
 
   static get(opts = 'default', args = {}) {
-    let notifier = Notifier.get(opts, args);
-    if (typeof opts === 'string' && notifier) {
+    let notifier;
+    if (typeof opts === 'string' && (notifier = Notifier.get(opts, args))) {
       args.notifiers = [notifier];
       return new Logger(args);
     } else if (typeof opts === 'object') {
@@ -5544,14 +5567,14 @@ class Logger {
     for (let logger of loggers) {
       if (!(logger instanceof Logger)) {
         throw new Error('loggers must be an array of loggers');
-      } else {
-        if (opts.mergeOptions === true) {
-          options = Object.assign(options, logger.options);
-        }
+      }
 
-        if (opts.mergeNotifiers === true) {
-          notifiers.push(...logger._notifiers);
-        }
+      if (opts.mergeOptions === true) {
+        options = Object.assign(options, logger.options);
+      }
+
+      if (opts.mergeNotifiers === true) {
+        notifiers.push(...logger._notifiers);
       }
     }
 
@@ -5579,6 +5602,7 @@ Logger._loggers = {};
 Logger.DefaultOptions = {
   user: os.userInfo ? os.userInfo().username : 'browser',
   ignore: null,
+  preNotify: null,
   level: Severity.DEBUG,
   channel: path.basename(__filename),
   formatter: Formatter.get('detailed'),
@@ -5588,11 +5612,13 @@ Logger.DefaultOptions = {
 
 module.exports = Logger;
 }).call(this,"/src/lib/logger.js")
-},{"./formatter":148,"./log":150,"./notifier":152,"./severity":154,"os":129,"path":130}],152:[function(require,module,exports){
+},{"./formatter":148,"./log":150,"./notifier":152,"./severity":154,"./util":155,"os":129,"path":130}],152:[function(require,module,exports){
 'use strict';
 
 const Severity = require('./severity');
 const Formatter = require('./formatter');
+const Pipe = require('./pipe');
+const { isFunction } = require('./util');
 
 function isConstructor(obj) {
   return !!obj.prototype && !!obj.prototype.constructor.name;
@@ -5614,10 +5640,18 @@ class Notifier {
     this.options.level = Severity.get(this.options.level);
     this.options.color = options.color;
     this.options.lineNumbers = options.lineNumbers;
-    this.options.active = options.active;
+    this.options.enabled = options.enabled;
 
     this.pipes = [];
     this.lineIndex = 0;
+
+    if (options.pipes instanceof Array) {
+      options.pipes.forEach((pipe, i) => {
+        if (!(pipe instanceof Pipe)) {
+          throw new Error(`ERROR: "options.pipes" should be an array of Pipes, got ${pipe} instead at index ${i}`);
+        }
+      });
+    }
 
     if (!this.options.formatter) {
       this.formatter('detailed');
@@ -5626,12 +5660,19 @@ class Notifier {
     }
   }
 
-  canOutput(level) {
-    return this.options.level.canLog(level);
+  canOutput(log) {
+    const { level, ignore } = this.options;
+    const canLogLevel = level.canLog(log.level);
+    const isIgnored = (ignore && typeof ignore === 'function' && ignore(log));
+
+    return [
+      canLogLevel,
+      !isIgnored,
+    ].reduce((prev, curr) => curr);
   }
 
-  active(active) {
-    this.options.active = active;
+  enabled(enabled) {
+    this.options.enabled = enabled;
     return this;
   }
 
@@ -5661,11 +5702,15 @@ class Notifier {
   }
 
   notify(log) {
-    let { formatter, color } = this.options;
+    let { formatter, color, preNotify } = this.options;
     let output = formatter.formatLog(log, { color: color });
 
     if (color) {
       output = formatter.color(output);
+    }
+
+    if (isFunction(preNotify)) {
+      preNotify(log);
     }
 
     this.output(output, log);
@@ -5724,12 +5769,12 @@ Notifier._notifiers = {};
 
 Notifier.DefaultOptions = {
   color: false,
-  active: true
+  enabled: true
 };
 
 
 module.exports = Notifier;
-},{"./formatter":148,"./severity":154}],153:[function(require,module,exports){
+},{"./formatter":148,"./pipe":153,"./severity":154,"./util":155}],153:[function(require,module,exports){
 'use strict';
 class Pipe {
   constructor(severity, filepath) {
@@ -5810,6 +5855,12 @@ Severity._severities = {};
 
 module.exports = Severity;
 },{}],155:[function(require,module,exports){
+function isFunction(val) {
+    return val && val.apply !== undefined; //  typeof val === 'function';
+}
+
+module.exports.isFunction = isFunction;
+},{}],156:[function(require,module,exports){
 
 function plugin(loggin) {
     const { Formatter } = loggin;
@@ -5910,7 +5961,7 @@ function plugin(loggin) {
 };
 
 module.exports = plugin;
-},{}],156:[function(require,module,exports){
+},{}],157:[function(require,module,exports){
 
 function plugin(loggin) {
     const { Severity } = loggin;
@@ -5928,7 +5979,7 @@ function plugin(loggin) {
 };
 
 module.exports = plugin;
-},{}],157:[function(require,module,exports){
+},{}],158:[function(require,module,exports){
 
 function plugin(loggin) {
     const { Notifier, Pipe } = loggin;
