@@ -5994,14 +5994,13 @@ function plugin(loggin) {
         }
     }
 
-    class RemoteNotifier extends Notifier {
+    class HttpNotifier extends Notifier {
         constructor(options) {
-            super(options, 'remote');
+            super(options, 'http');
             this.headers = this.options.headers || {};
         }
 
         async output(logMsg, log) {
-            console.log(this.options.url);
             return await fetch(this.options.url, {
                 method: 'POST',
                 headers: this.headers,
@@ -6014,7 +6013,7 @@ function plugin(loggin) {
     }
 
     Notifier.register('Console', ConsoleNotifier);
-    Notifier.register('Http', RemoteNotifier);
+    Notifier.register('Http', HttpNotifier);
 };
 
 module.exports = plugin;
