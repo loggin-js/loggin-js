@@ -33,6 +33,59 @@ If you want to log easily or want to create some complex loggin system, this is 
 [🔧 Demo](https://runkit.com/nombrekeff/loggin-js-demo-1)   
 [📓 Wiki](https://github.com/loggin-js/loggin-js/wiki)
 
+## Table Of Content <!-- omit in toc -->
+
+<details>
+  <summary><a href="#Bump-to-v1x">Bump to <code>v1.x</code></a></summary>
+
+  - [Considerations](#Considerations)
+  - [Improvements](#Improvements)
+</details>
+<details>
+  <summary><a href="#Features">Features</a></summary>
+</details>
+<details>
+  <summary><a href="#Installing">Installing</a></summary>
+</details>
+<details>
+  <summary><a href="#Importing">Importing</a></summary>
+  
+  - [Node](#Node)
+  - [ES6 Import](#ES6-Import)
+  - [Browser](#Browser)
+</details>
+<details open>
+  <summary><a href="#Getting-Started">Getting Started</a></summary>
+  
+  - [Creating Loggers](#Creating-loggers)
+  - [Configuring Loggers](#Configuring-loggers)
+    - [Formatting](#Formatting)
+    - [Adding Notifiers](#Adding-notifiers)
+    - [Accessing Notifiers](#Accessing-notifiers)
+    - [Modifying Options](#Modifying-options)
+    - [Setting the Level](#Setting-the-level)
+  - [Customizing Notifiers/Formatters/...](#Customizing-NotifiersFormatters)
+  - [Ignoring Logs](#Ignoring-Logs)
+</details>
+<details>
+  <summary><a href="#Examples">Examples</a></summary>
+  
+  - [Simple Example](#Simple-example)
+  - [Advanced Example](#Advanced-example)
+</details>
+<details>
+  <summary><a href="#Oficial-plugins">Oficial plugins</a></summary>
+</details>
+<details>
+  <summary><a href="#Migrating-from-v1x">Migrating from <code>v1.x</code></a></summary>
+  
+  - [Example 1](#Example-1)
+  - [Example 2](#Example-2)
+</details>
+<details>
+  <summary><a href="#Contributing">Contributing</a></summary>
+</details>
+
 ### Installing
 ```bash
 $ npm i loggin-js

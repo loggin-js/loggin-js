@@ -1,6 +1,6 @@
 
 function plugin(loggin) {
-    const { Notifier, Pipe } = loggin;
+    const { Notifier } = loggin;
 
     class ConsoleNotifier extends Notifier {
         constructor(options) {

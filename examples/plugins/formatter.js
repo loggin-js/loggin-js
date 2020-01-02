@@ -1,11 +1,9 @@
-const loggin = require('../../index'); // require('loggin-js');
-
 /**
  * @param {loggin} loggin 
  */
 function plugin(loggin) {
-    const { Severity, Logger, Notifier, Formatter } = loggin;
-    let formatter = Formatter.register(
+    const { Formatter } = loggin;
+    Formatter.register(
         'CUSTOM',
         '[{time} {user}] - {level} - {message} {data}', {
             props: {
@@ -27,11 +25,6 @@ function plugin(loggin) {
             }
         }
     );
-
-    // Formatter.replaceables.push({
-    //     regexp: /SILLY|SIL|CUS|CUST|<%m[^>]+>/g,
-    //     fn: (str) => clicolor.magentaBright(str).replace(/<%m(.+)>/g, '$1')
-    // });
 }
 
 module.exports = plugin;

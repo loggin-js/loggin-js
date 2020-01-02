@@ -14,7 +14,7 @@ class Notifier {
     options = {
       ...Notifier.DefaultOptions,
       ...options
-    }
+    };
 
     if (options.level && !(options.level instanceof Severity)) {
       throw new Error(`ERROR: "options.level" should be an instance of Severity. at: options.level = ${options.level}`);
