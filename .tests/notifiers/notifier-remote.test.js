@@ -5,7 +5,7 @@ const loggin = require('../..');
 const http = require('http');
 const path = require('path');
 
-describe('loggin.Notifier.Remote tests', () => {
+describe('loggin.Notifier.Http tests', () => {
     let httpServer = null;
     afterAll((done) => {
         console.log('ajsdkas');
@@ -20,17 +20,17 @@ describe('loggin.Notifier.Remote tests', () => {
     });
 
     it(`should be registered`, () => {
-        expect(loggin.Notifier.Remote).toBeDefined();
+        expect(loggin.Notifier.Http).toBeDefined();
     });
 
     it(`should construct notifier correctly`, () => {
         expect(() => {
-            let notif = new loggin.Notifier.Remote();
+            let notif = new loggin.Notifier.Http();
         }).not.toThrow();
     });
 
-    it(`should log correctly to remote`, (done) => {
-        const notif = loggin.notifier('remote', { url: 'http://localhost:3333/loggin-js:log' });
+    it(`should log correctly to http`, (done) => {
+        const notif = loggin.notifier('http', { url: 'http://localhost:3333/loggin-js:log' });
 
         httpServer = http.createServer((req, res) => {
             console.log('req', req.url);

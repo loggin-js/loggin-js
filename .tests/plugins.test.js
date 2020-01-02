@@ -4,7 +4,7 @@
 
 const { Notifier, Logger, Formatter, Severity } = require('../src/node');
 
-const AdditionalNotifiers = ['Console', 'File', 'Remote', 'Memory'];
+const AdditionalNotifiers = ['Console', 'File', 'Http', 'Memory'];
 const AdditionalLoggers = AdditionalNotifiers.map(el => el.toLocaleLowerCase());
 const AdditionalFormatters = ['SHORT', 'MEDIUM', 'LONG', 'DETAILED', 'MINIMAL', 'JSON'];
 const AdditionalSeverities = ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR', 'WARNING', 'NOTICE', 'INFO', 'DEBUG', 'SILLY',];
