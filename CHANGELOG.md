@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/loggin-js/loggin-js/compare/v1.5.2...v1.7.0) (2020-01-02)
+
+
+### Features
+
+* **Deprecated** RemoteNotifier in favor of HttpNotifier ([4c41167](https://github.com/loggin-js/loggin-js/commit/4c41167353d51e4a3c19cde7a5bb6acad7d2b744))
+* Added **Http** notifier for **browser**, renamed Remote notifier to Http ([2627db6](https://github.com/loggin-js/loggin-js/commit/2627db6aaa049e0613489ade38b0920cc4be8b5f))
+
+
+### Bug Fixes
+* **AdditionalNotifiers:** added correct names to notifiers ([c40aef4](https://github.com/loggin-js/loggin-js/commit/c40aef4803de4e689eb674d76c304b9af5f68d52), [425233c](https://github.com/loggin-js/loggin-js/commit/425233c42067f2b0c3babdbe38cbd97e27e7b420))
+* **Logger:** fixed superfluous argument passed into new Logger in Logger.clone ([e793865](https://github.com/loggin-js/loggin-js/commit/e79386594df18982709f7c9f2b3195a1e66c3e29))
+
 ### [1.6.0](https://github.com/loggin-js/loggin-js/compare/v1.5.2...v1.6.0) (2019-12-21)
 
 

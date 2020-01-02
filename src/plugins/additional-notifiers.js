@@ -146,9 +146,9 @@ function plugin(loggin) {
         }
     }
 
-    class RemoteNotifier extends Notifier {
+    class HttpNotifier extends Notifier {
         constructor(options) {
-            super(options, 'remote');
+            super(options, 'http');
             this.headers = this.options.headers || {};
             this.url = new url.URL(this.options.url || 'https://localhost:3000');
 
@@ -170,6 +170,14 @@ function plugin(loggin) {
                     log
                 }
             });
+        }
+    }
+
+    class RemoteNotifier extends HttpNotifier {
+        constructor(options) {
+            super(options);
+            this.name = 'remote';
+            console.warn(`[Loggin'JS] RemoteNotifier (remote) is being deprecated, it's renamed to HttpNotifier <http>, it will be removed in v2.0.0`);
         }
     }
 
@@ -226,6 +234,7 @@ function plugin(loggin) {
 
     Notifier.register('Console', ConsoleNotifier);
     Notifier.register('File', FileNotifier);
+    Notifier.register('Http', HttpNotifier);
     Notifier.register('Remote', RemoteNotifier);
     Notifier.register('Memory', MemoryNotifier);
 };
