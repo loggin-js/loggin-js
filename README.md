@@ -179,7 +179,7 @@ Comming:
 | **Feature**      | Browser | Node |
 | ---------------- | ------- | ---- |
 | File Notifier    | 👷      | ✔️   |
-| Remote Notifier  | 👷      | ✔️   |
+| Remote Notifier  | ✔️      | ✔️   |
 | Console Notifier | ✔️      | ✔️   |
 | Color            | 🔍      | ✔️   |
 | Plugins          | 🔍      | ✔️   |
