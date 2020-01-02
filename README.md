@@ -30,9 +30,8 @@ If you want to log easily or want to create some complex loggin system, this is 
 
 ****
 
-? Check out a demo [here](https://runkit.com/nombrekeff/loggin-js-demo-1) 
-
-? Check the [wiki](https://github.com/loggin-js/loggin-js/wiki) for more detailed documentation.
+[🔧 Demo](https://runkit.com/nombrekeff/loggin-js-demo-1)   
+[📓 Wiki](https://github.com/loggin-js/loggin-js/wiki)
 
 ### Installing
 ```bash
