@@ -1,4 +1,3 @@
-
 function plugin(loggin) {
     const { Notifier } = loggin;
 
@@ -21,7 +20,26 @@ function plugin(loggin) {
         }
     }
 
+    class RemoteNotifier extends Notifier {
+        constructor(options) {
+            super(options, 'remote');
+            this.headers = this.options.headers || {};
+        }
+
+        async output(logMsg, log) {
+            return await fetch(this.options.url, {
+                method: 'POST',
+                headers: this.headers,
+                body: JSON.stringify({
+                    message: logMsg,
+                    log
+                })
+            });
+        }
+    }
+
     Notifier.register('Console', ConsoleNotifier);
+    Notifier.register('Http', RemoteNotifier);
 };
 
 module.exports = plugin;

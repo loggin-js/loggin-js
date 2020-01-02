@@ -5298,14 +5298,6 @@ class Logger {
       notifiers = [Notifier.get('default')];
     }
 
-    this._level;
-    this._user;
-    this._channel;
-    this._enabled;
-    this._color;
-    this._formatter;
-    this._lineNumbers;
-
     // .setNotifiers must be done before setting other options
     // as some of them propagate down options to the notifiers
     this.setNotifiers(notifiers);
@@ -5629,7 +5621,7 @@ class Notifier {
     options = {
       ...Notifier.DefaultOptions,
       ...options
-    }
+    };
 
     if (options.level && !(options.level instanceof Severity)) {
       throw new Error(`ERROR: "options.level" should be an instance of Severity. at: options.level = ${options.level}`);
@@ -5980,9 +5972,8 @@ function plugin(loggin) {
 
 module.exports = plugin;
 },{}],158:[function(require,module,exports){
-
 function plugin(loggin) {
-    const { Notifier, Pipe } = loggin;
+    const { Notifier } = loggin;
 
     class ConsoleNotifier extends Notifier {
         constructor(options) {
@@ -6003,7 +5994,27 @@ function plugin(loggin) {
         }
     }
 
+    class RemoteNotifier extends Notifier {
+        constructor(options) {
+            super(options, 'remote');
+            this.headers = this.options.headers || {};
+        }
+
+        async output(logMsg, log) {
+            console.log(this.options.url);
+            return await fetch(this.options.url, {
+                method: 'POST',
+                headers: this.headers,
+                body: JSON.stringify({
+                    message: logMsg,
+                    log
+                })
+            });
+        }
+    }
+
     Notifier.register('Console', ConsoleNotifier);
+    Notifier.register('Http', RemoteNotifier);
 };
 
 module.exports = plugin;

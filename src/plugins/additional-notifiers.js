@@ -226,7 +226,7 @@ function plugin(loggin) {
 
     Notifier.register('Console', ConsoleNotifier);
     Notifier.register('File', FileNotifier);
-    Notifier.register('Remote', RemoteNotifier);
+    Notifier.register('Http', RemoteNotifier);
     Notifier.register('Memory', MemoryNotifier);
 };
 
