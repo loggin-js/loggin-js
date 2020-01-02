@@ -139,6 +139,9 @@ logger
     
 loggin.debug('Check this log out!!', { foo: 'var' });
 ```
+> There are a couple of default Notifiers available: 
+> * **NodeJS**: `file`, `console`, `http`, `memory` 
+> * **Browser**: `console`, `http`
 
 Chek out the [wiki](https://github.com/loggin-js/loggin-js/wiki) for a more detailed guide. 
 
