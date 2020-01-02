@@ -23,14 +23,6 @@ class Logger {
       notifiers = [Notifier.get('default')];
     }
 
-    this._level;
-    this._user;
-    this._channel;
-    this._enabled;
-    this._color;
-    this._formatter;
-    this._lineNumbers;
-
     // .setNotifiers must be done before setting other options
     // as some of them propagate down options to the notifiers
     this.setNotifiers(notifiers);

@@ -1,11 +1,10 @@
-const loggin = require('../../index'); // require('loggin-js');
 const clicolor = require('cli-color');
 
 /**
  * @param {loggin} loggin 
  */
 function plugin(loggin) {
-    const { Severity, Logger, Notifier, Formatter } = loggin;
+    const { Severity, Logger, Formatter } = loggin;
     console.log('initing plugin');
 
     Severity.register(9, 'CUSTOM');
