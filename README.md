@@ -72,7 +72,7 @@ If you want to log easily or want to create some complex loggin system, this is 
 
 ****
 
-
+Check out a demo [here](https://runkit.com/nombrekeff/loggin-js-demo-1) 
 
 
 ## Table Of Content <!-- omit in toc -->
