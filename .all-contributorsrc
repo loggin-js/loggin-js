@@ -1,0 +1,27 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "nombrekeff",
+      "name": "Manolo Edge",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/17043260?v=4",
+      "profile": "https://shop.epictv.com?code=f24644",
+      "contributions": [
+        "code",
+        "ideas",
+        "maintenance",
+        "test"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "loggin-js",
+  "projectOwner": "loggin-js",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
