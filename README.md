@@ -1,4 +1,7 @@
 <div align="center">
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # Loggin'JS ![](https://img.shields.io/badge/PRs-welcome-green.svg) <!-- omit in toc -->
 
@@ -251,3 +254,22 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 [docs:customizing]: https://github.com/loggin-js/loggin-js/wiki/logger#customizing
 [docs:premades]: https://github.com/loggin-js/loggin-js/wiki/premades
 [docs:plugins]: https://github.com/loggin-js/loggin-js/wiki/Plugins
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://shop.epictv.com?code=f24644"><img src="https://avatars3.githubusercontent.com/u/17043260?v=4" width="100px;" alt=""/><br /><sub><b>Manolo Edge</b></sub></a><br /><a href="https://github.com/loggin-js/loggin-js/commits?author=nombrekeff" title="Code">💻</a> <a href="#ideas-nombrekeff" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-nombrekeff" title="Maintenance">🚧</a> <a href="https://github.com/loggin-js/loggin-js/commits?author=nombrekeff" title="Tests">⚠️</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
