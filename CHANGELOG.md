@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.1](https://github.com/loggin-js/loggin-js/compare/v1.5.2...v1.7.1) (2020-01-18)
+
+
+### Bug Fixes
+
+* **Logger:** fixed superfluous argument passed into new Logger in Logger.clone ([e793865](https://github.com/loggin-js/loggin-js/commit/e79386594df18982709f7c9f2b3195a1e66c3e29))
+* adding deprecated warning for browser version in import, and in README ([960011f](https://github.com/loggin-js/loggin-js/commit/960011f7f1648a75e897f9f7c47b202bcbc5f2ec))
+
 ## [1.7.0](https://github.com/loggin-js/loggin-js/compare/v1.5.2...v1.7.0) (2020-01-02)
 
 
