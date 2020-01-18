@@ -34,7 +34,7 @@ function mkDirByPathSync(targetDir, { isRelativeToScript = false } = {}) {
 }
 
 function plugin(loggin) {
-    const { Notifier, Pipe } = loggin;
+    const { Notifier, Pipe, Logger } = loggin;
 
     class ConsoleNotifier extends Notifier {
         constructor(options) {

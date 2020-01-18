@@ -148,6 +148,10 @@ class Notifier {
 
     return Notifier;
   }
+
+  static defineMethod(name, fn) {
+    Object.defineProperty(Notifier.prototype, name, { value: fn, writable: false });
+  }
 }
 
 Notifier._notifiers = {};

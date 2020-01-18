@@ -170,88 +170,6 @@ class Logger {
     return this;
   }
 
-
-  debug(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.DEBUG,
-      ...opts
-    });
-
-    return this;
-  }
-
-  warning(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.WARNING,
-      ...opts
-    });
-
-    return this;
-  }
-
-  alert(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.ALERT,
-      ...opts
-    });
-
-    return this;
-  }
-
-  emergency(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.EMERGENCY,
-      ...opts
-    });
-
-    return this;
-  }
-
-  critical(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.CRITICAL,
-      ...opts
-    });
-
-    return this;
-  }
-
-  error(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.ERROR,
-      ...opts
-    });
-
-    return this;
-  }
-
-  notice(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.NOTICE,
-      ...opts
-    });
-
-    return this;
-  }
-
-  info(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.INFO,
-      ...opts
-    });
-
-    return this;
-  }
-
-  silly(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.SILLY,
-      ...opts
-    });
-
-    return this;
-  }
-
   static search(value) {
     for (let key in Logger._loggers) {
       let logger = Logger._loggers[key];
@@ -312,6 +230,14 @@ class Logger {
     Logger[name] = Logger._loggers[name] = notifierName;
 
     return Logger;
+  }
+
+  static defineMethod(name, fn) {
+    Object.defineProperty(Logger.prototype, name, { value: fn, writable: false });
+  }
+
+  static defineStaticMethod(name, fn) {
+    Object.defineProperty(Logger, name, { value: fn, writable: false });
   }
 }
 
