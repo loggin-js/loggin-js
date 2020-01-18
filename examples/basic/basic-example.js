@@ -10,7 +10,7 @@ const loggin = require('../../');
 // ...
 // See https://github.com/loggin-js/loggin-js/wiki/type.LoggerOptions#interface
 const logger = loggin.logger({
-  level: loggin.severity('debug'),
+  level: loggin.severity('info'),
   color: true,
   channel: 'demo-1',
   formatter: 'long'
@@ -21,6 +21,8 @@ const logger = loggin.logger({
 logger.level('debug');
 logger.color(false);
 logger.user('root');
+
+logger.debug('debug');
 
 // Available predefined log methods
 // See https://github.com/loggin-js/loggin-js/wiki/Logger#interface

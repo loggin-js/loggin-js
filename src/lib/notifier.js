@@ -53,7 +53,7 @@ class Notifier {
     return [
       canLogLevel,
       !isIgnored,
-    ].reduce((prev, curr) => curr);
+    ].reduce((prev, curr) => prev && curr);
   }
 
   enabled(enabled) {
@@ -103,11 +103,11 @@ class Notifier {
     return this;
   }
 
-  output(log) {
+  output() {
     return;
   }
 
-  pipe(severity, cb) {
+  pipe() {
     console.warn('WARN - Pipe has not been configured in this notifier');
   }
 

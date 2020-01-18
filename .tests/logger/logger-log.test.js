@@ -8,7 +8,8 @@ const MockNotifier = require('../mocks/notifier.mock');
 describe('loggin.Logger logging tests', () => {
     let notifier = new MockNotifier();
     let logger = loggin.logger({
-        notifiers: [notifier]
+        notifiers: [notifier],
+        level: loggin.severity('silly')
     });
 
     it(`should output correctly`, () => {

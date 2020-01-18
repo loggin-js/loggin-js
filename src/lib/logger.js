@@ -2,7 +2,6 @@
 
 const os = require('os');
 const path = require('path');
-
 const Log = require('./log');
 const Notifier = require('./notifier');
 const Severity = require('./severity');
