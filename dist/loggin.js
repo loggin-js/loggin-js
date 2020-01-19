@@ -4942,6 +4942,8 @@ LogginJS.use(additionalSeverities);
 LogginJS.use(additionalNotifiers);
 LogginJS.use(additionalFormatters);
 
+console.warn('[DEPRECATED] Loggin\'JS for the browser will be deprecated as of version 2.0.0');
+
 const loggin = Object.assign(LogginJS.logger('default'), LogginJS);
 module.exports = global.LogginJS = loggin;
 
@@ -5277,7 +5279,6 @@ module.exports = Log;
 
 const os = require('os');
 const path = require('path');
-
 const Log = require('./log');
 const Notifier = require('./notifier');
 const Severity = require('./severity');
@@ -5660,7 +5661,7 @@ class Notifier {
     return [
       canLogLevel,
       !isIgnored,
-    ].reduce((prev, curr) => curr);
+    ].reduce((prev, curr) => prev && curr);
   }
 
   enabled(enabled) {
@@ -5710,11 +5711,11 @@ class Notifier {
     return this;
   }
 
-  output(log) {
+  output() {
     return;
   }
 
-  pipe(severity, cb) {
+  pipe() {
     console.warn('WARN - Pipe has not been configured in this notifier');
   }
 
