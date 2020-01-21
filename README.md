@@ -1,6 +1,6 @@
 <div align="center">
   
-# Loggin'JS ![](https://img.shields.io/badge/PRs-welcome-green.svg) <!-- omit in toc -->
+![](https://vectr.com/nombrekeff/e709ORPLB.svg?width=320&height=320&select=b15wIepEy7) 
 
 [![NPM Version][npm-image]][npm-url]
 [![Downloads][downloads-badge]][downloads-link]
