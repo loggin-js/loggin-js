@@ -42,7 +42,10 @@ If you want to log easily or want to create some complex loggin system, this mig
 - [Examples](#examples)
 - [Plugins](#plugins)
 - [Contributing](#contributing)
-  - [Contributors ✨](#contributors-)
+
+Usefull links:
+- [Migrating to `v1.x`](https://github.com/loggin-js/loggin-js/wiki/Migrating-to-%60v1.x%60)
+- [Custom Loggers](https://github.com/loggin-js/loggin-js/wiki/Getting-Started#creating-custom-loggers)
 
 ### Installing
 ```bash
@@ -141,7 +144,7 @@ Coming:
 
 Please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
-### Contributors ✨
+### Contributors ✨  <!-- omit in toc -->
 *Initial work* by [nombrekeff](https://github.com/nombrekeff)
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
