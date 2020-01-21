@@ -16,6 +16,8 @@ An easy and customizable logger for NodeJS and the Browser.
 If you want to log easily or want to create some complex loggin system, this is the tool for you!
 </p>
 
+[`🔧 Demo`][demo]
+[`📓 Wiki`][wiki]
 
 [`🔗 Logger`][docs:logger]
 [`🔗 Notifier`][docs:notifier]
@@ -25,9 +27,8 @@ If you want to log easily or want to create some complex loggin system, this is 
 [`🔗 .logger`][docs:helper:logger]
 [`🔗 .notifier`][docs:helper:notifier]
 [`🔗 .severity`][docs:helper:severity]
-[`🔗 .formatter`][docs:helper:formatter]  
-[`🔧 Demo`][demo]
-[`📓 Wiki`][wiki]
+[`🔗 .formatter`][docs:helper:formatter]
+
 </div>
 
 ****
