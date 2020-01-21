@@ -143,6 +143,7 @@ Coming:
 > First off, thank you for considering contributing to Loggin'JS.
 
 Please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+There is also a public [slack channel](https://loggin-js.slack.com/archives/CT05VPRRC) available.
 
 ### Contributors ✨  <!-- omit in toc -->
 *Initial work* by [nombrekeff](https://github.com/nombrekeff)
