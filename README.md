@@ -204,6 +204,10 @@ Comming:
 
 Please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
+
+<img src="http://www.xgem.com.ar/wp-content/uploads/2017/09/slack-video-example.png" width="25"/> There is a [slack channel](https://app.slack.com/client/TSJ7ERYCS/CSZ78LQMC) available, If you want to be added please contact me at manoloedge96@gmail.com and I will add you!
+
+
 ## Versioning <!-- omit in toc -->
 We use [standard-version](https://github.com/conventional-changelog/standard-version) to manage releasing and CHANGELOG generation (with semver and [conventional commit messages](https://www.conventionalcommits.org/en/v1.0.0/)) using [@conventional-changelog/standard-version](https://github.com/conventional-changelog/standard-version). For the versions available, see the [tags on this repository](https://github.com/loggin-js/loggin-js/tags). 
 
