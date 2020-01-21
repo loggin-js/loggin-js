@@ -41,57 +41,14 @@ If you want to log easily or want to create some complex loggin system, this is 
 
 
 ## Table Of Content <!-- omit in toc -->
-
-<details>
-  <summary><a href="#Bump-to-v1x">Bump to <code>v1.x</code></a></summary>
-
-  - [Considerations](#Considerations)
-  - [Improvements](#Improvements)
-</details>
-<details>
-  <summary><a href="#Features">Features</a></summary>
-</details>
-<details>
-  <summary><a href="#Installing">Installing</a></summary>
-</details>
-<details>
-  <summary><a href="#Importing">Importing</a></summary>
-  
-  - [Node](#Node)
-  - [ES6 Import](#ES6-Import)
-  - [Browser](#Browser)
-</details>
-<details open>
-  <summary><a href="#Getting-Started">Getting Started</a></summary>
-  
-  - [Creating Loggers](#Creating-loggers)
-  - [Configuring Loggers](#Configuring-loggers)
-    - [Formatting](#Formatting)
-    - [Adding Notifiers](#Adding-notifiers)
-    - [Accessing Notifiers](#Accessing-notifiers)
-    - [Modifying Options](#Modifying-options)
-    - [Setting the Level](#Setting-the-level)
-  - [Customizing Notifiers/Formatters/...](#Customizing-NotifiersFormatters)
-  - [Ignoring Logs](#Ignoring-Logs)
-</details>
-<details>
-  <summary><a href="#Examples">Examples</a></summary>
-  
-  - [Simple Example](#Simple-example)
-  - [Advanced Example](#Advanced-example)
-</details>
-<details>
-  <summary><a href="#Oficial-plugins">Oficial plugins</a></summary>
-</details>
-<details>
-  <summary><a href="#Migrating-from-v1x">Migrating from <code>v1.x</code></a></summary>
-  
-  - [Example 1](#Example-1)
-  - [Example 2](#Example-2)
-</details>
-<details>
-  <summary><a href="#Contributing">Contributing</a></summary>
-</details>
+- [News](#news)
+  - [Installing](#installing)
+  - [Importing](#importing)
+  - [Getting Started](#getting-started)
+- [Examples](#examples)
+- [Plugins](#plugins)
+- [Contributing](#contributing)
+  - [Contributors ✨](#contributors-)
 
 ### Installing
 ```bash
@@ -107,7 +64,8 @@ const loggin = require('loggin-js');
 import * as loggin from 'loggin-js';
 ```
 
-### Browser
+
+#### Browser <!-- omit in toc -->
 > #### !! NOTICE !!
 > Loggin'JS can be used in the browser, but it's still in it's early stages, and the API may change or have errors. 
 > It is also limited. For now, only the `console` notifier works. Color is not working either!
@@ -126,7 +84,7 @@ import * as loggin from 'loggin-js';
 <script src="https://cdn.jsdelivr.net/npm/loggin-js@latest/dist/loggin.js"></script>
 ```
 
-### Basic Usage
+### Getting Started
 The default logger is the simplest way to use Loggin'JS.
 
 ```js
@@ -165,20 +123,20 @@ Here are some usage examples:
 
 > If you want to add an example, or find some error leave an issue or send in a PR.
 
-## Oficial Plugins
+## Plugins
 These are a couple of official plugins. If you make a plugin and want it to appear here, 
 you can contact me, and if it meets my standards I will add it here!!
 * [MongoDB](https://github.com/loggin-js/loggin-js-mongodb)
 * [Express](https://github.com/loggin-js/loggin-js-express)
 * [WebSocket](https://github.com/loggin-js/loggin-js-ws)
 
-Comming:
+Coming:
 * Telegram
 * Mail - maybe?
 * Sentry, and similar
 * ...
 
-## Features
+## Features  <!-- omit in toc -->
 * 🔍 - Research or planing.
 * 👷 - Working beeing done.
 * ✔️ - Fully implemented.
@@ -186,28 +144,27 @@ Comming:
 | **Feature**      | Browser | Node |
 | ---------------- | ------- | ---- |
 | File Notifier    | 👷      | ✔️   |
-| Remote Notifier  | ✔️      | ✔️   |
-| Console Notifier | ✔️      | ✔️   |
+| Remote Notifier  | ✔️       | ✔️   |
+| Console Notifier | ✔️       | ✔️   |
 | Color            | 🔍      | ✔️   |
 | Plugins          | 🔍      | ✔️   |
 
 
-## Coverage
-[![Coverage][coverage-lines-badge]]() 
-[![Coverage][coverage-functions-badge]]() 
-[![Coverage][coverage-statements-badge]]() 
-[![Coverage][coverage-branches-badge]]() 
-
+## Coverage  <!-- omit in toc -->
+![Coverage][coverage-lines-badge]
+![Coverage][coverage-functions-badge]
+![Coverage][coverage-statements-badge]
+![Coverage][coverage-branches-badge]
 
 ## Contributing
 > First off, thank you for considering contributing to Loggin'JS.
 
 Please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
-## Versioning <!-- omit in toc -->
+### Versioning <!-- omit in toc -->
 We use [standard-version](https://github.com/conventional-changelog/standard-version) to manage releasing and CHANGELOG generation (with semver and [conventional commit messages](https://www.conventionalcommits.org/en/v1.0.0/)) using [@conventional-changelog/standard-version](https://github.com/conventional-changelog/standard-version). For the versions available, see the [tags on this repository](https://github.com/loggin-js/loggin-js/tags). 
 
-## Contributors ✨
+### Contributors ✨
 *Initial work* by [nombrekeff](https://github.com/nombrekeff)
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
