@@ -18,7 +18,7 @@ If you want to log easily or want to create some complex loggin system, this mig
 
 
 [`🔧 Demo`][demo]
-[`📓 Wiki`][wiki]
+[`📓 Wiki`][wiki]  
 [`🔗 Logger`][docs:logger]
 [`🔗 Notifier`][docs:notifier]
 [`🔗 Log`][docs:log]
