@@ -16,6 +16,9 @@ An easy and customizable logger for NodeJS and the Browser.
 If you want to log easily or want to create some complex loggin system, this is the tool for you!
 </p>
 
+****
+
+
 [`🔧 Demo`][demo]
 [`📓 Wiki`][wiki]
 
