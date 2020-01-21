@@ -25,14 +25,13 @@ If you want to log easily or want to create some complex loggin system, this is 
 [`🔗 .logger`][docs:helper:logger]
 [`🔗 .notifier`][docs:helper:notifier]
 [`🔗 .severity`][docs:helper:severity]
-[`🔗 .formatter`][docs:helper:formatter]
-
+[`🔗 .formatter`][docs:helper:formatter]  
+[`🔧 Demo`][demo]
+[`📓 Wiki`][wiki]
 </div>
 
 ****
 
-[🔧 Demo](https://runkit.com/nombrekeff/loggin-js-demo-1)   
-[📓 Wiki](https://github.com/loggin-js/loggin-js/wiki)
 
 ## News <!-- omit in toc -->
 * **Browser** support is beeing **deprecated**, development will be discontinued and will be removed from Loggin'JS in version `2.0.0`. It's beeing deprecated because it's limiting me on the features I could be adding to the NodeJS version.
@@ -165,9 +164,15 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 ## License <!-- omit in toc -->
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
+
+
+
+
 <!-- Links -->
 [npm-image]: https://img.shields.io/npm/v/loggin-js.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/loggin-js
+[demo]: https://runkit.com/nombrekeff/loggin-js-demo-1
+[wiki]: https://github.com/loggin-js/loggin-js/wiki
 
 [travis-image]: https://img.shields.io/travis/nombrekeff/loggin-js.svg?style=flat-square
 [travis-url]: https://travis-ci.org/nombrekeff/loggin-js
