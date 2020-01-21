@@ -11,15 +11,14 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
   
-<p>An easy and customizable logger for NodeJS and the Browser.</p>
-<p>If you want to log easily or want to create some complex loggin system, this might be the tool for you!</p>
+<p>An easy and customizable logger for NodeJS and the Browser.
+If you want to log easily or want to create some complex loggin system, this might be the tool for you!</p>
 
 ****
 
 
 [`🔧 Demo`][demo]
 [`📓 Wiki`][wiki]
-
 [`🔗 Logger`][docs:logger]
 [`🔗 Notifier`][docs:notifier]
 [`🔗 Log`][docs:log]
