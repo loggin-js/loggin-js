@@ -1,6 +1,6 @@
 <div align="center">
   
-# Loggin'JS ![](https://img.shields.io/badge/PRs-welcome-green.svg) <!-- omit in toc -->
+![](https://vectr.com/nombrekeff/e709ORPLB.svg?width=320&height=320&select=b15wIepEy7) 
 
 [![NPM Version][npm-image]][npm-url]
 [![Downloads][downloads-badge]][downloads-link]
@@ -11,12 +11,14 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
   
-<p>
 An easy and customizable logger for NodeJS and the Browser.  
-If you want to log easily or want to create some complex loggin system, this is the tool for you!
-</p>
+If you want to log easily or want to create some complex loggin system, this might be the tool for you!
+
+****
 
 
+[`🔧 Demo`][demo]
+[`📓 Wiki`][wiki]  
 [`🔗 Logger`][docs:logger]
 [`🔗 Notifier`][docs:notifier]
 [`🔗 Log`][docs:log]
@@ -31,67 +33,19 @@ If you want to log easily or want to create some complex loggin system, this is 
 
 ****
 
-[🔧 Demo](https://runkit.com/nombrekeff/loggin-js-demo-1)   
-[📓 Wiki](https://github.com/loggin-js/loggin-js/wiki)
 
-## News
-> **Browser** support is beeing **deprecated**,  
-> development will be discontinued and will be removed from Loggin'JS in version `2.0.0`
-> It's beeing deprecated because it's limiting me on the features I could be adding to the NodeJS version.
-
+## News <!-- omit in toc -->
+* **Browser** support is beeing **deprecated**, development will be discontinued and will be removed from Loggin'JS in version `2.0.0`. It's beeing deprecated because it's limiting me on the features I could be adding to the NodeJS version.
 
 ## Table Of Content <!-- omit in toc -->
+- [Getting Started](#getting-started)
+- [Examples](#examples)
+- [Plugins](#plugins)
+- [Contributing](#contributing)
 
-<details>
-  <summary><a href="#Bump-to-v1x">Bump to <code>v1.x</code></a></summary>
-
-  - [Considerations](#Considerations)
-  - [Improvements](#Improvements)
-</details>
-<details>
-  <summary><a href="#Features">Features</a></summary>
-</details>
-<details>
-  <summary><a href="#Installing">Installing</a></summary>
-</details>
-<details>
-  <summary><a href="#Importing">Importing</a></summary>
-  
-  - [Node](#Node)
-  - [ES6 Import](#ES6-Import)
-  - [Browser](#Browser)
-</details>
-<details open>
-  <summary><a href="#Getting-Started">Getting Started</a></summary>
-  
-  - [Creating Loggers](#Creating-loggers)
-  - [Configuring Loggers](#Configuring-loggers)
-    - [Formatting](#Formatting)
-    - [Adding Notifiers](#Adding-notifiers)
-    - [Accessing Notifiers](#Accessing-notifiers)
-    - [Modifying Options](#Modifying-options)
-    - [Setting the Level](#Setting-the-level)
-  - [Customizing Notifiers/Formatters/...](#Customizing-NotifiersFormatters)
-  - [Ignoring Logs](#Ignoring-Logs)
-</details>
-<details>
-  <summary><a href="#Examples">Examples</a></summary>
-  
-  - [Simple Example](#Simple-example)
-  - [Advanced Example](#Advanced-example)
-</details>
-<details>
-  <summary><a href="#Oficial-plugins">Oficial plugins</a></summary>
-</details>
-<details>
-  <summary><a href="#Migrating-from-v1x">Migrating from <code>v1.x</code></a></summary>
-  
-  - [Example 1](#Example-1)
-  - [Example 2](#Example-2)
-</details>
-<details>
-  <summary><a href="#Contributing">Contributing</a></summary>
-</details>
+Usefull links:
+- [Migrating to `v1.x`](https://github.com/loggin-js/loggin-js/wiki/Migrating-to-%60v1.x%60)
+- [Custom Loggers](https://github.com/loggin-js/loggin-js/wiki/Getting-Started#creating-custom-loggers)
 
 ### Installing
 ```bash
@@ -107,7 +61,8 @@ const loggin = require('loggin-js');
 import * as loggin from 'loggin-js';
 ```
 
-### Browser
+
+#### Browser <!-- omit in toc -->
 > #### !! NOTICE !!
 > Loggin'JS can be used in the browser, but it's still in it's early stages, and the API may change or have errors. 
 > It is also limited. For now, only the `console` notifier works. Color is not working either!
@@ -126,7 +81,7 @@ import * as loggin from 'loggin-js';
 <script src="https://cdn.jsdelivr.net/npm/loggin-js@latest/dist/loggin.js"></script>
 ```
 
-### Basic Usage
+## Getting Started
 The default logger is the simplest way to use Loggin'JS.
 
 ```js
@@ -165,53 +120,32 @@ Here are some usage examples:
 
 > If you want to add an example, or find some error leave an issue or send in a PR.
 
-## Oficial Plugins
+## Plugins
 These are a couple of official plugins. If you make a plugin and want it to appear here, 
 you can contact me, and if it meets my standards I will add it here!!
 * [MongoDB](https://github.com/loggin-js/loggin-js-mongodb)
 * [Express](https://github.com/loggin-js/loggin-js-express)
 * [WebSocket](https://github.com/loggin-js/loggin-js-ws)
 
-Comming:
+Coming:
 * Telegram
 * Mail - maybe?
 * Sentry, and similar
 * ...
 
-## Features
-* 🔍 - Research or planing.
-* 👷 - Working beeing done.
-* ✔️ - Fully implemented.
-
-| **Feature**      | Browser | Node |
-| ---------------- | ------- | ---- |
-| File Notifier    | 👷      | ✔️   |
-| Remote Notifier  | ✔️      | ✔️   |
-| Console Notifier | ✔️      | ✔️   |
-| Color            | 🔍      | ✔️   |
-| Plugins          | 🔍      | ✔️   |
-
-
-## Coverage
-[![Coverage][coverage-lines-badge]]() 
-[![Coverage][coverage-functions-badge]]() 
-[![Coverage][coverage-statements-badge]]() 
-[![Coverage][coverage-branches-badge]]() 
-
+## Coverage  <!-- omit in toc -->
+![Coverage][coverage-lines-badge]
+![Coverage][coverage-functions-badge]
+![Coverage][coverage-statements-badge]
+![Coverage][coverage-branches-badge]
 
 ## Contributing
 > First off, thank you for considering contributing to Loggin'JS.
 
 Please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+There is also a public [slack channel](https://loggin-js.slack.com/archives/CT05VPRRC) available.
 
-
-<img src="http://www.xgem.com.ar/wp-content/uploads/2017/09/slack-video-example.png" width="25"/> There is a [slack channel](https://app.slack.com/client/TSJ7ERYCS/CSZ78LQMC) available, If you want to be added please contact me at manoloedge96@gmail.com and I will add you!
-
-
-## Versioning <!-- omit in toc -->
-We use [standard-version](https://github.com/conventional-changelog/standard-version) to manage releasing and CHANGELOG generation (with semver and [conventional commit messages](https://www.conventionalcommits.org/en/v1.0.0/)) using [@conventional-changelog/standard-version](https://github.com/conventional-changelog/standard-version). For the versions available, see the [tags on this repository](https://github.com/loggin-js/loggin-js/tags). 
-
-## Contributors ✨
+### Contributors ✨  <!-- omit in toc -->
 *Initial work* by [nombrekeff](https://github.com/nombrekeff)
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -235,9 +169,15 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 ## License <!-- omit in toc -->
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
+
+
+
+
 <!-- Links -->
 [npm-image]: https://img.shields.io/npm/v/loggin-js.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/loggin-js
+[demo]: https://runkit.com/nombrekeff/loggin-js-demo-1
+[wiki]: https://github.com/loggin-js/loggin-js/wiki
 
 [travis-image]: https://img.shields.io/travis/nombrekeff/loggin-js.svg?style=flat-square
 [travis-url]: https://travis-ci.org/nombrekeff/loggin-js
