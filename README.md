@@ -34,17 +34,13 @@ If you want to log easily or want to create some complex loggin system, this is 
 [🔧 Demo](https://runkit.com/nombrekeff/loggin-js-demo-1)   
 [📓 Wiki](https://github.com/loggin-js/loggin-js/wiki)
 
-## News
-> **Browser** support is beeing **deprecated**,  
-> development will be discontinued and will be removed from Loggin'JS in version `2.0.0`
-> It's beeing deprecated because it's limiting me on the features I could be adding to the NodeJS version.
+## News <!-- omit in toc -->
+* **Browser** support is beeing **deprecated**, development will be discontinued and will be removed from Loggin'JS in version `2.0.0`. It's beeing deprecated because it's limiting me on the features I could be adding to the NodeJS version.
+
+
 
 
 ## Table Of Content <!-- omit in toc -->
-- [News](#news)
-  - [Installing](#installing)
-  - [Importing](#importing)
-  - [Getting Started](#getting-started)
 - [Examples](#examples)
 - [Plugins](#plugins)
 - [Contributing](#contributing)
