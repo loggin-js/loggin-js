@@ -11,12 +11,6 @@ Please note we have a [code of conduct](#code-of-conduct), please follow it in a
 - [Workings](#workings)
 - [Versioning](#versioning)
 - [Code of Conduct](#code-of-conduct)
-	- [Our Pledge](#our-pledge)
-	- [Our Standards](#our-standards)
-	- [Our Responsibilities](#our-responsibilities)
-	- [Scope](#scope)
-	- [Enforcement](#enforcement)
-	- [Attribution](#attribution)
 
 
 <!-- 
