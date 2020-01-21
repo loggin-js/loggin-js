@@ -37,10 +37,8 @@ If you want to log easily or want to create some complex loggin system, this is 
 ## News <!-- omit in toc -->
 * **Browser** support is beeing **deprecated**, development will be discontinued and will be removed from Loggin'JS in version `2.0.0`. It's beeing deprecated because it's limiting me on the features I could be adding to the NodeJS version.
 
-
-
-
 ## Table Of Content <!-- omit in toc -->
+- [Getting Started](#getting-started)
 - [Examples](#examples)
 - [Plugins](#plugins)
 - [Contributing](#contributing)
@@ -80,7 +78,7 @@ import * as loggin from 'loggin-js';
 <script src="https://cdn.jsdelivr.net/npm/loggin-js@latest/dist/loggin.js"></script>
 ```
 
-### Getting Started
+## Getting Started
 The default logger is the simplest way to use Loggin'JS.
 
 ```js
@@ -131,20 +129,6 @@ Coming:
 * Mail - maybe?
 * Sentry, and similar
 * ...
-
-## Features  <!-- omit in toc -->
-* 🔍 - Research or planing.
-* 👷 - Working beeing done.
-* ✔️ - Fully implemented.
-
-| **Feature**      | Browser | Node |
-| ---------------- | ------- | ---- |
-| File Notifier    | 👷      | ✔️   |
-| Remote Notifier  | ✔️       | ✔️   |
-| Console Notifier | ✔️       | ✔️   |
-| Color            | 🔍      | ✔️   |
-| Plugins          | 🔍      | ✔️   |
-
 
 ## Coverage  <!-- omit in toc -->
 ![Coverage][coverage-lines-badge]
