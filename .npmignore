@@ -15,4 +15,4 @@ CHANGELOG.md
 /internal
 *.log
 /coverage
-!/coverage/*.svg
+/coverage/*
