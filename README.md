@@ -37,7 +37,15 @@ If you want to log easily or want to create some complex loggin system, this mig
 ## News <!-- omit in toc -->
 * **Browser** support is beeing **deprecated**, development will be discontinued and will be removed from Loggin'JS in version `2.0.0`. It's beeing deprecated because it's limiting me on the features I could be adding to the NodeJS version.
 
+## Features
+- Extensible
+- Lightweighted
+- Plugins
+
 ## Table Of Content <!-- omit in toc -->
+- [Features](#features)
+  - [Installing](#installing)
+  - [Importing](#importing)
 - [Getting Started](#getting-started)
 - [Examples](#examples)
 - [Plugins](#plugins)
