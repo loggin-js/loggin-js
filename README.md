@@ -93,7 +93,8 @@ loggin.debug('Check this log out!!', { foo: 'var' }, { channel: 'my-logger' });
 Additionaly you can create a custom logger:
 ```js
 const loggin = require('loggin-js');
-const logger = loggin.logger('file', { channel: 'my-logger' });
+const logger = loggin.logger('file');
+logger.channel('my-logger');
 
 logger
   .getNotifier('file')
