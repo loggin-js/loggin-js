@@ -1,36 +1,38 @@
 /* istanbul ignore file */
 'use strict';
 const strif = require('strif');
-const clicolor = require('cli-color');
-
+const colors = require('colors');
 const padd = (v) => ` ${v} `;
 
-let colors = {
-  cl_red: s => clicolor.red(s),
-  cl_blue: s => clicolor.blue(s),
-  cl_cyan: s => clicolor.cyan(s),
-  cl_green: s => clicolor.green(s),
-  cl_gray: s => clicolor.blackBright(s),
-  cl_yellow: s => clicolor.yellow(s),
-  cl_orange: s => clicolor.orange(s),
-  cl_purple: s => clicolor.purple(s),
-  cl_black: s => clicolor.black(s),
-  cl_white: s => clicolor.white(s),
-  cl_magenta: s => clicolor.magenta(s),
+
+// TODO: Rethink formatting and coloring, this is kinda crap :P
+
+const colorsTransformers = {
+  cl_red: s => colors.red(s),
+  cl_blue: s => colors.blue(s),
+  cl_cyan: s => colors.cyan(s),
+  cl_green: s => colors.green(s),
+  cl_gray: s => colors.gray(s),
+  cl_yellow: s => colors.yellow(s),
+  cl_orange: s => colors.orange(s),
+  cl_purple: s => colors.purple(s),
+  cl_black: s => colors.black(s),
+  cl_white: s => colors.white(s),
+  cl_magenta: s => colors.magenta(s),
 };
 
-let labels = {
-  lbl_red: s => clicolor.bgRed(padd(s)),
-  lbl_blue: s => clicolor.bgBlue(padd(s)),
-  lbl_cyan: s => clicolor.bgCyan(padd(s)),
-  lbl_green: s => clicolor.bgGreen(padd(s)),
-  lbl_gray: s => clicolor.bgGray(padd(s)),
-  lbl_yellow: s => clicolor.bgYellow(padd(s)),
-  lbl_orange: s => clicolor.bgOrange(padd(s)),
-  lbl_purple: s => clicolor.bgPurple(padd(s)),
-  lbl_black: s => clicolor.bgBlack(padd(s)),
-  lbl_white: s => clicolor.bgWhite(padd(s)),
-  lbl_magenta: s => clicolor.bgMagenta(padd(s)),
+const labelsTransformers = {
+  lbl_red: s => colors.bgRed(padd(s)),
+  lbl_blue: s => colors.bgBlue(padd(s)),
+  lbl_cyan: s => colors.bgCyan(padd(s)),
+  lbl_green: s => colors.bgGreen(padd(s)),
+  lbl_gray: s => colors.bgGray(padd(s)),
+  lbl_yellow: s => colors.bgYellow(padd(s)),
+  lbl_orange: s => colors.bgOrange(padd(s)),
+  lbl_purple: s => colors.bgPurple(padd(s)),
+  lbl_black: s => colors.bgBlack(padd(s)),
+  lbl_white: s => colors.bgWhite(padd(s)),
+  lbl_magenta: s => colors.bgMagenta(padd(s)),
 };
 
 let ignored = [
@@ -59,7 +61,6 @@ let ignored = [
   'cl_magenta',
 ];
 
-
 const formatter =
   strif.create({
     transformers: {
@@ -70,8 +71,8 @@ const formatter =
       string: s => s ? s.toString() : s,
       int: s => s ? s.toInt() : s,
       date: s => s ? new Date(s).toLocaleDateString() : s,
-      ...labels,
-      ...colors
+      ...labelsTransformers,
+      ...colorsTransformers
     }
   });
 
@@ -162,43 +163,43 @@ class Formatter {
 Formatter.replaceables = [
   {
     regexp: /<%bb[^>]+>/g,
-    fn: (str) => clicolor.blueBright(str).replace(/<%bb(.+)>/g, '$1')
+    fn: (str) => colors.brightBlue(str).replace(/<%bb(.+)>/g, '$1')
   },
   {
     regexp: /<%gr[^>]+>/g,
-    fn: (str) => clicolor.blackBright(str).replace(/<%gr(.+)>/g, '$1')
+    fn: (str) => colors.brightGray(str).replace(/<%gr(.+)>/g, '$1')
   },
   {
     regexp: /INFO|INF|<%g[^>]+>/g,
-    fn: (str) => clicolor.greenBright(str).replace(/<%g(.+)>/g, '$1')
+    fn: (str) => colors.brightGreen(str).replace(/<%g(.+)>/g, '$1')
   },
   {
     regexp: /SILLY|SIL|<%m[^>]+>/g,
-    fn: (str) => clicolor.magentaBright(str).replace(/<%m(.+)>/g, '$1')
+    fn: (str) => colors.brightMagenta(str).replace(/<%m(.+)>/g, '$1')
   },
   {
     regexp: /DEBUG|DEB|<%b[^>]+>/g,
-    fn: (str) => clicolor.blueBright(str).replace(/<%b(.+)>/g, '$1')
+    fn: (str) => colors.brightBlue(str).replace(/<%b(.+)>/g, '$1')
   },
   {
     regexp: /NOTICE|NOT|<%c[^>]+>/g,
-    fn: (str) => clicolor.cyanBright(str).replace(/<%c(.+)>/g, '$1')
+    fn: (str) => colors.brightCyan(str).replace(/<%c(.+)>/g, '$1')
   },
   {
     regexp: /WARNING|WAR|EME|EMERGENCY|<%y[^>]+>/g,
-    fn: (str) => clicolor.yellowBright(str).replace(/<%y(.+)>/g, '$1')
+    fn: (str) => colors.brightYellow(str).replace(/<%y(.+)>/g, '$1')
   },
   {
     regexp: /ALERT|ALE|CRITICAL|CRI|ERROR|ERR|<%r[^>]+>/g,
-    fn: (str) => clicolor.redBright(str).replace(/<%r(.+)>/g, '$1')
+    fn: (str) => colors.brightRed(str).replace(/<%r(.+)>/g, '$1')
   },
   {
     regexp: /<%p[^>]+>/g,
-    fn: (str) => clicolor.xterm(13)(str).replace(/<%p(.+)>/g, '$1')
+    fn: (str) => colors.yellow(str).replace(/<%p(.+)>/g, '$1')
   },
   {
     regexp: /<%m[^>]+>/g,
-    fn: (str) => clicolor.magenta(str).replace(/<%m(.+)>/g, '$1')
+    fn: (str) => colors.magenta(str).replace(/<%m(.+)>/g, '$1')
   }
 ];
 

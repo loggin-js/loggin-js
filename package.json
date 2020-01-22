@@ -32,7 +32,7 @@
     "customizable"
   ],
   "repository": "git://github.com/loggin-js/loggin-js.git",
-  "main": "src/node.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "jest --coverage",
     "test-server": "node test-remote/server.js",
@@ -46,7 +46,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "cli-color": "^2.0.0",
+    "colors": "^1.4.0",
     "phin": "^3.4.0",
     "strif": "^1.1.4"
   },
@@ -60,6 +60,7 @@
     "jest": "^22.4.3",
     "jest-coverage-badges": "^1.1.2",
     "jest-environment-node": "^24.9.0",
+    "size-limit": "^3.0.0",
     "standard-version": "^7.0.0"
   },
   "jest": {
@@ -75,7 +76,7 @@
   "size-limit": [
     {
       "path": "src/index.js",
-      "limit": "200 KB",
+      "limit": "183 KB",
       "gzip": false,
       "ignore": [
         "fs"
@@ -83,19 +84,31 @@
     },
     {
       "path": "src/lib/logger.js",
-      "limit": "200 KB",
+      "limit": "35.06 KB",
+      "gzip": false
+    },
+    {
+      "path": "src/lib/notifier.js",
+      "limit": "30.94 KB",
       "gzip": false,
       "ignore": [
         "fs"
       ]
     },
     {
-      "path": "src/lib/notifier.js",
-      "limit": "200 KB",
-      "gzip": false,
-      "ignore": [
-        "fs"
-      ]
+      "path": "src/lib/log.js",
+      "limit": "29 KB",
+      "gzip": false
+    },
+    {
+      "path": "src/lib/severity.js",
+      "limit": "689 B",
+      "gzip": false
+    },
+    {
+      "path": "src/lib/formatter.js",
+      "limit": "27.83 KB",
+      "gzip": false
     }
   ],
   "husky": {
