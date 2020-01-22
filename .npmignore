@@ -5,3 +5,14 @@
 /node_modules
 .travis.yml
 CHANGELOG.md
+/log
+/node_modules
+/logs
+/test-remote/logs
+/examples/package*.json
+/examples/node_modules
+/tests
+/internal
+*.log
+/coverage
+!/coverage/*.svg
