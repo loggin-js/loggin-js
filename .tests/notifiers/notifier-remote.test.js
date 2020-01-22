@@ -1,7 +1,7 @@
 /**
 * @jest-environment node
 */
-const loggin = require('../..');
+const loggin = require('../../src/index');
 const http = require('http');
 const path = require('path');
 

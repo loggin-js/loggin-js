@@ -2,7 +2,7 @@
 * @jest-environment node
 */
 
-const { Notifier, Logger, Formatter, Severity } = require('../src/node');
+const { Notifier, Logger, Formatter, Severity } = require('../src/index');
 
 const AdditionalNotifiers = ['Console', 'File', 'Http', 'Memory'];
 const AdditionalLoggers = AdditionalNotifiers.map(el => el.toLocaleLowerCase());

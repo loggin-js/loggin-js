@@ -1,7 +1,7 @@
 /**
 * @jest-environment node
 */
-let loggin = require('../../src/node');
+let loggin = require('../../src/index');
 
 describe('loggin.Logger', () => {
   let logger = loggin.logger('default');

@@ -1,7 +1,7 @@
 /**
 * @jest-environment node
 */
-const loggin = require('../../src/node');
+const loggin = require('../../src/index');
 const MockNotifier = require('../mocks/notifier.mock');
 
 

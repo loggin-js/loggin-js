@@ -1,7 +1,7 @@
 /**
 * @jest-environment node
 */
-let loggin = require('../..');
+let loggin = require('../../src/index');
 let fs = require('fs');
 let filePath = '../logs/test-file.log';
 let fileErrorPath = '../logs/error-file.log';

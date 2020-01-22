@@ -1,7 +1,7 @@
 /**
 * @jest-environment node
 */
-let loggin = require('../../src/node');
+let loggin = require('../../src/index');
 const MockNotifier = require('../mocks/notifier.mock');
 
 describe('loggin.Logger severity filtering (debug)', () => {
