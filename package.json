@@ -47,13 +47,13 @@
   },
   "dependencies": {
     "colors": "^1.4.0",
-    "phin": "^3.4.0",
-    "strif": "^1.1.4"
+    "phin": "^3.4.1",
+    "strif": "^1.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.4",
-    "@babel/core": "^7.6.4",
-    "@babel/preset-env": "^7.6.3",
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
     "@size-limit/preset-small-lib": "^3.0.0",
     "browserify": "^16.5.0",
     "husky": "^1.3.1",
@@ -61,7 +61,7 @@
     "jest-coverage-badges": "^1.1.2",
     "jest-environment-node": "^24.9.0",
     "size-limit": "^3.0.0",
-    "standard-version": "^7.0.0"
+    "standard-version": "^7.1.0"
   },
   "jest": {
     "collectCoverageFrom": [
