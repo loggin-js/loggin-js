@@ -15,7 +15,6 @@ function plugin(loggin) {
                 return Formatter.colors.brightYellow(severityString);
             case 'ALERT':
             case 'CRITICAL':
-            case 'WARNING':
                 return Formatter.colors.yellow(severityString);
             case 'ERROR':
                 return Formatter.colors.red(severityString);
@@ -25,10 +24,7 @@ function plugin(loggin) {
     }
 
     Formatter['JSON'] = Formatter._formatters['JSON'] = {
-        formatLog: (log) => {
-            console.log('formatLog', log);
-            return JSON.stringify(log);
-        },
+        formatLog: (log) => JSON.stringify,
         color: (log) => log,
     }
 
