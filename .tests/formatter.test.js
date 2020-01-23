@@ -17,7 +17,7 @@ describe('loggin.Formatter', () => {
     it(`should have methods`, () => {
         let formatter = loggin.formatter('minimal');
         expect(() => {
-            ['formatLog', 'color'].forEach(fn => {
+            ['formatLog'].forEach(fn => {
                 if (typeof formatter[fn] !== 'function') {
                     throw new Error(fn + ' is not a method in formatter');
                 }
@@ -30,11 +30,5 @@ describe('loggin.Formatter', () => {
         let log = new loggin.Log('message', null, loggin.severity('debug'), 'test');
         let formattedLog = formatter.formatLog(log);
         expect(formattedLog).toEqual("test - message");
-    });
-
-    it(`.color should work correctly`, () => {
-        let formatter = loggin.formatter('minimal');
-        let colored = formatter.color('<%rHello>');
-        expect(colored).toEqual('[91mHello[39m');
     });
 });

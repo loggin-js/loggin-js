@@ -90,10 +90,6 @@ class Notifier {
     let { formatter, color, preNotify } = this.options;
     let output = formatter.formatLog(log, { color: color });
 
-    if (color) {
-      output = formatter.color(output);
-    }
-
     if (isFunction(preNotify)) {
       preNotify(log);
     }

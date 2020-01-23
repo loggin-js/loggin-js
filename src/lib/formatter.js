@@ -2,11 +2,8 @@
 'use strict';
 const strif = require('strif');
 const colors = require('colors');
+
 const padd = (v) => ` ${v} `;
-
-
-// TODO: Rethink formatting and coloring, this is kinda crap :P
-
 const colorsTransformers = {
   cl_red: s => colors.red(s),
   cl_blue: s => colors.blue(s),
@@ -35,79 +32,40 @@ const labelsTransformers = {
   lbl_magenta: s => colors.bgMagenta(padd(s)),
 };
 
-let ignored = [
-  'lbl_red',
-  'lbl_blue',
-  'lbl_cyan',
-  'lbl_green',
-  'lbl_gray',
-  'lbl_yellow',
-  'lbl_orange',
-  'lbl_purple',
-  'lbl_black',
-  'lbl_white',
-  'lbl_magenta',
+const otherTransformers = {
+  json: s => s ? JSON.stringify(s, null, 2) : s,
+  json_u: s => s ? JSON.stringify(s) : s,
+  uppercase: s => s ? s.toUpperCase() : s,
+  lowercase: s => s ? s.toLowerCase() : s,
+  capitalize: s => s ? (string.charAt(0).toUpperCase() + string.slice(1)) : s,
+  toString: s => s ? s.toString() : s,
+  toInt: s => s ? s.toInt() : s,
+  toLocaleDate: s => s ? new Date(s).toLocaleDateString() : s,
+};
 
-  'cl_red',
-  'cl_blue',
-  'cl_cyan',
-  'cl_green',
-  'cl_gray',
-  'cl_yellow',
-  'cl_orange',
-  'cl_purple',
-  'cl_black',
-  'cl_white',
-  'cl_magenta',
+const ignored = [
+  Object.keys(labelsTransformers),
+  Object.keys(colorsTransformers),
 ];
 
-const formatter =
-  strif.create({
-    transformers: {
-      json: s => s ? JSON.stringify(s, null, 2) : s,
-      json_u: s => s ? JSON.stringify(s) : s,
-      upper: s => s ? s.toUpperCase() : s,
-      lower: s => s ? s.toLowerCase() : s,
-      string: s => s ? s.toString() : s,
-      int: s => s ? s.toInt() : s,
-      date: s => s ? new Date(s).toLocaleDateString() : s,
-      ...labelsTransformers,
-      ...colorsTransformers
+const formatter = strif
+  .create(
+    {
+      transformers: {
+        ...otherTransformers,
+        ...labelsTransformers,
+        ...colorsTransformers,
+      }
     }
-  });
+  );
 
 class Formatter {
   constructor(template) {
     this.template = template;
   }
 
-  color(str) {
-    Formatter.replaceables.forEach(
-      (re) => str = str.replace(re.regexp, re.fn)
-    );
-    return str;
-  }
-
   formatLog(log, opts = { color: false }) {
-    let {
-      message,
-      data,
-      level,
-      channel,
-      levelStr,
-      time,
-      user,
-    } = log;
-
-    return Formatter.format({
-      message,
-      data,
-      level,
-      channel,
-      levelStr,
-      time,
-      user,
-    }, this, opts.color);
+    return Formatter.format(log, this, opts.color);
   }
 
   static format(log, formatter, color = false) {
@@ -133,76 +91,40 @@ class Formatter {
   }
 
   static get(value) {
-    if (value && value.constructor.name === 'Formatter') {
+    if (
+      value && (
+        value.constructor.name === 'Formatter' 
+        || typeof value.formatLog === 'function'
+      )
+    ) {
       return value;
     }
 
     return Formatter.search(value);
   }
 
-  static register(name, template, options = {}) {
-    if (typeof name !== 'string') {
-      throw new Error('"name" must be a string got: ' + typeof name);
-    }
+  static create(template, options = {}) {
     if (typeof template !== 'string') {
       throw new Error('"template" must be a string got: ' + typeof template);
     }
 
-    let nameUpper = name.toUpperCase();
+    return new Formatter(formatter.template(template, options));
+  }
 
+  static register(name, template, options = {}) {
+    if (typeof name !== 'string') {
+      throw new Error('"name" must be a string got: ' + typeof template);
+    }
+
+    let nameUpper = name.toUpperCase();
     Formatter[nameUpper] = Formatter._formatters[nameUpper] =
-      new Formatter(formatter.template(template, options));
+      Formatter.create(template, options);
 
     return Formatter;
   }
 }
 
-/**
- * Array of regexp, transformer pairs, that change the color of a specific pattern
- */
-Formatter.replaceables = [
-  {
-    regexp: /<%bb[^>]+>/g,
-    fn: (str) => colors.brightBlue(str).replace(/<%bb(.+)>/g, '$1')
-  },
-  {
-    regexp: /<%gr[^>]+>/g,
-    fn: (str) => colors.brightGray(str).replace(/<%gr(.+)>/g, '$1')
-  },
-  {
-    regexp: /INFO|INF|<%g[^>]+>/g,
-    fn: (str) => colors.brightGreen(str).replace(/<%g(.+)>/g, '$1')
-  },
-  {
-    regexp: /SILLY|SIL|<%m[^>]+>/g,
-    fn: (str) => colors.brightMagenta(str).replace(/<%m(.+)>/g, '$1')
-  },
-  {
-    regexp: /DEBUG|DEB|<%b[^>]+>/g,
-    fn: (str) => colors.brightBlue(str).replace(/<%b(.+)>/g, '$1')
-  },
-  {
-    regexp: /NOTICE|NOT|<%c[^>]+>/g,
-    fn: (str) => colors.brightCyan(str).replace(/<%c(.+)>/g, '$1')
-  },
-  {
-    regexp: /WARNING|WAR|EME|EMERGENCY|<%y[^>]+>/g,
-    fn: (str) => colors.brightYellow(str).replace(/<%y(.+)>/g, '$1')
-  },
-  {
-    regexp: /ALERT|ALE|CRITICAL|CRI|ERROR|ERR|<%r[^>]+>/g,
-    fn: (str) => colors.brightRed(str).replace(/<%r(.+)>/g, '$1')
-  },
-  {
-    regexp: /<%p[^>]+>/g,
-    fn: (str) => colors.yellow(str).replace(/<%p(.+)>/g, '$1')
-  },
-  {
-    regexp: /<%m[^>]+>/g,
-    fn: (str) => colors.magenta(str).replace(/<%m(.+)>/g, '$1')
-  }
-];
-
 Formatter._formatters = {};
+Formatter.colors = colors;
 
 module.exports = Formatter;

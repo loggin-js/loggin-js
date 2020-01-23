@@ -20,8 +20,7 @@ logging.Formatter.register(
     channel: {},
     message: {},
   }
-}
-);
+});
 
 const logger = logging.logger({
   formatter: 'custom'
