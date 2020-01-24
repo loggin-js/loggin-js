@@ -1,10 +1,9 @@
-/* istanbul ignore file */
 'use strict';
 const strif = require('strif');
 const colors = require('colors');
 
 const padd = (v) => ` ${v} `;
-const colorsTransformers = {
+const defaultTransformers = {
   cl_red: s => colors.red(s),
   cl_blue: s => colors.blue(s),
   cl_cyan: s => colors.cyan(s),
@@ -16,9 +15,7 @@ const colorsTransformers = {
   cl_black: s => colors.black(s),
   cl_white: s => colors.white(s),
   cl_magenta: s => colors.magenta(s),
-};
-
-const labelsTransformers = {
+  // Labels
   lbl_red: s => colors.bgRed(padd(s)),
   lbl_blue: s => colors.bgBlue(padd(s)),
   lbl_cyan: s => colors.bgCyan(padd(s)),
@@ -30,9 +27,7 @@ const labelsTransformers = {
   lbl_black: s => colors.bgBlack(padd(s)),
   lbl_white: s => colors.bgWhite(padd(s)),
   lbl_magenta: s => colors.bgMagenta(padd(s)),
-};
-
-const otherTransformers = {
+  // Utils
   stringify: s => s ? JSON.stringify(s, null, 2) : s,
   stringifyNoFormat: s => s ? JSON.stringify(s) : s,
   uppercase: s => s ? s.toUpperCase() : s,
@@ -43,21 +38,9 @@ const otherTransformers = {
   toLocaleDate: s => s ? new Date(s).toLocaleDateString() : s,
 };
 
-const ignored = [
-  Object.keys(labelsTransformers),
-  Object.keys(colorsTransformers),
-];
-
-const formatter = strif
-  .create(
-    {
-      transformers: {
-        ...otherTransformers,
-        ...labelsTransformers,
-        ...colorsTransformers,
-      }
-    }
-  );
+const formatter = strif.create({
+  transformers: defaultTransformers
+});
 
 class Formatter {
   constructor(template) {
