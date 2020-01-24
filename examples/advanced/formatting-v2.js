@@ -2,7 +2,7 @@ const loggin = require('../../src/index');
 
 const { colors } = loggin.Formatter;
 const myformatter = loggin.Formatter.create(
-    '[{time}] - {level} - {message}',
+    '[{time}] - {level} - {message} {data}',
     {
         props: {
             time: {
@@ -16,7 +16,10 @@ const myformatter = loggin.Formatter.create(
                     colors.fromLevel,
                 ],
             },
-            message: {}
+            message: {},
+            data: {
+                transformers: ['stringify', 'cl_gray'],
+            }
         }
     }
 );
@@ -26,7 +29,5 @@ const myformatter = loggin.Formatter.create(
 // formatter('json');
 // formatter('detailed');
 // formatter('minimal');
-const formatter = loggin.formatter('json');
-console.log(formatter);
-const mylogger = loggin.logger({ formatter: formatter });
+const mylogger = loggin.logger({ formatter: myformatter });
 mylogger.debug('jaosdoj');

@@ -33,8 +33,8 @@ const labelsTransformers = {
 };
 
 const otherTransformers = {
-  json: s => s ? JSON.stringify(s, null, 2) : s,
-  json_u: s => s ? JSON.stringify(s) : s,
+  stringify: s => s ? JSON.stringify(s, null, 2) : s,
+  stringifyNoFormat: s => s ? JSON.stringify(s) : s,
   uppercase: s => s ? s.toUpperCase() : s,
   lowercase: s => s ? s.toLowerCase() : s,
   capitalize: s => s ? (string.charAt(0).toUpperCase() + string.slice(1)) : s,
@@ -74,9 +74,13 @@ class Formatter {
       throw Error('options.formatter should be type: "StrifTemplate", not: "' + tmpltType + '"');
     }
 
-    return formatter.template.compile(log, {
-      ignoreTransformers: color ? false : ignored
-    });
+    if (color) {
+      colors.enable();
+    } else {
+      colors.disable();
+    }
+
+    return formatter.template.compile(log);
   }
 
   static search(value) {
@@ -93,7 +97,7 @@ class Formatter {
   static get(value) {
     if (
       value && (
-        value.constructor.name === 'Formatter' 
+        value.constructor.name === 'Formatter'
         || typeof value.formatLog === 'function'
       )
     ) {

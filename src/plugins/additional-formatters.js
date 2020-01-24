@@ -24,7 +24,7 @@ function plugin(loggin) {
     }
 
     Formatter['JSON'] = Formatter._formatters['JSON'] = {
-        formatLog: (log) => JSON.stringify,
+        formatLog: (log) => JSON.stringify(log),
         color: (log) => log,
     }
 
@@ -64,7 +64,7 @@ function plugin(loggin) {
                 },
                 message: {},
                 data: {
-                    transformers: ['json', 'cl_gray']
+                    transformers: ['stringify', 'cl_gray']
                 }
             }
         }
@@ -85,7 +85,7 @@ function plugin(loggin) {
                 },
                 message: {},
                 data: {
-                    transformers: ['json_u', 'cl_gray']
+                    transformers: ['stringifyNoFormat', 'cl_gray']
                 }
             }
         }
@@ -105,7 +105,7 @@ function plugin(loggin) {
                     transformers: ['toString']
                 },
                 data: {
-                    transformers: ['json', 'cl_gray']
+                    transformers: ['stringify', 'cl_gray']
                 },
                 channel: {},
                 message: {},
