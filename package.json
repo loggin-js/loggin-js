@@ -76,7 +76,7 @@
   "size-limit": [
     {
       "path": "src/index.js",
-      "limit": "183 KB",
+      "limit": "182.2 KB",
       "gzip": false,
       "ignore": [
         "fs"
@@ -84,7 +84,7 @@
     },
     {
       "path": "src/lib/logger.js",
-      "limit": "35.06 KB",
+      "limit": "34.06 KB",
       "gzip": false
     },
     {
