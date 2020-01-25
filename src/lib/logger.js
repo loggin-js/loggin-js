@@ -44,6 +44,11 @@ class Logger {
   }
 
   // Options
+  channel(channel) {
+    this.options.channel = channel;
+    return this;
+  }
+
   enabled(enabled) {
     this.options.enabled = enabled;
     return this;
@@ -51,11 +56,6 @@ class Logger {
 
   user(user) {
     this.options.user = user;
-    return this;
-  }
-
-  channel(channel) {
-    this.options.channel = channel;
     return this;
   }
 
@@ -79,6 +79,14 @@ class Logger {
   lineNumbers(show) {
     this._notifiers.forEach(notif =>
       notif.lineNumbers(show));
+
+    return this;
+  }
+
+  strict(strict = true) {
+    if (this.options.level) {
+      this.options.level.strict = strict;
+    }
 
     return this;
   }
