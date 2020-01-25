@@ -3,7 +3,7 @@
 */
 let loggin = require('../src/index');
 
-fdescribe('loggin.Log', () => {
+describe('loggin.Log', () => {
     it(`Class should be defined`, () => {
         expect(loggin.Log).toBeDefined();
     });
