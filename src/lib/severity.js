@@ -4,10 +4,15 @@ class Severity {
     this.level = level;
     this.name = name;
     this.fileLogginLevel = this.level;
+    this.strict = false;
   }
 
   canLog(severity) {
-    return this.level >= severity.level;
+    return (
+      this.strict
+        ? this.level === severity.level
+        : this.level >= severity.level
+    );
   }
 
   getFileLoggingLevel() {
