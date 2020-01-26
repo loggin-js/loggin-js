@@ -1,6 +1,6 @@
 {
   "name": "loggin-js",
-  "version": "1.7.3",
+  "version": "1.8.0",
   "description": "A customizable and expandable logger for NodeJS and the browser",
   "author": {
     "name": "nombrekeff",

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/loggin-js/loggin-js/compare/v1.7.3...v1.8.0) (2020-01-26)
+
+
+### Features
+
+* added strict mode to Severity, when true it will pass throught just same level severity ([ad06c5c](https://github.com/loggin-js/loggin-js/commit/ad06c5cf5850bb8c7154e9e63fbe324ccc6cdfa6))
+
+### [1.7.2](https://github.com/loggin-js/loggin-js/compare/v1.7.1...v1.7.2) (2020-01-18)
+
 ### [1.7.3](https://github.com/loggin-js/loggin-js/compare/v1.7.1...v1.7.3) (2020-01-19)
 
 
