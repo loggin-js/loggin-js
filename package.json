@@ -13,6 +13,13 @@
   },
   "homepage": "https://github.com/loggin-js/loggin-js/wiki",
   "license": "MIT",
+  "files": [
+    "src/*",
+    "dist/*",
+    "README.md",
+    "index.d.ts",
+    "CHANGELOG.md"
+  ],
   "keywords": [
     "logging",
     "logger",
