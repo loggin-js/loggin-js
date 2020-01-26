@@ -44,6 +44,14 @@ class Logger {
   }
 
   // Options
+  color(color = true) {
+    this.options.color = color;
+    this._notifiers.forEach(notif =>
+      notif.color(this.options.color));
+
+    return this;
+  }
+
   enabled(enabled) {
     this.options.enabled = enabled;
     return this;
@@ -111,14 +119,6 @@ class Logger {
     }
   }
 
-  color(color = true) {
-    this.options.color = color;
-    this._notifiers.forEach(notif =>
-      notif.color(this.options.color));
-
-    return this;
-  }
-
   lineNumbers(show) {
     this.options.lineNumbers = show;
     this._notifiers.forEach(notif =>
@@ -168,7 +168,6 @@ class Logger {
 
     return this;
   }
-
 
   debug(message, data = null, opts = {}) {
     this.log(message, data, {
