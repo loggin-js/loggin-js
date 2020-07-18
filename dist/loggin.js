@@ -5179,8 +5179,11 @@ function formatter(template = 'default') {
   return Formatter.get(template);
 }
 
-function severity(level) {
-  return Severity.get(level);
+function severity(level, { strict } = { strict: false }) {
+  const severity = Severity.get(level);
+  severity.strict = strict;
+  
+  return severity;
 }
 
 function merge(loggers, options) {
@@ -5321,6 +5324,11 @@ class Logger {
   }
 
   // Options
+  channel(channel) {
+    this.options.channel = channel;
+    return this;
+  }
+
   enabled(enabled) {
     this.options.enabled = enabled;
     return this;
@@ -5328,11 +5336,6 @@ class Logger {
 
   user(user) {
     this.options.user = user;
-    return this;
-  }
-
-  channel(channel) {
-    this.options.channel = channel;
     return this;
   }
 
@@ -5356,6 +5359,14 @@ class Logger {
   lineNumbers(show) {
     this._notifiers.forEach(notif =>
       notif.lineNumbers(show));
+
+    return this;
+  }
+
+  strict(strict = true) {
+    if (this.options.level) {
+      this.options.level.strict = strict;
+    }
 
     return this;
   }
@@ -5793,10 +5804,15 @@ class Severity {
     this.level = level;
     this.name = name;
     this.fileLogginLevel = this.level;
+    this.strict = false;
   }
 
   canLog(severity) {
-    return this.level >= severity.level;
+    return (
+      this.strict
+        ? this.level === severity.level
+        : this.level >= severity.level
+    );
   }
 
   getFileLoggingLevel() {

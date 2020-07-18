@@ -3,5 +3,6 @@
 /.github
 /logs
 /node_modules
+/coverage
 .travis.yml
 CHANGELOG.md

@@ -1,6 +1,6 @@
 {
   "name": "loggin-js",
-  "version": "1.7.3",
+  "version": "1.8.0",
   "description": "A customizable and expandable logger for NodeJS and the browser",
   "author": {
     "name": "nombrekeff",
@@ -13,6 +13,13 @@
   },
   "homepage": "https://github.com/loggin-js/loggin-js/wiki",
   "license": "MIT",
+  "files": [
+    "src/*",
+    "dist/*",
+    "README.md",
+    "index.d.ts",
+    "CHANGELOG.md"
+  ],
   "keywords": [
     "logging",
     "logger",
@@ -62,6 +69,7 @@
     "standard-version": "^7.0.0"
   },
   "jest": {
+    "testURL": "http://localhost/",
     "collectCoverageFrom": [
       "src/lib/**/{!(ignore-me),}.js"
     ],
