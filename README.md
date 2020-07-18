@@ -93,7 +93,6 @@ import * as loggin from 'loggin-js';
 The default logger is the simplest way to use Loggin'JS.
 
 ```js
-loggin.info('');
 loggin.debug(
   'Check this log out!!',
   { foo: 'var' },
