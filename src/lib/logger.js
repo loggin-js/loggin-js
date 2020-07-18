@@ -131,6 +131,21 @@ class Logger {
     return this.options.level.canLog(severity);
   }
 
+  group(label) {
+    this._notifiers.forEach(notif =>
+      notif.group && notif.group(label));
+  }
+
+  groupCollapsed(label) {
+    this._notifiers.forEach(notif =>
+      notif.groupCollapsed && notif.groupCollapsed(label));
+  }
+
+  groupEnd() {
+    this._notifiers.forEach(notif =>
+      notif.groupEnd && notif.groupEnd());
+  }
+
   log(message, data = null, options = {}) {
     const opts = {
       level: options.level || this.options.level,
@@ -165,87 +180,6 @@ class Logger {
 
         notifier.notify(log);
       });
-
-    return this;
-  }
-
-  debug(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.DEBUG,
-      ...opts
-    });
-
-    return this;
-  }
-
-  warning(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.WARNING,
-      ...opts
-    });
-
-    return this;
-  }
-
-  alert(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.ALERT,
-      ...opts
-    });
-
-    return this;
-  }
-
-  emergency(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.EMERGENCY,
-      ...opts
-    });
-
-    return this;
-  }
-
-  critical(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.CRITICAL,
-      ...opts
-    });
-
-    return this;
-  }
-
-  error(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.ERROR,
-      ...opts
-    });
-
-    return this;
-  }
-
-  notice(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.NOTICE,
-      ...opts
-    });
-
-    return this;
-  }
-
-  info(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.INFO,
-      ...opts
-    });
-
-    return this;
-  }
-
-  silly(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.SILLY,
-      ...opts
-    });
 
     return this;
   }
@@ -311,6 +245,14 @@ class Logger {
 
     return Logger;
   }
+
+  static defineMethod(name, fn) {
+    Object.defineProperty(Logger.prototype, name, { value: fn, writable: false });
+  }
+
+  static defineStaticMethod(name, fn) {
+    Object.defineProperty(Logger, name, { value: fn, writable: false });
+  }
 }
 
 Logger._loggers = {};
@@ -322,7 +264,7 @@ Logger.DefaultOptions = {
   channel: path.basename(__filename),
   formatter: Formatter.get('detailed'),
   enabled: true,
-  color: false,
+  color: true,
 };
 
 module.exports = Logger;

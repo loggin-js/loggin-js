@@ -1,11 +1,8 @@
 // Type definitions for loggin-js
-// import strif = require('strif');
-
 export type SupportedLoggers = 'console' | 'file' | 'remote' | 'memory' | 'default';
 export type SupportedSeverities = 'DEBUG' | 'INFO' | 'NOTICE' | 'WARNING' | 'ERROR' | 'CRITICAL' | 'ALERT' | 'EMERGENCY';
 export type SupportedFormatters = 'short' | 'medium' | 'long' | 'detailed' | 'minimal' | 'json' | 'default';
 const strif: any;
-
 
 export class Log {
   message: string;
@@ -71,7 +68,7 @@ export class Formatter {
   static replaceables: [{ regexp: RegExp, fn: (str: string) => string }];
 }
 
-export class Logger {
+export class Logger extends RealLogger {
   constructor(options: LoggerOptions);
 
   enabled(enabled?: boolean): this;
@@ -112,6 +109,12 @@ export class Logger {
     data?: any,
     options?: LogOptions
   ): this;
+
+  [key: string]: (
+    message: string,
+    data?: any,
+    options?: LogOptions
+  ) => this;
 
   /**
    * @description Logs with severity set to DEBUG

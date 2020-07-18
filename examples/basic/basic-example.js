@@ -13,7 +13,7 @@ const logger = loggin.logger({
   level: loggin.severity('info'),
   color: false,
   channel: 'demo-1',
-  formatter: 'long'
+  formatter: 'long',
 });
 
 // You can change options after creation

@@ -110,6 +110,9 @@ class Notifier {
   pipe() {
     console.warn('WARN - Pipe has not been configured in this notifier');
   }
+  group() {}
+  groupCollapsed() {}
+  groupEnd() {}
 
   static search(value) {
     for (let key in Notifier._notifiers) {
@@ -147,6 +150,10 @@ class Notifier {
     Notifier[name] = Notifier._notifiers[name] = ctor;
 
     return Notifier;
+  }
+
+  static defineMethod(name, fn) {
+    Object.defineProperty(Notifier.prototype, name, { value: fn, writable: false });
   }
 }
 

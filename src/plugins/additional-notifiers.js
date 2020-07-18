@@ -2,6 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 const phin = require('phin');
+const colors = require('colors');
 
 function mkDirByPathSync(targetDir, { isRelativeToScript = false } = {}) {
     const sep = path.sep;
@@ -33,12 +34,24 @@ function mkDirByPathSync(targetDir, { isRelativeToScript = false } = {}) {
 }
 
 function plugin(loggin) {
-    const { Notifier, Pipe } = loggin;
+    const { Notifier, Pipe, Logger } = loggin;
 
     class ConsoleNotifier extends Notifier {
         constructor(options) {
             super(options, 'console');
             this.lineIndex = 0;
+        }
+
+        _getGroupLabel(label) {
+            return `${colors.cyan('➜')} ${label}:`
+        }
+
+        group(label) {
+            console.group(this._getGroupLabel(label));
+        }
+
+        groupEnd() {
+            console.groupEnd();
         }
 
         output(log) {
