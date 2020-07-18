@@ -12,7 +12,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
   
 An easy and customizable logger for NodeJS and the Browser.  
-If you want to log easily or want to create some complex loggin system, this might be the tool for you!
+If you want to log easily or create some complex loggin system, this might be the tool for you!
 
 ****
 
@@ -35,7 +35,7 @@ If you want to log easily or want to create some complex loggin system, this mig
 
 
 ## News <!-- omit in toc -->
-* **Browser** support is beeing **deprecated**, development will be discontinued and will be removed from Loggin'JS in version `2.0.0`. It's beeing deprecated because it's limiting me on the features I could be adding to the NodeJS version.
+* **Browser** support is being **deprecated**, the development will be discontinued and removed from Loggin'JS in version `2.0.0`. It's being deprecated because it's limiting me on the features I could be adding to the NodeJS version.
 
 ## Table Of Content <!-- omit in toc -->
 - [Getting Started](#getting-started)
@@ -64,7 +64,7 @@ import * as loggin from 'loggin-js';
 
 #### Browser <!-- omit in toc -->
 > #### !! NOTICE !!
-> Loggin'JS can be used in the browser, but it's still in it's early stages, and the API may change or have errors. 
+> Loggin'JS can be used in the browser, but it's still in its early stages, and the API may change or have errors. 
 > It is also limited. For now, only the `console` notifier works. Color is not working either!
 
 ```html
@@ -119,11 +119,11 @@ Here are some usage examples:
 * [Http Notifier](https://runkit.com/nombrekeff/loggin-js-remote-notifier)
 * You can also check the [`examples`](./examples) for more examples.
 
-> If you want to add an example, or find some error leave an issue or send in a PR.
+> If you want to add an example or find some error, leave an issue or send in a PR.
 
 ## Plugins
 These are a couple of official plugins. If you make a plugin and want it to appear here, 
-you can contact me, and if it meets my standards I will add it here!!
+you can contact me, and if it meets my standards, I will add it here!!
 * [MongoDB](https://github.com/loggin-js/loggin-js-mongodb)
 * [Express](https://github.com/loggin-js/loggin-js-express)
 * [WebSocket](https://github.com/loggin-js/loggin-js-ws)
