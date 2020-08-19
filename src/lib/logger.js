@@ -111,12 +111,12 @@ class Logger {
   }
 
   getNotifier(name) {
-    if (!this.hasNotifier(name)) {
-      return null;
-    } else {
+    if (this.hasNotifier(name)) {
       return this._notifiers.filter(notif =>
         notif.name === name).pop();
     }
+
+    return null;
   }
 
   color(color = true) {

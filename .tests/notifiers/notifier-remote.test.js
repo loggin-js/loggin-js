@@ -8,12 +8,9 @@ const path = require('path');
 describe('loggin.Notifier.Http tests', () => {
     let httpServer = null;
     afterAll((done) => {
-        console.log('ajsdkas');
         try {
             httpServer.on('close', done);
-            httpServer.close(() => {
-                console.log('ajsdkas');
-            });
+            httpServer.close();
         } catch (error) {
             console.log('error', error);
         }

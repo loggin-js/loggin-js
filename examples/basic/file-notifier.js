@@ -7,17 +7,15 @@ const fs = require('fs');
 // Create a file notifier using the `.notifier` function
 let fileNotifier = loggin.notifier('file');
 
-// Pipe (write) logs a file, filtered by a level, setting to 'debug' will log all logs 
+// Pipe (write) logs to a file, filtered by a level, setting to 'debug' will log all logs 
 fileNotifier
   .pipe(loggin.severity('debug'), './debug.log')
   .pipe(loggin.severity('error'), './error.log')
   .pipe(loggin.severity('warning'), './warning.log');
 
 // Create a logger and attach fileNotifier to it
-const fileLogger =
-  loggin
-    .logger()
-    .notifier(fileNotifier);
+const fileLogger = loggin.logger()
+  .notifier(fileNotifier);
 
 fileLogger.debug('This is going to ./debug.log');
 fileLogger.error('This is going to ./error.log and ./debug.log');

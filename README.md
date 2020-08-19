@@ -34,8 +34,8 @@ If you want to log easily or create some complex loggin system, this might be th
 ---
 
 ## News <!-- omit in toc -->
-- **Browser** support is beeing **deprecated**, development will be discontinued and will be removed from Loggin'JS in version `2.0.0`. It's beeing deprecated because it's limiting me on the features I could be adding to the NodeJS version.
 
+- **Browser** support is beeing **deprecated**, development will be discontinued and will be removed from Loggin'JS in version `2.0.0`. It's beeing deprecated because it's limiting me on the features I could be adding to the NodeJS version.
 
 ## Table Of Content <!-- omit in toc -->
 
@@ -123,7 +123,7 @@ logger.error('There was an <%rERROR>', null, { user: 'Bob' });
 
 ![](./.github/output-images/custom.png)
 
-Or even log to a file:
+You can also log to a file:
 
 ```js
 const logger = loggin.logger('file');
@@ -132,6 +132,16 @@ logger.channel('my-logger');
 logger.getNotifier('file').pipe(loggin.pipe('DEBUG', './debug.log'));
 
 loggin.debug('Check this log out!!', { foo: 'var' });
+```
+
+Or output log in JSON format:
+
+```js
+const logger = loggin.logger({
+  formatter: 'json',
+});
+
+logger.error('this is an error');
 ```
 
 > There are a couple of default Notifiers available:
@@ -158,10 +168,10 @@ Here are some usage examples:
 > If you want to add an example or find some error, leave an issue or send in a PR.
 
 ## Plugins
+
 - [MongoDB](https://github.com/loggin-js/loggin-js-mongodb)
 - [Express](https://github.com/loggin-js/loggin-js-express)
 - [WebSocket](https://github.com/loggin-js/loggin-js-ws)
-
 
 Coming:
 

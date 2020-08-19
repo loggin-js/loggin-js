@@ -25,7 +25,7 @@ describe('loggin.Logger severity filtering (debug)', () => {
     });
 });
 
-fdescribe('loggin.Logger severity filtering (error)', () => {
+describe('loggin.Logger severity filtering (error)', () => {
     let notifier = new MockNotifier();
     let logger = loggin.logger({
         notifiers: [notifier],

@@ -32,16 +32,17 @@ class Notifier {
 
     if (options.pipes instanceof Array) {
       options.pipes.forEach((pipe, i) => {
+        /* istanbul ignore else */
         if (!(pipe instanceof Pipe)) {
           throw new Error(`ERROR: "options.pipes" should be an array of Pipes, got ${pipe} instead at index ${i}`);
         }
       });
     }
 
-    if (!this.options.formatter) {
-      this.formatter('detailed');
-    } else if (typeof this.options.formatter === 'string') {
+    if (typeof (this.options.formatter) === 'string') {
       this.formatter(this.options.formatter);
+    } else {
+      this.formatter('detailed');
     }
   }
 

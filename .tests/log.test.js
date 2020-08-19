@@ -3,14 +3,14 @@
 */
 let loggin = require('../src/node');
 
-fdescribe('loggin.Log', () => {
+describe('loggin.Log', () => {
     it(`Class should be defined`, () => {
         expect(loggin.Log).toBeDefined();
     });
 
     it(`construct formatter correctly`, () => {
         expect(() => {
-            new loggin.Log();
+            new loggin.Log('test');
         }).not.toThrow();
     });
 
@@ -23,15 +23,5 @@ fdescribe('loggin.Log', () => {
                 }
             });
         }).not.toThrow();
-    });
-
-    it(`.format should work correctly`, () => {
-        let log = new loggin.Log();
-        expect(log.format()).toEqual();
-    });
-
-    it(`Log.fromObject should work correctly`, () => {
-        let log = loggin.Log.fromObject({  });
-        expect(log).toEqual();
     });
 });
