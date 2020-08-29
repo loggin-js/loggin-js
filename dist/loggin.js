@@ -5228,17 +5228,14 @@ const Severity = require('./severity');
 const Formatter = require('./formatter');
 
 
-/**
- * TODO: Add type checking in constructor
- */
 class Log {
-  constructor(message, data = null, level = Severity.DEBUG, channel = '', time = new Date(), user) {
+  constructor(message, data, level = Severity.DEBUG, channel = '', time = new Date(), user) {
     this.message = message;
     this.data = data;
     this.level = level;
     this.channel = channel;
     this.levelStr = level.toString();
-    this.time = time || new Date();
+    this.time = time;
     this.user = user;
   }
 
@@ -5391,12 +5388,12 @@ class Logger {
   }
 
   getNotifier(name) {
-    if (!this.hasNotifier(name)) {
-      return null;
-    } else {
+    if (this.hasNotifier(name)) {
       return this._notifiers.filter(notif =>
         notif.name === name).pop();
     }
+
+    return null;
   }
 
   color(color = true) {
@@ -5651,16 +5648,17 @@ class Notifier {
 
     if (options.pipes instanceof Array) {
       options.pipes.forEach((pipe, i) => {
+        /* istanbul ignore else */
         if (!(pipe instanceof Pipe)) {
           throw new Error(`ERROR: "options.pipes" should be an array of Pipes, got ${pipe} instead at index ${i}`);
         }
       });
     }
 
-    if (!this.options.formatter) {
-      this.formatter('detailed');
-    } else if (typeof this.options.formatter === 'string') {
+    if (typeof (this.options.formatter) === 'string') {
       this.formatter(this.options.formatter);
+    } else {
+      this.formatter('detailed');
     }
   }
 
@@ -5984,6 +5982,7 @@ function plugin(loggin) {
         .register(5, 'NOTICE')
         .register(6, 'INFO')
         .register(7, 'DEBUG')
+        .register(7, 'DEFAULT')
         .register(8, 'SILLY');
 };
 
