@@ -187,6 +187,15 @@ class Logger {
     return this;
   }
 
+  default(message, data = null, opts = {}) {
+    this.log(message, data, {
+      level: Severity.DEFAULT,
+      ...opts
+    });
+
+    return this;
+  }
+
   warning(message, data = null, opts = {}) {
     this.log(message, data, {
       level: Severity.WARNING,
