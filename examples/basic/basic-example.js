@@ -1,7 +1,7 @@
 // Demo-1
 // https://runkit.com/nombrekeff/loggin-js-demo-1
 
-const loggin = require('../../');
+const loggin = require('../../src/index');
 
 loggin.debug();
 
@@ -13,7 +13,7 @@ loggin.debug();
 // See https://github.com/loggin-js/loggin-js/wiki/type.LoggerOptions#interface
 const logger = loggin.logger({
   level: loggin.severity('info'),
-  color: true,
+  color: false,
   channel: 'demo-1',
   formatter: 'long'
 });
@@ -21,7 +21,7 @@ const logger = loggin.logger({
 // You can change options after creation
 // See https://github.com/loggin-js/loggin-js/wiki/Logger#interface
 logger.level('debug');
-logger.color(false);
+logger.color(true);
 logger.user('root');
 
 logger.debug('debug');

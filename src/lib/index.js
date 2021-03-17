@@ -43,7 +43,6 @@ function use(plugin) {
   plugin(this);
 }
 
-
 const LogginJS = {
   Severity,
   Log,

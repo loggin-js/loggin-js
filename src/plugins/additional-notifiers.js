@@ -1,7 +1,6 @@
 
 const path = require('path');
 const fs = require('fs');
-const url = require('url');
 const phin = require('phin');
 
 function mkDirByPathSync(targetDir, { isRelativeToScript = false } = {}) {
@@ -150,19 +149,12 @@ function plugin(loggin) {
         constructor(options) {
             super(options, 'http');
             this.headers = this.options.headers || {};
-            this.url = new url.URL(this.options.url || 'https://localhost:3000');
-
-            if (!this.options.url) {
-                this.url.protocol = this.options.protocol;
-                this.url.host = this.options.host;
-                this.url.port = this.options.port;
-                this.url.pathname = this.options.path;
-            }
+            this.url = this.options.url
         }
 
         async output(logMsg, log) {
             return await phin({
-                url: this.url.toString(),
+                url: this.url,
                 method: 'POST',
                 headers: this.headers,
                 data: {

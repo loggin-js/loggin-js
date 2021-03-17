@@ -37,8 +37,20 @@ If you want to log easily or create some complex loggin system, this might be th
 
 - **Browser** support is beeing **deprecated**, development will be discontinued and will be removed from Loggin'JS in version `2.0.0`. It's beeing deprecated because it's limiting me on the features I could be adding to the NodeJS version.
 
-## Table Of Content <!-- omit in toc -->
+## Features
+- **Extensible**
+- **Lightweighted**
+- **Plugins**
+- **Configure log message** & **colored** output
+- **File notifier**
+- **Http notifier**
+- **Memory notifier**: store in memory and output on demand
+- **Log levels**: log some stuff as DEBUG, INFO, or just ERRORS, etc...
 
+## Table Of Content <!-- omit in toc -->
+- [Features](#features)
+  - [Installing](#installing)
+  - [Importing](#importing)
 - [Getting Started](#getting-started)
 - [Examples](#examples)
 - [Plugins](#plugins)
