@@ -3,6 +3,7 @@ const strif = require('strif');
 const colors = require('colors');
 
 const padd = (v) => ` ${v} `;
+
 const defaultTransformers = {
   cl_red: s => colors.red(s),
   cl_blue: s => colors.blue(s),
@@ -52,9 +53,14 @@ class Formatter {
   }
 
   static format(log, formatter, color = false) {
-    const tmpltType = formatter.template.constructor.name;
-    if (tmpltType !== 'StrifTemplate') {
-      throw Error('options.formatter should be type: "StrifTemplate", not: "' + tmpltType + '"');
+    if (!log || !formatter) {
+      throw Error('"log" and "formatter" parameters are required');
+    }
+    if (!(formatter instanceof Formatter)) {
+      throw Error('"formatter" must be a Formatter instance');
+    }
+    if (!(formatter.template instanceof strif.Template)) {
+      throw Error(`"formatter" should be type: "StrifTemplate", not: ${typeof (formatter.template)}`);
     }
 
     if (color) {
