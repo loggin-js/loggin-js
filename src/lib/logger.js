@@ -1,20 +1,28 @@
 'use strict';
 
-const os = require('os');
-const path = require('path');
-const Log = require('./log');
 const Notifier = require('./notifier');
 const Severity = require('./severity');
 const Formatter = require('./formatter');
-const { isFunction } = require('./util');
+const Loggable = require('./loggable');
+const { getOsUsername, getFileBasename } = require('./util');
 
+const DefaultLoggerOptions = {
+  user: getOsUsername(),
+  channel: getFileBasename(),
+  color: false,
+  ignore: null,
+  preNotify: null,
+  level: Severity.DEBUG,
+  formatter: Formatter.get('detailed'),
+  enabled: true,
+};
 
-class Logger {
+class Logger extends Loggable {
   constructor(options) {
-    this.options = {
-      ...Logger.DefaultOptions,
+    super({
+      ...DefaultLoggerOptions,
       ...options
-    };
+    });
 
     this._profiles = {};
     let notifiers = options.notifiers;
@@ -139,135 +147,6 @@ class Logger {
     return this.options.level.canLog(severity);
   }
 
-  log(message, data = null, options = {}) {
-    const opts = {
-      level: options.level || this.options.level,
-      channel: options.channel || this.options.channel,
-      user: options.user || this.options.user,
-      time: options.time || Date.now(),
-      data,
-      message,
-    };
-
-    if (!this.options.enabled) return;
-
-    let log = message;
-    if (!(message instanceof Log)) {
-      log = Log.fromObject(opts);
-    }
-
-    this._notifiers
-      .forEach(notifier => {
-        if (!notifier.canOutput(log) || !notifier.options.enabled) {
-          return;
-        }
-
-        if (isFunction(this.options.preNotify)) {
-          this.options.preNotify(log, notifier);
-        }
-
-        if (
-          isFunction(this.options.ignore) &&
-          this.options.ignore(log, notifier)
-        ) return;
-
-        notifier.notify(log);
-      });
-
-    return this;
-  }
-
-
-  debug(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.DEBUG,
-      ...opts
-    });
-
-    return this;
-  }
-
-  default(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.DEFAULT,
-      ...opts
-    });
-
-    return this;
-  }
-
-  warning(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.WARNING,
-      ...opts
-    });
-
-    return this;
-  }
-
-  alert(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.ALERT,
-      ...opts
-    });
-
-    return this;
-  }
-
-  emergency(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.EMERGENCY,
-      ...opts
-    });
-
-    return this;
-  }
-
-  critical(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.CRITICAL,
-      ...opts
-    });
-
-    return this;
-  }
-
-  error(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.ERROR,
-      ...opts
-    });
-
-    return this;
-  }
-
-  notice(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.NOTICE,
-      ...opts
-    });
-
-    return this;
-  }
-
-  info(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.INFO,
-      ...opts
-    });
-
-    return this;
-  }
-
-  silly(message, data = null, opts = {}) {
-    this.log(message, data, {
-      level: Severity.SILLY,
-      ...opts
-    });
-
-    return this;
-  }
-
   static search(value) {
     for (let key in Logger._loggers) {
       let logger = Logger._loggers[key];
@@ -332,15 +211,5 @@ class Logger {
 }
 
 Logger._loggers = {};
-Logger.DefaultOptions = {
-  user: os.userInfo ? os.userInfo().username : 'browser',
-  ignore: null,
-  preNotify: null,
-  level: Severity.DEBUG,
-  channel: path.basename(__filename),
-  formatter: Formatter.get('detailed'),
-  enabled: true,
-  color: false,
-};
 
 module.exports = Logger;

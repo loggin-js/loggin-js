@@ -1,7 +1,7 @@
 /**
 * @jest-environment node
 */
-let loggin = require('../src/node');
+let loggin = require('../src/index');
 
 describe('loggin.Formatter', () => {
     it(`Class should be defined`, () => {

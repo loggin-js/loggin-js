@@ -2,7 +2,7 @@
 * @jest-environment node
 */
 
-let loggin = require('../src/node');
+let loggin = require('../src/index');
 
 describe('loggin should be defined', () => {
   it(`loggin should`, () => {
