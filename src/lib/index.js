@@ -19,8 +19,11 @@ function formatter(template = 'default') {
   return Formatter.get(template);
 }
 
-function severity(level) {
-  return Severity.get(level);
+function severity(level, { strict } = { strict: false }) {
+  const severity = Severity.get(level);
+  severity.strict = strict;
+  
+  return severity;
 }
 
 function merge(loggers, options) {

@@ -8,30 +8,29 @@ describe('loggin.Notifier tests', () => {
     expect(loggin.Notifier).toBeDefined();
   });
 
-  it(`instance notifier correctly no args`, () => {
+  it(`should instanciate new notifier with no args`, () => {
     expect(() => {
-      let notif = new loggin.Notifier();
+      new loggin.Notifier();
     }).not.toThrow();
   });
 
-  it(`instance notifier correctly with severity`, () => {
+  it(`should instanciate new notifier with severity`, () => {
     expect(() => {
       let sev = loggin.severity('DEBUG');
-      let notif = new loggin.Notifier({
+      new loggin.Notifier({
         level: sev
       });
     }).not.toThrow();
   });
 
-  it(`instance with incorrect severity`, () => {
+  it(`instance with incorrect severity throws`, () => {
     expect(() => {
-      let sev = loggin.severity('DEBUG');
-      let notif = new loggin.Notifier({
+      new loggin.Notifier({
         level: 12
       });
     }).toThrow();
   });
- 
+
   it(`Sets options correctly`, () => {
     let sev = loggin.severity('DEBUG');
     let formatter = loggin.formatter('detailed');
@@ -62,5 +61,21 @@ describe('loggin.Notifier tests', () => {
     let notifier = loggin.notifier('default');
     let line = notifier.getLineWithNumber('test');
     expect(line).toEqual('(0) test');
+  });
+
+  it(`instance with incorrect pipes throws`, () => {
+    expect(() => {
+      new loggin.Notifier({
+        pipes: [{}]
+      });
+    }).toThrow();
+  });
+
+  it(`instance with string formatter`, () => {
+    expect(() => {
+      new loggin.Notifier({
+        formatter: 'detailed'
+      });
+    }).not.toThrow();
   });
 });

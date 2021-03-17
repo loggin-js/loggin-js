@@ -11,6 +11,7 @@ function plugin(loggin) {
         .register(5, 'NOTICE')
         .register(6, 'INFO')
         .register(7, 'DEBUG')
+        .register(7, 'DEFAULT')
         .register(8, 'SILLY');
 };
 

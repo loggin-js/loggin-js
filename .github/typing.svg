@@ -1,0 +1,20 @@
+<svg height="100%" width="100%" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+    <path id="path">
+        <animate attributeName="d" fill="freeze" from="m0,110 h0" to="m0,110 h1100" end="m0,110 h1100" dur="2s" begin="0s" restart="/>
+    </path>
+    <path id="path2">
+        <animate attributeName="d" fill="freeze" from="m0,130 h0" to="m0,130 h1100" dur="2s" begin="1s" />
+    </path>
+    <path id="path3">
+        <animate attributeName="d" fill="freeze" from="m0,150 h0" to="m0,150 h1100" dur="2s" begin="2s" />
+    </path>
+    <text x="10%" y="25%">
+        <textPath xlink:href="#path" >const logger = loggin.logger('console');</textPath>
+    </text>
+    <text x="10%" y="50%">
+        <textPath xlink:href="#path2" >logger.debug('Launching...');</textPath>
+    </text>
+        <text x="10%" y="50%">
+        <textPath xlink:href="#path3" >logger.info('Hold up...');</textPath>
+    </text>
+</svg>

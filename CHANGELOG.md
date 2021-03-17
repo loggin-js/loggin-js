@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/loggin-js/loggin-js/compare/v1.7.3...v1.9.0) (2020-08-29)
+
+
+### Features
+
+* added strict mode to Severity, when true it will pass throught just same level severity ([637e220](https://github.com/loggin-js/loggin-js/commit/637e2200263baa3aa0a7cd24d009080598005aa5))
+
+
+### Bug Fixes
+
+* added default severity, equals debug ([bab2360](https://github.com/loggin-js/loggin-js/commit/bab2360c8e480df31c63fdbae00a2ef0d18fe85d))
+* added missing logger method .default ([0d7b3f6](https://github.com/loggin-js/loggin-js/commit/0d7b3f66237eba84d207660c0f4a835ea3ef6177))
+
+### [1.7.2](https://github.com/loggin-js/loggin-js/compare/v1.7.1...v1.7.2) (2020-01-18)
+
+## [1.8.1](https://github.com/loggin-js/loggin-js/compare/v1.7.3...v1.8.1) (2020-08-29)
+
+
+### Features
+
+* added strict mode to Severity, when true it will pass throught just same level severity ([637e220](https://github.com/loggin-js/loggin-js/commit/637e2200263baa3aa0a7cd24d009080598005aa5))
+
+
+### Bug Fixes
+
+* added default severity, equals debug ([bab2360](https://github.com/loggin-js/loggin-js/commit/bab2360c8e480df31c63fdbae00a2ef0d18fe85d))
+
+### [1.7.2](https://github.com/loggin-js/loggin-js/compare/v1.7.1...v1.7.2) (2020-01-18)
+
+## [1.8.0](https://github.com/loggin-js/loggin-js/compare/v1.7.3...v1.8.0) (2020-01-26)
+
+
+### Features
+
+* added strict mode to Severity, when true it will pass through just same level severity ([ad06c5c](https://github.com/loggin-js/loggin-js/commit/ad06c5cf5850bb8c7154e9e63fbe324ccc6cdfa6))
+
+### [1.7.2](https://github.com/loggin-js/loggin-js/compare/v1.7.1...v1.7.2) (2020-01-18)
+
 ### [1.7.3](https://github.com/loggin-js/loggin-js/compare/v1.7.1...v1.7.3) (2020-01-19)
 
 

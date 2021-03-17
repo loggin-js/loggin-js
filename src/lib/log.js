@@ -3,17 +3,14 @@ const Severity = require('./severity');
 const Formatter = require('./formatter');
 
 
-/**
- * TODO: Add type checking in constructor
- */
 class Log {
-  constructor(message, data = null, level = Severity.DEBUG, channel = '', time = new Date(), user) {
+  constructor(message, data, level = Severity.DEBUG, channel = '', time = new Date(), user) {
     this.message = message;
     this.data = data;
     this.level = level;
     this.channel = channel;
     this.levelStr = level.toString();
-    this.time = time || new Date();
+    this.time = time;
     this.user = user;
   }
 
