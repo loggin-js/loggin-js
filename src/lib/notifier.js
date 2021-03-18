@@ -93,10 +93,12 @@ class Notifier {
     return this;
   }
 
+  /* istanbul ignore next */
   output() {
     return;
   }
 
+  /* istanbul ignore next */
   pipe() {
     console.warn('WARN - Pipe has not been configured in this notifier');
   }

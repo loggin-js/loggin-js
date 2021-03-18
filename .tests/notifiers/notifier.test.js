@@ -3,7 +3,7 @@
 */
 let loggin = require('../../src/index');
 
-describe('loggin.Notifier tests', () => {
+describe('loggin.Notifier', () => {
   it(`should be defined`, () => {
     expect(loggin.Notifier).toBeDefined();
   });
@@ -69,5 +69,42 @@ describe('loggin.Notifier tests', () => {
         formatter: 'detailed'
       });
     }).not.toThrow();
+  });
+
+  it(`canOutput(level: debug) == true`, () => {
+    const notifier = loggin.notifier('default');
+    notifier.level(loggin.severity('DEBUG'));
+
+    expect(notifier.canOutput({ level: loggin.severity('DEBUG') })).toEqual(true);
+  });
+
+  it(`canOutput(level: error) == false`, () => {
+    const notifier = loggin.notifier('default');
+    notifier.level(loggin.severity('ERROR'));
+
+    expect(notifier.canOutput({ level: loggin.severity('DEBUG') })).toEqual(false);
+  });
+
+
+
+  it(`preNotify`, () => {
+    const notifier = loggin.notifier('default');
+    notifier.level(loggin.severity('ERROR'));
+    notifier.options.preNotify = () => true;
+
+    spyOn(notifier.options, 'preNotify');
+
+    const log = new loggin.Log("test", null, loggin.Severity.registry.get('debug'));
+    notifier.notify(log)
+
+    expect(notifier.options.preNotify).toHaveBeenCalled();
+  });
+
+  it(`ignore`, () => {
+    const notifier = loggin.notifier('default');
+    notifier.level(loggin.severity('ERROR'));
+    notifier.options.ignore = () => true;
+
+    expect(notifier.canOutput({ level: loggin.severity('DEBUG') })).toEqual(false);
   });
 });
