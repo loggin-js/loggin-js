@@ -28,7 +28,7 @@ function throwIfNull(prop, name) {
     }
 }
 
-function throwIfNotIn(prop, obj, name, { additionalMessage = '' } = {}) {
+function throwIfNotIn(prop, obj, name, { additionalMessage } = {}) {
     if (!(prop in obj)) {
         throw new Error(`${name} with name "${prop}" not found ${additionalMessage}`);
     }
@@ -48,4 +48,8 @@ module.exports.throwIf = {
 
 
 module.exports.throwIfNotString = throwIfNotString;
+module.exports.throwIfNotNumber = throwIfNotNumber;
+module.exports.throwIfNotConstructor = throwIfNotConstructor;
+module.exports.throwIfNotInstanceof = throwIfNotInstanceof;
 module.exports.throwIfNull = throwIfNull;
+module.exports.throwIfNotIn = throwIfNotIn;
