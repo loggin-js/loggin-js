@@ -8,12 +8,12 @@ let fileErrorPath = '../logs/error-file.log';
 
 describe('loggin.Notifier.File tests', () => {
     it(`should be registered`, () => {
-        expect(loggin.Notifier.File).toBeDefined();
+        expect(loggin.Notifier.registry.has('file')).toBeDefined();
     });
 
     it(`should construct notifier correctly`, () => {
         expect(() => {
-            let notif = new loggin.Notifier.File();
+            let notif = loggin.Notifier.registry.get('file', {});
         }).not.toThrow();
     });
 

@@ -6,9 +6,9 @@ const additionalSeverities = require('./plugins/additional-severities');
 const additionalFormatters = require('./plugins/additional-formatters');
 
 
+LogginJS.use(additionalFormatters);
+LogginJS.use(additionalSeverities);
 LogginJS.use(additionalNotifiers);
 LogginJS.use(additionalLoggers);
-LogginJS.use(additionalSeverities);
-LogginJS.use(additionalFormatters);
 
 module.exports = Object.assign(LogginJS.logger('default'), LogginJS);

@@ -5,27 +5,20 @@ const Formatter = require('./formatter');
 const Pipe = require('./pipe');
 const { isFunction } = require('./util');
 
-function isConstructor(obj) {
-  return !!obj.prototype && !!obj.prototype.constructor.name;
-}
-
 class Notifier {
   constructor(options = {}, name) {
     options = {
-      ...Notifier.DefaultOptions,
+      color: false,
+      enabled: true,
+      level: 'DEBUG',
       ...options
     };
-
-    if (options.level && !(options.level instanceof Severity)) {
-      throw new Error(`ERROR: "options.level" should be an instance of Severity. at: options.level = ${options.level}`);
-    }
-
-    this.name = options.name || name || 'notifier';
     this.options = options;
-    this.options.level = Severity.get(this.options.level);
-    this.options.color = options.color;
-    this.options.lineNumbers = options.lineNumbers;
-    this.options.enabled = options.enabled;
+    this.name = this.options.name || name || 'notifier';
+    this.options.level = this.options.level;
+    this.options.color = this.options.color;
+    this.options.lineNumbers = this.options.lineNumbers;
+    this.options.enabled = this.options.enabled;
 
     this.pipes = [];
     this.lineIndex = 0;
@@ -63,12 +56,12 @@ class Notifier {
   }
 
   level(level) {
-    this.options.level = Severity.get(level);
+    this.options.level = Severity.registry.get(level);
     return this;
   }
 
   formatter(formatter) {
-    this.options.formatter = Formatter.get(formatter);
+    this.options.formatter = Formatter.registry.get(formatter);
     return this;
   }
 
@@ -107,52 +100,6 @@ class Notifier {
   pipe() {
     console.warn('WARN - Pipe has not been configured in this notifier');
   }
-
-  static search(value) {
-    for (let key in Notifier._notifiers) {
-      let notifier = Notifier._notifiers[key];
-      if ((key).toLowerCase() === String(value).toLowerCase()) {
-        return notifier;
-      }
-    }
-
-    return Notifier.Console;
-  }
-
-  static get(value, opts = {}) {
-    if (value && value.constructor.name === 'Notifier') {
-      return value;
-    }
-
-    let Ctor = Notifier.search(value);
-
-    if (!isConstructor(Ctor)) {
-      throw new Error('Coult not find Notifier with name (' + value + ') | \nIf it\'s a custom made notifier, please register it before using it. I.e: Notifier.register(\'name\', Constructor)');
-    }
-
-    return new Ctor(opts);
-  }
-
-  static register(name, ctor) {
-    if (typeof name !== 'string') {
-      throw new Error('"name" must be a string got: ' + typeof name);
-    }
-    if (typeof ctor !== 'function') {
-      throw new Error('"ctor" must be a constructor function got: ' + typeof ctor);
-    }
-
-    Notifier[name] = Notifier._notifiers[name] = ctor;
-
-    return Notifier;
-  }
 }
-
-Notifier._notifiers = {};
-
-Notifier.DefaultOptions = {
-  color: false,
-  enabled: true
-};
-
 
 module.exports = Notifier;

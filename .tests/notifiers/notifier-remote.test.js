@@ -17,13 +17,7 @@ describe('loggin.Notifier.Http tests', () => {
     });
 
     it(`should be registered`, () => {
-        expect(loggin.Notifier.Http).toBeDefined();
-    });
-
-    it(`should construct notifier correctly`, () => {
-        expect(() => {
-            let notif = new loggin.Notifier.Http();
-        }).not.toThrow();
+        expect(loggin.Notifier.registry.has('http')).toBeDefined();
     });
 
     it(`should log correctly to http`, (done) => {

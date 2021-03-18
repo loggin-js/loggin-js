@@ -1,6 +1,7 @@
 
 function plugin(loggin) {
     const { Formatter } = loggin;
+    const { registry } = Formatter;
 
     Formatter.colors.fromLevel = (severity) => {
         let severityString = severity.name;
@@ -23,18 +24,16 @@ function plugin(loggin) {
         }
     }
 
-    Formatter['JSON'] = Formatter._formatters['JSON'] = {
+    registry.add('JSON', {
         formatLog: (log) => JSON.stringify(log),
         color: (log) => log,
-    }
+    });
 
-    Formatter
+    registry
         .register(
             'MESSAGE',
             '{message}',
-        );
-
-    Formatter
+        )
         .register(
             'SHORT',
             '[{time}] - {level} - {message}', {
@@ -50,26 +49,43 @@ function plugin(loggin) {
                 }
             }
         }
-        );
-    Formatter
+        )
         .register(
             'MEDIUM',
-            '[{time}] - {level} - {message} {data}', {
-            props: {
-                time: {
-                    transformers: ['toLocaleDate']
-                },
-                level: {
-                    transformers: ['toString']
-                },
-                message: {},
-                data: {
-                    transformers: ['stringify', 'cl_gray']
+            '[{time}] - {level} - {message} {data}',
+            {
+                props: {
+                    time: {
+                        transformers: ['toLocaleDate']
+                    },
+                    level: {
+                        transformers: ['toString']
+                    },
+                    message: {},
+                    data: {
+                        transformers: ['stringify', 'cl_gray']
+                    }
                 }
             }
-        }
-        );
-    Formatter
+        )
+        .register(
+            'DEFAULT',
+            '[{time}] - {level} - {message} {data}',
+            {
+                props: {
+                    time: {
+                        transformers: ['toLocaleDate']
+                    },
+                    level: {
+                        transformers: ['toString']
+                    },
+                    message: {},
+                    data: {
+                        transformers: ['stringify', 'cl_gray']
+                    }
+                }
+            }
+        )
         .register(
             'LONG',
             '[{time} {user}] - {level} - {message} {data}', {
@@ -89,8 +105,7 @@ function plugin(loggin) {
                 }
             }
         }
-        );
-    Formatter
+        )
         .register(
             'DETAILED',
             '{time} {user} {channel} - {level} - {message} {data}', {
@@ -111,8 +126,7 @@ function plugin(loggin) {
                 message: {},
             }
         }
-        );
-    Formatter
+        )
         .register(
             'MINIMAL',
             '{channel} - {message}', {

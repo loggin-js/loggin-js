@@ -1,13 +1,49 @@
 'use strict';
 
 const Severity = require('./severity');
+const Notifier = require('./notifier');
 const Log = require('./log');
 const { isFunction } = require('./util');
 
 class Loggable {
-
     constructor(options) {
         this.options = options;
+        let notifiers = options.notifiers;
+        if (!notifiers || notifiers.length === 0) {
+            notifiers = [Notifier.registry.get('default')];
+        }
+
+        // .setNotifiers must be done before setting other options
+        // as some of them propagate down options to the notifiers
+        this.setNotifiers(notifiers);
+    }
+
+    // Notifier stuff
+    notifier(...notifiers) {
+        this._notifiers = [
+            ...this._notifiers,
+            ...notifiers
+        ];
+        return this;
+    }
+
+    setNotifiers(notifiers) {
+        this._notifiers = notifiers;
+        return this;
+    }
+
+    hasNotifier(name) {
+        return this._notifiers.some(notif =>
+            notif.name === name);
+    }
+
+    getNotifier(name) {
+        if (this.hasNotifier(name)) {
+            return this._notifiers.filter(notif =>
+                notif.name === name).pop();
+        }
+
+        return null;
     }
 
     // Log methods
@@ -51,7 +87,7 @@ class Loggable {
 
     debug(message, data, opts = {}) {
         this.log(message, data, {
-            level: Severity.DEBUG,
+            level: Severity.registry.get('DEBUG'),
             ...opts
         });
 
@@ -60,7 +96,7 @@ class Loggable {
 
     default(message, data, opts = {}) {
         this.log(message, data, {
-            level: Severity.DEFAULT,
+            level: Severity.registry.get('DEFAULT'),
             ...opts
         });
 
@@ -69,7 +105,7 @@ class Loggable {
 
     warning(message, data, opts = {}) {
         this.log(message, data, {
-            level: Severity.WARNING,
+            level: Severity.registry.get('WARNING'),
             ...opts
         });
 
@@ -78,7 +114,7 @@ class Loggable {
 
     alert(message, data, opts = {}) {
         this.log(message, data, {
-            level: Severity.ALERT,
+            level: Severity.registry.get('ALERT'),
             ...opts
         });
 
@@ -87,7 +123,7 @@ class Loggable {
 
     emergency(message, data, opts = {}) {
         this.log(message, data, {
-            level: Severity.EMERGENCY,
+            level: Severity.registry.get('EMERGENCY'),
             ...opts
         });
 
@@ -96,7 +132,7 @@ class Loggable {
 
     critical(message, data, opts = {}) {
         this.log(message, data, {
-            level: Severity.CRITICAL,
+            level: Severity.registry.get('CRITICAL'),
             ...opts
         });
 
@@ -105,7 +141,7 @@ class Loggable {
 
     error(message, data, opts = {}) {
         this.log(message, data, {
-            level: Severity.ERROR,
+            level: Severity.registry.get('ERROR'),
             ...opts
         });
 
@@ -114,7 +150,7 @@ class Loggable {
 
     notice(message, data, opts = {}) {
         this.log(message, data, {
-            level: Severity.NOTICE,
+            level: Severity.registry.get('NOTICE'),
             ...opts
         });
 
@@ -123,7 +159,7 @@ class Loggable {
 
     info(message, data, opts = {}) {
         this.log(message, data, {
-            level: Severity.INFO,
+            level: Severity.registry.get('INFO'),
             ...opts
         });
 
@@ -132,7 +168,7 @@ class Loggable {
 
     silly(message, data, opts = {}) {
         this.log(message, data, {
-            level: Severity.SILLY,
+            level: Severity.registry.get('SILLY'),
             ...opts
         });
 

@@ -23,14 +23,6 @@ describe('loggin.Notifier tests', () => {
     }).not.toThrow();
   });
 
-  it(`instance with incorrect severity throws`, () => {
-    expect(() => {
-      new loggin.Notifier({
-        level: 12
-      });
-    }).toThrow();
-  });
-
   it(`Sets options correctly`, () => {
     let sev = loggin.severity('DEBUG');
     let formatter = loggin.formatter('detailed');

@@ -224,11 +224,13 @@ function plugin(loggin) {
         }
     }
 
-    Notifier.register('Console', ConsoleNotifier);
-    Notifier.register('File', FileNotifier);
-    Notifier.register('Http', HttpNotifier);
-    Notifier.register('Remote', RemoteNotifier);
-    Notifier.register('Memory', MemoryNotifier);
+    Notifier.registry
+        .register('Console', ConsoleNotifier)
+        .register('Default', ConsoleNotifier)
+        .register('File', FileNotifier)
+        .register('Http', HttpNotifier)
+        .register('Remote', RemoteNotifier)
+        .register('Memory', MemoryNotifier);
 };
 
 module.exports = plugin;

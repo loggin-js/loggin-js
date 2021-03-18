@@ -7,22 +7,33 @@ const Severity = require('./severity');
 const Log = require('./log');
 const Pipe = require('./pipe');
 
+const FormatterRegistry = require('./registry/formatter-registry');
+const SeverityRegistry = require('./registry/severity-registry');
+const NotifierRegistry = require('./registry/notifier-registry');
+const LoggerRegistry = require('./registry/logger-registry');
+
+const formatterRegistry = new FormatterRegistry();
+const severityRegistry = new SeverityRegistry();
+const notifierRegistry = new NotifierRegistry();
+const loggerRegistry = new LoggerRegistry();
+
+
 function logger(opts = 'default', args = {}) {
-  return Logger.get(opts, args);
+  return Logger.registry.get(opts, args);
 }
 
 function notifier(opts = 'default', args = {}) {
-  return Notifier.get(opts, args);
+  return Notifier.registry.get(opts, args);
 }
 
 function formatter(template = 'default') {
-  return Formatter.get(template);
+  return Formatter.registry.get(template);
 }
 
 function severity(level, { strict } = { strict: false }) {
-  const severity = Severity.get(level);
+  const severity = Severity.registry.get(level);
   severity.strict = strict;
-  
+
   return severity;
 }
 
@@ -43,6 +54,12 @@ function use(plugin) {
   plugin(this);
 }
 
+// Inject Registries
+Formatter.registry = formatterRegistry;
+Severity.registry = severityRegistry;
+Notifier.registry = notifierRegistry;
+Logger.registry = loggerRegistry;
+
 const LogginJS = {
   Severity,
   Log,
@@ -57,7 +74,7 @@ const LogginJS = {
   severity,
   merge,
   pipe,
-  use
+  use,
 };
 
 module.exports = LogginJS;

@@ -93,7 +93,9 @@ describe('loggin.Logger', () => {
   it(`.formatter should set correctly in notifiers`, () => {
     let logger = loggin.logger('default');
     let formatter = loggin.formatter('minimal');
+    
     logger.formatter(formatter);
+
     expect(() => {
       logger._notifiers.forEach(notif => {
         if (notif.options.formatter != formatter) {

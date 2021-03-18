@@ -17,7 +17,7 @@ describe('loggin.Logger logging tests', () => {
         expect(notifier.logs.length).toEqual(1);
     });
 
-    let severities = Object.keys(loggin.Severity._severities)
+    let severities = Object.keys(loggin.Severity.registry._severities)
         .map(s => String.prototype.toLowerCase.call(s));
 
     for (let severity of severities) {

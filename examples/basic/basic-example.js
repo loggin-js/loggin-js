@@ -3,8 +3,6 @@
 
 const loggin = require('../../src/index');
 
-loggin.debug();
-
 // Create a logger with a set of options
 // `level`   - Set output level to DEBUG (all logs will output)
 // `color`   - Set color for all notifiers
