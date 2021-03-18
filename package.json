@@ -15,7 +15,6 @@
   "license": "MIT",
   "files": [
     "src/*",
-    "dist/*",
     "README.md",
     "index.d.ts",
     "CHANGELOG.md"
@@ -35,7 +34,6 @@
     "http",
     "memory",
     "expandable",
-    "browser",
     "customizable"
   ],
   "repository": "git://github.com/loggin-js/loggin-js.git",
@@ -44,7 +42,6 @@
     "test": "jest --coverage",
     "test-server": "node test-remote/server.js",
     "examples": "node examples/basic-example.js && node examples/file-logging.js && node examples/log-info.js && node examples/custom-formatter.js",
-    "build:browser": "browserify src/browser.js -o dist/loggin.js -w",
     "release": "npm run build:browser && git push --follow-tags origin master && npm publish",
     "standard-version": "standard-version",
     "coverage": "jest-coverage-badges output \"./.github/badges\""
@@ -61,7 +58,6 @@
     "@babel/cli": "^7.13.10",
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
-    "browserify": "^16.5.0",
     "husky": "^1.3.1",
     "jest": "^26.4.0",
     "jest-coverage-badges": "^1.1.2",

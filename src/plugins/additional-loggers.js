@@ -1,8 +1,6 @@
 
-function plugin(loggin) {
-    const { Logger } = loggin;
-
-    Logger.registry
+function plugin({ loggerRegistry }) {
+    loggerRegistry
         .register('default', 'Console')
         .register('console', 'Console')
         .register('file', 'File')

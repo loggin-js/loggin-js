@@ -1,9 +1,6 @@
 
-function plugin(loggin) {
-    const { Severity } = loggin;
-
-    Severity
-        .registry
+function plugin({ severityRegistry }) {
+    severityRegistry
         .register(0, 'EMERGENCY')
         .register(1, 'ALERT')
         .register(2, 'CRITICAL')

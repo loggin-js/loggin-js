@@ -1,8 +1,5 @@
 
-function plugin(loggin) {
-    const { Formatter } = loggin;
-    const { registry } = Formatter;
-
+function plugin({ Formatter, formatterRegistry } ) {
     Formatter.colors.fromLevel = (severity) => {
         let severityString = severity.name;
         switch (severityString) {
@@ -24,12 +21,12 @@ function plugin(loggin) {
         }
     }
 
-    registry.add('JSON', {
+    formatterRegistry.add('JSON', {
         formatLog: (log) => JSON.stringify(log),
         color: (log) => log,
     });
 
-    registry
+    formatterRegistry
         .register(
             'MESSAGE',
             '{message}',
@@ -88,23 +85,24 @@ function plugin(loggin) {
         )
         .register(
             'LONG',
-            '[{time} {user}] - {level} - {message} {data}', {
-            props: {
-                time: {
-                    transformers: ['toLocaleDate', 'cl_blue']
-                },
-                user: {
-                    transformers: ['cl_gray']
-                },
-                level: {
-                    transformers: ['toString']
-                },
-                message: {},
-                data: {
-                    transformers: ['stringifyNoFormat', 'cl_gray']
+            '[{time} {user}] - {level} - {message} {data}',
+            {
+                props: {
+                    time: {
+                        transformers: ['toLocaleDate', 'cl_blue']
+                    },
+                    user: {
+                        transformers: ['cl_gray']
+                    },
+                    level: {
+                        transformers: ['toString']
+                    },
+                    message: {},
+                    data: {
+                        transformers: ['stringifyNoFormat', 'cl_gray']
+                    }
                 }
             }
-        }
         )
         .register(
             'DETAILED',

@@ -5,7 +5,6 @@ const additionalLoggers = require('./plugins/additional-loggers');
 const additionalSeverities = require('./plugins/additional-severities');
 const additionalFormatters = require('./plugins/additional-formatters');
 
-
 LogginJS.use(additionalFormatters);
 LogginJS.use(additionalSeverities);
 LogginJS.use(additionalNotifiers);

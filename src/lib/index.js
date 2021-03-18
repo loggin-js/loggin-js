@@ -75,6 +75,11 @@ const LogginJS = {
   merge,
   pipe,
   use,
+  
+  loggerRegistry,
+  severityRegistry,
+  notifierRegistry,
+  formatterRegistry,
 };
 
 module.exports = LogginJS;
