@@ -15,7 +15,7 @@ const LoggerRegistry = require('./registry/logger-registry');
 const formatterRegistry = new FormatterRegistry();
 const severityRegistry = new SeverityRegistry();
 const notifierRegistry = new NotifierRegistry();
-const loggerRegistry = new LoggerRegistry();
+const loggerRegistry = new LoggerRegistry(notifierRegistry);
 
 
 function logger(opts = 'default', args = {}) {

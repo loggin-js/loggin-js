@@ -7,11 +7,12 @@ const EmptyRegistry = require('./empty-registry');
 class NotifiersRegistry extends EmptyRegistry {
     constructor() {
         super();
-        this._notifiers = {};
     }
 
     add(name, instance) {
-        this._notifiers[name] = instance;
+        throwIf.not.string(name, 'name');
+        throwIf.not.constructor(instance, 'instance');
+        this._registry[name] = instance;
     }
 
     register(name, ctor) {
@@ -21,7 +22,7 @@ class NotifiersRegistry extends EmptyRegistry {
         const nameUpper = name.toUpperCase();
         const nameLower = name.toLowerCase();
 
-        this._notifiers[nameLower] = this._notifiers[nameUpper] = ctor;
+        this._registry[nameLower] = this._registry[nameUpper] = ctor;
 
         return this;
     }
@@ -30,20 +31,16 @@ class NotifiersRegistry extends EmptyRegistry {
         if (query instanceof Notifier) return query;
 
         const Ctor = this.search(query);
-        if (!isConstructor(Ctor)) {
-            throw new Error(`Could not find Notifier with name (${query}) | If it's a custom made notifier, please register it before using it. I.e: Notifier.registry.register('name', Constructor)`);
-        }
-
         return new Ctor(opts);
     }
 
     search(query) {
-        throwIf.not.in(query, this._notifiers, 'Notifier', { additionalMessage: '| Make sure it has been registered using, Notifier.registry' });
-        return this._notifiers[query];
+        throwIf.not.in(query, this._registry, 'Notifier', { additionalMessage: '| Make sure it has been registered using, Notifier.registry' });
+        return this._registry[query];
     }
 
     has(query) {
-        return !!this._notifiers[query];
+        return !!this._registry[query];
     }
 }
 

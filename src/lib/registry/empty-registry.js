@@ -1,6 +1,10 @@
 class EmptyRegistry {
     constructor() {
+        this._registry = {};
+    }
 
+    clear() {
+        this._registry = {};
     }
 
     add(name, instance) {

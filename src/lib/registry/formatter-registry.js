@@ -5,11 +5,10 @@ const EmptyRegistry = require('./empty-registry');
 class FormatterRegistry extends EmptyRegistry {
     constructor() {
         super();
-        this._formatters = {};
     }
 
     add(name, instance) {
-        this._formatters[name] = instance;
+        this._registry[name] = instance;
     }
 
     register(name, template, options = {}) {
@@ -20,7 +19,7 @@ class FormatterRegistry extends EmptyRegistry {
         const nameUpper = name.toUpperCase();
         const nameLower = name.toLowerCase();
 
-        this._formatters[nameLower] = this._formatters[nameUpper] = formatter;
+        this._registry[nameLower] = this._registry[nameUpper] = formatter;
 
 
         return this;
@@ -33,13 +32,13 @@ class FormatterRegistry extends EmptyRegistry {
     }
 
     search(query) {
-        throwIf.not.in(query, this._formatters, 'Formatter', { additionalMessage: '| Make sure it has been registered using, Formatter.registry' });
+        throwIf.not.in(query, this._registry, 'Formatter', { additionalMessage: '| Make sure it has been registered using, Formatter.registry' });
 
-        return this._formatters[query];
+        return this._registry[query];
     }
 
     has(query) {
-        return !!this._formatters[query];
+        return !!this._registry[query];
     }
 }
 

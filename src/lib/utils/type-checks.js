@@ -16,6 +16,12 @@ function throwIfNotConstructor(ctor, name) {
     }
 }
 
+function throwIfNotInstanceof(prop, type, propName, typeName) {
+    if (!(prop instanceof type)) {
+        throw new Error(`"${propName}" must be an instance of: ${typeName}`);
+    }
+}
+
 function throwIfNull(prop, name) {
     if (prop == null) {
         throw new Error(`"${name}" must not be null`);
@@ -34,7 +40,8 @@ module.exports.throwIf = {
         string: throwIfNotString,
         number: throwIfNotNumber,
         in: throwIfNotIn,
-        constructor: throwIfNotConstructor
+        constructor: throwIfNotConstructor,
+        instanceof: throwIfNotInstanceof
     },
     null: throwIfNull,
 }

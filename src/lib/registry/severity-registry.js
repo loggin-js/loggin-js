@@ -5,11 +5,13 @@ const { throwIf } = require('../utils/type-checks');
 class SeverityRegistry extends EmptyRegistry {
     constructor() {
         super();
-        this._severities = {};
     }
 
     add(name, instance) {
-        this._severities[name] = instance;
+        throwIf.not.string(name, 'name');
+        throwIf.not.instanceof(instance, Severity, 'instance', 'Severity');
+
+        this._registry[name] = instance;
     }
 
     register(level, name) {
@@ -21,8 +23,8 @@ class SeverityRegistry extends EmptyRegistry {
         const nameUpper = name.toUpperCase();
         const nameLower = name.toLowerCase();
 
-        this._severities[nameUpper] = severity;
-        this._severities[nameLower] = severity;
+        this._registry[nameUpper] = severity;
+        this._registry[nameLower] = severity;
 
         return this;
     }
@@ -33,12 +35,12 @@ class SeverityRegistry extends EmptyRegistry {
     }
 
     search(query) {
-        throwIf.not.in(query, this._severities, 'Severity', { additionalMessage: '| Make sure it has been registered using, Severity.registry' });
-        return this._severities[query];
+        throwIf.not.in(query, this._registry, 'Severity', { additionalMessage: '| Make sure it has been registered using, Severity.registry' });
+        return this._registry[query];
     }
 
     has(query) {
-        return !!this._severities[query];
+        return !!this._registry[query];
     }
 }
 
