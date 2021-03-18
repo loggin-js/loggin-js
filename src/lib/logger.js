@@ -1,12 +1,13 @@
 'use strict';
 
 const Severity = require('./severity');
-const Loggable = require('./loggable');
-const { getOsUsername, getFileBasename } = require('./util');
+const Notifier = require('./notifier');
+const Log = require('./log');
+const { getOsUsername, getFileBasename, isFunction } = require('./util');
 
-class Logger extends Loggable {
-  constructor(options) {
-    super({
+class Logger {
+  constructor(options = {}) {
+    this.options = {
       user: getOsUsername(),
       channel: getFileBasename(),
       color: false,
@@ -15,10 +16,15 @@ class Logger extends Loggable {
       level: 'default',
       formatter: 'default',
       enabled: true,
-      ...options
-    });
+      ...options,
+    };
 
-    this._profiles = {};
+    if (options.notifiers && options.notifiers.length > 0) {
+      this.setNotifiers(options.notifiers);
+    }
+    else {
+      this.setNotifiers([Notifier.registry.get('default')]);
+    }
 
     this.level(this.options.level);
     this.user(this.options.user);
@@ -35,6 +41,72 @@ class Logger extends Loggable {
 
   fork(options = {}) {
     return this.clone(options);
+  }
+
+  // Notifier stuff
+  notifier(...notifiers) {
+    this._notifiers = [
+      ...this._notifiers,
+      ...notifiers
+    ];
+    return this;
+  }
+
+  setNotifiers(notifiers) {
+    this._notifiers = notifiers;
+    return this;
+  }
+
+  hasNotifier(name) {
+    return this._notifiers.some(notif =>
+      notif.name === name);
+  }
+
+  getNotifier(name) {
+    if (this.hasNotifier(name)) {
+      return this._notifiers.filter(notif =>
+        notif.name === name).pop();
+    }
+
+    return null;
+  }
+
+  log(message, data, options = {}) {
+    const opts = {
+      level: options.level || this.options.level,
+      channel: options.channel || this.options.channel,
+      user: options.user || this.options.user,
+      time: options.time || Date.now(),
+      data,
+      message,
+    };
+
+    if (!this.options.enabled) return;
+
+    let log = message;
+    if (!(message instanceof Log)) {
+      log = Log.fromObject(opts);
+    }
+
+    this._notifiers
+      .forEach(notifier => {
+        if (!notifier.canOutput(log)) return;
+        if (!notifier.options.enabled) return;
+
+        if (isFunction(this.options.preNotify)) {
+          this.options.preNotify(log, notifier);
+        }
+
+        // Ignore done after 'preNotify', in case someone wants to modify log or notifier in 'preNotify'
+        if (
+          isFunction(this.options.ignore) &&
+          this.options.ignore(log, notifier)
+        ) return;
+
+        notifier.notify(log);
+      });
+
+    return this;
   }
 
   // Options
@@ -102,32 +174,6 @@ class Logger extends Loggable {
 
   canLog(severity) {
     return this.options.level.canLog(severity);
-  }
-
-  static merge(loggers, opts = {
-    mergeOptions: true,
-    mergeNotifiers: true
-  }) {
-    let notifiers = [];
-    let options = {};
-    for (let logger of loggers) {
-      if (!(logger instanceof Logger)) {
-        throw new Error('loggers must be an array of loggers');
-      }
-
-      if (opts.mergeOptions === true) {
-        options = Object.assign(options, logger.options);
-      }
-
-      if (opts.mergeNotifiers === true) {
-        notifiers.push(...logger._notifiers);
-      }
-    }
-
-    let logger = new Logger(options);
-    logger.setNotifiers(notifiers);
-
-    return logger;
   }
 }
 

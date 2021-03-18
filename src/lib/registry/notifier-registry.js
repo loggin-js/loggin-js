@@ -1,6 +1,5 @@
 const Notifier = require('../notifier');
 const { throwIf } = require('../utils/type-checks');
-const { isConstructor } = require('../util');
 
 const EmptyRegistry = require('./empty-registry');
 

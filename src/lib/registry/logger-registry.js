@@ -1,5 +1,4 @@
 const Logger = require('../logger');
-const Notifier = require('../notifier');
 const EmptyRegistry = require('./empty-registry');
 const { throwIf } = require('../utils/type-checks');
 
@@ -14,7 +13,7 @@ class LoggerRegistry extends EmptyRegistry {
         throwIf.not.string(notifierName, 'notifierName');
 
         this._registry[name] = notifierName;
-        
+
         return this;
     }
 

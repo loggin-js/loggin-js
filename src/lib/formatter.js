@@ -1,8 +1,9 @@
 'use strict';
-const strif = require('strif');
-const colors = require('colors');
-const { defaultTransformers } = require('./transformers');
 const EmptyRegistry = require('./registry/empty-registry');
+const colors = require('colors');
+
+const strif = require('strif');
+const { defaultTransformers } = require('./transformers');
 
 const strifFormatter = strif.create({ transformers: defaultTransformers });
 

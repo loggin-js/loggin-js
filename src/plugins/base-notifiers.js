@@ -2,6 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 const phin = require('phin');
+const Pipe = require('./pipe');
 
 function mkDirByPathSync(targetDir, { isRelativeToScript = false } = {}) {
     const sep = path.sep;
@@ -32,7 +33,7 @@ function mkDirByPathSync(targetDir, { isRelativeToScript = false } = {}) {
     }, initDir);
 }
 
-function plugin({ Notifier, Pipe, notifierRegistry }) {
+function plugin({ Notifier, notifierRegistry }) {
     class ConsoleNotifier extends Notifier {
         constructor(options) {
             super(options, 'console');
@@ -45,7 +46,7 @@ function plugin({ Notifier, Pipe, notifierRegistry }) {
                 logOut = this.getLineWithNumber(log);
             }
 
-            // Dont remove
+            // Don't remove
             console.log(logOut);
             return this;
         }
@@ -54,6 +55,8 @@ function plugin({ Notifier, Pipe, notifierRegistry }) {
     class FileNotifier extends Notifier {
         constructor(options) {
             super(options, 'file');
+
+            this.pipes = [];
 
             // Setup default pipe if filepath is passed for options.level
             if (this.options.filepath) {
@@ -67,7 +70,6 @@ function plugin({ Notifier, Pipe, notifierRegistry }) {
                 });
                 this.pipes = this.options.pipes.concat(this.pipes);
             }
-            return this;
         }
 
         getPipe(level) {
@@ -94,40 +96,24 @@ function plugin({ Notifier, Pipe, notifierRegistry }) {
         }
 
         output(message, log) {
-            let logOut = message;
-            let level = log.level;
+            const logOut = message;
+            const level = log.level;
 
             if (!this.pipes.length) {
                 throw new Error('"options.pipes" cannot be empty and must be an array of pipes');
             }
 
-            for (let index = 0; index < this.pipes.length; index++) {
-                const pipe = this.pipes[index];
+            for (let pipe of this.pipes) {
                 if (pipe.englobes(level)) {
-
-                    // Create path if it does not exist
-                    let path_ = path.dirname(pipe.filepath);
-                    if (!fs.existsSync(path_)) {
-                        mkDirByPathSync(path_);
-                    }
-
-                    // Add line numbers is set
-                    if (this.options.lineNumbers) {
-                        let lines = 0;
-                        if (fs.existsSync(pipe.filepath)) {
-                            lines = fs.readFileSync(pipe.filepath).toString()
-                                .split('\n').length;
-                        }
-                        this.lineIndex = lines;
-                        logOut = this.getLineWithNumber(logOut);
-                    }
+                    this._createPathIfNotExists(pipe.filepath);
+                    const logMessage = this._addLineNumbersIfSet(pipe.filepath, logOut);
 
                     if (!fs.existsSync(pipe.filepath)) {
                         fs.writeFileSync(pipe.filepath, '');
                     }
 
                     // Create path if it does not exist
-                    fs.appendFileSync(pipe.filepath, `${logOut}\n`);
+                    fs.appendFileSync(pipe.filepath, `${logMessage}\n`);
                 }
             }
         }
@@ -140,6 +126,27 @@ function plugin({ Notifier, Pipe, notifierRegistry }) {
         pipe(level, filepath) {
             this.pipes.push(new Pipe(level, filepath));
             return this;
+        }
+
+        _createPathIfNotExists(targetPath) {
+            const path_ = path.dirname(targetPath);
+            if (!fs.existsSync(path_)) {
+                mkDirByPathSync(path_);
+            }
+        }
+
+        _addLineNumbersIfSet(path, logOut) {
+            if (this.options.lineNumbers) {
+                let lines = 0;
+                if (fs.existsSync(path)) {
+                    lines = fs.readFileSync(path).toString()
+                        .split('\n').length;
+                }
+                this.lineIndex = lines;
+                return this.getLineWithNumber(logOut);
+            }
+
+            return logOut;
         }
     }
 

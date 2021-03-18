@@ -2,7 +2,6 @@
 
 const Severity = require('./severity');
 const Formatter = require('./formatter');
-const Pipe = require('./pipe');
 const { isFunction } = require('./util');
 
 class Notifier {
@@ -19,18 +18,7 @@ class Notifier {
     this.options.color = this.options.color;
     this.options.lineNumbers = this.options.lineNumbers;
     this.options.enabled = this.options.enabled;
-
-    this.pipes = [];
     this.lineIndex = 0;
-
-    if (options.pipes instanceof Array) {
-      options.pipes.forEach((pipe, i) => {
-        /* istanbul ignore else */
-        if (!(pipe instanceof Pipe)) {
-          throw new Error(`ERROR: "options.pipes" should be an array of Pipes, got ${pipe} instead at index ${i}`);
-        }
-      });
-    }
 
     if (typeof (this.options.formatter) === 'string') {
       this.formatter(this.options.formatter);
@@ -40,14 +28,13 @@ class Notifier {
   }
 
   canOutput(log) {
+    if (!log) return false;
+
     const { level, ignore } = this.options;
     const canLogLevel = level.canLog(log.level);
     const isIgnored = (ignore && typeof ignore === 'function' && ignore(log));
 
-    return [
-      canLogLevel,
-      !isIgnored,
-    ].reduce((prev, curr) => prev && curr);
+    return canLogLevel && !isIgnored;
   }
 
   enabled(enabled) {
@@ -76,17 +63,15 @@ class Notifier {
   }
 
   getLineWithNumber(log) {
-    let lineNum = this.lineIndex++;
-    return '(' + lineNum + ') ' + log;
+    const lineNum = this.lineIndex++;
+    return `(${lineNum}) ${log}`;
   }
 
   notify(log) {
-    let { formatter, color, preNotify } = this.options;
-    let output = formatter.formatLog(log, { color });
+    const { formatter, color, preNotify } = this.options;
+    const output = formatter.formatLog(log, { color });
 
-    if (isFunction(preNotify)) {
-      preNotify(log);
-    }
+    if (isFunction(preNotify)) preNotify(log);
 
     this.output(output, log);
 

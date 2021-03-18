@@ -1,5 +1,5 @@
 
-function plugin({ Formatter, formatterRegistry } ) {
+function plugin({ Formatter, formatterRegistry }) {
     Formatter.colors.fromLevel = (severity) => {
         let severityString = severity.name;
         switch (severityString) {

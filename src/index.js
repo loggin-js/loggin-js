@@ -1,13 +1,13 @@
 const LogginJS = require('./lib/index');
 
-const additionalNotifiers = require('./plugins/additional-notifiers');
-const additionalLoggers = require('./plugins/additional-loggers');
-const additionalSeverities = require('./plugins/additional-severities');
-const additionalFormatters = require('./plugins/additional-formatters');
+const baseNotifiers = require('./plugins/base-notifiers');
+const baseLoggers = require('./plugins/base-loggers');
+const baseSeverities = require('./plugins/base-severities');
+const baseFormatters = require('./plugins/base-formatters');
 
-LogginJS.use(additionalFormatters);
-LogginJS.use(additionalSeverities);
-LogginJS.use(additionalNotifiers);
-LogginJS.use(additionalLoggers);
+LogginJS.use(baseFormatters);
+LogginJS.use(baseSeverities);
+LogginJS.use(baseNotifiers);
+LogginJS.use(baseLoggers);
 
 module.exports = Object.assign(LogginJS.logger('default'), LogginJS);

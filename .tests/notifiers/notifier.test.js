@@ -55,14 +55,6 @@ describe('loggin.Notifier', () => {
     expect(line).toEqual('(0) test');
   });
 
-  it(`instance with incorrect pipes throws`, () => {
-    expect(() => {
-      new loggin.Notifier({
-        pipes: [{}]
-      });
-    }).toThrow();
-  });
-
   it(`instance with string formatter`, () => {
     expect(() => {
       new loggin.Notifier({

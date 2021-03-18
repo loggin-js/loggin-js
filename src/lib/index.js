@@ -5,7 +5,6 @@ const Notifier = require('./notifier');
 const Formatter = require('./formatter');
 const Severity = require('./severity');
 const Log = require('./log');
-const Pipe = require('./pipe');
 
 const FormatterRegistry = require('./registry/formatter-registry');
 const SeverityRegistry = require('./registry/severity-registry');
@@ -30,19 +29,11 @@ function formatter(template = 'default') {
   return Formatter.registry.get(template);
 }
 
-function severity(level, { strict } = { strict: false }) {
+function severity(level, { strict = false } = {}) {
   const severity = Severity.registry.get(level);
   severity.strict = strict;
 
   return severity;
-}
-
-function merge(loggers, options) {
-  return Logger.merge(loggers, options);
-}
-
-function pipe(level, filepath) {
-  return new Pipe(level, filepath);
 }
 
 function use(plugin) {
@@ -66,16 +57,13 @@ const LogginJS = {
   Notifier,
   Formatter,
   Logger,
-  Pipe,
 
   logger,
   notifier,
   formatter,
   severity,
-  merge,
-  pipe,
   use,
-  
+
   loggerRegistry,
   severityRegistry,
   notifierRegistry,
