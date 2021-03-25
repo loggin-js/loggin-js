@@ -1,18 +1,43 @@
 'use strict';
 
-const Severity = require('./severity');
-const Formatter = require('./formatter');
-const { isFunction } = require('./util');
+import { Severity } from './severity';
+import { Formatter } from './formatter';
+import { isFunction } from './util';
+import { Log } from './log';
+import { EmptyRegistry } from './registry/empty-registry';
 
-class Notifier {
-  constructor(options = {}, name) {
-    options = {
+export interface NotifierOptions {
+  name: string;
+  color: boolean;
+  enabled: boolean;
+  level: Severity;
+  lineNumbers?: boolean;
+  formatter?: Formatter;
+  ignore?: (log: Log) => boolean;
+  preNotify?: (log: Log) => void;
+
+  // From http notifier, should remove from here
+  headers?: {};
+  url?: any;
+  pipes?: any;
+  filepath?: any;
+}
+
+export class Notifier {
+  static registry = new EmptyRegistry<Notifier>();
+
+  public name: any;
+  public lineIndex: number;
+  public options: NotifierOptions;
+
+  constructor(options: Partial<NotifierOptions> = {}, name: string) {
+    this.options = {
       color: false,
       enabled: true,
-      level: 'DEBUG',
-      ...options
+      name: name || 'notifier',
+      level: options.level,
+      ...options,
     };
-    this.options = options;
     this.name = this.options.name || name || 'notifier';
     this.options.level = this.options.level;
     this.options.color = this.options.color;
@@ -20,7 +45,7 @@ class Notifier {
     this.options.enabled = this.options.enabled;
     this.lineIndex = 0;
 
-    if (typeof (this.options.formatter) === 'string') {
+    if (typeof this.options.formatter === 'string') {
       this.formatter(this.options.formatter);
     } else {
       this.formatter('detailed');
@@ -32,7 +57,7 @@ class Notifier {
 
     const { level, ignore } = this.options;
     const canLogLevel = level.canLog(log.level);
-    const isIgnored = (ignore && typeof ignore === 'function' && ignore(log));
+    const isIgnored = ignore && typeof ignore === 'function' && ignore(log);
 
     return canLogLevel && !isIgnored;
   }
@@ -67,9 +92,9 @@ class Notifier {
     return `(${lineNum}) ${log}`;
   }
 
-  notify(log) {
+  notify(log: Log): Notifier {
     const { formatter, color, preNotify } = this.options;
-    const output = formatter.formatLog(log, { color });
+    const output: string = formatter.formatLog(log, { color });
 
     if (isFunction(preNotify)) preNotify(log);
 
@@ -79,14 +104,7 @@ class Notifier {
   }
 
   /* istanbul ignore next */
-  output() {
+  output(output: string, log: Log): void {
     return;
   }
-
-  /* istanbul ignore next */
-  pipe() {
-    console.warn('WARN - Pipe has not been configured in this notifier');
-  }
 }
-
-module.exports = Notifier;

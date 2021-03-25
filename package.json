@@ -63,7 +63,9 @@
     "jest-coverage-badges": "^1.1.2",
     "jest-environment-node": "^24.9.0",
     "size-limit": "^3.0.0",
-    "standard-version": "^7.1.0"
+    "standard-version": "^7.1.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
   },
   "jest": {
     "testURL": "http://localhost/",
