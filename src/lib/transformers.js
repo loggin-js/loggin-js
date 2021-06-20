@@ -27,7 +27,7 @@ module.exports.defaultTransformers = {
     lbl_purple: s => colors.bgPurple(padd(s)),
     lbl_black: s => colors.bgBlack(padd(s)),
     lbl_white: s => colors.bgWhite(padd(s)),
-    lbl_magenta: s => colors.bgMagenta(padd(s)),
+    lbl_magenta: (s) => colors.bgMagenta(padd(s)),
     // Utils
     stringify: s => s != null ? JSON.stringify(s, null, 2) : '',
     stringifyNoFormat: s => s != null ? JSON.stringify(s) : '',
