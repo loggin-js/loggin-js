@@ -14,10 +14,6 @@ class Notifier {
     };
     this.options = options;
     this.name = this.options.name || name || 'notifier';
-    this.options.level = this.options.level;
-    this.options.color = this.options.color;
-    this.options.lineNumbers = this.options.lineNumbers;
-    this.options.enabled = this.options.enabled;
     this.lineIndex = 0;
 
     if (typeof (this.options.formatter) === 'string') {
