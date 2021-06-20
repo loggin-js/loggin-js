@@ -9,22 +9,22 @@ class EmptyRegistry {
     }
 
     /* istanbul ignore next */
-    add(name, instance) {
+    add() {
         throw new Error('EmptyRegistry, this should not happen... yaiks!');
     }
 
     /* istanbul ignore next */
-    register(name, template, options = {}) {
+    register() {
         throw new Error('EmptyRegistry, this should not happen... yaiks!');
     }
 
     /* istanbul ignore next */
-    get(name) {
+    get() {
         throw new Error('EmptyRegistry, this should not happen... yaiks!');
     }
 
     /* istanbul ignore next */
-    search(name) {
+    search() {
         throw new Error('EmptyRegistry, this should not happen... yaiks!');
     }
 }

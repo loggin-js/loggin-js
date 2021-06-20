@@ -6,6 +6,6 @@ function plugin({ loggerRegistry }) {
         .register('file', 'File')
         .register('http', 'Http')
         .register('memory', 'Memory');
-};
+}
 
 module.exports = plugin;
