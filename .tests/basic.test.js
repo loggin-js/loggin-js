@@ -71,3 +71,9 @@ describe('loggin should be instance of Logger', () => {
     expect(loggin).toBeInstanceOf(loggin.Logger);
   });
 });
+
+describe('loggin.use', () => {
+  it(`fails if no function passed in`, () => {
+    expect(() => loggin.use()).toThrow();
+  });
+});
