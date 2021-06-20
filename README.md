@@ -122,15 +122,15 @@ logger.error('There was an <%rERROR>', null, { user: 'Bob' });
 In addition to loggin to the console, you can also log to a file:
 
 ```js
-const logger = loggin.logger('file');
-logger.channel('file-logger');
+const fileNotifier = loggin.notifier('file');
+const logger = loggin.logger().notifier(fileNotifier);
 ```
 
 Defining different files per type of log:
 ```js
-logger.getNotifier('file').pipe(
-  loggin.pipe('DEBUG', './debug.log'),
-);
+fileNotifier
+  .pipe(loggin.severity('error'), './error.log'))
+  .pipe(loggin.severity('debug'), './debug.log'));
 ```
 
 Default Notifiers available:

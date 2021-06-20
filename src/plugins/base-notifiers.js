@@ -4,7 +4,7 @@ const fs = require('fs');
 const phin = require('phin');
 const Pipe = require('./pipe');
 
-function mkDirByPathSync(targetDir, { isRelativeToScript = false } = {}) {
+function createFile(targetDir, { isRelativeToScript = false } = {}) {
     const sep = path.sep;
     const initDir = path.isAbsolute(targetDir) ? sep : '';
     const baseDir = isRelativeToScript ? __dirname : '.';
@@ -42,12 +42,14 @@ function plugin({ Notifier, notifierRegistry }) {
 
         output(log) {
             let logOut = log;
+
             if (this.options.lineNumbers) {
                 logOut = this.getLineWithNumber(log);
             }
 
             // Don't remove
             console.log(logOut);
+
             return this;
         }
     }
@@ -58,28 +60,31 @@ function plugin({ Notifier, notifierRegistry }) {
 
             this.pipes = [];
 
-            // Setup default pipe if filepath is passed for options.level
+            // Setup default pipe for options.level if filepath is passed in 
             if (this.options.filepath) {
-                this.pipes.push(new Pipe(options.level, this.options.filepath));
+                this.pipes.push(
+                    new Pipe(options.level, this.options.filepath)
+                );
             }
 
-            // Setup pipes passed in options
             if (this.options.pipes) {
-                this.options.pipes.forEach((pipe, index) => {
-                    if (!(pipe instanceof Pipe)) throw new Error(`ERROR: "options.pipes[${index}]" should be a loggin.Pipe instance.`);
-                });
+                this.options.pipes.forEach(this._throwIfNotPipe);
                 this.pipes = this.options.pipes.concat(this.pipes);
             }
         }
 
         getPipe(level) {
-            let closest = 200000;
+            let closest = Infinity;
             let returnPipe = null;
+
             for (let index = 0; index < this.pipes.length; index++) {
                 const pipe = this.pipes[index];
-                if (pipe.englobes(level) && (closest != 0 && level.level - pipe.severity.level < closest)) {
+                const diff = level.level - pipe.severity.level;
+                const isClosest = (closest != 0 && diff < closest);
+
+                if (pipe.englobes(level) && isClosest) {
                     returnPipe = pipe;
-                    closest = level.level - pipe.severity.level;
+                    closest = diff;
                 }
             }
 
@@ -87,7 +92,8 @@ function plugin({ Notifier, notifierRegistry }) {
         }
 
         getFile(level) {
-            let pipe = this.getPipe(level);
+            const pipe = this.getPipe(level);
+
             if (pipe) {
                 return pipe.filepath;
             }
@@ -107,8 +113,9 @@ function plugin({ Notifier, notifierRegistry }) {
                 if (pipe.englobes(level)) {
                     this._createPathIfNotExists(pipe.filepath);
                     const logMessage = this._addLineNumbersIfSet(pipe.filepath, logOut);
+                    const fileExists = fs.existsSync(pipe.filepath);
 
-                    if (!fs.existsSync(pipe.filepath)) {
+                    if (!fileExists) {
                         fs.writeFileSync(pipe.filepath, '');
                     }
 
@@ -119,7 +126,7 @@ function plugin({ Notifier, notifierRegistry }) {
         }
 
         canOutput(level) {
-            let filepath = this.getFile(level);
+            const filepath = this.getFile(level);
             return !!filepath;
         }
 
@@ -129,24 +136,38 @@ function plugin({ Notifier, notifierRegistry }) {
         }
 
         _createPathIfNotExists(targetPath) {
-            const path_ = path.dirname(targetPath);
-            if (!fs.existsSync(path_)) {
-                mkDirByPathSync(path_);
+            const candidatePath = path.dirname(targetPath);
+            const fileExists = fs.existsSync(candidatePath);
+
+            if (!fileExists) {
+                createFile(candidatePath);
             }
         }
 
         _addLineNumbersIfSet(path, logOut) {
             if (this.options.lineNumbers) {
                 let lines = 0;
+
                 if (fs.existsSync(path)) {
                     lines = fs.readFileSync(path).toString()
                         .split('\n').length;
                 }
                 this.lineIndex = lines;
+
                 return this.getLineWithNumber(logOut);
             }
 
             return logOut;
+        }
+
+        _throwIfNotPipe(pipe, index) {
+            const isPipe = pipe instanceof Pipe;
+
+            if (!isPipe) {
+                throw new Error(
+                    `ERROR: "options.pipes[${index}]" should be a loggin.Pipe instance.`
+                );
+            }
         }
     }
 
@@ -200,16 +221,15 @@ function plugin({ Notifier, notifierRegistry }) {
         }
 
         dumpToFile(filepath) {
-
             if (!filepath) {
                 throw new Error('filepath is required');
             }
 
-            let str = this.getMemoryLogs().string();
+            const str = this.getMemoryLogs().string();
+            const fileExists = fs.existsSync(filepath);
 
-            // Create file if it does not exist
-            if (!fs.existsSync(filepath)) {
-                mkDirByPathSync(filepath);
+            if (!fileExists) {
+                createFile(candidatePath);
             }
 
             console.log('Log dump file can be found at: ' + filepath);
@@ -217,7 +237,8 @@ function plugin({ Notifier, notifierRegistry }) {
         }
 
         dumpToConsole() {
-            let logs = this.getMemoryLogs().array();
+            const logs = this.getMemoryLogs().array();
+            
             for (let log of logs) {
                 process.stdout.write(log + '\n');
             }
