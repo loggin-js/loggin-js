@@ -35,6 +35,6 @@ function plugin({ severityRegistry, Logger, Severity }) {
     Logger.prototype.notice = logWithLevel('NOTICE');
     Logger.prototype.info = logWithLevel('INFO');
     Logger.prototype.silly = logWithLevel('SILLY');
-};
+}
 
 module.exports = plugin;

@@ -6,7 +6,7 @@
 [![Downloads][downloads-badge]][downloads-link]
 [![Dependencies][dependencies-badge]][dependencies-link]
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-link]  
-[![NPM Package Quality][code-quality-badge]][code-quality-link]
+[![CodeFactor](https://www.codefactor.io/repository/github/loggin-js/loggin-js/badge)](https://www.codefactor.io/repository/github/loggin-js/loggin-js)
 [![NPM Package Size][pkg-size-badge]][pkg-size-link] <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 

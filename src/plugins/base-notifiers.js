@@ -238,7 +238,7 @@ function plugin({ Notifier, notifierRegistry }) {
 
         dumpToConsole() {
             const logs = this.getMemoryLogs().array();
-            
+
             for (let log of logs) {
                 process.stdout.write(log + '\n');
             }
@@ -257,6 +257,6 @@ function plugin({ Notifier, notifierRegistry }) {
         .register('Http', HttpNotifier)
         .register('Remote', RemoteNotifier)
         .register('Memory', MemoryNotifier);
-};
+}
 
 module.exports = plugin;

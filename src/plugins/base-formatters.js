@@ -134,6 +134,6 @@ function plugin({ Formatter, formatterRegistry }) {
             }
         }
         );
-};
+}
 
 module.exports = plugin;
