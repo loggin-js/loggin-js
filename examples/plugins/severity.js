@@ -2,7 +2,7 @@
  * @param {loggin} loggin 
  */
 function plugin(loggin) {
-    const { Severity, Logger, Formatter } = loggin;
+    const { Severity, Logger } = loggin;
     console.log('initing plugin');
 
     Severity.registry.register(9, 'CUSTOM');
