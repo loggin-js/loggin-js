@@ -43,6 +43,7 @@
     "test-server": "node test-remote/server.js",
     "examples": "node examples/basic-example.js && node examples/file-logging.js && node examples/log-info.js && node examples/custom-formatter.js",
     "release": "npm run build:browser && git push --follow-tags origin master && npm publish",
+    "lint": "eslint",
     "standard-version": "standard-version",
     "coverage": "jest-coverage-badges output \"./.github/badges\""
   },
@@ -117,7 +118,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test && npm run coverage"
+      "pre-commit": "npm run lint && npm run test && npm run coverage"
     }
   }
 }

@@ -4,7 +4,6 @@ const colors = require('colors');
 const strif = require('strif');
 const EmptyRegistry = require('./registry/empty-registry');
 const { defaultTransformers } = require('./transformers');
-const { throwIf } = require('./utils/type-checks');
 
 const strifFormatter = strif.create({ transformers: defaultTransformers });
 
@@ -23,6 +22,9 @@ class Formatter {
 		}
 		if (!(formatter instanceof Formatter)) {
 			throw Error('"formatter" must be a Formatter instance');
+		}
+		if (!(formatter.template instanceof strif.Template)) {
+			throw Error(`"formatter" should be type: "StrifTemplate", not: ${typeof (formatter.template)}`);
 		}
 
 		if (color) {
