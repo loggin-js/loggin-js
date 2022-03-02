@@ -38,12 +38,13 @@ An easy and customizable logger for NodeJS.
 
 ## Features
 - **Extensible**
+  * Support for plugins
+  * Notify logs to any output channel (some channels aka notifiers are available by default, but you can create your own in a simple manner)
 - **Lightweighted**
-- **Configure log message** & **colored** output
-- **File notifier**
-- **Http notifier**
-- **Memory notifier**: store in memory and output on demand
-- **Log levels**: log some stuff as DEBUG, INFO, or just ERRORS, etc...
+- **Customizable**
+  - Change the log format
+  - Change colors
+  - And more 
 
 ## Table Of Content <!-- omit in toc -->
 - [Features](#features)
