@@ -1,0 +1,7 @@
+query-filters:
+  - exclude:
+      id: dist
+  - exclude:
+      id: examples
+  - exclude:
+      id: .tests
